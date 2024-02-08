@@ -5,21 +5,20 @@
 }
 
 <div class="text-center">
-    Constraints for N:
+    <h4>Enter Script Parameters:</h4>
 
     <form method="post">
-        min HCP: <input type="text" asp-for="TextBox1" placeholder="" style="width: 40px;" />
-        max HCP: <input type="text" asp-for="TextBox2" placeholder="" style="width: 40px;" />
-        #S: from <input type="text" asp-for="TextBox3" placeholder="" style="width: 40px;" />
-        to <input type="text" asp-for="TextBox4" placeholder="" style="width: 40px;" />
-        <br /><br />
-        <button type="submit">Generate Scenarios</button>
+        <input 
+            type="text" 
+            asp-for="TextInput" 
+            placeholder="Enter text here" 
+            style="width: 1000px;height: 100px;" 
+        />
+        <button type="submit">Run Script</button>
     </form>
 
-    <br />
-
-    @if (Model.Message != null)
+    @if (Model.ScriptOutput != null)
     {
-        <pre>@Model.Message</pre>
+        <pre>@Model.ScriptOutput</pre>
     }
 </div>

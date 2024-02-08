@@ -1,0 +1,73 @@
+-- programs ------------------------------------------------
+
+entrypoints Prog ;
+
+Program.   Prog ::= Expr ;
+
+-- Types ---------------------------------------------------
+
+Int.       Type ::= "int" ;
+
+-- Expressions ---------------------------------------------
+
+EVar.      Expr6 ::= Hand"."Attr ;
+
+ELitInt.   Expr6 ::= Integer ;
+
+ELitTrue.  Expr6 ::= "true" ;
+
+ELitFalse. Expr6 ::= "false" ;
+
+Not.       Expr5 ::= "not" Expr6 ;
+
+ERel.      Expr2 ::= Expr2 RelOp Expr3 ;
+
+EAnd.      Expr1 ::= Expr2 "and" Expr1 ;
+
+EOr.       Expr ::= Expr1 "or" Expr ;
+
+coercions  Expr 6 ;
+
+HandN.     Hand ::= "N" ;
+
+HandE.     Hand ::= "E" ;
+
+HandW.     Hand ::= "W" ;
+
+HandS.     Hand ::= "S" ;
+
+AttrSpades. LenAttr ::= "spades" ;
+
+AttrHearts. LenAttr ::= "hearts" ;
+
+AttrDiams.  LenAttr ::= "diams" ;
+
+AttrClubs.  LenAttr ::= "clubs" ;
+
+AttrHcp.    SimpAttr ::= "hcp" ;
+
+LenAttr.    Attr ::= LenAttr ;
+
+SimpAttr.   Attr ::= SimpAttr ;
+
+-- operators -----------------------------------------------
+
+LTH.       RelOp ::= "<" ;
+
+LE.        RelOp ::= "<=" ;
+
+GTH.       RelOp ::= ">" ;
+
+GE.        RelOp ::= ">=" ;
+
+EQU.       RelOp ::= "==" ;
+
+NE.        RelOp ::= "!=" ;
+
+-- comments ------------------------------------------------
+
+comment    "#" ;
+
+comment    "//" ;
+
+comment    "/*" "*/" ;
