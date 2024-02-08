@@ -1,0 +1,24 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    @if (Model.Message != null)
+    {
+        <pre>@Model.Message</pre>
+    }
+
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="configFile" />
+        <button type="submit">Run Python Script</button>
+    </form>
+
+    @if (Model.UploadedFileName != null)
+    {
+        <p>Uploaded File: @Model.UploadedFileName</p>
+    }
+
+
+</div>
