@@ -28,3 +28,4 @@
 /home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/obj/Debug/net8.0/BridgeScenarios.pdb
 /home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/obj/Debug/net8.0/BridgeScenarios.genruntimeconfig.cache
 /home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/obj/Debug/net8.0/ref/BridgeScenarios.dll
+/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/obj/Debug/net8.0/BridgeScenarios.sourcelink.json

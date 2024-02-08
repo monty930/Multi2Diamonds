@@ -1,24 +1,25 @@
 ﻿@page
-@model IndexModel
+@model BridgeScenarios.Pages.IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
+    Constraints for N:
+
+    <form method="post">
+        min HCP: <input type="text" asp-for="TextBox1" placeholder="" style="width: 40px;" />
+        max HCP: <input type="text" asp-for="TextBox2" placeholder="" style="width: 40px;" />
+        #S: from <input type="text" asp-for="TextBox3" placeholder="" style="width: 40px;" />
+        to <input type="text" asp-for="TextBox4" placeholder="" style="width: 40px;" />
+        <br /><br />
+        <button type="submit">Generate Scenarios</button>
+    </form>
+
+    <br />
+
     @if (Model.Message != null)
     {
         <pre>@Model.Message</pre>
     }
-
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="configFile" />
-        <button type="submit">Run Python Script</button>
-    </form>
-
-    @if (Model.UploadedFileName != null)
-    {
-        <p>Uploaded File: @Model.UploadedFileName</p>
-    }
-
-
 </div>

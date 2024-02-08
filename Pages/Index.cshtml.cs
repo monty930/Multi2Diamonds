@@ -11,6 +11,16 @@ public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
 
+    // Properties to store the inputs from the textboxes
+    [BindProperty]
+    public string TextBox1 { get; set; }
+    [BindProperty]
+    public string TextBox2 { get; set; }
+    [BindProperty]
+    public string TextBox3 { get; set; }
+    [BindProperty]
+    public string TextBox4 { get; set; }
+
     public IndexModel(ILogger<IndexModel> logger)
     {
         _logger = logger;
@@ -23,29 +33,33 @@ public class IndexModel : PageModel
 
     public string Message { get; set; }
 
-    public async Task<IActionResult> OnPostAsync(IFormFile configFile)
+    public async Task<IActionResult> OnPostAsync()
     {
-        if (configFile != null)
-        {
-            var filePath = Path.GetTempFileName();
+        // Generate the content for the temporary file based on the textbox inputs
+        //var fileContent = $"1: {TextBox1}\n2: {TextBox2}\n3: {TextBox3}\n4: {TextBox4}";
+        // var fileContent = $"def accept(deal):\n\tif len(deal.north.spades) >= 5 and deal.north.hcp >= 12:\n\t\treturn True";
+        var fileContent =
+            "from redeal import *\n\n" +
+            "def accept(deal):\n" +
+            $"\treturn deal.north.hcp >= {TextBox1} and deal.north.hcp <= {TextBox2} " +
+            $"and len(deal.north.spades) >= {TextBox3} and len(deal.north.spades) <= {TextBox4}\n";
 
-            using (var stream = System.IO.File.Create(filePath))
-            {
-                await configFile.CopyToAsync(stream);
-            }
+        // Create a temporary file path with .py extension
+        var tempFileDirectory = Path.GetTempPath();
+        var tempFileName = Path.GetRandomFileName().Replace(".tmp", ".py"); // Ensure the file has a .py extension
+        var filePath = Path.Combine(tempFileDirectory, tempFileName);
 
-            var output = RunPythonScript(filePath);
-            // Optionally, delete the temp file after use
-            System.IO.File.Delete(filePath);
+        await System.IO.File.WriteAllTextAsync(filePath, fileContent);
 
-            ViewData["PythonOutput"] = output;
+        var output = RunPythonScript(filePath);
+        // Optionally, delete the temp file after use
+        System.IO.File.Delete(filePath);
 
-            Message = output; // Assuming output is the variable holding the script's result
-            //Console.WriteLine(Message); // Temporary log to verify output
+        ViewData["PythonOutput"] = output;
 
-        }
+        Message = output; // Assuming output is the variable holding the script's result
 
-        return Page();
+        return Page(); // Ensures textboxes remain filled out
     }
 
     public static string RunPythonScript(string configFilePath)
@@ -54,7 +68,7 @@ public class IndexModel : PageModel
         var pythonExecutable = "python";
         
         // The command to execute, including any necessary command line arguments
-        var scriptCommand = $"-mredeal \"{configFilePath}\"";
+        var scriptCommand = $"-mredeal {configFilePath}";
 
         // Set up the process start information
         var processStartInfo = new ProcessStartInfo(pythonExecutable, scriptCommand)
@@ -77,4 +91,3 @@ public class IndexModel : PageModel
         }
     }
 }
-
