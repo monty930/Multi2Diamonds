@@ -110,26 +110,40 @@ evalDef (TopDefShape (ShapeDef (Ident id) shapes)) = do
 
 evalDef (TopDefEval eval) = undefined
 
+evalShapes [sh] = do
+  evalShape sh
+
 evalShapes (sh : shs) = do
   shCode <- evalShape sh
-  shsCode <- mapM evalShape shs
-  return $ shCode ++ concat shsCode
+  shsCode <- evalShapes shs
+  return $ shCode ++ "+" ++ shsCode
 
-evalShapes [] = return ""
+evalShapes [] = undefined
 
 evalShape :: Shape -> RSE String
-evalShape (ShapeOk (OneShapeOk [a, b, c, d])) = do
-  aC <- showSuitIntCount a
-  bC <- showSuitIntCount b
-  cC <- showSuitIntCount c
-  dC <- showSuitIntCount d
-  return $ "Shape(\"" ++ aC ++ bC ++ cC ++ dC ++ "\")"
+evalShape (ShapeOk (OneShapeOk scs)) = do
+  scsCodes <- mapM evalSuitCount scs
+  return $ "Shape(\"" ++ concat scsCodes ++ "\")"
 
-evalShape _ = undefined
+evalSuitCount :: SuitCount -> RSE String
+evalSuitCount a = do
+  case a of
+    (SuitIntCount (SuitInt a)) -> return $ show a
+    (SuitChoice as) -> do
+      asCodes <- mapM evalSuitInt as
+      return $ "(" ++ concat asCodes ++ ")"
 
-showSuitIntCount :: SuitCount -> RSE String
-showSuitIntCount (SuitIntCount (SuitInt a)) = 
-  return $ show a
+evalSuitInt :: SuitInt -> RSE String
+evalSuitInt (SuitInt a) = return $ show a
+
+  -- aC <- showSuitIntCount a
+  -- bC <- showSuitIntCount b
+  -- cC <- showSuitIntCount c
+  -- dC <- showSuitIntCount d
+  -- return $ "Shape(\"" ++ aC ++ bC ++ cC ++ dC ++ "\")"
+
+-- evalShape _ = undefined
+
 
 evalExp :: Expr -> RSE String
 evalExp (HandAttr hand attr) = evalVar hand attr

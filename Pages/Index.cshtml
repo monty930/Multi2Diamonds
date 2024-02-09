@@ -10,6 +10,7 @@
             <h4>Enter scenario code:</h4>
             <form id=gen_sc method="post">
                 <textarea 
+                    spellcheck="false"
                     asp-for="TextInput" 
                     placeholder="Enter text here">
                 </textarea>
@@ -17,8 +18,6 @@
         </div>
     </div>
     <div class="right-panel">
-        
-        
         <div class="grid-rows">
             <div class="row-n">
                 <div>
@@ -53,7 +52,16 @@
                         }
                     </div>
                 </div>
-                <div></div>
+                <div>
+                    @if (Model.error_input) {
+                        <div>ERROR</div>
+                    }
+                    @if (Model.Tries != null) {
+                        if (!Model.error_input) {
+                            <div># of tries: @Model.Tries</div>
+                        }
+                    }
+                </div>
             </div>
             <div>
                 <div class="row-mid">
@@ -159,16 +167,7 @@
                             }
                         </div>
                     </div>
-                    <div style="text-align: right">
-                        @if (Model.error_input) {
-                            <div>ERROR</div>
-                        }
-                        @if (Model.Tries != null) {
-                            if (!Model.error_input) {
-                                <div># of tries: @Model.Tries</div>
-                            }
-                        }
-                    </div>
+                    <div></div>
                 </div>
             </div>
         </div>

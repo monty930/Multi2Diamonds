@@ -13,7 +13,7 @@ public class IndexModel : PageModel
     }
 
     [BindProperty]
-    public string TextInput { get; set; } // The property to bind the input text from the textbox
+    public string TextInput { get; set; }
 
     // N: S,H,D,C, E:...
     public string[] HandSuits { get; set; }
@@ -26,14 +26,11 @@ public class IndexModel : PageModel
     {
         if (!string.IsNullOrWhiteSpace(TextInput))
         {
-            // Create a temporary file and write the input text into it
             var tempFilePath = Path.GetTempFileName();
             await System.IO.File.WriteAllTextAsync(tempFilePath, TextInput);
 
-            // Run the script with the temporary file as an argument
             var scriptOutput = RunScript(tempFilePath);
 
-            // Clean up the temporary file
             System.IO.File.Delete(tempFilePath);
 
             getHands(scriptOutput);
@@ -41,7 +38,7 @@ public class IndexModel : PageModel
             error_input = true;
         }
 
-        return Page(); // Return to the same page to display the output
+        return Page();
     }
 
     private void getHands(string input) {
@@ -80,34 +77,6 @@ public class IndexModel : PageModel
                HandSuits[i * 4 + j] = suits[j];
             }
         }
-
-        // // Lambda to format a single hand
-        // Func<string, string> formatHand = hand => {
-        //     var suits = hand.Split('.').Select(s => string.IsNullOrEmpty(s) ? "-" : s).ToArray();
-    
-        //     // string[] suits = (hand.Remove(0,2)).Split('.');
-        //     // suits = suits.Select(s => string.IsNullOrEmpty(s) ? "-" : s).ToArray();
-        //     // Console.WriteLine(suits.Length);
-        //     return (
-        //         $"<img id=\"suit-img\" src=\"{imagePath}\"/>" + suits[0] + "<br>" +
-        //         "H: " + suits[1] + "<br>" +
-        //         "D: " + suits[2] + "<br>" +
-        //         "C: " + suits[3] + "<br>");
-        // };
-
-        // formatHand(hands[0])
-
-        // for (int i = 0; i <= 4; i++) {
-            
-        // }
-
-        // // Format each hand
-        // string north = formatHand(hands[0]);
-        // string east = formatHand(hands[1]);
-        // string south = formatHand(hands[2]);
-        // string west = formatHand(hands[3]);
-
-        // return (north, east, south, west, tries);
     }
 
     private string RunScript(string filePath)
