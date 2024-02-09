@@ -5,6 +5,26 @@
       "PackagePath": "staticwebassets/BridgeScenarios.bundle.scp.css"
     },
     {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/arrow.png",
+      "PackagePath": "staticwebassets/assets/arrow.png"
+    },
+    {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/club.png",
+      "PackagePath": "staticwebassets/assets/club.png"
+    },
+    {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/diamond.png",
+      "PackagePath": "staticwebassets/assets/diamond.png"
+    },
+    {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/heart.png",
+      "PackagePath": "staticwebassets/assets/heart.png"
+    },
+    {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/spade.png",
+      "PackagePath": "staticwebassets/assets/spade.png"
+    },
+    {
       "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },

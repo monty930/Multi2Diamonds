@@ -4,21 +4,90 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h4>Enter Script Parameters:</h4>
-
-    <form method="post">
-        <input 
-            type="text" 
-            asp-for="TextInput" 
-            placeholder="Enter text here" 
-            style="width: 1000px;height: 100px;" 
-        />
-        <button type="submit">Run Script</button>
-    </form>
-
-    @if (Model.ScriptOutput != null)
-    {
-        <pre>@Model.ScriptOutput</pre>
-    }
+<div class="page-layout">
+    <div class="left-panel">
+        <div class="input-section">
+            <h4>Enter scenario code:</h4>
+            <form id=gen_sc method="post">
+                <textarea 
+                    asp-for="TextInput" 
+                    placeholder="Enter text here">
+                </textarea>
+            </form>
+        </div>
+    </div>
+    <div class="right-panel">
+        
+        
+        <div class="grid-rows">
+            <div class="row-n">
+                <div>
+                    <button type="submit" form="gen_sc" id="playButton">
+                        <img id="arrow-img" src="~/assets/arrow.png"/>
+                    </button>
+                </div>
+                <div class="hands">
+                    @if (Model.HandSuits != null)
+                    {
+                        @Html.Raw(Model.HandSuits[0])<br>
+                        @Html.Raw(Model.HandSuits[1])<br>
+                        @Html.Raw(Model.HandSuits[2])<br>
+                        @Html.Raw(Model.HandSuits[3])
+                    }
+                </div>
+                <div></div>
+            </div>
+            <div>
+                <div class="row-mid">
+                    <div class="aligning-cells">
+                        <div></div>
+                        <div class="hands">
+                            @if (Model.HandSuits != null)
+                            {
+                                @Html.Raw(Model.HandSuits[12])<br>
+                                @Html.Raw(Model.HandSuits[13])<br>
+                                @Html.Raw(Model.HandSuits[14])<br>
+                                @Html.Raw(Model.HandSuits[15])
+                            }
+                        </div>
+                    </div>
+                    <div class = "grid-snwe">
+                        <div></div><div>N</div><div></div>
+                        <div>W</div><div></div><div>E</div>
+                        <div></div><div>S</div><div></div>
+                    </div>
+                    <div class="hands">
+                        @if (Model.HandSuits != null)
+                        {
+                            @Html.Raw(Model.HandSuits[4])<br>
+                            @Html.Raw(Model.HandSuits[5])<br>
+                            @Html.Raw(Model.HandSuits[6])<br>
+                            @Html.Raw(Model.HandSuits[7])
+                        }
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row-s">
+                    <div></div>
+                    <div class="hands">
+                        @if (Model.HandSuits != null)
+                        {
+                            @Html.Raw(Model.HandSuits[8])<br>
+                            @Html.Raw(Model.HandSuits[9])<br>
+                            @Html.Raw(Model.HandSuits[10])<br>
+                            @Html.Raw(Model.HandSuits[11])
+                        }
+                    </div>
+                    <div style="text-align: right">
+                        # of tries:
+                        @if (Model.Tries != null)
+                        {
+                            @Html.Raw(Model.Tries)
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

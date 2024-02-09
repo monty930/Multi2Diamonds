@@ -157,7 +157,7 @@ evalLenAttr AttrSpades = return "spades"
 
 evalLenAttr AttrHearts = return "hearts"
 
-evalLenAttr AttrDiams = return "diams"
+evalLenAttr AttrDiams = return "diamonds"
 
 evalLenAttr AttrClubs = return "clubs"
 
