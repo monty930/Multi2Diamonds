@@ -2,13 +2,15 @@
 
 entrypoints Prog ;
 
+EmptyProg. Prog ::= [Def] ;
+
 Program.   Prog ::= [Def] Expr ;
 
 TopDefShape.    Def ::= ShapeDef ;
 
 TopDefEval.     Def ::=  EvalDef ;
 
-separator  Def ";"
+separator  Def ";" ;
 
 -- Types ---------------------------------------------------
 
@@ -16,9 +18,9 @@ Int.       Type ::= "int" ;
 
 -- Statements ----------------------------------------------
 
-ShapeDef.  Stmt ::= Ident "=" ShapeExpr ;
+ShapeDef.  ShapeDef ::= Ident "=" ShapeExpr ;
 
-EvalDef.   Stmt ::= Ident "=" "Evaluator" "(" [EvalVal] ")"
+EvalDef.   EvalDef ::= Ident "=" "Evaluator" "(" [EvalVal] ")" ;
 
 EvalVal.   EvalVal ::= Integer ;
 
@@ -26,9 +28,9 @@ separator  EvalVal "," ;
 
 -- Shapes --------------------------------------------------
 
-OneShape.       ShapeOk ;
+ShapeOk.        Shape ::= ShapeOk ;
 
-OneShape.       ShapeNeg ;
+ShapeNeg.       Shape ::= ShapeNeg ;
 
 OneShapeOk.     ShapeOk ::= "[" [SuitCount] "]" ;
 
@@ -44,9 +46,9 @@ separator SuitCount ";" ;
 
 separator SuitInt ";" ;
 
-ShapeSingleExpr. ShapeExpr ::= OneShape ;
+ShapeSingleExpr. ShapeExpr ::= Shape ;
 
-ShapeSum.        ShapeExpr ::= ShapeExpr "+" ShapeExpr
+ShapeSum.        ShapeExpr ::= ShapeExpr "+" ShapeExpr ;
 
 -- Expressions ---------------------------------------------
 

@@ -15,17 +15,66 @@ type Result = Err String
 failure :: Show a => a -> Result
 failure x = Left $ "Undefined case: " ++ show x
 
+transIdent :: Abs.Ident -> Result
+transIdent x = case x of
+  Abs.Ident string -> failure x
+
 transProg :: Abs.Prog -> Result
 transProg x = case x of
-  Abs.Program expr -> failure x
+  Abs.EmptyProg defs -> failure x
+  Abs.Program defs expr -> failure x
+
+transDef :: Abs.Def -> Result
+transDef x = case x of
+  Abs.TopDefShape shapedef -> failure x
+  Abs.TopDefEval evaldef -> failure x
 
 transType :: Abs.Type -> Result
 transType x = case x of
   Abs.Int -> failure x
 
+transShapeDef :: Abs.ShapeDef -> Result
+transShapeDef x = case x of
+  Abs.ShapeDef ident shapeexpr -> failure x
+
+transEvalDef :: Abs.EvalDef -> Result
+transEvalDef x = case x of
+  Abs.EvalDef ident evalvals -> failure x
+
+transEvalVal :: Abs.EvalVal -> Result
+transEvalVal x = case x of
+  Abs.EvalVal integer -> failure x
+
+transShape :: Abs.Shape -> Result
+transShape x = case x of
+  Abs.ShapeOk shapeok -> failure x
+  Abs.ShapeNeg shapeneg -> failure x
+
+transShapeOk :: Abs.ShapeOk -> Result
+transShapeOk x = case x of
+  Abs.OneShapeOk suitcounts -> failure x
+
+transShapeNeg :: Abs.ShapeNeg -> Result
+transShapeNeg x = case x of
+  Abs.OneShapeNeg shapeok -> failure x
+
+transSuitInt :: Abs.SuitInt -> Result
+transSuitInt x = case x of
+  Abs.SuitInt integer -> failure x
+
+transSuitCount :: Abs.SuitCount -> Result
+transSuitCount x = case x of
+  Abs.SuitIntCount suitint -> failure x
+  Abs.SuitChoice suitints -> failure x
+
+transShapeExpr :: Abs.ShapeExpr -> Result
+transShapeExpr x = case x of
+  Abs.ShapeSingleExpr shape -> failure x
+  Abs.ShapeSum shapeexpr1 shapeexpr2 -> failure x
+
 transExpr :: Abs.Expr -> Result
 transExpr x = case x of
-  Abs.EVar hand attr -> failure x
+  Abs.HandAttr hand attr -> failure x
   Abs.ELitInt integer -> failure x
   Abs.ELitTrue -> failure x
   Abs.ELitFalse -> failure x
@@ -52,10 +101,15 @@ transSimpAttr :: Abs.SimpAttr -> Result
 transSimpAttr x = case x of
   Abs.AttrHcp -> failure x
 
+transVarAttr :: Abs.VarAttr -> Result
+transVarAttr x = case x of
+  Abs.AttrVar ident -> failure x
+
 transAttr :: Abs.Attr -> Result
 transAttr x = case x of
   Abs.LenAttr lenattr -> failure x
   Abs.SimpAttr simpattr -> failure x
+  Abs.VarAttr varattr -> failure x
 
 transRelOp :: Abs.RelOp -> Result
 transRelOp x = case x of

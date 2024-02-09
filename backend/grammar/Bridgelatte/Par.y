@@ -23,46 +23,123 @@ import Bridgelatte.Lex
 %monad { Err } { (>>=) } { return }
 %tokentype {Token}
 %token
-  '!='     { PT _ (TS _ 1)  }
-  '('      { PT _ (TS _ 2)  }
-  ')'      { PT _ (TS _ 3)  }
-  '.'      { PT _ (TS _ 4)  }
-  '<'      { PT _ (TS _ 5)  }
-  '<='     { PT _ (TS _ 6)  }
-  '=='     { PT _ (TS _ 7)  }
-  '>'      { PT _ (TS _ 8)  }
-  '>='     { PT _ (TS _ 9)  }
-  'E'      { PT _ (TS _ 10) }
-  'N'      { PT _ (TS _ 11) }
-  'S'      { PT _ (TS _ 12) }
-  'W'      { PT _ (TS _ 13) }
-  'and'    { PT _ (TS _ 14) }
-  'clubs'  { PT _ (TS _ 15) }
-  'diams'  { PT _ (TS _ 16) }
-  'false'  { PT _ (TS _ 17) }
-  'hcp'    { PT _ (TS _ 18) }
-  'hearts' { PT _ (TS _ 19) }
-  'int'    { PT _ (TS _ 20) }
-  'not'    { PT _ (TS _ 21) }
-  'or'     { PT _ (TS _ 22) }
-  'spades' { PT _ (TS _ 23) }
-  'true'   { PT _ (TS _ 24) }
-  L_integ  { PT _ (TI $$)   }
+  '!'         { PT _ (TS _ 1)  }
+  '!='        { PT _ (TS _ 2)  }
+  '('         { PT _ (TS _ 3)  }
+  ')'         { PT _ (TS _ 4)  }
+  '+'         { PT _ (TS _ 5)  }
+  ','         { PT _ (TS _ 6)  }
+  '.'         { PT _ (TS _ 7)  }
+  ';'         { PT _ (TS _ 8)  }
+  '<'         { PT _ (TS _ 9)  }
+  '<='        { PT _ (TS _ 10) }
+  '='         { PT _ (TS _ 11) }
+  '=='        { PT _ (TS _ 12) }
+  '>'         { PT _ (TS _ 13) }
+  '>='        { PT _ (TS _ 14) }
+  'E'         { PT _ (TS _ 15) }
+  'Evaluator' { PT _ (TS _ 16) }
+  'N'         { PT _ (TS _ 17) }
+  'S'         { PT _ (TS _ 18) }
+  'W'         { PT _ (TS _ 19) }
+  '['         { PT _ (TS _ 20) }
+  ']'         { PT _ (TS _ 21) }
+  'and'       { PT _ (TS _ 22) }
+  'clubs'     { PT _ (TS _ 23) }
+  'diams'     { PT _ (TS _ 24) }
+  'false'     { PT _ (TS _ 25) }
+  'hcp'       { PT _ (TS _ 26) }
+  'hearts'    { PT _ (TS _ 27) }
+  'int'       { PT _ (TS _ 28) }
+  'not'       { PT _ (TS _ 29) }
+  'or'        { PT _ (TS _ 30) }
+  'spades'    { PT _ (TS _ 31) }
+  'true'      { PT _ (TS _ 32) }
+  L_Ident     { PT _ (TV $$)   }
+  L_integ     { PT _ (TI $$)   }
 
 %%
+
+Ident :: { Bridgelatte.Abs.Ident }
+Ident  : L_Ident { Bridgelatte.Abs.Ident $1 }
 
 Integer :: { Integer }
 Integer  : L_integ  { (read $1) :: Integer }
 
 Prog :: { Bridgelatte.Abs.Prog }
-Prog : Expr { Bridgelatte.Abs.Program $1 }
+Prog
+  : ListDef { Bridgelatte.Abs.EmptyProg $1 }
+  | ListDef Expr { Bridgelatte.Abs.Program $1 $2 }
+
+Def :: { Bridgelatte.Abs.Def }
+Def
+  : ShapeDef { Bridgelatte.Abs.TopDefShape $1 }
+  | EvalDef { Bridgelatte.Abs.TopDefEval $1 }
+
+ListDef :: { [Bridgelatte.Abs.Def] }
+ListDef
+  : {- empty -} { [] }
+  | Def { (:[]) $1 }
+  | Def ';' ListDef { (:) $1 $3 }
 
 Type :: { Bridgelatte.Abs.Type }
 Type : 'int' { Bridgelatte.Abs.Int }
 
+ShapeDef :: { Bridgelatte.Abs.ShapeDef }
+ShapeDef : Ident '=' ShapeExpr { Bridgelatte.Abs.ShapeDef $1 $3 }
+
+EvalDef :: { Bridgelatte.Abs.EvalDef }
+EvalDef
+  : Ident '=' 'Evaluator' '(' ListEvalVal ')' { Bridgelatte.Abs.EvalDef $1 $5 }
+
+EvalVal :: { Bridgelatte.Abs.EvalVal }
+EvalVal : Integer { Bridgelatte.Abs.EvalVal $1 }
+
+ListEvalVal :: { [Bridgelatte.Abs.EvalVal] }
+ListEvalVal
+  : {- empty -} { [] }
+  | EvalVal { (:[]) $1 }
+  | EvalVal ',' ListEvalVal { (:) $1 $3 }
+
+Shape :: { Bridgelatte.Abs.Shape }
+Shape
+  : ShapeOk { Bridgelatte.Abs.ShapeOk $1 }
+  | ShapeNeg { Bridgelatte.Abs.ShapeNeg $1 }
+
+ShapeOk :: { Bridgelatte.Abs.ShapeOk }
+ShapeOk : '[' ListSuitCount ']' { Bridgelatte.Abs.OneShapeOk $2 }
+
+ShapeNeg :: { Bridgelatte.Abs.ShapeNeg }
+ShapeNeg : '!' ShapeOk { Bridgelatte.Abs.OneShapeNeg $2 }
+
+SuitInt :: { Bridgelatte.Abs.SuitInt }
+SuitInt : Integer { Bridgelatte.Abs.SuitInt $1 }
+
+SuitCount :: { Bridgelatte.Abs.SuitCount }
+SuitCount
+  : SuitInt { Bridgelatte.Abs.SuitIntCount $1 }
+  | '(' ListSuitInt ')' { Bridgelatte.Abs.SuitChoice $2 }
+
+ListSuitCount :: { [Bridgelatte.Abs.SuitCount] }
+ListSuitCount
+  : {- empty -} { [] }
+  | SuitCount { (:[]) $1 }
+  | SuitCount ';' ListSuitCount { (:) $1 $3 }
+
+ListSuitInt :: { [Bridgelatte.Abs.SuitInt] }
+ListSuitInt
+  : {- empty -} { [] }
+  | SuitInt { (:[]) $1 }
+  | SuitInt ';' ListSuitInt { (:) $1 $3 }
+
+ShapeExpr :: { Bridgelatte.Abs.ShapeExpr }
+ShapeExpr
+  : Shape { Bridgelatte.Abs.ShapeSingleExpr $1 }
+  | ShapeExpr '+' ShapeExpr { Bridgelatte.Abs.ShapeSum $1 $3 }
+
 Expr6 :: { Bridgelatte.Abs.Expr }
 Expr6
-  : Hand '.' Attr { Bridgelatte.Abs.EVar $1 $3 }
+  : Hand '.' Attr { Bridgelatte.Abs.HandAttr $1 $3 }
   | Integer { Bridgelatte.Abs.ELitInt $1 }
   | 'true' { Bridgelatte.Abs.ELitTrue }
   | 'false' { Bridgelatte.Abs.ELitFalse }
@@ -106,10 +183,14 @@ LenAttr
 SimpAttr :: { Bridgelatte.Abs.SimpAttr }
 SimpAttr : 'hcp' { Bridgelatte.Abs.AttrHcp }
 
+VarAttr :: { Bridgelatte.Abs.VarAttr }
+VarAttr : Ident { Bridgelatte.Abs.AttrVar $1 }
+
 Attr :: { Bridgelatte.Abs.Attr }
 Attr
   : LenAttr { Bridgelatte.Abs.LenAttr $1 }
   | SimpAttr { Bridgelatte.Abs.SimpAttr $1 }
+  | VarAttr { Bridgelatte.Abs.VarAttr $1 }
 
 RelOp :: { Bridgelatte.Abs.RelOp }
 RelOp

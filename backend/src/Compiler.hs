@@ -27,8 +27,6 @@ import           Test.QuickCheck       (label)
 
 type Loc = Int
 
-type Ident = String
-
 type Env = M.Map Ident Loc
 
 type Store = M.Map Loc Type
@@ -93,10 +91,12 @@ typeCheck :: Prog -> IO ()
 typeCheck prog = return ()
 
 generatePythonCode :: Prog -> RSE String
-generatePythonCode (Program expr) = evalExp expr
+generatePythonCode (Program defs expr) = evalExp expr
+
+generatePythonCode (EmptyProg _) = return "True"
 
 evalExp :: Expr -> RSE String
-evalExp (EVar hand attr) = evalVar hand attr
+evalExp (HandAttr hand attr) = evalVar hand attr
 
 evalExp (ELitInt i) = return $ show i
 

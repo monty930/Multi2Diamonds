@@ -15,17 +15,66 @@ type Result = Err String
 failure :: Show a => a -> Result
 failure x = Left $ "Undefined case: " ++ show x
 
+transIdent :: Bridgelatte.Abs.Ident -> Result
+transIdent x = case x of
+  Bridgelatte.Abs.Ident string -> failure x
+
 transProg :: Bridgelatte.Abs.Prog -> Result
 transProg x = case x of
-  Bridgelatte.Abs.Program expr -> failure x
+  Bridgelatte.Abs.EmptyProg defs -> failure x
+  Bridgelatte.Abs.Program defs expr -> failure x
+
+transDef :: Bridgelatte.Abs.Def -> Result
+transDef x = case x of
+  Bridgelatte.Abs.TopDefShape shapedef -> failure x
+  Bridgelatte.Abs.TopDefEval evaldef -> failure x
 
 transType :: Bridgelatte.Abs.Type -> Result
 transType x = case x of
   Bridgelatte.Abs.Int -> failure x
 
+transShapeDef :: Bridgelatte.Abs.ShapeDef -> Result
+transShapeDef x = case x of
+  Bridgelatte.Abs.ShapeDef ident shapeexpr -> failure x
+
+transEvalDef :: Bridgelatte.Abs.EvalDef -> Result
+transEvalDef x = case x of
+  Bridgelatte.Abs.EvalDef ident evalvals -> failure x
+
+transEvalVal :: Bridgelatte.Abs.EvalVal -> Result
+transEvalVal x = case x of
+  Bridgelatte.Abs.EvalVal integer -> failure x
+
+transShape :: Bridgelatte.Abs.Shape -> Result
+transShape x = case x of
+  Bridgelatte.Abs.ShapeOk shapeok -> failure x
+  Bridgelatte.Abs.ShapeNeg shapeneg -> failure x
+
+transShapeOk :: Bridgelatte.Abs.ShapeOk -> Result
+transShapeOk x = case x of
+  Bridgelatte.Abs.OneShapeOk suitcounts -> failure x
+
+transShapeNeg :: Bridgelatte.Abs.ShapeNeg -> Result
+transShapeNeg x = case x of
+  Bridgelatte.Abs.OneShapeNeg shapeok -> failure x
+
+transSuitInt :: Bridgelatte.Abs.SuitInt -> Result
+transSuitInt x = case x of
+  Bridgelatte.Abs.SuitInt integer -> failure x
+
+transSuitCount :: Bridgelatte.Abs.SuitCount -> Result
+transSuitCount x = case x of
+  Bridgelatte.Abs.SuitIntCount suitint -> failure x
+  Bridgelatte.Abs.SuitChoice suitints -> failure x
+
+transShapeExpr :: Bridgelatte.Abs.ShapeExpr -> Result
+transShapeExpr x = case x of
+  Bridgelatte.Abs.ShapeSingleExpr shape -> failure x
+  Bridgelatte.Abs.ShapeSum shapeexpr1 shapeexpr2 -> failure x
+
 transExpr :: Bridgelatte.Abs.Expr -> Result
 transExpr x = case x of
-  Bridgelatte.Abs.EVar hand attr -> failure x
+  Bridgelatte.Abs.HandAttr hand attr -> failure x
   Bridgelatte.Abs.ELitInt integer -> failure x
   Bridgelatte.Abs.ELitTrue -> failure x
   Bridgelatte.Abs.ELitFalse -> failure x
@@ -52,10 +101,15 @@ transSimpAttr :: Bridgelatte.Abs.SimpAttr -> Result
 transSimpAttr x = case x of
   Bridgelatte.Abs.AttrHcp -> failure x
 
+transVarAttr :: Bridgelatte.Abs.VarAttr -> Result
+transVarAttr x = case x of
+  Bridgelatte.Abs.AttrVar ident -> failure x
+
 transAttr :: Bridgelatte.Abs.Attr -> Result
 transAttr x = case x of
   Bridgelatte.Abs.LenAttr lenattr -> failure x
   Bridgelatte.Abs.SimpAttr simpattr -> failure x
+  Bridgelatte.Abs.VarAttr varattr -> failure x
 
 transRelOp :: Bridgelatte.Abs.RelOp -> Result
 transRelOp x = case x of

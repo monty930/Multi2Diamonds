@@ -18,6 +18,9 @@ all : Bridgelatte/Test
 
 # Rules for building the parser.
 
+Bridgelatte/Abs.hs Bridgelatte/Lex.x Bridgelatte/Par.y Bridgelatte/Print.hs Bridgelatte/Test.hs : bridgelatte.cf
+	bnfc --haskell -d bridgelatte.cf
+
 %.hs : %.y
 	${HAPPY} ${HAPPY_OPTS} $<
 

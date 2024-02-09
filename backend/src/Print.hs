@@ -138,17 +138,84 @@ instance Print Integer where
 instance Print Double where
   prt _ x = doc (shows x)
 
+instance Print Abs.Ident where
+  prt _ (Abs.Ident i) = doc $ showString i
 instance Print Abs.Prog where
   prt i = \case
-    Abs.Program expr -> prPrec i 0 (concatD [prt 0 expr])
+    Abs.EmptyProg defs -> prPrec i 0 (concatD [prt 0 defs])
+    Abs.Program defs expr -> prPrec i 0 (concatD [prt 0 defs, prt 0 expr])
+
+instance Print Abs.Def where
+  prt i = \case
+    Abs.TopDefShape shapedef -> prPrec i 0 (concatD [prt 0 shapedef])
+    Abs.TopDefEval evaldef -> prPrec i 0 (concatD [prt 0 evaldef])
+
+instance Print [Abs.Def] where
+  prt _ [] = concatD []
+  prt _ [x] = concatD [prt 0 x]
+  prt _ (x:xs) = concatD [prt 0 x, doc (showString ";"), prt 0 xs]
 
 instance Print Abs.Type where
   prt i = \case
     Abs.Int -> prPrec i 0 (concatD [doc (showString "int")])
 
+instance Print Abs.ShapeDef where
+  prt i = \case
+    Abs.ShapeDef id_ shapeexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 shapeexpr])
+
+instance Print Abs.EvalDef where
+  prt i = \case
+    Abs.EvalDef id_ evalvals -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "Evaluator"), doc (showString "("), prt 0 evalvals, doc (showString ")")])
+
+instance Print Abs.EvalVal where
+  prt i = \case
+    Abs.EvalVal n -> prPrec i 0 (concatD [prt 0 n])
+
+instance Print [Abs.EvalVal] where
+  prt _ [] = concatD []
+  prt _ [x] = concatD [prt 0 x]
+  prt _ (x:xs) = concatD [prt 0 x, doc (showString ","), prt 0 xs]
+
+instance Print Abs.Shape where
+  prt i = \case
+    Abs.ShapeOk shapeok -> prPrec i 0 (concatD [prt 0 shapeok])
+    Abs.ShapeNeg shapeneg -> prPrec i 0 (concatD [prt 0 shapeneg])
+
+instance Print Abs.ShapeOk where
+  prt i = \case
+    Abs.OneShapeOk suitcounts -> prPrec i 0 (concatD [doc (showString "["), prt 0 suitcounts, doc (showString "]")])
+
+instance Print Abs.ShapeNeg where
+  prt i = \case
+    Abs.OneShapeNeg shapeok -> prPrec i 0 (concatD [doc (showString "!"), prt 0 shapeok])
+
+instance Print Abs.SuitInt where
+  prt i = \case
+    Abs.SuitInt n -> prPrec i 0 (concatD [prt 0 n])
+
+instance Print Abs.SuitCount where
+  prt i = \case
+    Abs.SuitIntCount suitint -> prPrec i 0 (concatD [prt 0 suitint])
+    Abs.SuitChoice suitints -> prPrec i 0 (concatD [doc (showString "("), prt 0 suitints, doc (showString ")")])
+
+instance Print [Abs.SuitCount] where
+  prt _ [] = concatD []
+  prt _ [x] = concatD [prt 0 x]
+  prt _ (x:xs) = concatD [prt 0 x, doc (showString ";"), prt 0 xs]
+
+instance Print [Abs.SuitInt] where
+  prt _ [] = concatD []
+  prt _ [x] = concatD [prt 0 x]
+  prt _ (x:xs) = concatD [prt 0 x, doc (showString ";"), prt 0 xs]
+
+instance Print Abs.ShapeExpr where
+  prt i = \case
+    Abs.ShapeSingleExpr shape -> prPrec i 0 (concatD [prt 0 shape])
+    Abs.ShapeSum shapeexpr1 shapeexpr2 -> prPrec i 0 (concatD [prt 0 shapeexpr1, doc (showString "+"), prt 0 shapeexpr2])
+
 instance Print Abs.Expr where
   prt i = \case
-    Abs.EVar hand attr -> prPrec i 6 (concatD [prt 0 hand, doc (showString "."), prt 0 attr])
+    Abs.HandAttr hand attr -> prPrec i 6 (concatD [prt 0 hand, doc (showString "."), prt 0 attr])
     Abs.ELitInt n -> prPrec i 6 (concatD [prt 0 n])
     Abs.ELitTrue -> prPrec i 6 (concatD [doc (showString "true")])
     Abs.ELitFalse -> prPrec i 6 (concatD [doc (showString "false")])
@@ -175,10 +242,15 @@ instance Print Abs.SimpAttr where
   prt i = \case
     Abs.AttrHcp -> prPrec i 0 (concatD [doc (showString "hcp")])
 
+instance Print Abs.VarAttr where
+  prt i = \case
+    Abs.AttrVar id_ -> prPrec i 0 (concatD [prt 0 id_])
+
 instance Print Abs.Attr where
   prt i = \case
     Abs.LenAttr lenattr -> prPrec i 0 (concatD [prt 0 lenattr])
     Abs.SimpAttr simpattr -> prPrec i 0 (concatD [prt 0 simpattr])
+    Abs.VarAttr varattr -> prPrec i 0 (concatD [prt 0 varattr])
 
 instance Print Abs.RelOp where
   prt i = \case
