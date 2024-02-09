@@ -53,7 +53,15 @@
                     </div>
                     <div class = "grid-snwe">
                         <div></div><div>N</div><div></div>
-                        <div>W</div><div></div><div>E</div>
+                        <div>W</div>
+                        <div>
+                            <div id="spinner" style="display:none;">
+                                <div class="loader">
+                                    <img id="loading-img" src="~/assets/loading.png"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div>E</div>
                         <div></div><div>S</div><div></div>
                     </div>
                     <div class="hands">
@@ -71,8 +79,7 @@
                 <div class="row-s">
                     <div></div>
                     <div class="hands">
-                        @if (Model.HandSuits != null)
-                        {
+                        @if (Model.HandSuits != null) {
                             @Html.Raw(Model.HandSuits[8])<br>
                             @Html.Raw(Model.HandSuits[9])<br>
                             @Html.Raw(Model.HandSuits[10])<br>
@@ -80,10 +87,13 @@
                         }
                     </div>
                     <div style="text-align: right">
-                        # of tries:
-                        @if (Model.Tries != null)
-                        {
-                            @Html.Raw(Model.Tries)
+                        @if (Model.error_input) {
+                            <div>ERROR</div>
+                        }
+                        @if (Model.Tries != null) {
+                            if (!Model.error_input) {
+                                <div># of tries: @Model.Tries</div>
+                            }
                         }
                     </div>
                 </div>
@@ -91,3 +101,16 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var form = document.getElementById('gen_sc'); // Corrected ID to match your form
+  var spinner = document.getElementById('spinner');
+  
+  form.addEventListener('submit', function() {
+    spinner.style.display = 'block';
+    // Optionally, you could also disable the submit button to prevent multiple submissions
+    document.getElementById('playButton').disabled = true;
+  });
+});
+</script>

@@ -77,7 +77,9 @@ processFile filePath = do
           baseName = takeBaseName filePath
       let store = M.empty
       let env = M.empty
-      let header = "def accept(deal):\n\treturn "
+      let header =
+            "from redeal import *\n\n" ++ 
+            "def accept(deal):\n\treturn "
       pythonCode <-
         runExceptT
           (runStateT (runReaderT (generatePythonCode ast) env) store)

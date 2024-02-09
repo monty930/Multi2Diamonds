@@ -2,15 +2,55 @@
 
 entrypoints Prog ;
 
-Program.   Prog ::= Expr ;
+Program.   Prog ::= [Def] Expr ;
+
+TopDefShape.    Def ::= ShapeDef ;
+
+TopDefEval.     Def ::=  EvalDef ;
+
+separator  Def ";"
 
 -- Types ---------------------------------------------------
 
 Int.       Type ::= "int" ;
 
+-- Statements ----------------------------------------------
+
+ShapeDef.  Stmt ::= Ident "=" ShapeExpr ;
+
+EvalDef.   Stmt ::= Ident "=" "Evaluator" "(" [EvalVal] ")"
+
+EvalVal.   EvalVal ::= Integer ;
+
+separator  EvalVal "," ;
+
+-- Shapes --------------------------------------------------
+
+OneShape.       ShapeOk ;
+
+OneShape.       ShapeNeg ;
+
+OneShapeOk.     ShapeOk ::= "[" [SuitCount] "]" ;
+
+OneShapeNeg.    ShapeNeg ::= "!" ShapeOk ;
+
+SuitInt.        SuitInt ::= Integer ;
+
+SuitIntCount.   SuitCount ::= SuitInt ;
+
+SuitChoice.     SuitCount ::= "(" [SuitInt] ")" ;
+
+separator SuitCount ";" ;
+
+separator SuitInt ";" ;
+
+ShapeSingleExpr. ShapeExpr ::= OneShape ;
+
+ShapeSum.        ShapeExpr ::= ShapeExpr "+" ShapeExpr
+
 -- Expressions ---------------------------------------------
 
-EVar.      Expr6 ::= Hand"."Attr ;
+HandAttr.  Expr6 ::= Hand"."Attr ;
 
 ELitInt.   Expr6 ::= Integer ;
 
@@ -46,9 +86,13 @@ AttrClubs.  LenAttr ::= "clubs" ;
 
 AttrHcp.    SimpAttr ::= "hcp" ;
 
+AttrVar.    VarAttr ::= Ident ;
+
 LenAttr.    Attr ::= LenAttr ;
 
 SimpAttr.   Attr ::= SimpAttr ;
+
+VarAttr.    Attr ::= VarAttr ;
 
 -- operators -----------------------------------------------
 

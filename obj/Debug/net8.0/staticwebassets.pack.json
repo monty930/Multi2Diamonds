@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets/assets/heart.png"
     },
     {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/loading.png",
+      "PackagePath": "staticwebassets/assets/loading.png"
+    },
+    {
       "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/spade.png",
       "PackagePath": "staticwebassets/assets/spade.png"
     },

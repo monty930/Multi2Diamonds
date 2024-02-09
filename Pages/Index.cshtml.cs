@@ -8,6 +8,10 @@ namespace BridgeScenarios.Pages;
 
 public class IndexModel : PageModel
 {
+    public IndexModel() {
+        error_input = false;
+    }
+
     [BindProperty]
     public string TextInput { get; set; } // The property to bind the input text from the textbox
 
@@ -15,6 +19,8 @@ public class IndexModel : PageModel
     public string[] HandSuits { get; set; }
 
     public string Tries { get; set; }
+
+    public bool error_input { get; set; }
 
     public async Task<IActionResult> OnPostAsync()
     {
@@ -31,6 +37,8 @@ public class IndexModel : PageModel
             System.IO.File.Delete(tempFilePath);
 
             getHands(scriptOutput);
+        } else {
+            error_input = true;
         }
 
         return Page(); // Return to the same page to display the output
@@ -38,14 +46,15 @@ public class IndexModel : PageModel
 
     private void getHands(string input) {
         Console.WriteLine(input);
-        // return ("-", "-", "-", "-", "ERROR");
         if (input.Contains("failed", StringComparison.OrdinalIgnoreCase)) {
+            error_input = true;
             return;
         }
         // Extracting the tries part
         int start = input.IndexOf("Tries:") + "Tries:".Length;
         string tries = input.Substring(start).Trim();
         Tries = tries;
+        error_input = false;
         if (input.Length < 20) {
             return;
         }
@@ -55,8 +64,6 @@ public class IndexModel : PageModel
 
         // Split the hands for N, E, S, W
         string[] hands = handsPart.Split(' ');
-
-        // var imagePath = urlHelper.Content("~/assets/arrow.png");
 
         if (HandSuits == null) {
             HandSuits = new string[16];
@@ -105,13 +112,11 @@ public class IndexModel : PageModel
 
     private string RunScript(string filePath)
     {
-        // Assuming your script is located in the "backend" folder and named "gen_scenarios.sh"
         string scriptPath = Path.Combine("backend", "get_scenarios.sh");
 
-        // Execute the script with the temporary file as an argument
         var processStartInfo = new ProcessStartInfo
         {
-            FileName = "/bin/bash", // or "cmd.exe" on Windows
+            FileName = "/bin/bash",
             Arguments = $"{scriptPath} {filePath}",
             RedirectStandardOutput = true,
             UseShellExecute = false,
