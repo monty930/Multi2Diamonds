@@ -27,13 +27,31 @@
                     </button>
                 </div>
                 <div class="hands">
-                    @if (Model.HandSuits != null)
-                    {
-                        @Html.Raw(Model.HandSuits[0])<br>
-                        @Html.Raw(Model.HandSuits[1])<br>
-                        @Html.Raw(Model.HandSuits[2])<br>
-                        @Html.Raw(Model.HandSuits[3])
-                    }
+                    <div class="suit">
+                        <img id="suit-img" src="~/assets/spade.png"/>
+                        @if (Model.HandSuits != null){
+                            @Html.Raw(Model.HandSuits[0])<br>
+                        }
+                    </div>
+                    <div class="suit">
+                        <img id="suit-img" src="~/assets/heart.png"/>
+                        @if (Model.HandSuits != null){
+                            @Html.Raw(Model.HandSuits[1])<br>
+                        }
+                    </div>
+                    <div class="suit">
+                        <img id="suit-img" src="~/assets/diamond.png"/> 
+                        <div> </div>
+                        @if (Model.HandSuits != null){
+                            @Html.Raw(Model.HandSuits[2])<br>
+                        }
+                    </div>
+                    <div class="suit">
+                        <img id="suit-img" src="~/assets/club.png"/>
+                        @if (Model.HandSuits != null){
+                            @Html.Raw(Model.HandSuits[3])<br>
+                        }
+                    </div>
                 </div>
                 <div></div>
             </div>
@@ -42,13 +60,31 @@
                     <div class="aligning-cells">
                         <div></div>
                         <div class="hands">
-                            @if (Model.HandSuits != null)
-                            {
-                                @Html.Raw(Model.HandSuits[12])<br>
-                                @Html.Raw(Model.HandSuits[13])<br>
-                                @Html.Raw(Model.HandSuits[14])<br>
-                                @Html.Raw(Model.HandSuits[15])
-                            }
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/spade.png"/>
+                                @if (Model.HandSuits != null){
+                                    @Html.Raw(Model.HandSuits[4])<br>
+                                }
+                            </div>
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/heart.png"/>
+                                @if (Model.HandSuits != null){
+                                    @Html.Raw(Model.HandSuits[5])<br>
+                                }
+                            </div>
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/diamond.png"/> 
+                                <div> </div>
+                                @if (Model.HandSuits != null){
+                                    @Html.Raw(Model.HandSuits[6])<br>
+                                }
+                            </div>
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/club.png"/>
+                                @if (Model.HandSuits != null){
+                                    @Html.Raw(Model.HandSuits[7])<br>
+                                }
+                            </div>
                         </div>
                     </div>
                     <div class = "grid-snwe">
@@ -65,13 +101,31 @@
                         <div></div><div>S</div><div></div>
                     </div>
                     <div class="hands">
-                        @if (Model.HandSuits != null)
-                        {
-                            @Html.Raw(Model.HandSuits[4])<br>
-                            @Html.Raw(Model.HandSuits[5])<br>
-                            @Html.Raw(Model.HandSuits[6])<br>
-                            @Html.Raw(Model.HandSuits[7])
-                        }
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/spade.png"/>
+                            @if (Model.HandSuits != null){
+                                @Html.Raw(Model.HandSuits[12])<br>
+                            }
+                        </div>
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/heart.png"/>
+                            @if (Model.HandSuits != null){
+                                @Html.Raw(Model.HandSuits[13])<br>
+                            }
+                        </div>
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/diamond.png"/> 
+                            <div> </div>
+                            @if (Model.HandSuits != null){
+                                @Html.Raw(Model.HandSuits[14])<br>
+                            }
+                        </div>
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/club.png"/>
+                            @if (Model.HandSuits != null){
+                                @Html.Raw(Model.HandSuits[15])<br>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,12 +133,31 @@
                 <div class="row-s">
                     <div></div>
                     <div class="hands">
-                        @if (Model.HandSuits != null) {
-                            @Html.Raw(Model.HandSuits[8])<br>
-                            @Html.Raw(Model.HandSuits[9])<br>
-                            @Html.Raw(Model.HandSuits[10])<br>
-                            @Html.Raw(Model.HandSuits[11])
-                        }
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/spade.png"/>
+                            @if (Model.HandSuits != null){
+                                @Html.Raw(Model.HandSuits[8])<br>
+                            }
+                        </div>
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/heart.png"/>
+                            @if (Model.HandSuits != null){
+                                @Html.Raw(Model.HandSuits[9])<br>
+                            }
+                        </div>
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/diamond.png"/> 
+                            <div> </div>
+                            @if (Model.HandSuits != null){
+                                @Html.Raw(Model.HandSuits[10])<br>
+                            }
+                        </div>
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/club.png"/>
+                            @if (Model.HandSuits != null){
+                                @Html.Raw(Model.HandSuits[11])<br>
+                            }
+                        </div>
                     </div>
                     <div style="text-align: right">
                         @if (Model.error_input) {

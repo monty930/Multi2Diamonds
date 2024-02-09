@@ -29,6 +29,14 @@
       "PackagePath": "staticwebassets/assets/spade.png"
     },
     {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/tmp/favicon-alt.ico",
+      "PackagePath": "staticwebassets/assets/tmp/favicon-alt.ico"
+    },
+    {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/tmp/favicon.png",
+      "PackagePath": "staticwebassets/assets/tmp/favicon.png"
+    },
+    {
       "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },

@@ -42,7 +42,10 @@ textarea {
   resize: none;
   overflow: auto;
   margin-bottom: 10px;
+  background-color: rgb(63, 63, 63);
+  color: rgb(255, 235, 235); 
 }
+
 
 .right-panel {
   background-color: rgb(94, 94, 94);
@@ -65,14 +68,14 @@ textarea {
   height: 100%;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 33% 33% auto;
+  grid-template-rows: 35% 30% auto;
 }
 
 .row-n {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 35% auto auto;
+  grid-template-columns: 37% auto auto;
   grid-template-rows: auto;
 }
 
@@ -94,7 +97,7 @@ textarea {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 35% auto 35%;
+  grid-template-columns: 38% auto 38%;
   grid-template-rows: auto;
   place-items: start;
   align-items: flex-start;
@@ -119,7 +122,7 @@ textarea {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 35% 40% auto;
+  grid-template-columns: 37% 40% auto;
   grid-template-rows: auto;
 }
 
@@ -156,7 +159,8 @@ textarea {
   grid-template-rows: auto 40% auto;
   border: 5px solid rgb(126, 126, 126);
   place-items: center;
-  font-size: 25px;
+  /* font-size: 25px; */
+  font-size: calc(0.1em + min(4vh, 2vw));
   font-weight: 800;
   color:rgb(255, 235, 235);
 }
@@ -191,16 +195,38 @@ textarea {
   width: 40px;
 }
 
-.suit-img {
-  width: 20px;
+#suit-img {
+  width: 30px;
   display: block;
   clear: both;
+  padding-right: 5px;
+  padding-bottom: 3px;
 }
 
 .hands {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
   font-size: 15pt;
   color:rgb(255, 235, 235);
   font-weight: 800;
+}
+
+.row-mid .hands > div:nth-child(1) {
+  padding-top: 5pt;
+}
+
+.row-n > .hands > div:nth-child(1) {
+  height: 100%;
+}
+
+.suit {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  place-items: flex-end;
 }
 
 .loader {
