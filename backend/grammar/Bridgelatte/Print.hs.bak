@@ -161,7 +161,7 @@ instance Print Bridgelatte.Abs.Type where
 
 instance Print Bridgelatte.Abs.ShapeDef where
   prt i = \case
-    Bridgelatte.Abs.ShapeDef id_ shapes -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 shapes])
+    Bridgelatte.Abs.ShapeDef id_ shapeexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 shapeexpr])
 
 instance Print Bridgelatte.Abs.EvalDef where
   prt i = \case
@@ -189,19 +189,14 @@ instance Print Bridgelatte.Abs.ShapeNeg where
   prt i = \case
     Bridgelatte.Abs.OneShapeNeg shapeok -> prPrec i 0 (concatD [doc (showString "!"), prt 0 shapeok])
 
-instance Print [Bridgelatte.Abs.Shape] where
-  prt _ [] = concatD []
-  prt _ [x] = concatD [prt 0 x]
-  prt _ (x:xs) = concatD [prt 0 x, doc (showString "+"), prt 0 xs]
+instance Print Bridgelatte.Abs.SuitInt where
+  prt i = \case
+    Bridgelatte.Abs.SuitInt n -> prPrec i 0 (concatD [prt 0 n])
 
 instance Print Bridgelatte.Abs.SuitCount where
   prt i = \case
     Bridgelatte.Abs.SuitIntCount suitint -> prPrec i 0 (concatD [prt 0 suitint])
     Bridgelatte.Abs.SuitChoice suitints -> prPrec i 0 (concatD [doc (showString "("), prt 0 suitints, doc (showString ")")])
-
-instance Print Bridgelatte.Abs.SuitInt where
-  prt i = \case
-    Bridgelatte.Abs.SuitInt n -> prPrec i 0 (concatD [prt 0 n])
 
 instance Print [Bridgelatte.Abs.SuitCount] where
   prt _ [] = concatD []
@@ -212,6 +207,11 @@ instance Print [Bridgelatte.Abs.SuitInt] where
   prt _ [] = concatD []
   prt _ [x] = concatD [prt 0 x]
   prt _ (x:xs) = concatD [prt 0 x, doc (showString ";"), prt 0 xs]
+
+instance Print Bridgelatte.Abs.ShapeExpr where
+  prt i = \case
+    Bridgelatte.Abs.ShapeSingleExpr shape -> prPrec i 0 (concatD [prt 0 shape])
+    Bridgelatte.Abs.ShapeSum shapeexpr1 shapeexpr2 -> prPrec i 0 (concatD [prt 0 shapeexpr1, doc (showString "+"), prt 0 shapeexpr2])
 
 instance Print Bridgelatte.Abs.Expr where
   prt i = \case

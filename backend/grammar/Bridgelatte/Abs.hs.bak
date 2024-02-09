@@ -19,7 +19,7 @@ data Def = TopDefShape ShapeDef | TopDefEval EvalDef
 data Type = Int
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
-data ShapeDef = ShapeDef Ident [Shape]
+data ShapeDef = ShapeDef Ident ShapeExpr
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data EvalDef = EvalDef Ident [EvalVal]
@@ -37,10 +37,14 @@ data ShapeOk = OneShapeOk [SuitCount]
 data ShapeNeg = OneShapeNeg ShapeOk
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
+data SuitInt = SuitInt Integer
+  deriving (C.Eq, C.Ord, C.Show, C.Read)
+
 data SuitCount = SuitIntCount SuitInt | SuitChoice [SuitInt]
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
-data SuitInt = SuitInt Integer
+data ShapeExpr
+    = ShapeSingleExpr Shape | ShapeSum ShapeExpr ShapeExpr
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data Expr

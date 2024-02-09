@@ -19,7 +19,7 @@ data Def = TopDefShape ShapeDef | TopDefEval EvalDef
 data Type = Int
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
-data ShapeDef = ShapeDef Ident ShapeExpr
+data ShapeDef = ShapeDef Ident [Shape]
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data EvalDef = EvalDef Ident [EvalVal]
@@ -37,14 +37,10 @@ data ShapeOk = OneShapeOk [SuitCount]
 data ShapeNeg = OneShapeNeg ShapeOk
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
-data SuitInt = SuitInt Integer
-  deriving (C.Eq, C.Ord, C.Show, C.Read)
-
 data SuitCount = SuitIntCount SuitInt | SuitChoice [SuitInt]
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
-data ShapeExpr
-    = ShapeSingleExpr Shape | ShapeSum ShapeExpr ShapeExpr
+data SuitInt = SuitInt Integer
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data Expr
@@ -67,10 +63,7 @@ data LenAttr = AttrSpades | AttrHearts | AttrDiams | AttrClubs
 data SimpAttr = AttrHcp
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
-data VarAttr = AttrVar Ident
-  deriving (C.Eq, C.Ord, C.Show, C.Read)
-
-data Attr = LenAttr LenAttr | SimpAttr SimpAttr | VarAttr VarAttr
+data Attr = AttrVar Ident | LenAttr LenAttr | SimpAttr SimpAttr
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data RelOp = LTH | LE | GTH | GE | EQU | NE

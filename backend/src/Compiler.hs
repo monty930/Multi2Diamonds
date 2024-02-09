@@ -25,13 +25,9 @@ import           System.IO
 import           System.Process
 import           Test.QuickCheck       (label)
 
-type Loc = Int
+type Store = M.Map Ident Type
 
-type Env = M.Map Ident Loc
-
-type Store = M.Map Loc Type
-
-type RSE a = ReaderT Env (StateT Store (ExceptT String IO)) a
+type RSE a = StateT Store (ExceptT String IO) a
 
 type ParseFun a = [Token] -> Err a
 
@@ -76,11 +72,10 @@ processFile filePath = do
       let store = M.empty
       let env = M.empty
       let header =
-            "from redeal import *\n\n" ++ 
-            "def accept(deal):\n\treturn "
+            "from redeal import *\n\n"
       pythonCode <-
         runExceptT
-          (runStateT (runReaderT (generatePythonCode ast) env) store)
+          (runStateT (generatePythonCode ast) store)
       case pythonCode of
         Left err -> putStrLn err
         Right (pythonCode, _) -> do
@@ -91,9 +86,50 @@ typeCheck :: Prog -> IO ()
 typeCheck prog = return ()
 
 generatePythonCode :: Prog -> RSE String
-generatePythonCode (Program defs expr) = evalExp expr
+generatePythonCode (Program defs expr) = do
+  defsCode <- evalDefs defs
+  exprCode <- evalExp expr
+  return $ defsCode ++ "\ndef accept(deal):\n\treturn " ++ exprCode
 
 generatePythonCode (EmptyProg _) = return "True"
+
+evalDefs :: [Def] -> RSE String
+evalDefs (def : defs) = do
+  defCode <- evalDef def
+  defsCode <- mapM evalDef defs
+  return $ defCode ++ concat defsCode
+
+evalDefs [] = return ""
+
+-- Shape("(4333)")
+
+evalDef :: Def -> RSE String
+evalDef (TopDefShape (ShapeDef (Ident id) shapes)) = do
+  shapesCode <- evalShapes shapes
+  return $ id ++ " = " ++ shapesCode ++ "\n"
+
+evalDef (TopDefEval eval) = undefined
+
+evalShapes (sh : shs) = do
+  shCode <- evalShape sh
+  shsCode <- mapM evalShape shs
+  return $ shCode ++ concat shsCode
+
+evalShapes [] = return ""
+
+evalShape :: Shape -> RSE String
+evalShape (ShapeOk (OneShapeOk [a, b, c, d])) = do
+  aC <- showSuitIntCount a
+  bC <- showSuitIntCount b
+  cC <- showSuitIntCount c
+  dC <- showSuitIntCount d
+  return $ "Shape(\"" ++ aC ++ bC ++ cC ++ dC ++ "\")"
+
+evalShape _ = undefined
+
+showSuitIntCount :: SuitCount -> RSE String
+showSuitIntCount (SuitIntCount (SuitInt a)) = 
+  return $ show a
 
 evalExp :: Expr -> RSE String
 evalExp (HandAttr hand attr) = evalVar hand attr
@@ -133,6 +169,13 @@ evalVar h (SimpAttr a) = do
   hCode <- evalHand h
   aCode <- evalSimpAttr a
   return $ hCode ++ "." ++ aCode
+
+evalVar h (AttrVar ident) = do
+  hCode <- evalHand h
+  return $ showIdent ident ++ "(" ++ hCode ++ ")"
+
+showIdent :: Ident -> String
+showIdent (Ident ident) = ident
 
 evalRelOp LTH = return "<"
 

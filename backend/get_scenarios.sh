@@ -34,7 +34,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Use the temporary file as an input for python -m redeal and output the result
-python -mredeal -n 1 --format=pbn "$TEMPFILE"
+python -mredeal --max 10000 -n 1 --format=pbn "$TEMPFILE"
 
 # Optionally, remove the temporary file after use
 rm "$TEMPFILE"

@@ -86,7 +86,7 @@ Type :: { Bridgelatte.Abs.Type }
 Type : 'int' { Bridgelatte.Abs.Int }
 
 ShapeDef :: { Bridgelatte.Abs.ShapeDef }
-ShapeDef : Ident '=' ListShape { Bridgelatte.Abs.ShapeDef $1 $3 }
+ShapeDef : Ident '=' ShapeExpr { Bridgelatte.Abs.ShapeDef $1 $3 }
 
 EvalDef :: { Bridgelatte.Abs.EvalDef }
 EvalDef
@@ -112,19 +112,13 @@ ShapeOk : '[' ListSuitCount ']' { Bridgelatte.Abs.OneShapeOk $2 }
 ShapeNeg :: { Bridgelatte.Abs.ShapeNeg }
 ShapeNeg : '!' ShapeOk { Bridgelatte.Abs.OneShapeNeg $2 }
 
-ListShape :: { [Bridgelatte.Abs.Shape] }
-ListShape
-  : {- empty -} { [] }
-  | Shape { (:[]) $1 }
-  | Shape '+' ListShape { (:) $1 $3 }
+SuitInt :: { Bridgelatte.Abs.SuitInt }
+SuitInt : Integer { Bridgelatte.Abs.SuitInt $1 }
 
 SuitCount :: { Bridgelatte.Abs.SuitCount }
 SuitCount
   : SuitInt { Bridgelatte.Abs.SuitIntCount $1 }
   | '(' ListSuitInt ')' { Bridgelatte.Abs.SuitChoice $2 }
-
-SuitInt :: { Bridgelatte.Abs.SuitInt }
-SuitInt : Integer { Bridgelatte.Abs.SuitInt $1 }
 
 ListSuitCount :: { [Bridgelatte.Abs.SuitCount] }
 ListSuitCount
@@ -137,6 +131,11 @@ ListSuitInt
   : {- empty -} { [] }
   | SuitInt { (:[]) $1 }
   | SuitInt ';' ListSuitInt { (:) $1 $3 }
+
+ShapeExpr :: { Bridgelatte.Abs.ShapeExpr }
+ShapeExpr
+  : Shape { Bridgelatte.Abs.ShapeSingleExpr $1 }
+  | ShapeExpr '+' ShapeExpr { Bridgelatte.Abs.ShapeSum $1 $3 }
 
 Expr6 :: { Bridgelatte.Abs.Expr }
 Expr6

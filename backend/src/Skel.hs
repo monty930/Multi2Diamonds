@@ -35,7 +35,7 @@ transType x = case x of
 
 transShapeDef :: Abs.ShapeDef -> Result
 transShapeDef x = case x of
-  Abs.ShapeDef ident shapeexpr -> failure x
+  Abs.ShapeDef ident shapes -> failure x
 
 transEvalDef :: Abs.EvalDef -> Result
 transEvalDef x = case x of
@@ -58,19 +58,14 @@ transShapeNeg :: Abs.ShapeNeg -> Result
 transShapeNeg x = case x of
   Abs.OneShapeNeg shapeok -> failure x
 
-transSuitInt :: Abs.SuitInt -> Result
-transSuitInt x = case x of
-  Abs.SuitInt integer -> failure x
-
 transSuitCount :: Abs.SuitCount -> Result
 transSuitCount x = case x of
   Abs.SuitIntCount suitint -> failure x
   Abs.SuitChoice suitints -> failure x
 
-transShapeExpr :: Abs.ShapeExpr -> Result
-transShapeExpr x = case x of
-  Abs.ShapeSingleExpr shape -> failure x
-  Abs.ShapeSum shapeexpr1 shapeexpr2 -> failure x
+transSuitInt :: Abs.SuitInt -> Result
+transSuitInt x = case x of
+  Abs.SuitInt integer -> failure x
 
 transExpr :: Abs.Expr -> Result
 transExpr x = case x of
@@ -101,15 +96,11 @@ transSimpAttr :: Abs.SimpAttr -> Result
 transSimpAttr x = case x of
   Abs.AttrHcp -> failure x
 
-transVarAttr :: Abs.VarAttr -> Result
-transVarAttr x = case x of
-  Abs.AttrVar ident -> failure x
-
 transAttr :: Abs.Attr -> Result
 transAttr x = case x of
+  Abs.AttrVar ident -> failure x
   Abs.LenAttr lenattr -> failure x
   Abs.SimpAttr simpattr -> failure x
-  Abs.VarAttr varattr -> failure x
 
 transRelOp :: Abs.RelOp -> Result
 transRelOp x = case x of

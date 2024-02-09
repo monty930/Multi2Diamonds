@@ -18,7 +18,7 @@ Int.       Type ::= "int" ;
 
 -- Statements ----------------------------------------------
 
-ShapeDef.  ShapeDef ::= Ident "=" ShapeExpr ;
+ShapeDef.  ShapeDef ::= Ident "=" [Shape] ;
 
 EvalDef.   EvalDef ::= Ident "=" "Evaluator" "(" [EvalVal] ")" ;
 
@@ -36,19 +36,17 @@ OneShapeOk.     ShapeOk ::= "[" [SuitCount] "]" ;
 
 OneShapeNeg.    ShapeNeg ::= "!" ShapeOk ;
 
-SuitInt.        SuitInt ::= Integer ;
+separator Shape "+" ;
 
 SuitIntCount.   SuitCount ::= SuitInt ;
+
+SuitInt.    SuitInt ::= Integer ;
 
 SuitChoice.     SuitCount ::= "(" [SuitInt] ")" ;
 
 separator SuitCount ";" ;
 
 separator SuitInt ";" ;
-
-ShapeSingleExpr. ShapeExpr ::= Shape ;
-
-ShapeSum.        ShapeExpr ::= ShapeExpr "+" ShapeExpr ;
 
 -- Expressions ---------------------------------------------
 
@@ -88,13 +86,11 @@ AttrClubs.  LenAttr ::= "clubs" ;
 
 AttrHcp.    SimpAttr ::= "hcp" ;
 
-AttrVar.    VarAttr ::= Ident ;
+AttrVar.    Attr ::= Ident ;
 
 LenAttr.    Attr ::= LenAttr ;
 
 SimpAttr.   Attr ::= SimpAttr ;
-
-VarAttr.    Attr ::= VarAttr ;
 
 -- operators -----------------------------------------------
 

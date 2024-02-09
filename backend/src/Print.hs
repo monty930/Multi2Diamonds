@@ -161,7 +161,7 @@ instance Print Abs.Type where
 
 instance Print Abs.ShapeDef where
   prt i = \case
-    Abs.ShapeDef id_ shapeexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 shapeexpr])
+    Abs.ShapeDef id_ shapes -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 shapes])
 
 instance Print Abs.EvalDef where
   prt i = \case
@@ -189,14 +189,19 @@ instance Print Abs.ShapeNeg where
   prt i = \case
     Abs.OneShapeNeg shapeok -> prPrec i 0 (concatD [doc (showString "!"), prt 0 shapeok])
 
-instance Print Abs.SuitInt where
-  prt i = \case
-    Abs.SuitInt n -> prPrec i 0 (concatD [prt 0 n])
+instance Print [Abs.Shape] where
+  prt _ [] = concatD []
+  prt _ [x] = concatD [prt 0 x]
+  prt _ (x:xs) = concatD [prt 0 x, doc (showString "+"), prt 0 xs]
 
 instance Print Abs.SuitCount where
   prt i = \case
     Abs.SuitIntCount suitint -> prPrec i 0 (concatD [prt 0 suitint])
     Abs.SuitChoice suitints -> prPrec i 0 (concatD [doc (showString "("), prt 0 suitints, doc (showString ")")])
+
+instance Print Abs.SuitInt where
+  prt i = \case
+    Abs.SuitInt n -> prPrec i 0 (concatD [prt 0 n])
 
 instance Print [Abs.SuitCount] where
   prt _ [] = concatD []
@@ -207,11 +212,6 @@ instance Print [Abs.SuitInt] where
   prt _ [] = concatD []
   prt _ [x] = concatD [prt 0 x]
   prt _ (x:xs) = concatD [prt 0 x, doc (showString ";"), prt 0 xs]
-
-instance Print Abs.ShapeExpr where
-  prt i = \case
-    Abs.ShapeSingleExpr shape -> prPrec i 0 (concatD [prt 0 shape])
-    Abs.ShapeSum shapeexpr1 shapeexpr2 -> prPrec i 0 (concatD [prt 0 shapeexpr1, doc (showString "+"), prt 0 shapeexpr2])
 
 instance Print Abs.Expr where
   prt i = \case
@@ -242,15 +242,11 @@ instance Print Abs.SimpAttr where
   prt i = \case
     Abs.AttrHcp -> prPrec i 0 (concatD [doc (showString "hcp")])
 
-instance Print Abs.VarAttr where
-  prt i = \case
-    Abs.AttrVar id_ -> prPrec i 0 (concatD [prt 0 id_])
-
 instance Print Abs.Attr where
   prt i = \case
+    Abs.AttrVar id_ -> prPrec i 0 (concatD [prt 0 id_])
     Abs.LenAttr lenattr -> prPrec i 0 (concatD [prt 0 lenattr])
     Abs.SimpAttr simpattr -> prPrec i 0 (concatD [prt 0 simpattr])
-    Abs.VarAttr varattr -> prPrec i 0 (concatD [prt 0 varattr])
 
 instance Print Abs.RelOp where
   prt i = \case

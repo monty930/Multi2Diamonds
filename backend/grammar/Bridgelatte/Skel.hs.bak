@@ -35,7 +35,7 @@ transType x = case x of
 
 transShapeDef :: Bridgelatte.Abs.ShapeDef -> Result
 transShapeDef x = case x of
-  Bridgelatte.Abs.ShapeDef ident shapes -> failure x
+  Bridgelatte.Abs.ShapeDef ident shapeexpr -> failure x
 
 transEvalDef :: Bridgelatte.Abs.EvalDef -> Result
 transEvalDef x = case x of
@@ -58,14 +58,19 @@ transShapeNeg :: Bridgelatte.Abs.ShapeNeg -> Result
 transShapeNeg x = case x of
   Bridgelatte.Abs.OneShapeNeg shapeok -> failure x
 
+transSuitInt :: Bridgelatte.Abs.SuitInt -> Result
+transSuitInt x = case x of
+  Bridgelatte.Abs.SuitInt integer -> failure x
+
 transSuitCount :: Bridgelatte.Abs.SuitCount -> Result
 transSuitCount x = case x of
   Bridgelatte.Abs.SuitIntCount suitint -> failure x
   Bridgelatte.Abs.SuitChoice suitints -> failure x
 
-transSuitInt :: Bridgelatte.Abs.SuitInt -> Result
-transSuitInt x = case x of
-  Bridgelatte.Abs.SuitInt integer -> failure x
+transShapeExpr :: Bridgelatte.Abs.ShapeExpr -> Result
+transShapeExpr x = case x of
+  Bridgelatte.Abs.ShapeSingleExpr shape -> failure x
+  Bridgelatte.Abs.ShapeSum shapeexpr1 shapeexpr2 -> failure x
 
 transExpr :: Bridgelatte.Abs.Expr -> Result
 transExpr x = case x of

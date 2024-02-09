@@ -53,7 +53,7 @@ All other symbols are terminals.
   |  |  **|**  | //Def//
   |  |  **|**  | //Def// ``;`` //[Def]//
   | //Type// | -> | ``int``
-  | //ShapeDef// | -> | //Ident// ``=`` //[Shape]//
+  | //ShapeDef// | -> | //Ident// ``=`` //ShapeExpr//
   | //EvalDef// | -> | //Ident// ``=`` ``Evaluator`` ``(`` //[EvalVal]// ``)``
   | //EvalVal// | -> | //Integer//
   | //[EvalVal]// | -> | **eps**
@@ -63,18 +63,17 @@ All other symbols are terminals.
   |  |  **|**  | //ShapeNeg//
   | //ShapeOk// | -> | ``[`` //[SuitCount]// ``]``
   | //ShapeNeg// | -> | ``!`` //ShapeOk//
-  | //[Shape]// | -> | **eps**
-  |  |  **|**  | //Shape//
-  |  |  **|**  | //Shape// ``+`` //[Shape]//
+  | //SuitInt// | -> | //Integer//
   | //SuitCount// | -> | //SuitInt//
   |  |  **|**  | ``(`` //[SuitInt]// ``)``
-  | //SuitInt// | -> | //Integer//
   | //[SuitCount]// | -> | **eps**
   |  |  **|**  | //SuitCount//
   |  |  **|**  | //SuitCount// ``;`` //[SuitCount]//
   | //[SuitInt]// | -> | **eps**
   |  |  **|**  | //SuitInt//
   |  |  **|**  | //SuitInt// ``;`` //[SuitInt]//
+  | //ShapeExpr// | -> | //Shape//
+  |  |  **|**  | //ShapeExpr// ``+`` //ShapeExpr//
   | //Expr6// | -> | //Hand// ``.`` //Attr//
   |  |  **|**  | //Integer//
   |  |  **|**  | ``true``
