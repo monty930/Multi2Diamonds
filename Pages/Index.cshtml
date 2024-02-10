@@ -13,20 +13,22 @@
 
 <div class="page-layout">
     <div class="left-panel">
-        <div class="input-section">
-            <h4>Enter scenario code:</h4>
-            <form id=gen_sc method="post">
-                <div class="editor-container">
-                    <div class="line-numbers" id="lineNumbers"></div>
-                    <textarea 
-                        spellcheck="false" 
-                        asp-for="TextInput" 
-                        placeholder="See README for example constraints."
-                        id="codeInput" 
-                        oninput="updateLineNumbers()">
-                    </textarea>
-                </div>
-            </form>
+        <div class="container-for-input">
+            <div class="input-section">
+                <h4>Enter scenario code:</h4>
+                <form id=gen_sc method="post">
+                    <div class="editor-container">
+                        <div class="line-numbers" id="lineNumbers"></div>
+                        <textarea 
+                            spellcheck="false" 
+                            asp-for="TextInput" 
+                            placeholder="See README for example constraints."
+                            id="codeInput" 
+                            oninput="updateLineNumbers()">
+                        </textarea>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     
@@ -248,20 +250,41 @@ window.onload = function() {
 
 @*  *@
 
+// Existing code for updateLineNumbers and event listeners
 function updateLineNumbers() {
   const textarea = document.getElementById('codeInput');
   const lineNumbers = document.getElementById('lineNumbers');
-  const lines = textarea.value.split('\n').length;
-  const numbers = [...Array(lines).keys()].map(n => `${n + 1}`).join('\n');
-  lineNumbers.textContent = numbers;
+  const lineCount = textarea.value.split('\n').length;
+
+  // Get the computed line height of the textarea for accurate calculations
+  const computedStyle = window.getComputedStyle(textarea);
+  const lineHeight = parseInt(computedStyle.lineHeight, 10); // Convert the line-height value to an integer
+
+  // Calculate visible lines based on textarea height and the computed line height
+  const visibleLines = Math.floor(textarea.clientHeight / lineHeight);
+  
+  // Ensure we cover all lines that have content or are within the initial visible area
+  const totalLines = Math.max(lineCount, visibleLines);
+
+  let numbers = '';
+  for (let i = 1; i <= totalLines; i++) {
+    // Apply "used-line" class to lines with content, and "unused-line" to empty but visible lines
+    numbers += i <= lineCount ? `<span class="used-line">${i}</span>\n` : `<span class="unused-line">${i}</span>\n`;
+  }
+
+  lineNumbers.innerHTML = numbers;
 }
 
-// Initial update
-updateLineNumbers();
-
-// Sync scroll position
+// Call updateLineNumbers on input and scroll
+document.getElementById('codeInput').addEventListener('input', updateLineNumbers);
 document.getElementById('codeInput').addEventListener('scroll', function() {
   document.getElementById('lineNumbers').scrollTop = this.scrollTop;
+});
+
+// Add event listener for window resize
+window.addEventListener('resize', updateLineNumbers);
+document.addEventListener('DOMContentLoaded', function() {
+  updateLineNumbers();
 });
 
 
