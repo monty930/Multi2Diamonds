@@ -1,2 +1,2 @@
 
-[Screencast from 10.02.2024 17:17:10.webm](https://github.com/monty930/BridgeScenarios/assets/71830127/7c782beb-c696-4816-a86b-823beb0237f8)
+[Screencast from 10.02.2024 17:21:59.webm](https://github.com/monty930/BridgeScenarios/assets/71830127/ea75420a-ced3-48b0-8f62-c2f26a8245a1)
