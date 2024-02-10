@@ -241,14 +241,21 @@ document.addEventListener('DOMContentLoaded', function() {
     addErrorButtonListener();
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  updateLineNumbers();
+  
+  // Check if a saved scroll position exists and restore it
+  var savedScrollTop = localStorage.getItem('textareaScrollTop');
+  if (savedScrollTop !== null) {
+    document.getElementById('codeInput').scrollTop = parseInt(savedScrollTop, 10);
+  }
+});
+
 window.onload = function() {
   var image = document.getElementById('loading-img');
   var randomAngle = Math.floor(Math.random() * 360); // Generate a random angle between 0 and 359
   image.style.transform = 'rotate(' + randomAngle + 'deg)'; // Rotate the image
 };
-
-
-@*  *@
 
 // Existing code for updateLineNumbers and event listeners
 function updateLineNumbers() {
@@ -287,5 +294,9 @@ document.addEventListener('DOMContentLoaded', function() {
   updateLineNumbers();
 });
 
+window.addEventListener('beforeunload', function() {
+  // Save the current scroll position of the textarea to localStorage
+  localStorage.setItem('textareaScrollTop', document.getElementById('codeInput').scrollTop);
+});
 
 </script>
