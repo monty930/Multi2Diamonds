@@ -91,7 +91,7 @@ generatePythonCode (Program defs expr) = do
   exprCode <- evalExp expr
   return $ defsCode ++ "\ndef accept(deal):\n\treturn " ++ exprCode
 
-generatePythonCode (EmptyProg _) = return "True"
+generatePythonCode (EmptyProg _) = return "\ndef accept(deal):\n\treturn True"
 
 evalDefs :: [Def] -> RSE String
 evalDefs (def : defs) = do

@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-.navbar-light {
-  color: yellow;
-}
-
 .page-container {
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -38,6 +34,12 @@
 }
 
 .header {
+  padding: 3pt;
   padding-left: 1%;
-  background-color: rgb(63, 63, 63);
+  /* background: rgb(77, 77, 77); */
+  background: radial-gradient(circle, rgba(63, 63, 63, 1) 0%, rgba(63, 63, 63, 1) 67%, rgba(77, 77, 77, 1) 100%);
+}
+
+.body-div {
+  border: 2pt solid rgb(105, 105, 105);
 }

@@ -10,6 +10,7 @@ public class IndexModel : PageModel
 {
     public IndexModel() {
         error_input = false;
+        TextInput = "";
     }
 
     [BindProperty]
@@ -24,19 +25,15 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!string.IsNullOrWhiteSpace(TextInput))
-        {
-            var tempFilePath = Path.GetTempFileName();
-            await System.IO.File.WriteAllTextAsync(tempFilePath, TextInput);
+        Console.WriteLine("here");
+        var tempFilePath = Path.GetTempFileName();
+        await System.IO.File.WriteAllTextAsync(tempFilePath, TextInput);
 
-            var scriptOutput = RunScript(tempFilePath);
+        var scriptOutput = RunScript(tempFilePath);
 
-            System.IO.File.Delete(tempFilePath);
+        System.IO.File.Delete(tempFilePath);
 
-            getHands(scriptOutput);
-        } else {
-            error_input = true;
-        }
+        getHands(scriptOutput);
 
         return Page();
     }

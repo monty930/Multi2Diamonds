@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/BridgeScenarios.bundle.scp.css"
     },
     {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/arrow-white.png",
+      "PackagePath": "staticwebassets/assets/arrow-white.png"
+    },
+    {
       "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/arrow.png",
       "PackagePath": "staticwebassets/assets/arrow.png"
     },

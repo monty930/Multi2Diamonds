@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Enathc+xZaC4C8yBlZEEYfPldoCLX1uU0cM8YubCF/s=",
+  "Hash": "EKSv9jzquWeQnAHRDJoN+CCluJDRhW6wn4TFqj7bBdc=",
   "Source": "BridgeScenarios",
   "BasePath": "_content/BridgeScenarios",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/obj/Debug/net8.0/scopedcss/projectbundle/BridgeScenarios.bundle.scp.css"
+    },
+    {
+      "Identity": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/arrow-white.png",
+      "SourceId": "BridgeScenarios",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/",
+      "BasePath": "_content/BridgeScenarios",
+      "RelativePath": "assets/arrow-white.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/arrow-white.png"
     },
     {
       "Identity": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/arrow.png",
