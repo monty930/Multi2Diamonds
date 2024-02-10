@@ -3,6 +3,7 @@
   --suit-cards-font-size: calc(0.3em + min(2.5vh, 1.5vw));
   --button-w: calc(0.3em + 7vw);
   --button-h: calc(0.3em + 8vh);
+  --code-font-size: calc(0.1em + min(3.5vh, 1.5vw));
 }
 
 html, body {
@@ -36,13 +37,9 @@ html, body {
   align-items: center;
   text-align: center;
   border: none;
+  height: 100%;
+  width: 100%;
   background: rgb(88,88,88);
-}
-
-.left-panel, .right-panel {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
 }
 
 .input-section {
@@ -65,7 +62,7 @@ html, body {
   flex-direction: column;
 }
 
-textarea {
+/* textarea {
   width: 95%;
   height: 100%;
   flex: 1;
@@ -84,6 +81,37 @@ textarea {
 textarea:focus {
   outline: none;
   border: none;
+} */
+
+.editor-container {
+  display: flex;
+  background-color: rgb(55, 55, 55);
+  width: 95%;
+  height: 400px;
+  margin-bottom: 10px;
+}
+
+.line-numbers {
+  background-color: rgb(49, 49, 49);
+  color: var(--main-font-color);
+  padding: 5pt 5pt;
+  overflow: hidden;
+  white-space: pre;
+  font-size: var(--code-font-size);
+  line-height: 1.5;
+}
+
+textarea {
+  flex: 1;
+  resize: none;
+  overflow: auto;
+  background-color: rgb(63, 63, 63);
+  color: var(--main-font-color);
+  font-size: var(--code-font-size);
+  outline: none;
+  border: none;
+  padding: 5pt;
+  height: 100%;
 }
 
 .grid-rows {

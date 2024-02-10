@@ -1,12 +1,13 @@
 .log-view {
+    background-color: rgb(94, 94, 94);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     border: none;
-    background: rgb(88,88,88);
     height: 100%;
     width: 100%;
+    background: rgb(88,88,88);
 }
 
 .grid-log-columns {
