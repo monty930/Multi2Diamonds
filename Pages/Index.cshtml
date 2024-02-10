@@ -16,11 +16,6 @@
         <div class="input-section">
             <h4>Enter scenario code:</h4>
             <form id=gen_sc method="post">
-                @* <textarea 
-                    spellcheck="false"
-                    asp-for="TextInput" 
-                    placeholder="See README for example constraints.">
-                </textarea> *@
                 <div class="editor-container">
                     <div class="line-numbers" id="lineNumbers"></div>
                     <textarea 
@@ -31,23 +26,12 @@
                         oninput="updateLineNumbers()">
                     </textarea>
                 </div>
-
             </form>
-
         </div>
     </div>
     
     <div class="right-panel" id="dynamic-content">
-        <div>
-        <button 
-            class="compile-error-button visible" 
-            id="errorButton"
-            >
-            <span class="error-font">ERROR</span><br>
-            <span class="logs-font">see logs</span>
-        </button>
-        </div>
-        @* <div class="grid-rows">
+        <div class="grid-rows">
             <div class="@("row-n" + (Model.HandSuits != null ? " has-handsuits" : " no-handsuits"))">
                 <div>
                     <button type="submit" form="gen_sc" id="playButton">
@@ -194,7 +178,7 @@
                     <div></div>
                 </div>
             </div>
-        </div> *@
+        </div>
     </div>
     
 </div>
@@ -221,8 +205,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // The new content
                 dynamicContent.innerHTML = `
                     <div class="log-view">
-                        @* <div class="grid-log-columns">
-                            <div>
+                        <div class="grid-log-columns">
+                            <div class="logs-output">
                                 @if (Model.ScriptOutput != null) {
                                     <pre>@Model.ScriptOutput</pre>
                                 }
@@ -230,11 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div>
                                 <button class="compile-error-button back" id="backButton">BACK</button>
                             </div>
-                        </div> *@
-
-                        <div>
-                                <button class="compile-error-button back" id="backButton">BACK</button>
-                            </div>
+                        </div>
                         
                     </div>
                 `;
