@@ -5,7 +5,6 @@
   --button-h: calc(0.3em + 8vh);
 }
 
-
 html, body {
   height: 100%;
   padding: 0;
@@ -13,9 +12,12 @@ html, body {
 }
 
 .page-layout {
-  display: flex;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
   height: 100%;
   width: 100%;
+
 }
 
 .left-panel {
@@ -35,7 +37,6 @@ html, body {
   text-align: center;
   border: none;
   background: rgb(88,88,88);
-  background: linear-gradient(90deg, rgba(114, 114, 114, 1) 0%, rgba(88,88,88,1) 1%, rgba(88,88,88,1) 100%); 
 }
 
 .left-panel, .right-panel {

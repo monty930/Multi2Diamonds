@@ -5,6 +5,7 @@
 }
 
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/log.css" />
 </head>
@@ -111,7 +112,11 @@
                             <div>
                                 <div id="spinner" style="display:none;">
                                     <div class="loader">
-                                        <img id="loading-img" src="~/assets/loading.png"/>
+                                        <img
+                                            id="loading-img"
+                                            src="~/assets/loading-simp.png"
+                                            alt="Randomly Oriented Image"
+                                            />
                                     </div>
                                 </div>
                             </div>
@@ -197,10 +202,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="log-view">
                         <div class="grid-log-columns">
                             <div>
-                                @if (Model.TextInput != null) {
-                                    <pre>
-                                        @Model.TextInput
-                                    </pre>
+                                @if (Model.ScriptOutput != null) {
+                                    <pre>@Model.ScriptOutput</pre>
                                 }
                             </div>
                             <div>
@@ -213,15 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 addBackButtonListener();
                 return false;
             });
-
-            @* document.getElementById('errorButton').addEventListener('click', function() {
-                fetch('/Index?handler=LogView') // Adjusted to use a handler named 'LogView'
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById('dynamic-content').innerHTML = html;
-                        addBackButtonListener(); // Ensure you re-bind any necessary event listeners
-                    });
-            }); *@
         }
     }
 
@@ -239,4 +233,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addErrorButtonListener();
 });
+
+window.onload = function() {
+  var image = document.getElementById('loading-img');
+  var randomAngle = Math.floor(Math.random() * 360); // Generate a random angle between 0 and 359
+  image.style.transform = 'rotate(' + randomAngle + 'deg)'; // Rotate the image
+};
 </script>

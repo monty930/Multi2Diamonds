@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "299y7nWGhGkwyGJZp+JPHX2/2qtrGAhtW6KlwlQuhR4=",
+  "Hash": "pvjRjMtQ7/oxjsjlgEqhRu4BBZj2cq7/24FZ0CPFWzU=",
   "Source": "BridgeScenarios",
   "BasePath": "_content/BridgeScenarios",
   "Mode": "Default",
@@ -186,6 +186,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/assets/heart.png"
+    },
+    {
+      "Identity": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/loading-simp.png",
+      "SourceId": "BridgeScenarios",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/",
+      "BasePath": "_content/BridgeScenarios",
+      "RelativePath": "assets/loading-simp.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/loading-simp.png"
     },
     {
       "Identity": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/loading.png",

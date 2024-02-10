@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets/assets/heart.png"
     },
     {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/loading-simp.png",
+      "PackagePath": "staticwebassets/assets/loading-simp.png"
+    },
+    {
       "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/loading.png",
       "PackagePath": "staticwebassets/assets/loading.png"
     },

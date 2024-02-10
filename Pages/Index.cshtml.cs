@@ -16,6 +16,8 @@ public class IndexModel : PageModel
     [BindProperty]
     public string TextInput { get; set; }
 
+    public string ScriptOutput { get; set; }
+
     // N: S,H,D,C, E:...
     public string[] HandSuits { get; set; }
 
@@ -25,25 +27,28 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        Console.WriteLine("here");
         var tempFilePath = Path.GetTempFileName();
         await System.IO.File.WriteAllTextAsync(tempFilePath, TextInput);
-        
-        var scriptOutput = RunScript(tempFilePath);
+
+        ScriptOutput = RunScript(tempFilePath);
 
         System.IO.File.Delete(tempFilePath);
 
-        getHands(scriptOutput);
+        if (!error_input) {
+            getHands(ScriptOutput);
+        } else {
+            removeHarmfulChars();
+            ScriptOutput += " ";
+        }
 
         return Page();
     }
 
+    private void removeHarmfulChars() {
+        ScriptOutput = ScriptOutput.Replace("`", "'");
+    }
+
     private void getHands(string input) {
-        Console.WriteLine(input);
-        if (input.Contains("failed", StringComparison.OrdinalIgnoreCase)) {
-            error_input = true;
-            return;
-        }
         // Extracting the tries part
         int start = input.IndexOf("Tries:") + "Tries:".Length;
         string tries = input.Substring(start).Trim();
@@ -93,6 +98,10 @@ public class IndexModel : PageModel
         {
             var result = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
+            var exitCode = process.ExitCode;
+            if (exitCode != 0) {
+                error_input = true;
+            }
             return result;
         }
     }
