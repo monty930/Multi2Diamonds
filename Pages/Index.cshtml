@@ -4,6 +4,12 @@
     ViewData["Title"] = "Home page";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/log.css" />
+</head>
+
+
 <div class="page-layout">
     <div class="left-panel">
         <div class="input-section">
@@ -58,11 +64,9 @@
                     </div>
                     <div>
                         @if (Model.error_input) {
-                            @* <div>ERROR</div> *@
                             <button 
                                 class="compile-error-button visible" 
                                 id="errorButton"
-                                @* onclick="location.href='YourLogPageURL';"> *@
                                 >
                                 <span class="error-font">ERROR</span><br>
                                 <span class="logs-font">see logs</span>
@@ -171,12 +175,11 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-  var form = document.getElementById('gen_sc'); // Corrected ID to match your form
+  var form = document.getElementById('gen_sc');
   var spinner = document.getElementById('spinner');
   
   form.addEventListener('submit', function() {
     spinner.style.display = 'block';
-    // Optionally, you could also disable the submit button to prevent multiple submissions
     document.getElementById('playButton').disabled = true;
   });
 });
@@ -189,16 +192,36 @@ document.addEventListener('DOMContentLoaded', function() {
         var errorButton = document.getElementById('errorButton');
         if (errorButton) {
             errorButton.addEventListener('click', function() {
-                // Replace with new content containing a 'Back' button
+                // The new content
                 dynamicContent.innerHTML = `
-                    <div>
-                        New content goes here. This can be anything you want to show after the button is clicked.
-                        <button id="backButton">Back</button>
+                    <div class="log-view">
+                        <div class="grid-log-columns">
+                            <div>
+                                @if (Model.TextInput != null) {
+                                    <pre>
+                                        @Model.TextInput
+                                    </pre>
+                                }
+                            </div>
+                            <div>
+                                <button class="compile-error-button back" id="backButton">BACK</button>
+                            </div>
+                        </div>
+                        
                     </div>
                 `;
-                addBackButtonListener(); // Call to add listener to the 'Back' button
+                addBackButtonListener();
                 return false;
             });
+
+            @* document.getElementById('errorButton').addEventListener('click', function() {
+                fetch('/Index?handler=LogView') // Adjusted to use a handler named 'LogView'
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('dynamic-content').innerHTML = html;
+                        addBackButtonListener(); // Ensure you re-bind any necessary event listeners
+                    });
+            }); *@
         }
     }
 
@@ -208,13 +231,12 @@ document.addEventListener('DOMContentLoaded', function() {
             backButton.addEventListener('click', function() {
                 // Restore the original content
                 dynamicContent.innerHTML = originalContent;
-                addErrorButtonListener(); // Re-bind the original button's click event
+                addErrorButtonListener();
                 return false;
             });
         }
     }
 
-    // Initialize the first error button listener
     addErrorButtonListener();
 });
 </script>

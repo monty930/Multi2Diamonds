@@ -53,6 +53,10 @@
       "PackagePath": "staticwebassets/assets/tmp/favicon.png"
     },
     {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/css/log.css",
+      "PackagePath": "staticwebassets/css/log.css"
+    },
+    {
       "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },

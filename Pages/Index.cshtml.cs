@@ -28,7 +28,7 @@ public class IndexModel : PageModel
         Console.WriteLine("here");
         var tempFilePath = Path.GetTempFileName();
         await System.IO.File.WriteAllTextAsync(tempFilePath, TextInput);
-
+        
         var scriptOutput = RunScript(tempFilePath);
 
         System.IO.File.Delete(tempFilePath);
@@ -95,5 +95,10 @@ public class IndexModel : PageModel
             process.WaitForExit();
             return result;
         }
+    }
+
+    public IActionResult OnGetLogView()
+    {
+        return Partial("Shared/_LogView");
     }
 }

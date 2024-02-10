@@ -1,6 +1,8 @@
 :root {
   --main-font-color: rgb(255, 235, 235);
   --suit-cards-font-size: calc(0.3em + min(2.5vh, 1.5vw));
+  --button-w: calc(0.3em + 7vw);
+  --button-h: calc(0.3em + 8vh);
 }
 
 
@@ -298,8 +300,8 @@ textarea:focus {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: none;
-  width: fit-content;
-  height: fit-content;
+  width: var(--button-w);
+  height: var(--button-h);
 }
 
 .compile-error-button:hover {
@@ -320,4 +322,15 @@ textarea:focus {
 
 .logs-font {
   font-size: calc(0.1em + min(2vh, 1vw));
+}
+
+.error-font, .logs-font {
+  line-height: 1.2;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.compile-error-button br {
+  display: none;
 }
