@@ -44,8 +44,7 @@ data SuitInt = SuitInt Integer
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data Expr
-    = HandAttr Hand Attr
-    | HandSimpAttr SimpAttr Hand
+    = HandAttr Hand Ident
     | ELitInt Integer
     | ELitTrue
     | ELitFalse
@@ -56,15 +55,6 @@ data Expr
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data Hand = HandN | HandE | HandW | HandS
-  deriving (C.Eq, C.Ord, C.Show, C.Read)
-
-data LenAttr = AttrSpades | AttrHearts | AttrDiams | AttrClubs
-  deriving (C.Eq, C.Ord, C.Show, C.Read)
-
-data SimpAttr = AttrHcp | AttrFreak | AttrLoser
-  deriving (C.Eq, C.Ord, C.Show, C.Read)
-
-data Attr = AttrVar Ident | LenAttr LenAttr
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data RelOp = LTH | LE | GTH | GE | EQU | NE

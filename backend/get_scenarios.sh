@@ -9,7 +9,8 @@ for file in "$SCRIPT_DIR"/grammar/Bridgelatte/*.hs; do
 done
 
 if [ $# -eq 0 ]; then
-    echo "No filepath provided. Usage: $0 <filepath>"
+    echo "Grammar files copied but no filepath provided."
+    echo "Usage: $0 <filepath>"
     exit 1
 fi
 

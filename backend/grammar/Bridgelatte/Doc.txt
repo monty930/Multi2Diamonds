@@ -26,10 +26,8 @@ The set of reserved words is the set of terminals appearing in the grammar. Thos
 
 The reserved words used in bridgelatte are the following:
   | ``E`` | ``Evaluator`` | ``N`` | ``S``
-  | ``W`` | ``and`` | ``clubs`` | ``diams``
-  | ``false`` | ``freakness`` | ``hcp`` | ``hearts``
-  | ``int`` | ``losers`` | ``not`` | ``or``
-  | ``spades`` | ``true`` |  |
+  | ``W`` | ``and`` | ``false`` | ``int``
+  | ``not`` | ``or`` | ``true`` |
 
 The symbols used in bridgelatte are the following:
   | ; | = | ( | )
@@ -76,8 +74,7 @@ All other symbols are terminals.
   | //[SuitInt]// | -> | **eps**
   |  |  **|**  | //SuitInt//
   |  |  **|**  | //SuitInt// ``;`` //[SuitInt]//
-  | //Expr6// | -> | //Hand// ``.`` //Attr//
-  |  |  **|**  | //SimpAttr// ``(`` //Hand// ``)``
+  | //Expr6// | -> | //Hand// ``.`` //Ident//
   |  |  **|**  | //Integer//
   |  |  **|**  | ``true``
   |  |  **|**  | ``false``
@@ -96,15 +93,6 @@ All other symbols are terminals.
   |  |  **|**  | ``E``
   |  |  **|**  | ``W``
   |  |  **|**  | ``S``
-  | //LenAttr// | -> | ``spades``
-  |  |  **|**  | ``hearts``
-  |  |  **|**  | ``diams``
-  |  |  **|**  | ``clubs``
-  | //SimpAttr// | -> | ``hcp``
-  |  |  **|**  | ``freakness``
-  |  |  **|**  | ``losers``
-  | //Attr// | -> | //Ident//
-  |  |  **|**  | //LenAttr//
   | //RelOp// | -> | ``<``
   |  |  **|**  | ``<=``
   |  |  **|**  | ``>``

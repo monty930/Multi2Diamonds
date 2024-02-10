@@ -50,9 +50,7 @@ separator SuitInt ";" ;
 
 -- Expressions ---------------------------------------------
 
-HandAttr.  Expr6 ::= Hand"."Attr ;
-
-HandSimpAttr. Expr6 ::= SimpAttr "(" Hand ")" ;
+HandAttr.  Expr6 ::= Hand"."Ident ;
 
 ELitInt.   Expr6 ::= Integer ;
 
@@ -77,24 +75,6 @@ HandE.     Hand ::= "E" ;
 HandW.     Hand ::= "W" ;
 
 HandS.     Hand ::= "S" ;
-
-AttrSpades. LenAttr ::= "spades" ;
-
-AttrHearts. LenAttr ::= "hearts" ;
-
-AttrDiams.  LenAttr ::= "diams" ;
-
-AttrClubs.  LenAttr ::= "clubs" ;
-
-AttrHcp.    SimpAttr ::= "hcp" ;
-
-AttrFreak.  SimpAttr ::= "freakness" ;
-
-AttrLoser.  SimpAttr ::= "losers" ;
-
-AttrVar.    Attr ::= Ident ;
-
-LenAttr.    Attr ::= LenAttr ;
 
 -- operators -----------------------------------------------
 

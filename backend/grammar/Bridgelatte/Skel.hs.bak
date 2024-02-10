@@ -92,17 +92,10 @@ transLenAttr x = case x of
   Bridgelatte.Abs.AttrDiams -> failure x
   Bridgelatte.Abs.AttrClubs -> failure x
 
-transSimpAttr :: Bridgelatte.Abs.SimpAttr -> Result
-transSimpAttr x = case x of
-  Bridgelatte.Abs.AttrHcp -> failure x
-  Bridgelatte.Abs.AttrFreak -> failure x
-  Bridgelatte.Abs.AttrLoser -> failure x
-
 transAttr :: Bridgelatte.Abs.Attr -> Result
 transAttr x = case x of
   Bridgelatte.Abs.AttrVar ident -> failure x
   Bridgelatte.Abs.LenAttr lenattr -> failure x
-  Bridgelatte.Abs.SimpAttr simpattr -> failure x
 
 transRelOp :: Bridgelatte.Abs.RelOp -> Result
 transRelOp x = case x of

@@ -69,8 +69,7 @@ transSuitInt x = case x of
 
 transExpr :: Abs.Expr -> Result
 transExpr x = case x of
-  Abs.HandAttr hand attr -> failure x
-  Abs.HandSimpAttr simpattr hand -> failure x
+  Abs.HandAttr hand ident -> failure x
   Abs.ELitInt integer -> failure x
   Abs.ELitTrue -> failure x
   Abs.ELitFalse -> failure x
@@ -85,24 +84,6 @@ transHand x = case x of
   Abs.HandE -> failure x
   Abs.HandW -> failure x
   Abs.HandS -> failure x
-
-transLenAttr :: Abs.LenAttr -> Result
-transLenAttr x = case x of
-  Abs.AttrSpades -> failure x
-  Abs.AttrHearts -> failure x
-  Abs.AttrDiams -> failure x
-  Abs.AttrClubs -> failure x
-
-transSimpAttr :: Abs.SimpAttr -> Result
-transSimpAttr x = case x of
-  Abs.AttrHcp -> failure x
-  Abs.AttrFreak -> failure x
-  Abs.AttrLoser -> failure x
-
-transAttr :: Abs.Attr -> Result
-transAttr x = case x of
-  Abs.AttrVar ident -> failure x
-  Abs.LenAttr lenattr -> failure x
 
 transRelOp :: Abs.RelOp -> Result
 transRelOp x = case x of

@@ -43,41 +43,31 @@ Grammar
 	ListSuitInt ->                                     (30)
 	ListSuitInt -> SuitInt                             (31)
 	ListSuitInt -> SuitInt ';' ListSuitInt             (32)
-	Expr6 -> Hand '.' Attr                             (33)
-	Expr6 -> SimpAttr '(' Hand ')'                     (34)
-	Expr6 -> Integer                                   (35)
-	Expr6 -> 'true'                                    (36)
-	Expr6 -> 'false'                                   (37)
-	Expr6 -> '(' Expr ')'                              (38)
-	Expr5 -> 'not' Expr6                               (39)
-	Expr5 -> Expr6                                     (40)
-	Expr2 -> Expr2 RelOp Expr3                         (41)
-	Expr2 -> Expr3                                     (42)
-	Expr1 -> Expr2 'and' Expr1                         (43)
-	Expr1 -> Expr2                                     (44)
-	Expr -> Expr1 'or' Expr                            (45)
-	Expr -> Expr1                                      (46)
-	Expr3 -> Expr4                                     (47)
-	Expr4 -> Expr5                                     (48)
-	Hand -> 'N'                                        (49)
-	Hand -> 'E'                                        (50)
-	Hand -> 'W'                                        (51)
-	Hand -> 'S'                                        (52)
-	LenAttr -> 'spades'                                (53)
-	LenAttr -> 'hearts'                                (54)
-	LenAttr -> 'diams'                                 (55)
-	LenAttr -> 'clubs'                                 (56)
-	SimpAttr -> 'hcp'                                  (57)
-	SimpAttr -> 'freakness'                            (58)
-	SimpAttr -> 'losers'                               (59)
-	Attr -> Ident                                      (60)
-	Attr -> LenAttr                                    (61)
-	RelOp -> '<'                                       (62)
-	RelOp -> '<='                                      (63)
-	RelOp -> '>'                                       (64)
-	RelOp -> '>='                                      (65)
-	RelOp -> '=='                                      (66)
-	RelOp -> '!='                                      (67)
+	Expr6 -> Hand '.' Ident                            (33)
+	Expr6 -> Integer                                   (34)
+	Expr6 -> 'true'                                    (35)
+	Expr6 -> 'false'                                   (36)
+	Expr6 -> '(' Expr ')'                              (37)
+	Expr5 -> 'not' Expr6                               (38)
+	Expr5 -> Expr6                                     (39)
+	Expr2 -> Expr2 RelOp Expr3                         (40)
+	Expr2 -> Expr3                                     (41)
+	Expr1 -> Expr2 'and' Expr1                         (42)
+	Expr1 -> Expr2                                     (43)
+	Expr -> Expr1 'or' Expr                            (44)
+	Expr -> Expr1                                      (45)
+	Expr3 -> Expr4                                     (46)
+	Expr4 -> Expr5                                     (47)
+	Hand -> 'N'                                        (48)
+	Hand -> 'E'                                        (49)
+	Hand -> 'W'                                        (50)
+	Hand -> 'S'                                        (51)
+	RelOp -> '<'                                       (52)
+	RelOp -> '<='                                      (53)
+	RelOp -> '>'                                       (54)
+	RelOp -> '>='                                      (55)
+	RelOp -> '=='                                      (56)
+	RelOp -> '!='                                      (57)
 
 -----------------------------------------------------------------------------
 Terminals
@@ -104,18 +94,11 @@ Terminals
 	'['            { PT _ (TS _ 20) }
 	']'            { PT _ (TS _ 21) }
 	'and'          { PT _ (TS _ 22) }
-	'clubs'        { PT _ (TS _ 23) }
-	'diams'        { PT _ (TS _ 24) }
-	'false'        { PT _ (TS _ 25) }
-	'freakness'    { PT _ (TS _ 26) }
-	'hcp'          { PT _ (TS _ 27) }
-	'hearts'       { PT _ (TS _ 28) }
-	'int'          { PT _ (TS _ 29) }
-	'losers'       { PT _ (TS _ 30) }
-	'not'          { PT _ (TS _ 31) }
-	'or'           { PT _ (TS _ 32) }
-	'spades'       { PT _ (TS _ 33) }
-	'true'         { PT _ (TS _ 34) }
+	'false'        { PT _ (TS _ 23) }
+	'int'          { PT _ (TS _ 24) }
+	'not'          { PT _ (TS _ 25) }
+	'or'           { PT _ (TS _ 26) }
+	'true'         { PT _ (TS _ 27) }
 	L_Ident        { PT _ (TV $$) }
 	L_integ        { PT _ (TI $$) }
 
@@ -141,18 +124,15 @@ Non-terminals
 	SuitInt         rule  26
 	ListSuitCount   rules 27, 28, 29
 	ListSuitInt     rules 30, 31, 32
-	Expr6           rules 33, 34, 35, 36, 37, 38
-	Expr5           rules 39, 40
-	Expr2           rules 41, 42
-	Expr1           rules 43, 44
-	Expr            rules 45, 46
-	Expr3           rule  47
-	Expr4           rule  48
-	Hand            rules 49, 50, 51, 52
-	LenAttr         rules 53, 54, 55, 56
-	SimpAttr        rules 57, 58, 59
-	Attr            rules 60, 61
-	RelOp           rules 62, 63, 64, 65, 66, 67
+	Expr6           rules 33, 34, 35, 36, 37
+	Expr5           rules 38, 39
+	Expr2           rules 40, 41
+	Expr1           rules 42, 43
+	Expr            rules 44, 45
+	Expr3           rule  46
+	Expr4           rule  47
+	Hand            rules 48, 49, 50, 51
+	RelOp           rules 52, 53, 54, 55, 56, 57
 
 -----------------------------------------------------------------------------
 States
@@ -166,9 +146,6 @@ State 0
 	'S'            reduce using rule 7
 	'W'            reduce using rule 7
 	'false'        reduce using rule 7
-	'freakness'    reduce using rule 7
-	'hcp'          reduce using rule 7
-	'losers'       reduce using rule 7
 	'not'          reduce using rule 7
 	'true'         reduce using rule 7
 	L_Ident        shift, and enter state 2
@@ -210,7 +187,7 @@ State 3
 	ShapeDef -> Ident . '=' ListShape                   (rule 11)
 	EvalDef -> Ident . '=' 'Evaluator' '(' ListEvalVal ')'    (rule 12)
 
-	'='            shift, and enter state 32
+	'='            shift, and enter state 28
 
 
 State 4
@@ -226,15 +203,12 @@ State 5
 	ListDef -> Def . ';' ListDef                        (rule 9)
 
 	'('            reduce using rule 8
-	';'            shift, and enter state 31
+	';'            shift, and enter state 27
 	'E'            reduce using rule 8
 	'N'            reduce using rule 8
 	'S'            reduce using rule 8
 	'W'            reduce using rule 8
 	'false'        reduce using rule 8
-	'freakness'    reduce using rule 8
-	'hcp'          reduce using rule 8
-	'losers'       reduce using rule 8
 	'not'          reduce using rule 8
 	'true'         reduce using rule 8
 	L_integ        reduce using rule 8
@@ -246,18 +220,15 @@ State 6
 	Prog -> ListDef .                                   (rule 3)
 	Prog -> ListDef . Expr                              (rule 4)
 
-	'('            shift, and enter state 19
-	'E'            shift, and enter state 20
-	'N'            shift, and enter state 21
-	'S'            shift, and enter state 22
-	'W'            shift, and enter state 23
-	'false'        shift, and enter state 24
-	'freakness'    shift, and enter state 25
-	'hcp'          shift, and enter state 26
-	'losers'       shift, and enter state 27
-	'not'          shift, and enter state 28
-	'true'         shift, and enter state 29
-	L_integ        shift, and enter state 30
+	'('            shift, and enter state 18
+	'E'            shift, and enter state 19
+	'N'            shift, and enter state 20
+	'S'            shift, and enter state 21
+	'W'            shift, and enter state 22
+	'false'        shift, and enter state 23
+	'not'          shift, and enter state 24
+	'true'         shift, and enter state 25
+	L_integ        shift, and enter state 26
 	%eof           reduce using rule 3
 
 	Integer        goto state 9
@@ -269,7 +240,6 @@ State 6
 	Expr3          goto state 15
 	Expr4          goto state 16
 	Hand           goto state 17
-	SimpAttr       goto state 18
 
 State 7
 
@@ -282,9 +252,6 @@ State 7
 	'S'            reduce using rule 5
 	'W'            reduce using rule 5
 	'false'        reduce using rule 5
-	'freakness'    reduce using rule 5
-	'hcp'          reduce using rule 5
-	'losers'       reduce using rule 5
 	'not'          reduce using rule 5
 	'true'         reduce using rule 5
 	L_integ        reduce using rule 5
@@ -302,9 +269,6 @@ State 8
 	'S'            reduce using rule 6
 	'W'            reduce using rule 6
 	'false'        reduce using rule 6
-	'freakness'    reduce using rule 6
-	'hcp'          reduce using rule 6
-	'losers'       reduce using rule 6
 	'not'          reduce using rule 6
 	'true'         reduce using rule 6
 	L_integ        reduce using rule 6
@@ -313,107 +277,39 @@ State 8
 
 State 9
 
-	Expr6 -> Integer .                                  (rule 35)
+	Expr6 -> Integer .                                  (rule 34)
 
-	'!='           reduce using rule 35
-	')'            reduce using rule 35
-	'<'            reduce using rule 35
-	'<='           reduce using rule 35
-	'=='           reduce using rule 35
-	'>'            reduce using rule 35
-	'>='           reduce using rule 35
-	'and'          reduce using rule 35
-	'or'           reduce using rule 35
-	%eof           reduce using rule 35
+	'!='           reduce using rule 34
+	')'            reduce using rule 34
+	'<'            reduce using rule 34
+	'<='           reduce using rule 34
+	'=='           reduce using rule 34
+	'>'            reduce using rule 34
+	'>='           reduce using rule 34
+	'and'          reduce using rule 34
+	'or'           reduce using rule 34
+	%eof           reduce using rule 34
 
 
 State 10
 
-	Expr5 -> Expr6 .                                    (rule 40)
+	Expr5 -> Expr6 .                                    (rule 39)
 
-	'!='           reduce using rule 40
-	')'            reduce using rule 40
-	'<'            reduce using rule 40
-	'<='           reduce using rule 40
-	'=='           reduce using rule 40
-	'>'            reduce using rule 40
-	'>='           reduce using rule 40
-	'and'          reduce using rule 40
-	'or'           reduce using rule 40
-	%eof           reduce using rule 40
+	'!='           reduce using rule 39
+	')'            reduce using rule 39
+	'<'            reduce using rule 39
+	'<='           reduce using rule 39
+	'=='           reduce using rule 39
+	'>'            reduce using rule 39
+	'>='           reduce using rule 39
+	'and'          reduce using rule 39
+	'or'           reduce using rule 39
+	%eof           reduce using rule 39
 
 
 State 11
 
-	Expr4 -> Expr5 .                                    (rule 48)
-
-	'!='           reduce using rule 48
-	')'            reduce using rule 48
-	'<'            reduce using rule 48
-	'<='           reduce using rule 48
-	'=='           reduce using rule 48
-	'>'            reduce using rule 48
-	'>='           reduce using rule 48
-	'and'          reduce using rule 48
-	'or'           reduce using rule 48
-	%eof           reduce using rule 48
-
-
-State 12
-
-	Expr2 -> Expr2 . RelOp Expr3                        (rule 41)
-	Expr1 -> Expr2 . 'and' Expr1                        (rule 43)
-	Expr1 -> Expr2 .                                    (rule 44)
-
-	'!='           shift, and enter state 47
-	')'            reduce using rule 44
-	'<'            shift, and enter state 48
-	'<='           shift, and enter state 49
-	'=='           shift, and enter state 50
-	'>'            shift, and enter state 51
-	'>='           shift, and enter state 52
-	'and'          shift, and enter state 53
-	'or'           reduce using rule 44
-	%eof           reduce using rule 44
-
-	RelOp          goto state 46
-
-State 13
-
-	Expr -> Expr1 . 'or' Expr                           (rule 45)
-	Expr -> Expr1 .                                     (rule 46)
-
-	')'            reduce using rule 46
-	'or'           shift, and enter state 45
-	%eof           reduce using rule 46
-
-
-State 14
-
-	Prog -> ListDef Expr .                              (rule 4)
-
-	%eof           reduce using rule 4
-
-
-State 15
-
-	Expr2 -> Expr3 .                                    (rule 42)
-
-	'!='           reduce using rule 42
-	')'            reduce using rule 42
-	'<'            reduce using rule 42
-	'<='           reduce using rule 42
-	'=='           reduce using rule 42
-	'>'            reduce using rule 42
-	'>='           reduce using rule 42
-	'and'          reduce using rule 42
-	'or'           reduce using rule 42
-	%eof           reduce using rule 42
-
-
-State 16
-
-	Expr3 -> Expr4 .                                    (rule 47)
+	Expr4 -> Expr5 .                                    (rule 47)
 
 	'!='           reduce using rule 47
 	')'            reduce using rule 47
@@ -427,141 +323,136 @@ State 16
 	%eof           reduce using rule 47
 
 
+State 12
+
+	Expr2 -> Expr2 . RelOp Expr3                        (rule 40)
+	Expr1 -> Expr2 . 'and' Expr1                        (rule 42)
+	Expr1 -> Expr2 .                                    (rule 43)
+
+	'!='           shift, and enter state 42
+	')'            reduce using rule 43
+	'<'            shift, and enter state 43
+	'<='           shift, and enter state 44
+	'=='           shift, and enter state 45
+	'>'            shift, and enter state 46
+	'>='           shift, and enter state 47
+	'and'          shift, and enter state 48
+	'or'           reduce using rule 43
+	%eof           reduce using rule 43
+
+	RelOp          goto state 41
+
+State 13
+
+	Expr -> Expr1 . 'or' Expr                           (rule 44)
+	Expr -> Expr1 .                                     (rule 45)
+
+	')'            reduce using rule 45
+	'or'           shift, and enter state 40
+	%eof           reduce using rule 45
+
+
+State 14
+
+	Prog -> ListDef Expr .                              (rule 4)
+
+	%eof           reduce using rule 4
+
+
+State 15
+
+	Expr2 -> Expr3 .                                    (rule 41)
+
+	'!='           reduce using rule 41
+	')'            reduce using rule 41
+	'<'            reduce using rule 41
+	'<='           reduce using rule 41
+	'=='           reduce using rule 41
+	'>'            reduce using rule 41
+	'>='           reduce using rule 41
+	'and'          reduce using rule 41
+	'or'           reduce using rule 41
+	%eof           reduce using rule 41
+
+
+State 16
+
+	Expr3 -> Expr4 .                                    (rule 46)
+
+	'!='           reduce using rule 46
+	')'            reduce using rule 46
+	'<'            reduce using rule 46
+	'<='           reduce using rule 46
+	'=='           reduce using rule 46
+	'>'            reduce using rule 46
+	'>='           reduce using rule 46
+	'and'          reduce using rule 46
+	'or'           reduce using rule 46
+	%eof           reduce using rule 46
+
+
 State 17
 
-	Expr6 -> Hand . '.' Attr                            (rule 33)
+	Expr6 -> Hand . '.' Ident                           (rule 33)
 
-	'.'            shift, and enter state 44
+	'.'            shift, and enter state 39
 
 
 State 18
 
-	Expr6 -> SimpAttr . '(' Hand ')'                    (rule 34)
+	Expr6 -> '(' . Expr ')'                             (rule 37)
 
-	'('            shift, and enter state 43
-
-
-State 19
-
-	Expr6 -> '(' . Expr ')'                             (rule 38)
-
-	'('            shift, and enter state 19
-	'E'            shift, and enter state 20
-	'N'            shift, and enter state 21
-	'S'            shift, and enter state 22
-	'W'            shift, and enter state 23
-	'false'        shift, and enter state 24
-	'freakness'    shift, and enter state 25
-	'hcp'          shift, and enter state 26
-	'losers'       shift, and enter state 27
-	'not'          shift, and enter state 28
-	'true'         shift, and enter state 29
-	L_integ        shift, and enter state 30
+	'('            shift, and enter state 18
+	'E'            shift, and enter state 19
+	'N'            shift, and enter state 20
+	'S'            shift, and enter state 21
+	'W'            shift, and enter state 22
+	'false'        shift, and enter state 23
+	'not'          shift, and enter state 24
+	'true'         shift, and enter state 25
+	L_integ        shift, and enter state 26
 
 	Integer        goto state 9
 	Expr6          goto state 10
 	Expr5          goto state 11
 	Expr2          goto state 12
 	Expr1          goto state 13
-	Expr           goto state 42
+	Expr           goto state 38
 	Expr3          goto state 15
 	Expr4          goto state 16
 	Hand           goto state 17
-	SimpAttr       goto state 18
+
+State 19
+
+	Hand -> 'E' .                                       (rule 49)
+
+	'.'            reduce using rule 49
+
 
 State 20
 
-	Hand -> 'E' .                                       (rule 50)
+	Hand -> 'N' .                                       (rule 48)
 
-	')'            reduce using rule 50
-	'.'            reduce using rule 50
+	'.'            reduce using rule 48
 
 
 State 21
 
-	Hand -> 'N' .                                       (rule 49)
+	Hand -> 'S' .                                       (rule 51)
 
-	')'            reduce using rule 49
-	'.'            reduce using rule 49
+	'.'            reduce using rule 51
 
 
 State 22
 
-	Hand -> 'S' .                                       (rule 52)
+	Hand -> 'W' .                                       (rule 50)
 
-	')'            reduce using rule 52
-	'.'            reduce using rule 52
+	'.'            reduce using rule 50
 
 
 State 23
 
-	Hand -> 'W' .                                       (rule 51)
-
-	')'            reduce using rule 51
-	'.'            reduce using rule 51
-
-
-State 24
-
-	Expr6 -> 'false' .                                  (rule 37)
-
-	'!='           reduce using rule 37
-	')'            reduce using rule 37
-	'<'            reduce using rule 37
-	'<='           reduce using rule 37
-	'=='           reduce using rule 37
-	'>'            reduce using rule 37
-	'>='           reduce using rule 37
-	'and'          reduce using rule 37
-	'or'           reduce using rule 37
-	%eof           reduce using rule 37
-
-
-State 25
-
-	SimpAttr -> 'freakness' .                           (rule 58)
-
-	'('            reduce using rule 58
-
-
-State 26
-
-	SimpAttr -> 'hcp' .                                 (rule 57)
-
-	'('            reduce using rule 57
-
-
-State 27
-
-	SimpAttr -> 'losers' .                              (rule 59)
-
-	'('            reduce using rule 59
-
-
-State 28
-
-	Expr5 -> 'not' . Expr6                              (rule 39)
-
-	'('            shift, and enter state 19
-	'E'            shift, and enter state 20
-	'N'            shift, and enter state 21
-	'S'            shift, and enter state 22
-	'W'            shift, and enter state 23
-	'false'        shift, and enter state 24
-	'freakness'    shift, and enter state 25
-	'hcp'          shift, and enter state 26
-	'losers'       shift, and enter state 27
-	'true'         shift, and enter state 29
-	L_integ        shift, and enter state 30
-
-	Integer        goto state 9
-	Expr6          goto state 41
-	Hand           goto state 17
-	SimpAttr       goto state 18
-
-State 29
-
-	Expr6 -> 'true' .                                   (rule 36)
+	Expr6 -> 'false' .                                  (rule 36)
 
 	'!='           reduce using rule 36
 	')'            reduce using rule 36
@@ -575,7 +466,40 @@ State 29
 	%eof           reduce using rule 36
 
 
-State 30
+State 24
+
+	Expr5 -> 'not' . Expr6                              (rule 38)
+
+	'('            shift, and enter state 18
+	'E'            shift, and enter state 19
+	'N'            shift, and enter state 20
+	'S'            shift, and enter state 21
+	'W'            shift, and enter state 22
+	'false'        shift, and enter state 23
+	'true'         shift, and enter state 25
+	L_integ        shift, and enter state 26
+
+	Integer        goto state 9
+	Expr6          goto state 37
+	Hand           goto state 17
+
+State 25
+
+	Expr6 -> 'true' .                                   (rule 35)
+
+	'!='           reduce using rule 35
+	')'            reduce using rule 35
+	'<'            reduce using rule 35
+	'<='           reduce using rule 35
+	'=='           reduce using rule 35
+	'>'            reduce using rule 35
+	'>='           reduce using rule 35
+	'and'          reduce using rule 35
+	'or'           reduce using rule 35
+	%eof           reduce using rule 35
+
+
+State 26
 
 	Integer -> L_integ .                                (rule 2)
 
@@ -594,7 +518,7 @@ State 30
 	%eof           reduce using rule 2
 
 
-State 31
+State 27
 
 	ListDef -> Def ';' . ListDef                        (rule 9)
 
@@ -604,9 +528,6 @@ State 31
 	'S'            reduce using rule 7
 	'W'            reduce using rule 7
 	'false'        reduce using rule 7
-	'freakness'    reduce using rule 7
-	'hcp'          reduce using rule 7
-	'losers'       reduce using rule 7
 	'not'          reduce using rule 7
 	'true'         reduce using rule 7
 	L_Ident        shift, and enter state 2
@@ -615,61 +536,55 @@ State 31
 
 	Ident          goto state 3
 	Def            goto state 5
-	ListDef        goto state 40
+	ListDef        goto state 36
 	ShapeDef       goto state 7
 	EvalDef        goto state 8
 
-State 32
+State 28
 
 	ShapeDef -> Ident '=' . ListShape                   (rule 11)
 	EvalDef -> Ident '=' . 'Evaluator' '(' ListEvalVal ')'    (rule 12)
 
-	'!'            shift, and enter state 37
+	'!'            shift, and enter state 33
 	'('            reduce using rule 21
 	';'            reduce using rule 21
 	'E'            reduce using rule 21
-	'Evaluator'    shift, and enter state 38
+	'Evaluator'    shift, and enter state 34
 	'N'            reduce using rule 21
 	'S'            reduce using rule 21
 	'W'            reduce using rule 21
-	'['            shift, and enter state 39
+	'['            shift, and enter state 35
 	'false'        reduce using rule 21
-	'freakness'    reduce using rule 21
-	'hcp'          reduce using rule 21
-	'losers'       reduce using rule 21
 	'not'          reduce using rule 21
 	'true'         reduce using rule 21
 	L_integ        reduce using rule 21
 	%eof           reduce using rule 21
 
-	Shape          goto state 33
-	ShapeOk        goto state 34
-	ShapeNeg       goto state 35
-	ListShape      goto state 36
+	Shape          goto state 29
+	ShapeOk        goto state 30
+	ShapeNeg       goto state 31
+	ListShape      goto state 32
 
-State 33
+State 29
 
 	ListShape -> Shape .                                (rule 22)
 	ListShape -> Shape . '+' ListShape                  (rule 23)
 
 	'('            reduce using rule 22
-	'+'            shift, and enter state 73
+	'+'            shift, and enter state 61
 	';'            reduce using rule 22
 	'E'            reduce using rule 22
 	'N'            reduce using rule 22
 	'S'            reduce using rule 22
 	'W'            reduce using rule 22
 	'false'        reduce using rule 22
-	'freakness'    reduce using rule 22
-	'hcp'          reduce using rule 22
-	'losers'       reduce using rule 22
 	'not'          reduce using rule 22
 	'true'         reduce using rule 22
 	L_integ        reduce using rule 22
 	%eof           reduce using rule 22
 
 
-State 34
+State 30
 
 	Shape -> ShapeOk .                                  (rule 17)
 
@@ -681,16 +596,13 @@ State 34
 	'S'            reduce using rule 17
 	'W'            reduce using rule 17
 	'false'        reduce using rule 17
-	'freakness'    reduce using rule 17
-	'hcp'          reduce using rule 17
-	'losers'       reduce using rule 17
 	'not'          reduce using rule 17
 	'true'         reduce using rule 17
 	L_integ        reduce using rule 17
 	%eof           reduce using rule 17
 
 
-State 35
+State 31
 
 	Shape -> ShapeNeg .                                 (rule 18)
 
@@ -702,16 +614,13 @@ State 35
 	'S'            reduce using rule 18
 	'W'            reduce using rule 18
 	'false'        reduce using rule 18
-	'freakness'    reduce using rule 18
-	'hcp'          reduce using rule 18
-	'losers'       reduce using rule 18
 	'not'          reduce using rule 18
 	'true'         reduce using rule 18
 	L_integ        reduce using rule 18
 	%eof           reduce using rule 18
 
 
-State 36
+State 32
 
 	ShapeDef -> Ident '=' ListShape .                   (rule 11)
 
@@ -722,44 +631,41 @@ State 36
 	'S'            reduce using rule 11
 	'W'            reduce using rule 11
 	'false'        reduce using rule 11
-	'freakness'    reduce using rule 11
-	'hcp'          reduce using rule 11
-	'losers'       reduce using rule 11
 	'not'          reduce using rule 11
 	'true'         reduce using rule 11
 	L_integ        reduce using rule 11
 	%eof           reduce using rule 11
 
 
-State 37
+State 33
 
 	ShapeNeg -> '!' . ShapeOk                           (rule 20)
 
-	'['            shift, and enter state 39
+	'['            shift, and enter state 35
 
-	ShapeOk        goto state 72
+	ShapeOk        goto state 60
 
-State 38
+State 34
 
 	EvalDef -> Ident '=' 'Evaluator' . '(' ListEvalVal ')'    (rule 12)
 
-	'('            shift, and enter state 71
+	'('            shift, and enter state 59
 
 
-State 39
+State 35
 
 	ShapeOk -> '[' . ListSuitCount ']'                  (rule 19)
 
-	'('            shift, and enter state 70
+	'('            shift, and enter state 58
 	']'            reduce using rule 27
-	L_integ        shift, and enter state 30
+	L_integ        shift, and enter state 26
 
-	Integer        goto state 66
-	SuitCount      goto state 67
-	SuitInt        goto state 68
-	ListSuitCount  goto state 69
+	Integer        goto state 54
+	SuitCount      goto state 55
+	SuitInt        goto state 56
+	ListSuitCount  goto state 57
 
-State 40
+State 36
 
 	ListDef -> Def ';' ListDef .                        (rule 9)
 
@@ -769,406 +675,15 @@ State 40
 	'S'            reduce using rule 9
 	'W'            reduce using rule 9
 	'false'        reduce using rule 9
-	'freakness'    reduce using rule 9
-	'hcp'          reduce using rule 9
-	'losers'       reduce using rule 9
 	'not'          reduce using rule 9
 	'true'         reduce using rule 9
 	L_integ        reduce using rule 9
 	%eof           reduce using rule 9
 
 
-State 41
+State 37
 
-	Expr5 -> 'not' Expr6 .                              (rule 39)
-
-	'!='           reduce using rule 39
-	')'            reduce using rule 39
-	'<'            reduce using rule 39
-	'<='           reduce using rule 39
-	'=='           reduce using rule 39
-	'>'            reduce using rule 39
-	'>='           reduce using rule 39
-	'and'          reduce using rule 39
-	'or'           reduce using rule 39
-	%eof           reduce using rule 39
-
-
-State 42
-
-	Expr6 -> '(' Expr . ')'                             (rule 38)
-
-	')'            shift, and enter state 65
-
-
-State 43
-
-	Expr6 -> SimpAttr '(' . Hand ')'                    (rule 34)
-
-	'E'            shift, and enter state 20
-	'N'            shift, and enter state 21
-	'S'            shift, and enter state 22
-	'W'            shift, and enter state 23
-
-	Hand           goto state 64
-
-State 44
-
-	Expr6 -> Hand '.' . Attr                            (rule 33)
-
-	'clubs'        shift, and enter state 60
-	'diams'        shift, and enter state 61
-	'hearts'       shift, and enter state 62
-	'spades'       shift, and enter state 63
-	L_Ident        shift, and enter state 2
-
-	Ident          goto state 57
-	LenAttr        goto state 58
-	Attr           goto state 59
-
-State 45
-
-	Expr -> Expr1 'or' . Expr                           (rule 45)
-
-	'('            shift, and enter state 19
-	'E'            shift, and enter state 20
-	'N'            shift, and enter state 21
-	'S'            shift, and enter state 22
-	'W'            shift, and enter state 23
-	'false'        shift, and enter state 24
-	'freakness'    shift, and enter state 25
-	'hcp'          shift, and enter state 26
-	'losers'       shift, and enter state 27
-	'not'          shift, and enter state 28
-	'true'         shift, and enter state 29
-	L_integ        shift, and enter state 30
-
-	Integer        goto state 9
-	Expr6          goto state 10
-	Expr5          goto state 11
-	Expr2          goto state 12
-	Expr1          goto state 13
-	Expr           goto state 56
-	Expr3          goto state 15
-	Expr4          goto state 16
-	Hand           goto state 17
-	SimpAttr       goto state 18
-
-State 46
-
-	Expr2 -> Expr2 RelOp . Expr3                        (rule 41)
-
-	'('            shift, and enter state 19
-	'E'            shift, and enter state 20
-	'N'            shift, and enter state 21
-	'S'            shift, and enter state 22
-	'W'            shift, and enter state 23
-	'false'        shift, and enter state 24
-	'freakness'    shift, and enter state 25
-	'hcp'          shift, and enter state 26
-	'losers'       shift, and enter state 27
-	'not'          shift, and enter state 28
-	'true'         shift, and enter state 29
-	L_integ        shift, and enter state 30
-
-	Integer        goto state 9
-	Expr6          goto state 10
-	Expr5          goto state 11
-	Expr3          goto state 55
-	Expr4          goto state 16
-	Hand           goto state 17
-	SimpAttr       goto state 18
-
-State 47
-
-	RelOp -> '!=' .                                     (rule 67)
-
-	'('            reduce using rule 67
-	'E'            reduce using rule 67
-	'N'            reduce using rule 67
-	'S'            reduce using rule 67
-	'W'            reduce using rule 67
-	'false'        reduce using rule 67
-	'freakness'    reduce using rule 67
-	'hcp'          reduce using rule 67
-	'losers'       reduce using rule 67
-	'not'          reduce using rule 67
-	'true'         reduce using rule 67
-	L_integ        reduce using rule 67
-
-
-State 48
-
-	RelOp -> '<' .                                      (rule 62)
-
-	'('            reduce using rule 62
-	'E'            reduce using rule 62
-	'N'            reduce using rule 62
-	'S'            reduce using rule 62
-	'W'            reduce using rule 62
-	'false'        reduce using rule 62
-	'freakness'    reduce using rule 62
-	'hcp'          reduce using rule 62
-	'losers'       reduce using rule 62
-	'not'          reduce using rule 62
-	'true'         reduce using rule 62
-	L_integ        reduce using rule 62
-
-
-State 49
-
-	RelOp -> '<=' .                                     (rule 63)
-
-	'('            reduce using rule 63
-	'E'            reduce using rule 63
-	'N'            reduce using rule 63
-	'S'            reduce using rule 63
-	'W'            reduce using rule 63
-	'false'        reduce using rule 63
-	'freakness'    reduce using rule 63
-	'hcp'          reduce using rule 63
-	'losers'       reduce using rule 63
-	'not'          reduce using rule 63
-	'true'         reduce using rule 63
-	L_integ        reduce using rule 63
-
-
-State 50
-
-	RelOp -> '==' .                                     (rule 66)
-
-	'('            reduce using rule 66
-	'E'            reduce using rule 66
-	'N'            reduce using rule 66
-	'S'            reduce using rule 66
-	'W'            reduce using rule 66
-	'false'        reduce using rule 66
-	'freakness'    reduce using rule 66
-	'hcp'          reduce using rule 66
-	'losers'       reduce using rule 66
-	'not'          reduce using rule 66
-	'true'         reduce using rule 66
-	L_integ        reduce using rule 66
-
-
-State 51
-
-	RelOp -> '>' .                                      (rule 64)
-
-	'('            reduce using rule 64
-	'E'            reduce using rule 64
-	'N'            reduce using rule 64
-	'S'            reduce using rule 64
-	'W'            reduce using rule 64
-	'false'        reduce using rule 64
-	'freakness'    reduce using rule 64
-	'hcp'          reduce using rule 64
-	'losers'       reduce using rule 64
-	'not'          reduce using rule 64
-	'true'         reduce using rule 64
-	L_integ        reduce using rule 64
-
-
-State 52
-
-	RelOp -> '>=' .                                     (rule 65)
-
-	'('            reduce using rule 65
-	'E'            reduce using rule 65
-	'N'            reduce using rule 65
-	'S'            reduce using rule 65
-	'W'            reduce using rule 65
-	'false'        reduce using rule 65
-	'freakness'    reduce using rule 65
-	'hcp'          reduce using rule 65
-	'losers'       reduce using rule 65
-	'not'          reduce using rule 65
-	'true'         reduce using rule 65
-	L_integ        reduce using rule 65
-
-
-State 53
-
-	Expr1 -> Expr2 'and' . Expr1                        (rule 43)
-
-	'('            shift, and enter state 19
-	'E'            shift, and enter state 20
-	'N'            shift, and enter state 21
-	'S'            shift, and enter state 22
-	'W'            shift, and enter state 23
-	'false'        shift, and enter state 24
-	'freakness'    shift, and enter state 25
-	'hcp'          shift, and enter state 26
-	'losers'       shift, and enter state 27
-	'not'          shift, and enter state 28
-	'true'         shift, and enter state 29
-	L_integ        shift, and enter state 30
-
-	Integer        goto state 9
-	Expr6          goto state 10
-	Expr5          goto state 11
-	Expr2          goto state 12
-	Expr1          goto state 54
-	Expr3          goto state 15
-	Expr4          goto state 16
-	Hand           goto state 17
-	SimpAttr       goto state 18
-
-State 54
-
-	Expr1 -> Expr2 'and' Expr1 .                        (rule 43)
-
-	')'            reduce using rule 43
-	'or'           reduce using rule 43
-	%eof           reduce using rule 43
-
-
-State 55
-
-	Expr2 -> Expr2 RelOp Expr3 .                        (rule 41)
-
-	'!='           reduce using rule 41
-	')'            reduce using rule 41
-	'<'            reduce using rule 41
-	'<='           reduce using rule 41
-	'=='           reduce using rule 41
-	'>'            reduce using rule 41
-	'>='           reduce using rule 41
-	'and'          reduce using rule 41
-	'or'           reduce using rule 41
-	%eof           reduce using rule 41
-
-
-State 56
-
-	Expr -> Expr1 'or' Expr .                           (rule 45)
-
-	')'            reduce using rule 45
-	%eof           reduce using rule 45
-
-
-State 57
-
-	Attr -> Ident .                                     (rule 60)
-
-	'!='           reduce using rule 60
-	')'            reduce using rule 60
-	'<'            reduce using rule 60
-	'<='           reduce using rule 60
-	'=='           reduce using rule 60
-	'>'            reduce using rule 60
-	'>='           reduce using rule 60
-	'and'          reduce using rule 60
-	'or'           reduce using rule 60
-	%eof           reduce using rule 60
-
-
-State 58
-
-	Attr -> LenAttr .                                   (rule 61)
-
-	'!='           reduce using rule 61
-	')'            reduce using rule 61
-	'<'            reduce using rule 61
-	'<='           reduce using rule 61
-	'=='           reduce using rule 61
-	'>'            reduce using rule 61
-	'>='           reduce using rule 61
-	'and'          reduce using rule 61
-	'or'           reduce using rule 61
-	%eof           reduce using rule 61
-
-
-State 59
-
-	Expr6 -> Hand '.' Attr .                            (rule 33)
-
-	'!='           reduce using rule 33
-	')'            reduce using rule 33
-	'<'            reduce using rule 33
-	'<='           reduce using rule 33
-	'=='           reduce using rule 33
-	'>'            reduce using rule 33
-	'>='           reduce using rule 33
-	'and'          reduce using rule 33
-	'or'           reduce using rule 33
-	%eof           reduce using rule 33
-
-
-State 60
-
-	LenAttr -> 'clubs' .                                (rule 56)
-
-	'!='           reduce using rule 56
-	')'            reduce using rule 56
-	'<'            reduce using rule 56
-	'<='           reduce using rule 56
-	'=='           reduce using rule 56
-	'>'            reduce using rule 56
-	'>='           reduce using rule 56
-	'and'          reduce using rule 56
-	'or'           reduce using rule 56
-	%eof           reduce using rule 56
-
-
-State 61
-
-	LenAttr -> 'diams' .                                (rule 55)
-
-	'!='           reduce using rule 55
-	')'            reduce using rule 55
-	'<'            reduce using rule 55
-	'<='           reduce using rule 55
-	'=='           reduce using rule 55
-	'>'            reduce using rule 55
-	'>='           reduce using rule 55
-	'and'          reduce using rule 55
-	'or'           reduce using rule 55
-	%eof           reduce using rule 55
-
-
-State 62
-
-	LenAttr -> 'hearts' .                               (rule 54)
-
-	'!='           reduce using rule 54
-	')'            reduce using rule 54
-	'<'            reduce using rule 54
-	'<='           reduce using rule 54
-	'=='           reduce using rule 54
-	'>'            reduce using rule 54
-	'>='           reduce using rule 54
-	'and'          reduce using rule 54
-	'or'           reduce using rule 54
-	%eof           reduce using rule 54
-
-
-State 63
-
-	LenAttr -> 'spades' .                               (rule 53)
-
-	'!='           reduce using rule 53
-	')'            reduce using rule 53
-	'<'            reduce using rule 53
-	'<='           reduce using rule 53
-	'=='           reduce using rule 53
-	'>'            reduce using rule 53
-	'>='           reduce using rule 53
-	'and'          reduce using rule 53
-	'or'           reduce using rule 53
-	%eof           reduce using rule 53
-
-
-State 64
-
-	Expr6 -> SimpAttr '(' Hand . ')'                    (rule 34)
-
-	')'            shift, and enter state 82
-
-
-State 65
-
-	Expr6 -> '(' Expr ')' .                             (rule 38)
+	Expr5 -> 'not' Expr6 .                              (rule 38)
 
 	'!='           reduce using rule 38
 	')'            reduce using rule 38
@@ -1182,7 +697,245 @@ State 65
 	%eof           reduce using rule 38
 
 
-State 66
+State 38
+
+	Expr6 -> '(' Expr . ')'                             (rule 37)
+
+	')'            shift, and enter state 53
+
+
+State 39
+
+	Expr6 -> Hand '.' . Ident                           (rule 33)
+
+	L_Ident        shift, and enter state 2
+
+	Ident          goto state 52
+
+State 40
+
+	Expr -> Expr1 'or' . Expr                           (rule 44)
+
+	'('            shift, and enter state 18
+	'E'            shift, and enter state 19
+	'N'            shift, and enter state 20
+	'S'            shift, and enter state 21
+	'W'            shift, and enter state 22
+	'false'        shift, and enter state 23
+	'not'          shift, and enter state 24
+	'true'         shift, and enter state 25
+	L_integ        shift, and enter state 26
+
+	Integer        goto state 9
+	Expr6          goto state 10
+	Expr5          goto state 11
+	Expr2          goto state 12
+	Expr1          goto state 13
+	Expr           goto state 51
+	Expr3          goto state 15
+	Expr4          goto state 16
+	Hand           goto state 17
+
+State 41
+
+	Expr2 -> Expr2 RelOp . Expr3                        (rule 40)
+
+	'('            shift, and enter state 18
+	'E'            shift, and enter state 19
+	'N'            shift, and enter state 20
+	'S'            shift, and enter state 21
+	'W'            shift, and enter state 22
+	'false'        shift, and enter state 23
+	'not'          shift, and enter state 24
+	'true'         shift, and enter state 25
+	L_integ        shift, and enter state 26
+
+	Integer        goto state 9
+	Expr6          goto state 10
+	Expr5          goto state 11
+	Expr3          goto state 50
+	Expr4          goto state 16
+	Hand           goto state 17
+
+State 42
+
+	RelOp -> '!=' .                                     (rule 57)
+
+	'('            reduce using rule 57
+	'E'            reduce using rule 57
+	'N'            reduce using rule 57
+	'S'            reduce using rule 57
+	'W'            reduce using rule 57
+	'false'        reduce using rule 57
+	'not'          reduce using rule 57
+	'true'         reduce using rule 57
+	L_integ        reduce using rule 57
+
+
+State 43
+
+	RelOp -> '<' .                                      (rule 52)
+
+	'('            reduce using rule 52
+	'E'            reduce using rule 52
+	'N'            reduce using rule 52
+	'S'            reduce using rule 52
+	'W'            reduce using rule 52
+	'false'        reduce using rule 52
+	'not'          reduce using rule 52
+	'true'         reduce using rule 52
+	L_integ        reduce using rule 52
+
+
+State 44
+
+	RelOp -> '<=' .                                     (rule 53)
+
+	'('            reduce using rule 53
+	'E'            reduce using rule 53
+	'N'            reduce using rule 53
+	'S'            reduce using rule 53
+	'W'            reduce using rule 53
+	'false'        reduce using rule 53
+	'not'          reduce using rule 53
+	'true'         reduce using rule 53
+	L_integ        reduce using rule 53
+
+
+State 45
+
+	RelOp -> '==' .                                     (rule 56)
+
+	'('            reduce using rule 56
+	'E'            reduce using rule 56
+	'N'            reduce using rule 56
+	'S'            reduce using rule 56
+	'W'            reduce using rule 56
+	'false'        reduce using rule 56
+	'not'          reduce using rule 56
+	'true'         reduce using rule 56
+	L_integ        reduce using rule 56
+
+
+State 46
+
+	RelOp -> '>' .                                      (rule 54)
+
+	'('            reduce using rule 54
+	'E'            reduce using rule 54
+	'N'            reduce using rule 54
+	'S'            reduce using rule 54
+	'W'            reduce using rule 54
+	'false'        reduce using rule 54
+	'not'          reduce using rule 54
+	'true'         reduce using rule 54
+	L_integ        reduce using rule 54
+
+
+State 47
+
+	RelOp -> '>=' .                                     (rule 55)
+
+	'('            reduce using rule 55
+	'E'            reduce using rule 55
+	'N'            reduce using rule 55
+	'S'            reduce using rule 55
+	'W'            reduce using rule 55
+	'false'        reduce using rule 55
+	'not'          reduce using rule 55
+	'true'         reduce using rule 55
+	L_integ        reduce using rule 55
+
+
+State 48
+
+	Expr1 -> Expr2 'and' . Expr1                        (rule 42)
+
+	'('            shift, and enter state 18
+	'E'            shift, and enter state 19
+	'N'            shift, and enter state 20
+	'S'            shift, and enter state 21
+	'W'            shift, and enter state 22
+	'false'        shift, and enter state 23
+	'not'          shift, and enter state 24
+	'true'         shift, and enter state 25
+	L_integ        shift, and enter state 26
+
+	Integer        goto state 9
+	Expr6          goto state 10
+	Expr5          goto state 11
+	Expr2          goto state 12
+	Expr1          goto state 49
+	Expr3          goto state 15
+	Expr4          goto state 16
+	Hand           goto state 17
+
+State 49
+
+	Expr1 -> Expr2 'and' Expr1 .                        (rule 42)
+
+	')'            reduce using rule 42
+	'or'           reduce using rule 42
+	%eof           reduce using rule 42
+
+
+State 50
+
+	Expr2 -> Expr2 RelOp Expr3 .                        (rule 40)
+
+	'!='           reduce using rule 40
+	')'            reduce using rule 40
+	'<'            reduce using rule 40
+	'<='           reduce using rule 40
+	'=='           reduce using rule 40
+	'>'            reduce using rule 40
+	'>='           reduce using rule 40
+	'and'          reduce using rule 40
+	'or'           reduce using rule 40
+	%eof           reduce using rule 40
+
+
+State 51
+
+	Expr -> Expr1 'or' Expr .                           (rule 44)
+
+	')'            reduce using rule 44
+	%eof           reduce using rule 44
+
+
+State 52
+
+	Expr6 -> Hand '.' Ident .                           (rule 33)
+
+	'!='           reduce using rule 33
+	')'            reduce using rule 33
+	'<'            reduce using rule 33
+	'<='           reduce using rule 33
+	'=='           reduce using rule 33
+	'>'            reduce using rule 33
+	'>='           reduce using rule 33
+	'and'          reduce using rule 33
+	'or'           reduce using rule 33
+	%eof           reduce using rule 33
+
+
+State 53
+
+	Expr6 -> '(' Expr ')' .                             (rule 37)
+
+	'!='           reduce using rule 37
+	')'            reduce using rule 37
+	'<'            reduce using rule 37
+	'<='           reduce using rule 37
+	'=='           reduce using rule 37
+	'>'            reduce using rule 37
+	'>='           reduce using rule 37
+	'and'          reduce using rule 37
+	'or'           reduce using rule 37
+	%eof           reduce using rule 37
+
+
+State 54
 
 	SuitInt -> Integer .                                (rule 26)
 
@@ -1191,16 +944,16 @@ State 66
 	']'            reduce using rule 26
 
 
-State 67
+State 55
 
 	ListSuitCount -> SuitCount .                        (rule 28)
 	ListSuitCount -> SuitCount . ';' ListSuitCount      (rule 29)
 
-	';'            shift, and enter state 81
+	';'            shift, and enter state 69
 	']'            reduce using rule 28
 
 
-State 68
+State 56
 
 	SuitCount -> SuitInt .                              (rule 24)
 
@@ -1208,36 +961,36 @@ State 68
 	']'            reduce using rule 24
 
 
-State 69
+State 57
 
 	ShapeOk -> '[' ListSuitCount . ']'                  (rule 19)
 
-	']'            shift, and enter state 80
+	']'            shift, and enter state 68
 
 
-State 70
+State 58
 
 	SuitCount -> '(' . ListSuitInt ')'                  (rule 25)
 
 	')'            reduce using rule 30
-	L_integ        shift, and enter state 30
+	L_integ        shift, and enter state 26
 
-	Integer        goto state 66
-	SuitInt        goto state 78
-	ListSuitInt    goto state 79
+	Integer        goto state 54
+	SuitInt        goto state 66
+	ListSuitInt    goto state 67
 
-State 71
+State 59
 
 	EvalDef -> Ident '=' 'Evaluator' '(' . ListEvalVal ')'    (rule 12)
 
 	')'            reduce using rule 14
-	L_integ        shift, and enter state 30
+	L_integ        shift, and enter state 26
 
-	Integer        goto state 75
-	EvalVal        goto state 76
-	ListEvalVal    goto state 77
+	Integer        goto state 63
+	EvalVal        goto state 64
+	ListEvalVal    goto state 65
 
-State 72
+State 60
 
 	ShapeNeg -> '!' ShapeOk .                           (rule 20)
 
@@ -1249,42 +1002,36 @@ State 72
 	'S'            reduce using rule 20
 	'W'            reduce using rule 20
 	'false'        reduce using rule 20
-	'freakness'    reduce using rule 20
-	'hcp'          reduce using rule 20
-	'losers'       reduce using rule 20
 	'not'          reduce using rule 20
 	'true'         reduce using rule 20
 	L_integ        reduce using rule 20
 	%eof           reduce using rule 20
 
 
-State 73
+State 61
 
 	ListShape -> Shape '+' . ListShape                  (rule 23)
 
-	'!'            shift, and enter state 37
+	'!'            shift, and enter state 33
 	'('            reduce using rule 21
 	';'            reduce using rule 21
 	'E'            reduce using rule 21
 	'N'            reduce using rule 21
 	'S'            reduce using rule 21
 	'W'            reduce using rule 21
-	'['            shift, and enter state 39
+	'['            shift, and enter state 35
 	'false'        reduce using rule 21
-	'freakness'    reduce using rule 21
-	'hcp'          reduce using rule 21
-	'losers'       reduce using rule 21
 	'not'          reduce using rule 21
 	'true'         reduce using rule 21
 	L_integ        reduce using rule 21
 	%eof           reduce using rule 21
 
-	Shape          goto state 33
-	ShapeOk        goto state 34
-	ShapeNeg       goto state 35
-	ListShape      goto state 74
+	Shape          goto state 29
+	ShapeOk        goto state 30
+	ShapeNeg       goto state 31
+	ListShape      goto state 62
 
-State 74
+State 62
 
 	ListShape -> Shape '+' ListShape .                  (rule 23)
 
@@ -1295,16 +1042,13 @@ State 74
 	'S'            reduce using rule 23
 	'W'            reduce using rule 23
 	'false'        reduce using rule 23
-	'freakness'    reduce using rule 23
-	'hcp'          reduce using rule 23
-	'losers'       reduce using rule 23
 	'not'          reduce using rule 23
 	'true'         reduce using rule 23
 	L_integ        reduce using rule 23
 	%eof           reduce using rule 23
 
 
-State 75
+State 63
 
 	EvalVal -> Integer .                                (rule 13)
 
@@ -1312,39 +1056,39 @@ State 75
 	','            reduce using rule 13
 
 
-State 76
+State 64
 
 	ListEvalVal -> EvalVal .                            (rule 15)
 	ListEvalVal -> EvalVal . ',' ListEvalVal            (rule 16)
 
 	')'            reduce using rule 15
-	','            shift, and enter state 87
+	','            shift, and enter state 74
 
 
-State 77
+State 65
 
 	EvalDef -> Ident '=' 'Evaluator' '(' ListEvalVal . ')'    (rule 12)
 
-	')'            shift, and enter state 86
+	')'            shift, and enter state 73
 
 
-State 78
+State 66
 
 	ListSuitInt -> SuitInt .                            (rule 31)
 	ListSuitInt -> SuitInt . ';' ListSuitInt            (rule 32)
 
 	')'            reduce using rule 31
-	';'            shift, and enter state 85
+	';'            shift, and enter state 72
 
 
-State 79
+State 67
 
 	SuitCount -> '(' ListSuitInt . ')'                  (rule 25)
 
-	')'            shift, and enter state 84
+	')'            shift, and enter state 71
 
 
-State 80
+State 68
 
 	ShapeOk -> '[' ListSuitCount ']' .                  (rule 19)
 
@@ -1356,52 +1100,33 @@ State 80
 	'S'            reduce using rule 19
 	'W'            reduce using rule 19
 	'false'        reduce using rule 19
-	'freakness'    reduce using rule 19
-	'hcp'          reduce using rule 19
-	'losers'       reduce using rule 19
 	'not'          reduce using rule 19
 	'true'         reduce using rule 19
 	L_integ        reduce using rule 19
 	%eof           reduce using rule 19
 
 
-State 81
+State 69
 
 	ListSuitCount -> SuitCount ';' . ListSuitCount      (rule 29)
 
-	'('            shift, and enter state 70
+	'('            shift, and enter state 58
 	']'            reduce using rule 27
-	L_integ        shift, and enter state 30
+	L_integ        shift, and enter state 26
 
-	Integer        goto state 66
-	SuitCount      goto state 67
-	SuitInt        goto state 68
-	ListSuitCount  goto state 83
+	Integer        goto state 54
+	SuitCount      goto state 55
+	SuitInt        goto state 56
+	ListSuitCount  goto state 70
 
-State 82
-
-	Expr6 -> SimpAttr '(' Hand ')' .                    (rule 34)
-
-	'!='           reduce using rule 34
-	')'            reduce using rule 34
-	'<'            reduce using rule 34
-	'<='           reduce using rule 34
-	'=='           reduce using rule 34
-	'>'            reduce using rule 34
-	'>='           reduce using rule 34
-	'and'          reduce using rule 34
-	'or'           reduce using rule 34
-	%eof           reduce using rule 34
-
-
-State 83
+State 70
 
 	ListSuitCount -> SuitCount ';' ListSuitCount .      (rule 29)
 
 	']'            reduce using rule 29
 
 
-State 84
+State 71
 
 	SuitCount -> '(' ListSuitInt ')' .                  (rule 25)
 
@@ -1409,18 +1134,18 @@ State 84
 	']'            reduce using rule 25
 
 
-State 85
+State 72
 
 	ListSuitInt -> SuitInt ';' . ListSuitInt            (rule 32)
 
 	')'            reduce using rule 30
-	L_integ        shift, and enter state 30
+	L_integ        shift, and enter state 26
 
-	Integer        goto state 66
-	SuitInt        goto state 78
-	ListSuitInt    goto state 89
+	Integer        goto state 54
+	SuitInt        goto state 66
+	ListSuitInt    goto state 76
 
-State 86
+State 73
 
 	EvalDef -> Ident '=' 'Evaluator' '(' ListEvalVal ')' .    (rule 12)
 
@@ -1431,34 +1156,31 @@ State 86
 	'S'            reduce using rule 12
 	'W'            reduce using rule 12
 	'false'        reduce using rule 12
-	'freakness'    reduce using rule 12
-	'hcp'          reduce using rule 12
-	'losers'       reduce using rule 12
 	'not'          reduce using rule 12
 	'true'         reduce using rule 12
 	L_integ        reduce using rule 12
 	%eof           reduce using rule 12
 
 
-State 87
+State 74
 
 	ListEvalVal -> EvalVal ',' . ListEvalVal            (rule 16)
 
 	')'            reduce using rule 14
-	L_integ        shift, and enter state 30
+	L_integ        shift, and enter state 26
 
-	Integer        goto state 75
-	EvalVal        goto state 76
-	ListEvalVal    goto state 88
+	Integer        goto state 63
+	EvalVal        goto state 64
+	ListEvalVal    goto state 75
 
-State 88
+State 75
 
 	ListEvalVal -> EvalVal ',' ListEvalVal .            (rule 16)
 
 	')'            reduce using rule 16
 
 
-State 89
+State 76
 
 	ListSuitInt -> SuitInt ';' ListSuitInt .            (rule 32)
 
@@ -1468,7 +1190,7 @@ State 89
 -----------------------------------------------------------------------------
 Grammar Totals
 -----------------------------------------------------------------------------
-Number of rules: 68
-Number of terminals: 36
-Number of non-terminals: 31
-Number of states: 90
+Number of rules: 58
+Number of terminals: 29
+Number of non-terminals: 28
+Number of states: 77

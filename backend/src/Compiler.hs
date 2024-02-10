@@ -25,7 +25,13 @@ import           System.IO
 import           System.Process
 import           Test.QuickCheck       (label)
 
-type Store = M.Map Ident Type
+type StoreVar = M.Map Ident Type
+
+type LenAttr = [Ident]
+
+type FeatAttr = [Ident]
+
+type Store = (StoreVar, LenAttr, FeatAttr)
 
 type RSE a = StateT Store (ExceptT String IO) a
 
@@ -69,7 +75,10 @@ processFile filePath = do
       typeCheck ast
       let directory = takeDirectory filePath
           baseName = takeBaseName filePath
-      let store = M.empty
+      let store = (
+            M.empty, 
+            [Ident "spades", Ident "hearts", Ident "clubs", Ident "diams"], 
+            [Ident "hcp", Ident "freakness", Ident "losers", Ident "pt", Ident "controls"])
       let env = M.empty
       let header =
             "from redeal import *\n\n"
@@ -101,8 +110,6 @@ evalDefs (def : defs) = do
 
 evalDefs [] = return ""
 
--- Shape("(4333)")
-
 evalDef :: Def -> RSE String
 evalDef (TopDefShape (ShapeDef (Ident id) shapes)) = do
   shapesCode <- evalShapes shapes
@@ -120,8 +127,20 @@ evalShapes (sh : shs) = do
 
 evalShapes [] = undefined
 
+-- evalShape :: Shape -> RSE String
+-- evalShape (ShapeOk (OneShapeOk scs)) = do
+--   scsCodes <- mapM evalSuitCount scs
+--   return $ "Shape(\"" ++ concat scsCodes ++ "\")"
+
 evalShape :: Shape -> RSE String
-evalShape (ShapeOk (OneShapeOk scs)) = do
+evalShape (ShapeOk sh) = evalShapeOk sh
+evalShape (ShapeNeg sh) = evalShapeNeg sh
+
+evalShapeOk (OneShapeOk scs) = do
+  scsCodes <- mapM evalSuitCount scs
+  return $ "Shape(\"" ++ concat scsCodes ++ "\")"
+
+evalShapeNeg (OneShapeNeg (OneShapeOk scs)) = do
   scsCodes <- mapM evalSuitCount scs
   return $ "Shape(\"" ++ concat scsCodes ++ "\")"
 
@@ -136,17 +155,20 @@ evalSuitCount a = do
 evalSuitInt :: SuitInt -> RSE String
 evalSuitInt (SuitInt a) = return $ show a
 
-  -- aC <- showSuitIntCount a
-  -- bC <- showSuitIntCount b
-  -- cC <- showSuitIntCount c
-  -- dC <- showSuitIntCount d
-  -- return $ "Shape(\"" ++ aC ++ bC ++ cC ++ dC ++ "\")"
-
--- evalShape _ = undefined
-
-
 evalExp :: Expr -> RSE String
-evalExp (HandAttr hand attr) = evalVar hand attr
+-- evalExp (HandAttr hand attr) = evalVar hand attr
+
+evalExp (HandAttr h attr) = do
+  (_, lenAttr, featureAttr) <- get
+  hCode <- evalHand h
+  if attr `elem` lenAttr then do
+    return $ "len(" ++ hCode ++ "." ++ showIdent attr ++ ")"
+  else do
+    if attr `elem` featureAttr then do
+      return $ hCode ++ "." ++ showIdent attr
+    else do
+      return $ showIdent attr ++ "(" ++ hCode ++ ")"
+      
 
 evalExp (ELitInt i) = return $ show i
 
@@ -174,19 +196,19 @@ evalExp (EOr e1 e2) = do
   e2Code <- evalExp e2
   return $ "(" ++ e1Code ++ " or " ++ e2Code ++ ")"
 
-evalExp (HandSimpAttr a h) = do
-  hCode <- evalHand h
-  aCode <- evalSimpAttr a
-  return $ hCode ++ "." ++ aCode
+-- evalExp (HandSimpAttr a h) = do
+--   hCode <- evalHand h
+--   aCode <- evalSimpAttr a
+--   return $ hCode ++ "." ++ aCode
 
-evalVar h (LenAttr a) = do
-  hCode <- evalHand h
-  aCode <- evalLenAttr a
-  return $ "len(" ++ hCode ++ "." ++ aCode ++ ")"
+-- evalVar h (LenAttr a) = do
+--   hCode <- evalHand h
+--   aCode <- evalLenAttr a
+--   return $ "len(" ++ hCode ++ "." ++ aCode ++ ")"
 
-evalVar h (AttrVar ident) = do
-  hCode <- evalHand h
-  return $ showIdent ident ++ "(" ++ hCode ++ ")"
+-- evalVar h (AttrVar ident) = do
+--   hCode <- evalHand h
+--   return $ showIdent ident ++ "(" ++ hCode ++ ")"
 
 showIdent :: Ident -> String
 showIdent (Ident ident) = ident
@@ -211,18 +233,18 @@ evalHand HandE = return "deal.east"
 
 evalHand HandW = return "deal.west"
 
-evalLenAttr :: LenAttr -> RSE String
-evalLenAttr AttrSpades = return "spades"
+-- evalLenAttr :: LenAttr -> RSE String
+-- evalLenAttr AttrSpades = return "spades"
 
-evalLenAttr AttrHearts = return "hearts"
+-- evalLenAttr AttrHearts = return "hearts"
 
-evalLenAttr AttrDiams = return "diamonds"
+-- evalLenAttr AttrDiams = return "diamonds"
 
-evalLenAttr AttrClubs = return "clubs"
+-- evalLenAttr AttrClubs = return "clubs"
 
-evalSimpAttr :: SimpAttr -> RSE String
-evalSimpAttr AttrHcp = return "hcp"
+-- evalSimpAttr :: SimpAttr -> RSE String
+-- evalSimpAttr AttrHcp = return "hcp"
 
-evalSimpAttr AttrFreak = return "freakness"
+-- evalSimpAttr AttrFreak = return "freakness"
 
-evalSimpAttr AttrLoser = return "losers"
+-- evalSimpAttr AttrLoser = return "losers"

@@ -238,17 +238,10 @@ instance Print Bridgelatte.Abs.LenAttr where
     Bridgelatte.Abs.AttrDiams -> prPrec i 0 (concatD [doc (showString "diams")])
     Bridgelatte.Abs.AttrClubs -> prPrec i 0 (concatD [doc (showString "clubs")])
 
-instance Print Bridgelatte.Abs.SimpAttr where
-  prt i = \case
-    Bridgelatte.Abs.AttrHcp -> prPrec i 0 (concatD [doc (showString "hcp")])
-    Bridgelatte.Abs.AttrFreak -> prPrec i 0 (concatD [doc (showString "freakness")])
-    Bridgelatte.Abs.AttrLoser -> prPrec i 0 (concatD [doc (showString "losers")])
-
 instance Print Bridgelatte.Abs.Attr where
   prt i = \case
     Bridgelatte.Abs.AttrVar id_ -> prPrec i 0 (concatD [prt 0 id_])
     Bridgelatte.Abs.LenAttr lenattr -> prPrec i 0 (concatD [prt 0 lenattr])
-    Bridgelatte.Abs.SimpAttr simpattr -> prPrec i 0 (concatD [prt 0 simpattr])
 
 instance Print Bridgelatte.Abs.RelOp where
   prt i = \case

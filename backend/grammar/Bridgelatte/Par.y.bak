@@ -48,15 +48,12 @@ import Bridgelatte.Lex
   'clubs'     { PT _ (TS _ 23) }
   'diams'     { PT _ (TS _ 24) }
   'false'     { PT _ (TS _ 25) }
-  'freakness' { PT _ (TS _ 26) }
-  'hcp'       { PT _ (TS _ 27) }
-  'hearts'    { PT _ (TS _ 28) }
-  'int'       { PT _ (TS _ 29) }
-  'losers'    { PT _ (TS _ 30) }
-  'not'       { PT _ (TS _ 31) }
-  'or'        { PT _ (TS _ 32) }
-  'spades'    { PT _ (TS _ 33) }
-  'true'      { PT _ (TS _ 34) }
+  'hearts'    { PT _ (TS _ 26) }
+  'int'       { PT _ (TS _ 27) }
+  'not'       { PT _ (TS _ 28) }
+  'or'        { PT _ (TS _ 29) }
+  'spades'    { PT _ (TS _ 30) }
+  'true'      { PT _ (TS _ 31) }
   L_Ident     { PT _ (TV $$)   }
   L_integ     { PT _ (TI $$)   }
 
@@ -183,17 +180,10 @@ LenAttr
   | 'diams' { Bridgelatte.Abs.AttrDiams }
   | 'clubs' { Bridgelatte.Abs.AttrClubs }
 
-SimpAttr :: { Bridgelatte.Abs.SimpAttr }
-SimpAttr
-  : 'hcp' { Bridgelatte.Abs.AttrHcp }
-  | 'freakness' { Bridgelatte.Abs.AttrFreak }
-  | 'losers' { Bridgelatte.Abs.AttrLoser }
-
 Attr :: { Bridgelatte.Abs.Attr }
 Attr
   : Ident { Bridgelatte.Abs.AttrVar $1 }
   | LenAttr { Bridgelatte.Abs.LenAttr $1 }
-  | SimpAttr { Bridgelatte.Abs.SimpAttr $1 }
 
 RelOp :: { Bridgelatte.Abs.RelOp }
 RelOp

@@ -215,8 +215,7 @@ instance Print [Bridgelatte.Abs.SuitInt] where
 
 instance Print Bridgelatte.Abs.Expr where
   prt i = \case
-    Bridgelatte.Abs.HandAttr hand attr -> prPrec i 6 (concatD [prt 0 hand, doc (showString "."), prt 0 attr])
-    Bridgelatte.Abs.HandSimpAttr simpattr hand -> prPrec i 6 (concatD [prt 0 simpattr, doc (showString "("), prt 0 hand, doc (showString ")")])
+    Bridgelatte.Abs.HandAttr hand id_ -> prPrec i 6 (concatD [prt 0 hand, doc (showString "."), prt 0 id_])
     Bridgelatte.Abs.ELitInt n -> prPrec i 6 (concatD [prt 0 n])
     Bridgelatte.Abs.ELitTrue -> prPrec i 6 (concatD [doc (showString "true")])
     Bridgelatte.Abs.ELitFalse -> prPrec i 6 (concatD [doc (showString "false")])
@@ -231,24 +230,6 @@ instance Print Bridgelatte.Abs.Hand where
     Bridgelatte.Abs.HandE -> prPrec i 0 (concatD [doc (showString "E")])
     Bridgelatte.Abs.HandW -> prPrec i 0 (concatD [doc (showString "W")])
     Bridgelatte.Abs.HandS -> prPrec i 0 (concatD [doc (showString "S")])
-
-instance Print Bridgelatte.Abs.LenAttr where
-  prt i = \case
-    Bridgelatte.Abs.AttrSpades -> prPrec i 0 (concatD [doc (showString "spades")])
-    Bridgelatte.Abs.AttrHearts -> prPrec i 0 (concatD [doc (showString "hearts")])
-    Bridgelatte.Abs.AttrDiams -> prPrec i 0 (concatD [doc (showString "diams")])
-    Bridgelatte.Abs.AttrClubs -> prPrec i 0 (concatD [doc (showString "clubs")])
-
-instance Print Bridgelatte.Abs.SimpAttr where
-  prt i = \case
-    Bridgelatte.Abs.AttrHcp -> prPrec i 0 (concatD [doc (showString "hcp")])
-    Bridgelatte.Abs.AttrFreak -> prPrec i 0 (concatD [doc (showString "freakness")])
-    Bridgelatte.Abs.AttrLoser -> prPrec i 0 (concatD [doc (showString "losers")])
-
-instance Print Bridgelatte.Abs.Attr where
-  prt i = \case
-    Bridgelatte.Abs.AttrVar id_ -> prPrec i 0 (concatD [prt 0 id_])
-    Bridgelatte.Abs.LenAttr lenattr -> prPrec i 0 (concatD [prt 0 lenattr])
 
 instance Print Bridgelatte.Abs.RelOp where
   prt i = \case

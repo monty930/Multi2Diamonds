@@ -45,18 +45,11 @@ import Bridgelatte.Lex
   '['         { PT _ (TS _ 20) }
   ']'         { PT _ (TS _ 21) }
   'and'       { PT _ (TS _ 22) }
-  'clubs'     { PT _ (TS _ 23) }
-  'diams'     { PT _ (TS _ 24) }
-  'false'     { PT _ (TS _ 25) }
-  'freakness' { PT _ (TS _ 26) }
-  'hcp'       { PT _ (TS _ 27) }
-  'hearts'    { PT _ (TS _ 28) }
-  'int'       { PT _ (TS _ 29) }
-  'losers'    { PT _ (TS _ 30) }
-  'not'       { PT _ (TS _ 31) }
-  'or'        { PT _ (TS _ 32) }
-  'spades'    { PT _ (TS _ 33) }
-  'true'      { PT _ (TS _ 34) }
+  'false'     { PT _ (TS _ 23) }
+  'int'       { PT _ (TS _ 24) }
+  'not'       { PT _ (TS _ 25) }
+  'or'        { PT _ (TS _ 26) }
+  'true'      { PT _ (TS _ 27) }
   L_Ident     { PT _ (TV $$)   }
   L_integ     { PT _ (TI $$)   }
 
@@ -142,8 +135,7 @@ ListSuitInt
 
 Expr6 :: { Bridgelatte.Abs.Expr }
 Expr6
-  : Hand '.' Attr { Bridgelatte.Abs.HandAttr $1 $3 }
-  | SimpAttr '(' Hand ')' { Bridgelatte.Abs.HandSimpAttr $1 $3 }
+  : Hand '.' Ident { Bridgelatte.Abs.HandAttr $1 $3 }
   | Integer { Bridgelatte.Abs.ELitInt $1 }
   | 'true' { Bridgelatte.Abs.ELitTrue }
   | 'false' { Bridgelatte.Abs.ELitFalse }
@@ -176,24 +168,6 @@ Hand
   | 'E' { Bridgelatte.Abs.HandE }
   | 'W' { Bridgelatte.Abs.HandW }
   | 'S' { Bridgelatte.Abs.HandS }
-
-LenAttr :: { Bridgelatte.Abs.LenAttr }
-LenAttr
-  : 'spades' { Bridgelatte.Abs.AttrSpades }
-  | 'hearts' { Bridgelatte.Abs.AttrHearts }
-  | 'diams' { Bridgelatte.Abs.AttrDiams }
-  | 'clubs' { Bridgelatte.Abs.AttrClubs }
-
-SimpAttr :: { Bridgelatte.Abs.SimpAttr }
-SimpAttr
-  : 'hcp' { Bridgelatte.Abs.AttrHcp }
-  | 'freakness' { Bridgelatte.Abs.AttrFreak }
-  | 'losers' { Bridgelatte.Abs.AttrLoser }
-
-Attr :: { Bridgelatte.Abs.Attr }
-Attr
-  : Ident { Bridgelatte.Abs.AttrVar $1 }
-  | LenAttr { Bridgelatte.Abs.LenAttr $1 }
 
 RelOp :: { Bridgelatte.Abs.RelOp }
 RelOp
