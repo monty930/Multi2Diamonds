@@ -174,15 +174,15 @@ evalExp (EOr e1 e2) = do
   e2Code <- evalExp e2
   return $ "(" ++ e1Code ++ " or " ++ e2Code ++ ")"
 
+evalExp (HandSimpAttr a h) = do
+  hCode <- evalHand h
+  aCode <- evalSimpAttr a
+  return $ hCode ++ "." ++ aCode
+
 evalVar h (LenAttr a) = do
   hCode <- evalHand h
   aCode <- evalLenAttr a
   return $ "len(" ++ hCode ++ "." ++ aCode ++ ")"
-
-evalVar h (SimpAttr a) = do
-  hCode <- evalHand h
-  aCode <- evalSimpAttr a
-  return $ hCode ++ "." ++ aCode
 
 evalVar h (AttrVar ident) = do
   hCode <- evalHand h
@@ -222,3 +222,7 @@ evalLenAttr AttrClubs = return "clubs"
 
 evalSimpAttr :: SimpAttr -> RSE String
 evalSimpAttr AttrHcp = return "hcp"
+
+evalSimpAttr AttrFreak = return "freakness"
+
+evalSimpAttr AttrLoser = return "losers"

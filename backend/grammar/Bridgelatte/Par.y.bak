@@ -143,7 +143,6 @@ ListSuitInt
 Expr6 :: { Bridgelatte.Abs.Expr }
 Expr6
   : Hand '.' Attr { Bridgelatte.Abs.HandAttr $1 $3 }
-  | SimpAttr '(' Hand ')' { Bridgelatte.Abs.HandSimpAttr $1 $3 }
   | Integer { Bridgelatte.Abs.ELitInt $1 }
   | 'true' { Bridgelatte.Abs.ELitTrue }
   | 'false' { Bridgelatte.Abs.ELitFalse }
@@ -194,6 +193,7 @@ Attr :: { Bridgelatte.Abs.Attr }
 Attr
   : Ident { Bridgelatte.Abs.AttrVar $1 }
   | LenAttr { Bridgelatte.Abs.LenAttr $1 }
+  | SimpAttr { Bridgelatte.Abs.SimpAttr $1 }
 
 RelOp :: { Bridgelatte.Abs.RelOp }
 RelOp

@@ -216,6 +216,7 @@ instance Print [Abs.SuitInt] where
 instance Print Abs.Expr where
   prt i = \case
     Abs.HandAttr hand attr -> prPrec i 6 (concatD [prt 0 hand, doc (showString "."), prt 0 attr])
+    Abs.HandSimpAttr simpattr hand -> prPrec i 6 (concatD [prt 0 simpattr, doc (showString "("), prt 0 hand, doc (showString ")")])
     Abs.ELitInt n -> prPrec i 6 (concatD [prt 0 n])
     Abs.ELitTrue -> prPrec i 6 (concatD [doc (showString "true")])
     Abs.ELitFalse -> prPrec i 6 (concatD [doc (showString "false")])
@@ -241,12 +242,13 @@ instance Print Abs.LenAttr where
 instance Print Abs.SimpAttr where
   prt i = \case
     Abs.AttrHcp -> prPrec i 0 (concatD [doc (showString "hcp")])
+    Abs.AttrFreak -> prPrec i 0 (concatD [doc (showString "freakness")])
+    Abs.AttrLoser -> prPrec i 0 (concatD [doc (showString "losers")])
 
 instance Print Abs.Attr where
   prt i = \case
     Abs.AttrVar id_ -> prPrec i 0 (concatD [prt 0 id_])
     Abs.LenAttr lenattr -> prPrec i 0 (concatD [prt 0 lenattr])
-    Abs.SimpAttr simpattr -> prPrec i 0 (concatD [prt 0 simpattr])
 
 instance Print Abs.RelOp where
   prt i = \case

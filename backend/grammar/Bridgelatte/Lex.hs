@@ -202,21 +202,21 @@ eitherResIdent tv s = treeFind resWords
 -- | The keywords and symbols of the language organized as binary search tree.
 resWords :: BTree
 resWords =
-  b "N" 17
+  b "S" 18
     (b "<" 9
        (b "+" 5
           (b "(" 3 (b "!=" 2 (b "!" 1 N N) N) (b ")" 4 N N))
           (b "." 7 (b "," 6 N N) (b ";" 8 N N)))
-       (b ">" 13
-          (b "=" 11 (b "<=" 10 N N) (b "==" 12 N N))
-          (b "E" 15 (b ">=" 14 N N) (b "Evaluator" 16 N N))))
-    (b "false" 25
-       (b "]" 21
-          (b "W" 19 (b "S" 18 N N) (b "[" 20 N N))
-          (b "clubs" 23 (b "and" 22 N N) (b "diams" 24 N N)))
-       (b "not" 29
-          (b "hearts" 27 (b "hcp" 26 N N) (b "int" 28 N N))
-          (b "spades" 31 (b "or" 30 N N) (b "true" 32 N N))))
+       (b ">=" 14
+          (b "==" 12 (b "=" 11 (b "<=" 10 N N) N) (b ">" 13 N N))
+          (b "Evaluator" 16 (b "E" 15 N N) (b "N" 17 N N))))
+    (b "hcp" 27
+       (b "clubs" 23
+          (b "]" 21 (b "[" 20 (b "W" 19 N N) N) (b "and" 22 N N))
+          (b "false" 25 (b "diams" 24 N N) (b "freakness" 26 N N)))
+       (b "not" 31
+          (b "int" 29 (b "hearts" 28 N N) (b "losers" 30 N N))
+          (b "spades" 33 (b "or" 32 N N) (b "true" 34 N N))))
   where
   b s n = B bs (TS bs n)
     where

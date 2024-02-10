@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BridgeScenarios")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a3b38dc1be391979a892b5bb500b127918b1aad")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8dc1da911cfccfa2a2780791bffa24a8891da321")]
 [assembly: System.Reflection.AssemblyProductAttribute("BridgeScenarios")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BridgeScenarios")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

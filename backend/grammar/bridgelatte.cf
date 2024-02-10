@@ -52,6 +52,8 @@ separator SuitInt ";" ;
 
 HandAttr.  Expr6 ::= Hand"."Attr ;
 
+HandSimpAttr. Expr6 ::= SimpAttr "(" Hand ")" ;
+
 ELitInt.   Expr6 ::= Integer ;
 
 ELitTrue.  Expr6 ::= "true" ;
@@ -86,11 +88,13 @@ AttrClubs.  LenAttr ::= "clubs" ;
 
 AttrHcp.    SimpAttr ::= "hcp" ;
 
+AttrFreak.  SimpAttr ::= "freakness" ;
+
+AttrLoser.  SimpAttr ::= "losers" ;
+
 AttrVar.    Attr ::= Ident ;
 
 LenAttr.    Attr ::= LenAttr ;
-
-SimpAttr.   Attr ::= SimpAttr ;
 
 -- operators -----------------------------------------------
 

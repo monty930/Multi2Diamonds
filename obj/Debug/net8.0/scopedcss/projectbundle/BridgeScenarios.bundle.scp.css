@@ -37,8 +37,7 @@
 .header[b-sgruh5wkmu] {
   padding: 3pt;
   padding-left: 1%;
-  /* background: rgb(77, 77, 77); */
-  background: radial-gradient(circle, rgba(63, 63, 63, 1) 0%, rgba(63, 63, 63, 1) 67%, rgba(77, 77, 77, 1) 100%);
+  background: rgb(77, 77, 77);
 }
 
 .body-div[b-sgruh5wkmu] {

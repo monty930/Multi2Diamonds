@@ -70,7 +70,6 @@ transSuitInt x = case x of
 transExpr :: Bridgelatte.Abs.Expr -> Result
 transExpr x = case x of
   Bridgelatte.Abs.HandAttr hand attr -> failure x
-  Bridgelatte.Abs.HandSimpAttr simpattr hand -> failure x
   Bridgelatte.Abs.ELitInt integer -> failure x
   Bridgelatte.Abs.ELitTrue -> failure x
   Bridgelatte.Abs.ELitFalse -> failure x
@@ -103,6 +102,7 @@ transAttr :: Bridgelatte.Abs.Attr -> Result
 transAttr x = case x of
   Bridgelatte.Abs.AttrVar ident -> failure x
   Bridgelatte.Abs.LenAttr lenattr -> failure x
+  Bridgelatte.Abs.SimpAttr simpattr -> failure x
 
 transRelOp :: Bridgelatte.Abs.RelOp -> Result
 transRelOp x = case x of

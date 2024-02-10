@@ -4,7 +4,7 @@
 
 -- | The abstract syntax of language bridgelatte.
 
-module Abs where
+module Bridgelatte.Abs where
 
 import Prelude (Integer, String)
 import qualified Prelude as C (Eq, Ord, Show, Read)
@@ -45,7 +45,6 @@ data SuitInt = SuitInt Integer
 
 data Expr
     = HandAttr Hand Attr
-    | HandSimpAttr SimpAttr Hand
     | ELitInt Integer
     | ELitTrue
     | ELitFalse
@@ -64,7 +63,7 @@ data LenAttr = AttrSpades | AttrHearts | AttrDiams | AttrClubs
 data SimpAttr = AttrHcp | AttrFreak | AttrLoser
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
-data Attr = AttrVar Ident | LenAttr LenAttr
+data Attr = AttrVar Ident | LenAttr LenAttr | SimpAttr SimpAttr
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data RelOp = LTH | LE | GTH | GE | EQU | NE

@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets/assets/diamond.png"
     },
     {
+      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/favicon.png",
+      "PackagePath": "staticwebassets/assets/favicon.png"
+    },
+    {
       "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/githublogo.png",
       "PackagePath": "staticwebassets/assets/githublogo.png"
     },
@@ -39,10 +43,6 @@
     {
       "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/tmp/favicon-alt.ico",
       "PackagePath": "staticwebassets/assets/tmp/favicon-alt.ico"
-    },
-    {
-      "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/tmp/favicon-alt2.png",
-      "PackagePath": "staticwebassets/assets/tmp/favicon-alt2.png"
     },
     {
       "Id": "/home/monty/Home/Studia/mosty/cSharp/BridgeScenarios/wwwroot/assets/tmp/favicon.ico",

@@ -216,7 +216,6 @@ instance Print [Bridgelatte.Abs.SuitInt] where
 instance Print Bridgelatte.Abs.Expr where
   prt i = \case
     Bridgelatte.Abs.HandAttr hand attr -> prPrec i 6 (concatD [prt 0 hand, doc (showString "."), prt 0 attr])
-    Bridgelatte.Abs.HandSimpAttr simpattr hand -> prPrec i 6 (concatD [prt 0 simpattr, doc (showString "("), prt 0 hand, doc (showString ")")])
     Bridgelatte.Abs.ELitInt n -> prPrec i 6 (concatD [prt 0 n])
     Bridgelatte.Abs.ELitTrue -> prPrec i 6 (concatD [doc (showString "true")])
     Bridgelatte.Abs.ELitFalse -> prPrec i 6 (concatD [doc (showString "false")])
@@ -249,6 +248,7 @@ instance Print Bridgelatte.Abs.Attr where
   prt i = \case
     Bridgelatte.Abs.AttrVar id_ -> prPrec i 0 (concatD [prt 0 id_])
     Bridgelatte.Abs.LenAttr lenattr -> prPrec i 0 (concatD [prt 0 lenattr])
+    Bridgelatte.Abs.SimpAttr simpattr -> prPrec i 0 (concatD [prt 0 simpattr])
 
 instance Print Bridgelatte.Abs.RelOp where
   prt i = \case
