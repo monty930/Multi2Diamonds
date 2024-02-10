@@ -17,161 +17,156 @@
             </form>
         </div>
     </div>
-    <div class="right-panel">
-        <div class="grid-rows">
-            <div class="row-n">
-                <div>
-                    <button type="submit" form="gen_sc" id="playButton">
-                        <img id="arrow-img" src="~/assets/arrow-white.png"/>
-                    </button>
-                </div>
-                <div class="hands">
-                    <div class="suit">
-                        <img id="suit-img" src="~/assets/spade.png"/>
-                        @if (Model.HandSuits != null){
-                            @Html.Raw(Model.HandSuits[0])<br>
-                        }
+    
+        <div class="right-panel" id="dynamic-content">
+            <div class="grid-rows">
+                <div class="@("row-n" + (Model.HandSuits != null ? " has-handsuits" : " no-handsuits"))">
+                    <div>
+                        <button type="submit" form="gen_sc" id="playButton">
+                            <img id="arrow-img" src="~/assets/arrow-white.png"/>
+                        </button>
                     </div>
-                    <div class="suit">
-                        <img id="suit-img" src="~/assets/heart.png"/>
+                    <div class="hands">
                         @if (Model.HandSuits != null){
-                            @Html.Raw(Model.HandSuits[1])<br>
-                        }
-                    </div>
-                    <div class="suit">
-                        <img id="suit-img" src="~/assets/diamond.png"/> 
-                        <div> </div>
-                        @if (Model.HandSuits != null){
-                            @Html.Raw(Model.HandSuits[2])<br>
-                        }
-                    </div>
-                    <div class="suit">
-                        <img id="suit-img" src="~/assets/club.png"/>
-                        @if (Model.HandSuits != null){
-                            @Html.Raw(Model.HandSuits[3])<br>
-                        }
-                    </div>
-                </div>
-                <div>
-                    @if (Model.error_input) {
-                        <div>ERROR</div>
-                    }
-                    @if (Model.Tries != null) {
-                        if (!Model.error_input) {
-                            <div># of tries: @Model.Tries</div>
-                        }
-                    }
-                </div>
-            </div>
-            <div>
-                <div class="row-mid">
-                    <div class="aligning-cells">
-                        <div></div>
-                        <div class="hands">
                             <div class="suit">
                                 <img id="suit-img" src="~/assets/spade.png"/>
-                                @if (Model.HandSuits != null){
-                                    @Html.Raw(Model.HandSuits[4])<br>
-                                }
+                                @Html.Raw(Model.HandSuits[0])<br>
                             </div>
                             <div class="suit">
                                 <img id="suit-img" src="~/assets/heart.png"/>
-                                @if (Model.HandSuits != null){
-                                    @Html.Raw(Model.HandSuits[5])<br>
-                                }
+                                @Html.Raw(Model.HandSuits[1])<br>
                             </div>
                             <div class="suit">
                                 <img id="suit-img" src="~/assets/diamond.png"/> 
                                 <div> </div>
-                                @if (Model.HandSuits != null){
-                                    @Html.Raw(Model.HandSuits[6])<br>
-                                }
+                                @Html.Raw(Model.HandSuits[2])<br>
                             </div>
                             <div class="suit">
                                 <img id="suit-img" src="~/assets/club.png"/>
+                                @Html.Raw(Model.HandSuits[3])<br>
+                            </div>
+                        } else {
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div>
+                                Press
+                                <img id="play-img" src="~/assets/arrow-white.png"/> 
+                                to generate an example.
+                                </div>
+                        }
+                    </div>
+                    <div>
+                        @if (Model.error_input) {
+                            @* <div>ERROR</div> *@
+                            <button 
+                                class="compile-error-button visible" 
+                                id="errorButton"
+                                @* onclick="location.href='YourLogPageURL';"> *@
+                                >
+                                <span class="error-font">ERROR</span><br>
+                                <span class="logs-font">see logs</span>
+                            </button>
+                        }
+                        @if (Model.Tries != null) {
+                            if (!Model.error_input) {
+                                <div># of tries: @Model.Tries</div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div>
+                    <div class="row-mid">
+                        <div class="aligning-cells">
+                            <div></div>
+                            <div class="hands">
                                 @if (Model.HandSuits != null){
-                                    @Html.Raw(Model.HandSuits[7])<br>
+                                    <div class="suit">
+                                        <img id="suit-img" src="~/assets/spade.png"/>
+                                        @Html.Raw(Model.HandSuits[4])<br>
+                                    </div>
+                                    <div class="suit">
+                                        <img id="suit-img" src="~/assets/heart.png"/>
+                                        @Html.Raw(Model.HandSuits[5])<br>
+                                    </div>
+                                    <div class="suit">
+                                        <img id="suit-img" src="~/assets/diamond.png"/> 
+                                        <div> </div>
+                                        @Html.Raw(Model.HandSuits[6])<br>
+                                    </div>
+                                    <div class="suit">
+                                        <img id="suit-img" src="~/assets/club.png"/>
+                                        @Html.Raw(Model.HandSuits[7])<br>
+                                    </div>
                                 }
                             </div>
                         </div>
-                    </div>
-                    <div class = "grid-snwe">
-                        <div></div><div>N</div><div></div>
-                        <div>W</div>
-                        <div>
-                            <div id="spinner" style="display:none;">
-                                <div class="loader">
-                                    <img id="loading-img" src="~/assets/loading.png"/>
+                        <div class = "grid-snwe">
+                            <div></div><div>N</div><div></div>
+                            <div>W</div>
+                            <div>
+                                <div id="spinner" style="display:none;">
+                                    <div class="loader">
+                                        <img id="loading-img" src="~/assets/loading.png"/>
+                                    </div>
                                 </div>
                             </div>
+                            <div>E</div>
+                            <div></div><div>S</div><div></div>
                         </div>
-                        <div>E</div>
-                        <div></div><div>S</div><div></div>
-                    </div>
-                    <div class="hands">
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/spade.png"/>
+                        <div class="hands">
                             @if (Model.HandSuits != null){
-                                @Html.Raw(Model.HandSuits[12])<br>
-                            }
-                        </div>
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/heart.png"/>
-                            @if (Model.HandSuits != null){
-                                @Html.Raw(Model.HandSuits[13])<br>
-                            }
-                        </div>
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/diamond.png"/> 
-                            <div> </div>
-                            @if (Model.HandSuits != null){
-                                @Html.Raw(Model.HandSuits[14])<br>
-                            }
-                        </div>
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/club.png"/>
-                            @if (Model.HandSuits != null){
-                                @Html.Raw(Model.HandSuits[15])<br>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/spade.png"/>
+                                    @Html.Raw(Model.HandSuits[12])<br>
+                                </div>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/heart.png"/>
+                                    @Html.Raw(Model.HandSuits[13])<br>
+                                </div>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/diamond.png"/> 
+                                    <div> </div>
+                                    @Html.Raw(Model.HandSuits[14])<br>
+                                </div>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/club.png"/>
+                                    @Html.Raw(Model.HandSuits[15])<br>
+                                </div>
                             }
                         </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <div class="row-s">
-                    <div></div>
-                    <div class="hands">
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/spade.png"/>
+                <div>
+                    <div class="row-s">
+                        <div></div>
+                        <div class="hands">
                             @if (Model.HandSuits != null){
-                                @Html.Raw(Model.HandSuits[8])<br>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/spade.png"/>
+                                    @Html.Raw(Model.HandSuits[8])<br>
+                                </div>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/heart.png"/>
+                                    @Html.Raw(Model.HandSuits[9])<br>
+                                </div>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/diamond.png"/> 
+                                    <div> </div>
+                                    @Html.Raw(Model.HandSuits[10])<br>
+                                </div>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/club.png"/>
+                                    @Html.Raw(Model.HandSuits[11])<br>
+                                </div>
                             }
                         </div>
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/heart.png"/>
-                            @if (Model.HandSuits != null){
-                                @Html.Raw(Model.HandSuits[9])<br>
-                            }
-                        </div>
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/diamond.png"/> 
-                            <div> </div>
-                            @if (Model.HandSuits != null){
-                                @Html.Raw(Model.HandSuits[10])<br>
-                            }
-                        </div>
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/club.png"/>
-                            @if (Model.HandSuits != null){
-                                @Html.Raw(Model.HandSuits[11])<br>
-                            }
-                        </div>
+                        <div></div>
                     </div>
-                    <div></div>
                 </div>
             </div>
         </div>
-    </div>
+    
 </div>
 
 <script>
@@ -184,5 +179,42 @@ document.addEventListener("DOMContentLoaded", function(){
     // Optionally, you could also disable the submit button to prevent multiple submissions
     document.getElementById('playButton').disabled = true;
   });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var dynamicContent = document.getElementById('dynamic-content');
+    var originalContent = dynamicContent.innerHTML; // Store the original content
+
+    function addErrorButtonListener() {
+        var errorButton = document.getElementById('errorButton');
+        if (errorButton) {
+            errorButton.addEventListener('click', function() {
+                // Replace with new content containing a 'Back' button
+                dynamicContent.innerHTML = `
+                    <div>
+                        New content goes here. This can be anything you want to show after the button is clicked.
+                        <button id="backButton">Back</button>
+                    </div>
+                `;
+                addBackButtonListener(); // Call to add listener to the 'Back' button
+                return false;
+            });
+        }
+    }
+
+    function addBackButtonListener() {
+        var backButton = document.getElementById('backButton');
+        if (backButton) {
+            backButton.addEventListener('click', function() {
+                // Restore the original content
+                dynamicContent.innerHTML = originalContent;
+                addErrorButtonListener(); // Re-bind the original button's click event
+                return false;
+            });
+        }
+    }
+
+    // Initialize the first error button listener
+    addErrorButtonListener();
 });
 </script>
