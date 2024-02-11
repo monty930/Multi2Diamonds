@@ -8,6 +8,7 @@ namespace BridgeScenarios.Pages;
 
 public class IndexModel : PageModel
 {
+
     public IndexModel() {
         error_input = false;
         TextInput = "";
@@ -25,12 +26,25 @@ public class IndexModel : PageModel
 
     public bool error_input { get; set; }
 
-    public async Task<IActionResult> OnPostAsync()
+    public string ToSave { get; set; }
+
+    public async Task<IActionResult> OnPostAsync(string action)
     {
+        Console.WriteLine("---");
+        Console.WriteLine("action:");
+        Console.WriteLine(action);
+        Console.WriteLine("---");
         var tempFilePath = Path.GetTempFileName();
         await System.IO.File.WriteAllTextAsync(tempFilePath, TextInput);
 
-        ScriptOutput = RunScript(tempFilePath);
+        if (action == "save") {
+            ToSave = RunScript(tempFilePath, 10);
+            if (error_input) {
+                ToSave = "An error occured. Try to generate example deal.\n";
+            }
+        }
+
+        ScriptOutput = RunScript(tempFilePath, 1);
 
         System.IO.File.Delete(tempFilePath);
 
@@ -81,14 +95,15 @@ public class IndexModel : PageModel
         }
     }
 
-    private string RunScript(string filePath)
+    private string RunScript(string filePath, int deals_num)
     {
+        Console.WriteLine($"Generating deals for : {deals_num}");
         string scriptPath = Path.Combine("Chai", "get_scenarios.sh");
 
         var processStartInfo = new ProcessStartInfo
         {
             FileName = "/bin/bash",
-            Arguments = $"{scriptPath} {filePath}",
+            Arguments = $"{scriptPath} {filePath} {deals_num}",
             RedirectStandardOutput = true,
             UseShellExecute = false,
             CreateNoWindow = true,

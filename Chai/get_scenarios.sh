@@ -10,7 +10,7 @@ done
 
 if [ $# -eq 0 ]; then
     echo "Grammar files copied but no filepath provided."
-    echo "Usage: $0 <filepath>"
+    echo "Usage: $0 <filepath> <number of deals>"
     exit 1
 fi
 
@@ -28,7 +28,9 @@ fi
 
 echo "$output" > "$TEMPFILE"
 
-output2=$(python -mredeal --max 100000 -n 1 --format=pbn "$TEMPFILE" 2>&1)
+num_of_deals=$2
+
+output2=$(python -mredeal --max 100000 -n $num_of_deals --format=pbn "$TEMPFILE" 2>&1)
 
 if [ $? -ne 0 ]; then
     echo "Execution of redeal failed."

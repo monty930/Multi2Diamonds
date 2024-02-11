@@ -27,13 +27,14 @@
                                 id="codeInput" 
                                 oninput="updateLineNumbers()">
                             </textarea>
+                            <input type="hidden" name="action" id="actionField" value="save">
                         </div>
                     </form>
                 </div>
                 <div class="left-switches">
                     <div></div>
                     <div class="button-cont">
-                        <button class="button-save">
+                        <button id="saveButton" class="button-save">
                             <img id="tabs-img" src="~/assets/save.png"/> 
                         </button>
                     </div>
@@ -57,7 +58,7 @@
         <div class="grid-rows">
             <div class="@("row-n" + (Model.HandSuits != null ? " has-handsuits" : " no-handsuits"))">
                 <div>
-                    <button type="submit" form="gen_sc" id="playButton">
+                    <button id="playButton">
                         <img id="arrow-img" src="~/assets/arrow-white.png"/>
                     </button>
                 </div>
@@ -203,17 +204,26 @@
             </div>
         </div>
     </div>
-    
 </div>
 
 <script>
+var toSaveContent = '@Model.ToSave';
+
 document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('gen_sc');
     var spinner = document.getElementById('spinner');
     
     form.addEventListener('submit', function() {
+        @* if (performance.navigation.type === 1) { // The page is reloaded
+            console.log("page reloaded.");
+            document.getElementById('actionField').value = 'reload';
+        } else {
+            // The page is not reloaded (e.g., first visit or navigation from another page)
+            // You can set the default value or handle it as needed
+            console.log("page not reloaded.");
+            document.getElementById('actionField').value = 'save';
+        } *@
         spinner.style.display = 'block';
-        document.getElementById('playButton').disabled = true;
     });
 
     var dynamicContent = document.getElementById('dynamic-content');
@@ -305,9 +315,70 @@ document.getElementById('codeInput').addEventListener('scroll', function() {
 
 window.addEventListener('resize', updateLineNumbers);
 
-window.addEventListener('beforeunload', function() {
+@* window.addEventListener('beforeunload', function() {
   // Save the current scroll position of the textarea to localStorage
   localStorage.setItem('textareaScrollTop', document.getElementById('codeInput').scrollTop);
+}); *@
+
+document.getElementById('saveButton').addEventListener('click', function() {
+    var text = toSaveContent;
+
+    var blob = new Blob([text], { type: 'text/plain' });
+
+    var downloadLink = document.createElement('a');
+    downloadLink.href = window.URL.createObjectURL(blob);
+    downloadLink.download = "scenario.txt";
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+
+    document.body.removeChild(downloadLink);
+});
+
+@* document.addEventListener('DOMContentLoaded', function() {
+    if (performance.navigation.type === 1) { // The page is reloaded
+        document.getElementById('actionField').value = 'reload';
+    } else {
+        // The page is not reloaded (e.g., first visit or navigation from another page)
+        // You can set the default value or handle it as needed
+        document.getElementById('actionField').value = 'save';
+    }
+}); *@
+
+document.addEventListener('DOMContentLoaded', function() {
+    var playButton = document.getElementById('playButton');
+    playButton.addEventListener('click', function() {
+        // Set the action value
+        document.getElementById('actionField').value = 'play';
+        // Submit the form
+        document.getElementById('gen_sc').submit();
+    });
+
+    var saveButton = document.getElementById('saveButton');
+    saveButton.addEventListener('click', function() {
+        // Set the action value
+        document.getElementById('actionField').value = 'save';
+        // Submit the form
+        document.getElementById('gen_sc').submit();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("im here");
+    // Check if the reloadFlag is set in localStorage
+    if (localStorage.getItem('reloadFlag') === 'true') {
+        // Detected a page reload
+        document.getElementById('actionField').value = 'reload';
+        // Clear the flag so it doesn't affect future loads
+        localStorage.removeItem('reloadFlag');
+    }
+
+    // Other existing DOMContentLoaded code goes here...
+});
+
+window.addEventListener('beforeunload', function(event) {
+    // Set a flag in localStorage to indicate the page is about to unload
+    localStorage.setItem('reloadFlag', 'true');
 });
 
 </script>
