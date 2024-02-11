@@ -14,21 +14,34 @@
 <div class="page-layout">
     <div class="left-panel">
         <div class="container-for-input">
-            <div class="input-section">
-                <h4>Enter scenario code:</h4>
-                <form id=gen_sc method="post">
-                    <div class="editor-container">
-                        <div class="line-numbers" id="lineNumbers"></div>
-                        <textarea 
-                            spellcheck="false" 
-                            asp-for="TextInput" 
-                            placeholder="See README for example constraints."
-                            id="codeInput" 
-                            oninput="updateLineNumbers()">
-                        </textarea>
+            <div class="left-container">
+                <div class="input-section">
+                    <h4>Enter constraints:</h4>
+                    <form id=gen_sc method="post">
+                        <div class="editor-container">
+                            <div class="line-numbers" id="lineNumbers"></div>
+                            <textarea 
+                                spellcheck="false" 
+                                asp-for="TextInput" 
+                                placeholder="See README for example constraints."
+                                id="codeInput" 
+                                oninput="updateLineNumbers()">
+                            </textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="left-switches">
+                    <div></div>
+                    <div class="button-cont">
+                        <button class="button-save">SAVE</button>
                     </div>
-                </form>
+                    <div class="button-cont">
+                        <button class="button-readme">README</button>
+                    </div>
+                    <div></div>
+                </div>
             </div>
+            <div></div>
         </div>
     </div>
     

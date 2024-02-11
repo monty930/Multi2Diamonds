@@ -5,7 +5,7 @@
   --button-h: calc(0.3em + 8vh);
   --code-font-size: calc(0.1em + min(3.5vh, 1.5vw));
   --input-line-height: calc(0.3em + 3vh);
-  --input-box-height: calc(13 * (0.3em + 3vh));
+  --input-box-height: calc(18 * (0.25em + 3vh));
 }
 
 html, body {
@@ -20,7 +20,6 @@ html, body {
   grid-template-rows: auto;
   height: 100%;
   width: 100%;
-
 }
 
 .left-panel {
@@ -44,35 +43,98 @@ html, body {
   background: rgb(88,88,88);
 }
 
+.container-for-input {
+  display: grid;
+  grid-template-columns: auto 7%;
+  grid-template-rows: auto;
+}
+
+.left-container {
+  display: grid;
+  overflow: hidden;
+  height: 80vh;
+  grid-template-columns: auto;
+  grid-template-rows: 90% auto;
+  row-gap: 0px;
+  column-gap: 0px;
+  margin: 0;
+}
+
+.left-container > div:nth-child(1) {
+  padding-bottom: 0%;
+  height: 100%;
+}
+
+.left-container > div:nth-child(2) {
+  padding:0%;
+}
+
+.left-switches {
+  height: 100%;
+  padding: 0%;
+  display: grid;
+  grid-template-columns: auto 17% 17%;
+  grid-template-rows: auto;
+}
+
+.button-cont {
+  width: 100%;
+  padding-left: 5%;
+}
+
+.button-save, .button-readme {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(116, 116, 116);
+  color: var(--main-font-color);
+  font-weight: bold;
+  padding: 5px 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 0 0 10px 10px;
+  width: 100%;
+  box-shadow: 0 5px rgb(68, 68, 68);
+}
+
+.button-save:hover, .button-readme:hover {
+  background-color: rgb(158, 157, 157);
+}
+
+.button-save:active, .button-readme:active {
+  background-color: rgb(143, 143, 143);
+  box-shadow: 0 2px rgb(68, 68, 68);
+  transform: translateY(1px);
+}
+
 .input-section {
-  height: 70vh;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 7%;
+  padding-right: 0%;
+  height: 100%;
 }
 
 .input-section h4 {
   margin-bottom: 10px;
   color: var(--main-font-color);
-  font-weight: 800;
-
+  font-weight: 600;
 }
 
 .input-section form {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  padding: 0%;
 }
-
-/*  */
 
 .editor-container {
   display: flex;
-  width: 95%;
+  width: 100%;
   height: var(--input-box-height);
-  margin-bottom: 10px;
   overflow: hidden;
-  max-height: 80vh;
 }
 
 .line-numbers {
@@ -100,14 +162,12 @@ textarea {
 }
 
 .used-line {
-  color: var(--main-font-color); /* Existing line numbers color */
+  color: var(--main-font-color);
 }
 
 .unused-line {
-  color: #888; /* Lighter color for unused lines */
+  color: #888;
 }
-
-/*  */
 
 .grid-rows {
   width: 100%;
