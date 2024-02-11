@@ -6,6 +6,10 @@
   --code-font-size: calc(0.1em + min(3.5vh, 1.5vw));
   --input-line-height: calc(0.3em + 3vh);
   --input-box-height: calc(18 * (0.25em + 3vh));
+  --button-face-color: rgb(116, 116, 116);
+  --button-shadow: rgb(68, 68, 68);
+  --button-hover: rgb(158, 157, 157);
+  --button-active: rgb(143, 143, 143);
 }
 
 html, body {
@@ -86,7 +90,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(116, 116, 116);
+  background-color: var(--button-face-color);
   color: var(--main-font-color);
   font-weight: bold;
   padding: 5px 15px;
@@ -95,16 +99,16 @@ html, body {
   cursor: pointer;
   border-radius: 0 0 10px 10px;
   width: 100%;
-  box-shadow: 0 5px rgb(68, 68, 68);
+  box-shadow: 0 5px var(--button-shadow);
 }
 
 .button-save:hover, .button-readme:hover {
-  background-color: rgb(158, 157, 157);
+  background-color: var(--button-hover);
 }
 
 .button-save:active, .button-readme:active {
-  background-color: rgb(143, 143, 143);
-  box-shadow: 0 2px rgb(68, 68, 68);
+  background-color: var(--button-active);
+  box-shadow: 0 2px var(--button-shadow);
   transform: translateY(1px);
 }
 
@@ -292,27 +296,26 @@ textarea {
 #playButton {
   width: 50px;
   height: 50px;
-  color: var(--main-font-color);
   padding: 5px 5px;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
   position: relative;
   display: inline-block;
   outline: none;
   border-radius: 10px;
   border:rgb(158, 157, 157);
-  background:rgb(116, 116, 116);
-  box-shadow: 0 5px #686767;
+  background:var(--button-face-color);
+  box-shadow: 0 5px var(--button-shadow);
 }
 #playButton:hover {
-  background:rgb(158, 157, 157);
-  color: #474646;
+  background:var(--button-hover);
   top: 1px;
 }
 
 #playButton:active {
-  top: 5px;
+  background-color: var(--button-active);
+  transform: translateY(3px);
+  box-shadow: 0 2px var(--button-shadow);
 }
 
 #arrow-img {

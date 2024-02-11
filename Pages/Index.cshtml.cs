@@ -83,7 +83,7 @@ public class IndexModel : PageModel
 
     private string RunScript(string filePath)
     {
-        string scriptPath = Path.Combine("backend", "get_scenarios.sh");
+        string scriptPath = Path.Combine("Latte", "get_scenarios.sh");
 
         var processStartInfo = new ProcessStartInfo
         {
