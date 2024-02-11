@@ -1,0 +1,6 @@
+predeal = {
+    S: "AKQ AK AK A",
+    N: (balanced)
+};
+
+final = E.clubs > 7

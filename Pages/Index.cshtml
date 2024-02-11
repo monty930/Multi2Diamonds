@@ -23,7 +23,7 @@
                             <textarea 
                                 spellcheck="false" 
                                 asp-for="TextInput" 
-                                placeholder="See README for example constraints."
+                                placeholder="See README for constraints examples."
                                 id="codeInput" 
                                 oninput="updateLineNumbers()">
                             </textarea>
@@ -33,12 +33,20 @@
                 <div class="left-switches">
                     <div></div>
                     <div class="button-cont">
-                        <button class="button-save">SAVE</button>
+                        <button class="button-save">
+                            <img id="tabs-img" src="~/assets/save.png"/> 
+                        </button>
                     </div>
                     <div class="button-cont">
-                        <button class="button-readme">README</button>
+                        <button class="button-settings">
+                            <img id="tabs-img" src="~/assets/settings.png"/> 
+                        </button>
                     </div>
-                    <div></div>
+                    <div class="button-cont">
+                        <button class="button-readme">
+                            <img id="tabs-img" src="~/assets/lightbulb.png"/> 
+                        </button>
+                    </div>
                 </div>
             </div>
             <div></div>
