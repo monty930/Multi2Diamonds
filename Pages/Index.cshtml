@@ -199,17 +199,15 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function(){
-  var form = document.getElementById('gen_sc');
-  var spinner = document.getElementById('spinner');
-  
-  form.addEventListener('submit', function() {
-    spinner.style.display = 'block';
-    document.getElementById('playButton').disabled = true;
-  });
-});
-
 document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('gen_sc');
+    var spinner = document.getElementById('spinner');
+    
+    form.addEventListener('submit', function() {
+        spinner.style.display = 'block';
+        document.getElementById('playButton').disabled = true;
+    });
+
     var dynamicContent = document.getElementById('dynamic-content');
     var originalContent = dynamicContent.innerHTML; // Store the original content
 
@@ -252,16 +250,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     addErrorButtonListener();
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-  updateLineNumbers();
+    updateLineNumbers();
   
-  // Check if a saved scroll position exists and restore it
-  var savedScrollTop = localStorage.getItem('textareaScrollTop');
-  if (savedScrollTop !== null) {
-    document.getElementById('codeInput').scrollTop = parseInt(savedScrollTop, 10);
-  }
+    // Check if a saved scroll position exists and restore it
+    var savedScrollTop = localStorage.getItem('textareaScrollTop');
+    if (savedScrollTop !== null) {
+        document.getElementById('codeInput').scrollTop = parseInt(savedScrollTop, 10);
+    }
 });
 
 window.onload = function() {
@@ -270,7 +266,6 @@ window.onload = function() {
   image.style.transform = 'rotate(' + randomAngle + 'deg)'; // Rotate the image
 };
 
-// Existing code for updateLineNumbers and event listeners
 function updateLineNumbers() {
   const textarea = document.getElementById('codeInput');
   const lineNumbers = document.getElementById('lineNumbers');
@@ -295,17 +290,12 @@ function updateLineNumbers() {
   lineNumbers.innerHTML = numbers;
 }
 
-// Call updateLineNumbers on input and scroll
 document.getElementById('codeInput').addEventListener('input', updateLineNumbers);
 document.getElementById('codeInput').addEventListener('scroll', function() {
   document.getElementById('lineNumbers').scrollTop = this.scrollTop;
 });
 
-// Add event listener for window resize
 window.addEventListener('resize', updateLineNumbers);
-document.addEventListener('DOMContentLoaded', function() {
-  updateLineNumbers();
-});
 
 window.addEventListener('beforeunload', function() {
   // Save the current scroll position of the textarea to localStorage
