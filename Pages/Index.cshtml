@@ -248,12 +248,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Restore the original content
                 dynamicContent.innerHTML = originalContent;
                 addErrorButtonListener();
+                addPlayButtonListener()
                 return false;
             });
         }
     }
 
+    function addPlayButtonListener() {
+        var playButton = document.getElementById('playButton');
+        var spinner = document.getElementById('spinner');
+        playButton.addEventListener('click', function() {
+            // loading circle
+            spinner.style.display = 'block';
+            // Set the action value
+            document.getElementById('actionField').value = 'play';
+            // Submit the form
+            document.getElementById('gen_sc').submit();
+        });
+
+        var saveButton = document.getElementById('saveButton');
+        saveButton.addEventListener('click', function() {
+            // Set the action value
+            document.getElementById('actionField').value = 'save';
+            // Submit the form
+            document.getElementById('gen_sc').submit();
+        });
+    }
+
     addErrorButtonListener();
+
+    addPlayButtonListener();
 
     updateLineNumbers();
   
@@ -322,25 +346,5 @@ document.getElementById('saveButton').addEventListener('click', function() {
     document.body.removeChild(downloadLink);
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    var playButton = document.getElementById('playButton');
-    var spinner = document.getElementById('spinner');
-    playButton.addEventListener('click', function() {
-        // loading circle
-        spinner.style.display = 'block';
-        // Set the action value
-        document.getElementById('actionField').value = 'play';
-        // Submit the form
-        document.getElementById('gen_sc').submit();
-    });
-
-    var saveButton = document.getElementById('saveButton');
-    saveButton.addEventListener('click', function() {
-        // Set the action value
-        document.getElementById('actionField').value = 'save';
-        // Submit the form
-        document.getElementById('gen_sc').submit();
-    });
-});
 
 </script>
