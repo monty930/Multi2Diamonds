@@ -15,7 +15,7 @@
     <div class="left-panel">
         <div class="container-for-input">
             <div class="left-container">
-                <div class="input-section">
+                <div class="input-section" id="tab-dynamics">
                     <h4>Enter constraints:</h4>
                     <form id=gen_sc method="post">
                         <div class="editor-container">
@@ -34,17 +34,22 @@
                 <div class="left-switches">
                     <div></div>
                     <div class="button-cont">
+                        <button id="inputButton" class="button-input">
+                            <img id="tabs-img" src="~/assets/input.png"/> 
+                        </button>
+                    </div>
+                    <div class="button-cont">
                         <button id="saveButton" class="button-save">
                             <img id="tabs-img" src="~/assets/save.png"/> 
                         </button>
                     </div>
                     <div class="button-cont">
-                        <button class="button-settings">
+                        <button id="settingsButton" class="button-settings">
                             <img id="tabs-img" src="~/assets/settings.png"/> 
                         </button>
                     </div>
                     <div class="button-cont">
-                        <button class="button-readme">
+                        <button id="readmeButton" class="button-readme">
                             <img id="tabs-img" src="~/assets/lightbulb.png"/> 
                         </button>
                     </div>
@@ -254,6 +259,54 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    var tabsDynamicContent = document.getElementById('tab-dynamics');
+    var originalInputContent = tabsDynamicContent.innerHTML; // Store the original input content
+
+    function addLightbulbButtonListener() {
+        var lightButton = document.getElementById('readmeButton');
+        if (lightButton) {
+            lightButton.addEventListener('click', function() {
+                // The new content
+                tabsDynamicContent.innerHTML = `
+                    <h4>Examples</h4>
+                    <div class="editor-container">
+                        <div class="line-numbers"></div>
+                        <div class="examples-container-inner">
+                            Tu jakieś readme<br>
+                            <pre>
+
+ev = evaluator(2, 1); // evaluator
+
+predeal = {
+    S: "AK K52 98765 962",
+    N: (balanced, ev, (3, 4))
+};
+
+final = E.spades > 7
+                            </pre>
+                        </div>
+                        <input type="hidden" name="action" id="actionField" value="save">
+                    </div>
+                `;
+                addInputButtonListener();
+                return false;
+            });
+        }
+    }
+
+    function addInputButtonListener() {
+        var inputButton = document.getElementById('inputButton');
+        if (inputButton) {
+            inputButton.addEventListener('click', function() {
+                // Restore the original content
+                tabsDynamicContent.innerHTML = originalInputContent;
+                updateLineNumbers();
+                addLightbulbButtonListener()
+                return false;
+            });
+        }
+    }
+
     function addPlayButtonListener() {
         var playButton = document.getElementById('playButton');
         var spinner = document.getElementById('spinner');
@@ -280,6 +333,8 @@ document.addEventListener('DOMContentLoaded', function() {
     addPlayButtonListener();
 
     updateLineNumbers();
+
+    addLightbulbButtonListener();
   
     // Check if a saved scroll position exists and restore it
     var savedScrollTop = localStorage.getItem('textareaScrollTop');
@@ -289,7 +344,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.onload = function() {
-  console.log("im here 42");
   var image = document.getElementById('loading-img');
   var randomAngle = Math.floor(Math.random() * 360); // Generate a random angle between 0 and 359
   image.style.transform = 'rotate(' + randomAngle + 'deg)'; // Rotate the image
@@ -297,26 +351,28 @@ window.onload = function() {
 
 function updateLineNumbers() {
   const textarea = document.getElementById('codeInput');
-  const lineNumbers = document.getElementById('lineNumbers');
-  const lineCount = textarea.value.split('\n').length;
+  if (textarea != null) {
+    const lineNumbers = document.getElementById('lineNumbers');
+    const lineCount = textarea.value.split('\n').length;
 
-  // Get the computed line height of the textarea for accurate calculations
-  const computedStyle = window.getComputedStyle(textarea);
-  const lineHeight = parseInt(computedStyle.lineHeight, 10); // Convert the line-height value to an integer
+    // Get the computed line height of the textarea for accurate calculations
+    const computedStyle = window.getComputedStyle(textarea);
+    const lineHeight = parseInt(computedStyle.lineHeight, 10); // Convert the line-height value to an integer
 
-  // Calculate visible lines based on textarea height and the computed line height
-  const visibleLines = Math.floor(textarea.clientHeight / lineHeight);
-  
-  // Ensure we cover all lines that have content or are within the initial visible area
-  const totalLines = Math.max(lineCount, visibleLines);
+    // Calculate visible lines based on textarea height and the computed line height
+    const visibleLines = Math.floor(textarea.clientHeight / lineHeight);
+    
+    // Ensure we cover all lines that have content or are within the initial visible area
+    const totalLines = Math.max(lineCount, visibleLines);
 
-  let numbers = '';
-  for (let i = 1; i <= totalLines; i++) {
-    // Apply "used-line" class to lines with content, and "unused-line" to empty but visible lines
-    numbers += i <= lineCount ? `<span class="used-line">${i}</span>\n` : `<span class="unused-line">${i}</span>\n`;
+    let numbers = '';
+    for (let i = 1; i <= totalLines; i++) {
+        // Apply "used-line" class to lines with content, and "unused-line" to empty but visible lines
+        numbers += i <= lineCount ? `<span class="used-line">${i}</span>\n` : `<span class="unused-line">${i}</span>\n`;
+    }
+
+    lineNumbers.innerHTML = numbers;
   }
-
-  lineNumbers.innerHTML = numbers;
 }
 
 document.getElementById('codeInput').addEventListener('input', updateLineNumbers);
