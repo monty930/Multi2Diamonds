@@ -13,7 +13,11 @@ import qualified Data.String
 data Prog = Program [TopDef]
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
-data TopDef = TopDefPredeal [HandPredeal] | Final Expr
+data TopDef
+    = TopDefPredeal [HandPredeal]
+    | Final Expr
+    | TopDefShape ShapeDef
+    | TopDefEval Ident [EvalVal]
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data HandPredeal = HandPredeal Hand HandFeature
@@ -29,9 +33,6 @@ data Value = ValueRange Integer Integer
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data ShapeDef = ShapeCond Ident ShapeExpr | ShapeLit Ident [Shape]
-  deriving (C.Eq, C.Ord, C.Show, C.Read)
-
-data EvalDef = EvalDef Ident [EvalVal]
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data EvalVal = EvalVal Integer

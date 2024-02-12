@@ -27,6 +27,8 @@ transTopDef :: Abs.TopDef -> Result
 transTopDef x = case x of
   Abs.TopDefPredeal handpredeals -> failure x
   Abs.Final expr -> failure x
+  Abs.TopDefShape shapedef -> failure x
+  Abs.TopDefEval ident evalvals -> failure x
 
 transHandPredeal :: Abs.HandPredeal -> Result
 transHandPredeal x = case x of
@@ -46,10 +48,6 @@ transShapeDef :: Abs.ShapeDef -> Result
 transShapeDef x = case x of
   Abs.ShapeCond ident shapeexpr -> failure x
   Abs.ShapeLit ident shapes -> failure x
-
-transEvalDef :: Abs.EvalDef -> Result
-transEvalDef x = case x of
-  Abs.EvalDef ident evalvals -> failure x
 
 transEvalVal :: Abs.EvalVal -> Result
 transEvalVal x = case x of

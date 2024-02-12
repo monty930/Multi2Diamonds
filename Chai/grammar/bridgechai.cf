@@ -8,6 +8,10 @@ TopDefPredeal.  TopDef ::= "predeal" "=" "{" [HandPredeal] "}" ;
 
 Final.          TopDef ::= "final" "=" Expr ;
 
+TopDefShape.    TopDef ::= ShapeDef ;
+
+TopDefEval.     TopDef ::= Ident "=" "evaluator" "(" [EvalVal] ")" ;
+
 separator       TopDef ";" ;
 
 separator       HandPredeal "," ;
@@ -29,8 +33,6 @@ ValueRange.     Value ::= "(" Integer "," Integer ")" ;
 ShapeCond.      ShapeDef ::= Ident "=" "(" ShapeExpr ")" ;
 
 ShapeLit.       ShapeDef ::= Ident "=" [Shape] ;
-
-EvalDef.        EvalDef ::= Ident "=" "Evaluator" "(" [EvalVal] ")" ;
 
 EvalVal.        EvalVal ::= Integer ;
 

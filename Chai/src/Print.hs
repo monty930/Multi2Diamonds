@@ -148,6 +148,8 @@ instance Print Abs.TopDef where
   prt i = \case
     Abs.TopDefPredeal handpredeals -> prPrec i 0 (concatD [doc (showString "predeal"), doc (showString "="), doc (showString "{"), prt 0 handpredeals, doc (showString "}")])
     Abs.Final expr -> prPrec i 0 (concatD [doc (showString "final"), doc (showString "="), prt 0 expr])
+    Abs.TopDefShape shapedef -> prPrec i 0 (concatD [prt 0 shapedef])
+    Abs.TopDefEval id_ evalvals -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "evaluator"), doc (showString "("), prt 0 evalvals, doc (showString ")")])
 
 instance Print [Abs.TopDef] where
   prt _ [] = concatD []
@@ -177,10 +179,6 @@ instance Print Abs.ShapeDef where
   prt i = \case
     Abs.ShapeCond id_ shapeexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "("), prt 0 shapeexpr, doc (showString ")")])
     Abs.ShapeLit id_ shapes -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 shapes])
-
-instance Print Abs.EvalDef where
-  prt i = \case
-    Abs.EvalDef id_ evalvals -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "Evaluator"), doc (showString "("), prt 0 evalvals, doc (showString ")")])
 
 instance Print Abs.EvalVal where
   prt i = \case

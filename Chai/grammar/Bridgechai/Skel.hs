@@ -27,6 +27,8 @@ transTopDef :: Bridgechai.Abs.TopDef -> Result
 transTopDef x = case x of
   Bridgechai.Abs.TopDefPredeal handpredeals -> failure x
   Bridgechai.Abs.Final expr -> failure x
+  Bridgechai.Abs.TopDefShape shapedef -> failure x
+  Bridgechai.Abs.TopDefEval ident evalvals -> failure x
 
 transHandPredeal :: Bridgechai.Abs.HandPredeal -> Result
 transHandPredeal x = case x of
@@ -46,10 +48,6 @@ transShapeDef :: Bridgechai.Abs.ShapeDef -> Result
 transShapeDef x = case x of
   Bridgechai.Abs.ShapeCond ident shapeexpr -> failure x
   Bridgechai.Abs.ShapeLit ident shapes -> failure x
-
-transEvalDef :: Bridgechai.Abs.EvalDef -> Result
-transEvalDef x = case x of
-  Bridgechai.Abs.EvalDef ident evalvals -> failure x
 
 transEvalVal :: Bridgechai.Abs.EvalVal -> Result
 transEvalVal x = case x of

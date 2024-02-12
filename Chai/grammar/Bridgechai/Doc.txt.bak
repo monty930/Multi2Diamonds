@@ -37,8 +37,8 @@ The reserved words used in bridgechai are the following:
   | ``true`` |  |  |
 
 The symbols used in bridgechai are the following:
-  | = | { | } | ;
-  | , | : | ( | )
+  | = | { | } | (
+  | ) | ; | , | :
   | [ | ] | ! | +
   | . | < | <= | >
   | >= | == | != |
@@ -55,6 +55,8 @@ All other symbols are terminals.
   | //Prog// | -> | //[TopDef]//
   | //TopDef// | -> | ``predeal`` ``=`` ``{`` //[HandPredeal]// ``}``
   |  |  **|**  | ``final`` ``=`` //Expr//
+  |  |  **|**  | //ShapeDef//
+  |  |  **|**  | //Ident// ``=`` ``Evaluator`` ``(`` //[EvalVal]// ``)``
   | //[TopDef]// | -> | **eps**
   |  |  **|**  | //TopDef//
   |  |  **|**  | //TopDef// ``;`` //[TopDef]//
@@ -63,12 +65,11 @@ All other symbols are terminals.
   |  |  **|**  | //HandPredeal// ``,`` //[HandPredeal]//
   | //HandPredeal// | -> | //Hand// ``:`` //HandFeature//
   | //HandFeature// | -> | //String//
-  |  |  **|**  | ``(`` //ShapeDef// ``)``
-  |  |  **|**  | ``(`` //ShapeDef// ``,`` //Ident// ``,`` //Value// ``)``
+  |  |  **|**  | ``(`` //Ident// ``)``
+  |  |  **|**  | ``(`` //Ident// ``,`` //Ident// ``,`` //Value// ``)``
   | //Value// | -> | ``(`` //Integer// ``,`` //Integer// ``)``
   | //ShapeDef// | -> | //Ident// ``=`` ``(`` //ShapeExpr// ``)``
   |  |  **|**  | //Ident// ``=`` //[Shape]//
-  | //EvalDef// | -> | //Ident// ``=`` ``Evaluator`` ``(`` //[EvalVal]// ``)``
   | //EvalVal// | -> | //Integer//
   | //[EvalVal]// | -> | **eps**
   |  |  **|**  | //EvalVal//

@@ -39,15 +39,15 @@ import Bridgechai.Lex
   '>'         { PT _ (TS _ 14) }
   '>='        { PT _ (TS _ 15) }
   'E'         { PT _ (TS _ 16) }
-  'Evaluator' { PT _ (TS _ 17) }
-  'N'         { PT _ (TS _ 18) }
-  'S'         { PT _ (TS _ 19) }
-  'W'         { PT _ (TS _ 20) }
-  '['         { PT _ (TS _ 21) }
-  ']'         { PT _ (TS _ 22) }
-  'and'       { PT _ (TS _ 23) }
-  'c'         { PT _ (TS _ 24) }
-  'd'         { PT _ (TS _ 25) }
+  'N'         { PT _ (TS _ 17) }
+  'S'         { PT _ (TS _ 18) }
+  'W'         { PT _ (TS _ 19) }
+  '['         { PT _ (TS _ 20) }
+  ']'         { PT _ (TS _ 21) }
+  'and'       { PT _ (TS _ 22) }
+  'c'         { PT _ (TS _ 23) }
+  'd'         { PT _ (TS _ 24) }
+  'evaluator' { PT _ (TS _ 25) }
   'false'     { PT _ (TS _ 26) }
   'final'     { PT _ (TS _ 27) }
   'h'         { PT _ (TS _ 28) }
@@ -81,6 +81,8 @@ TopDef :: { Bridgechai.Abs.TopDef }
 TopDef
   : 'predeal' '=' '{' ListHandPredeal '}' { Bridgechai.Abs.TopDefPredeal $4 }
   | 'final' '=' Expr { Bridgechai.Abs.Final $3 }
+  | ShapeDef { Bridgechai.Abs.TopDefShape $1 }
+  | Ident '=' 'evaluator' '(' ListEvalVal ')' { Bridgechai.Abs.EvalSimp $1 $5 }
 
 ListTopDef :: { [Bridgechai.Abs.TopDef] }
 ListTopDef
@@ -101,8 +103,8 @@ HandPredeal
 HandFeature :: { Bridgechai.Abs.HandFeature }
 HandFeature
   : String { Bridgechai.Abs.HandLit $1 }
-  | '(' ShapeDef ')' { Bridgechai.Abs.SmartStackShape $2 }
-  | '(' ShapeDef ',' Ident ',' Value ')' { Bridgechai.Abs.SmartStackFull $2 $4 $6 }
+  | '(' Ident ')' { Bridgechai.Abs.SmartStackShape $2 }
+  | '(' Ident ',' Ident ',' Value ')' { Bridgechai.Abs.SmartStackFull $2 $4 $6 }
 
 Value :: { Bridgechai.Abs.Value }
 Value
@@ -112,10 +114,6 @@ ShapeDef :: { Bridgechai.Abs.ShapeDef }
 ShapeDef
   : Ident '=' '(' ShapeExpr ')' { Bridgechai.Abs.ShapeCond $1 $4 }
   | Ident '=' ListShape { Bridgechai.Abs.ShapeLit $1 $3 }
-
-EvalDef :: { Bridgechai.Abs.EvalDef }
-EvalDef
-  : Ident '=' 'Evaluator' '(' ListEvalVal ')' { Bridgechai.Abs.EvalDef $1 $5 }
 
 EvalVal :: { Bridgechai.Abs.EvalVal }
 EvalVal : Integer { Bridgechai.Abs.EvalVal $1 }

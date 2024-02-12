@@ -109,7 +109,33 @@ evalTopDefs ((Final f) : topdefs) = do
   topDefsCode <- evalTopDefs topdefs
   return $ fCode ++ topDefsCode
 
-evalTopDefs [] = return ""
+evalTopDefs ((TopDefShape sh) : topdefs) = do
+  shCode <- evalTopShape sh
+  topDefsCode <- evalTopDefs topdefs
+  return $ shCode ++ topDefsCode
+
+evalTopDefs ((TopDefEval id vals) : topdefs) = do
+  evCode <- evalTopEv id vals
+  topDefsCode <- evalTopDefs topdefs
+  return $ evCode ++ topDefsCode
+
+evalTopDefs [] = return "\n"
+
+evalTopShape sh = undefined
+
+evalTopEv ident vals = do
+  valsCode <- evalEvValsCode vals
+  return $ showIdent ident ++ " = Evaluator(" ++ valsCode ++ ")\n"
+
+evalEvValsCode :: [EvalVal] -> RSE String
+evalEvValsCode [EvalVal val] = 
+  return $ show val
+
+evalEvValsCode ((EvalVal val) : vals) = do
+  valsCode <- evalEvValsCode vals
+  return $ show val ++ ", " ++ valsCode
+
+evalEvValsCode [] = undefined -- intended
 
 evalFinal expr = do
   exprCode <- evalExp expr
@@ -149,7 +175,7 @@ evalHandFeatureCode (SmartStackShape shape) = do
 
 evalHandFeatureCode (SmartStackFull shape eval val) = do
   valCode <- evalVal val
-  return $ "SmartStack(" ++ showIdent shape ++ "," ++ showIdent eval ++ "," ++ valCode ++ ")"
+  return $ "SmartStack(" ++ showIdent shape ++ "," ++ showIdent eval ++ ", range" ++ valCode ++ ")"
 
 evalVal (ValueRange int1 int2) = do
   return $ "(" ++ show int1 ++ "," ++ show int2 ++")"

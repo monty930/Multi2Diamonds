@@ -148,6 +148,8 @@ instance Print Bridgechai.Abs.TopDef where
   prt i = \case
     Bridgechai.Abs.TopDefPredeal handpredeals -> prPrec i 0 (concatD [doc (showString "predeal"), doc (showString "="), doc (showString "{"), prt 0 handpredeals, doc (showString "}")])
     Bridgechai.Abs.Final expr -> prPrec i 0 (concatD [doc (showString "final"), doc (showString "="), prt 0 expr])
+    Bridgechai.Abs.TopDefShape shapedef -> prPrec i 0 (concatD [prt 0 shapedef])
+    Bridgechai.Abs.TopDefEval id_ evalvals -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "evaluator"), doc (showString "("), prt 0 evalvals, doc (showString ")")])
 
 instance Print [Bridgechai.Abs.TopDef] where
   prt _ [] = concatD []
@@ -177,10 +179,6 @@ instance Print Bridgechai.Abs.ShapeDef where
   prt i = \case
     Bridgechai.Abs.ShapeCond id_ shapeexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "("), prt 0 shapeexpr, doc (showString ")")])
     Bridgechai.Abs.ShapeLit id_ shapes -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 shapes])
-
-instance Print Bridgechai.Abs.EvalDef where
-  prt i = \case
-    Bridgechai.Abs.EvalDef id_ evalvals -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "Evaluator"), doc (showString "("), prt 0 evalvals, doc (showString ")")])
 
 instance Print Bridgechai.Abs.EvalVal where
   prt i = \case
