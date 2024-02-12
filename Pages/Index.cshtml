@@ -211,20 +211,6 @@ var toSaveContent = '@Model.ToSave';
 
 document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('gen_sc');
-    var spinner = document.getElementById('spinner');
-    
-    form.addEventListener('submit', function() {
-        @* if (performance.navigation.type === 1) { // The page is reloaded
-            console.log("page reloaded.");
-            document.getElementById('actionField').value = 'reload';
-        } else {
-            // The page is not reloaded (e.g., first visit or navigation from another page)
-            // You can set the default value or handle it as needed
-            console.log("page not reloaded.");
-            document.getElementById('actionField').value = 'save';
-        } *@
-        spinner.style.display = 'block';
-    });
 
     var dynamicContent = document.getElementById('dynamic-content');
     var originalContent = dynamicContent.innerHTML; // Store the original content
@@ -279,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.onload = function() {
+  console.log("im here 42");
   var image = document.getElementById('loading-img');
   var randomAngle = Math.floor(Math.random() * 360); // Generate a random angle between 0 and 359
   image.style.transform = 'rotate(' + randomAngle + 'deg)'; // Rotate the image
@@ -315,10 +302,10 @@ document.getElementById('codeInput').addEventListener('scroll', function() {
 
 window.addEventListener('resize', updateLineNumbers);
 
-@* window.addEventListener('beforeunload', function() {
+window.addEventListener('beforeunload', function() {
   // Save the current scroll position of the textarea to localStorage
   localStorage.setItem('textareaScrollTop', document.getElementById('codeInput').scrollTop);
-}); *@
+});
 
 document.getElementById('saveButton').addEventListener('click', function() {
     var text = toSaveContent;
@@ -335,19 +322,12 @@ document.getElementById('saveButton').addEventListener('click', function() {
     document.body.removeChild(downloadLink);
 });
 
-@* document.addEventListener('DOMContentLoaded', function() {
-    if (performance.navigation.type === 1) { // The page is reloaded
-        document.getElementById('actionField').value = 'reload';
-    } else {
-        // The page is not reloaded (e.g., first visit or navigation from another page)
-        // You can set the default value or handle it as needed
-        document.getElementById('actionField').value = 'save';
-    }
-}); *@
-
 document.addEventListener('DOMContentLoaded', function() {
     var playButton = document.getElementById('playButton');
+    var spinner = document.getElementById('spinner');
     playButton.addEventListener('click', function() {
+        // loading circle
+        spinner.style.display = 'block';
         // Set the action value
         document.getElementById('actionField').value = 'play';
         // Submit the form
@@ -361,24 +341,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Submit the form
         document.getElementById('gen_sc').submit();
     });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("im here");
-    // Check if the reloadFlag is set in localStorage
-    if (localStorage.getItem('reloadFlag') === 'true') {
-        // Detected a page reload
-        document.getElementById('actionField').value = 'reload';
-        // Clear the flag so it doesn't affect future loads
-        localStorage.removeItem('reloadFlag');
-    }
-
-    // Other existing DOMContentLoaded code goes here...
-});
-
-window.addEventListener('beforeunload', function(event) {
-    // Set a flag in localStorage to indicate the page is about to unload
-    localStorage.setItem('reloadFlag', 'true');
 });
 
 </script>
