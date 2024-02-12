@@ -9,4 +9,5 @@ Saving deals (still wrong data saved)
 
 Error message:
 
-[logs.webm](https://github.com/monty930/BridgeScenarios/assets/71830127/4fb33007-68cb-4a3f-bdd5-e28f8eaf9c7c)
+[error-logs.webm](https://github.com/monty930/BridgeScenarios/assets/71830127/cc3c1afb-0d09-42c0-aeb2-670b7730bc01)
+
