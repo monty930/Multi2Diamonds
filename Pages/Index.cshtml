@@ -34,7 +34,7 @@
                 <div class="left-switches">
                     <div></div>
                     <div class="button-cont">
-                        <button id="inputButton" class="button-input">
+                        <button id="inputButton" class="button-input button-active-tab">
                             <img id="tabs-img" src="~/assets/input.png"/> 
                         </button>
                     </div>
@@ -213,6 +213,7 @@
 
 <script>
 var toSaveContent = '@Model.ToSave';
+const buttons = document.querySelectorAll('.button-save, .button-readme, .button-settings, .button-input');
 
 document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('gen_sc');
@@ -274,20 +275,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="examples-container-inner">
                             Tu jakieś readme<br>
                             <pre>
-
-ev = evaluator(2, 1); // evaluator
-
-predeal = {
-    S: "AK K52 98765 962",
-    N: (balanced, ev, (3, 4))
-};
-
 final = E.spades > 7
                             </pre>
                         </div>
                         <input type="hidden" name="action" id="actionField" value="save">
                     </div>
                 `;
+                buttons.forEach(button => {
+                    button.classList.remove('button-active-tab');
+                });
+                lightButton.classList.add('button-active-tab');
+
                 addInputButtonListener();
                 return false;
             });
@@ -301,6 +299,10 @@ final = E.spades > 7
                 // Restore the original content
                 tabsDynamicContent.innerHTML = originalInputContent;
                 updateLineNumbers();
+                buttons.forEach(button => {
+                    button.classList.remove('button-active-tab');
+                });
+                inputButton.classList.add('button-active-tab');
                 addLightbulbButtonListener()
                 return false;
             });
