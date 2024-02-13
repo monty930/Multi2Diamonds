@@ -121,7 +121,55 @@ evalTopDefs ((TopDefEval id vals) : topdefs) = do
 
 evalTopDefs [] = return "\n"
 
-evalTopShape sh = undefined
+evalTopShape (ShapeCond id shE) = undefined
+
+evalTopShape (ShapeLit id shapes) = do
+  shapesCode <- evalShapes shapes
+  return $ showIdent id ++ " = " ++ shapesCode ++ "\n"
+
+evalShapes shapes = do
+  posCodes <- mapM evalShape $ filter isShapeOk shapes
+  negCodes <- mapM evalShape $ filter isShapeNeg shapes
+  let posStr = if null posCodes then "" else concatIntersperse "+" posCodes
+      negStr = if null negCodes then "" else concatIntersperse "-" negCodes
+      combinedStr = case (null posCodes, null negCodes) of
+                      (True, True) -> error "Empty shape!"
+                      (True, False) -> error "Shape must contain at least one positive."
+                      (False, True) -> posStr
+                      (False, False) -> posStr ++ "-" ++ negStr
+  return combinedStr
+  where
+    concatIntersperse sep xs = case xs of
+        [] -> ""
+        _ -> foldr1 (\a b -> a ++ sep ++ b) xs
+    isShapeOk (ShapeOk _) = True
+    isShapeOk _ = False
+    isShapeNeg (ShapeNeg _) = True
+    isShapeNeg _ = False
+
+evalShape :: Shape -> RSE String
+evalShape (ShapeOk sh) = evalShapeOk sh
+evalShape (ShapeNeg sh) = evalShapeNeg sh
+
+evalShapeOk (OneShapeOk scs) = do
+  scsCodes <- mapM evalSuitCount scs
+  return $ "Shape(\"" ++ concat scsCodes ++ "\")"
+
+evalShapeNeg (OneShapeNeg (OneShapeOk scs)) = do
+  scsCodes <- mapM evalSuitCount scs
+  return $ "Shape(\"" ++ concat scsCodes ++ "\")"
+
+
+evalSuitCount :: SuitCount -> RSE String
+evalSuitCount a = do
+  case a of
+    (SuitIntCount (SuitInt a)) -> return $ show a
+    (SuitChoice as) -> do
+      asCodes <- mapM evalSuitInt as
+      return $ "(" ++ concat asCodes ++ ")"
+
+evalSuitInt :: SuitInt -> RSE String
+evalSuitInt (SuitInt a) = return $ show a
 
 evalTopEv ident vals = do
   valsCode <- evalEvValsCode vals
