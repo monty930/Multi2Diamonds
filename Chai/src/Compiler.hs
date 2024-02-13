@@ -78,7 +78,7 @@ processFile filePath = do
           baseName = takeBaseName filePath
       let store = (
             M.empty,
-            [Ident "spades", Ident "hearts", Ident "clubs", Ident "diams"],
+            [Ident "spades", Ident "hearts", Ident "clubs", Ident "diamonds"],
             [Ident "hcp", Ident "freakness", Ident "losers", Ident "pt", Ident "controls"])
       let env = M.empty
       let header =
@@ -121,7 +121,38 @@ evalTopDefs ((TopDefEval id vals) : topdefs) = do
 
 evalTopDefs [] = return "\n"
 
-evalTopShape (ShapeCond id shE) = undefined
+evalShapeExpr (ESuit str) = evalSuitLit str
+
+evalShapeExpr (EShapeInt i) = return $ show i
+
+evalShapeExpr (ENotShape sh) = do
+  shCode <- evalShapeExpr sh
+  return $ "not (" ++ shCode ++ ")"
+
+evalShapeExpr (ERelShape sh1 op sh2) = do
+  sh1Code <- evalShapeExpr sh1
+  sh2Code <- evalShapeExpr sh2
+  opCode <- evalRelOp op
+  return $ "(" ++ sh1Code ++ " " ++ opCode ++ " " ++ sh2Code ++ ")"
+
+evalShapeExpr (EAndShape sh1 sh2) = do
+  sh1Code <- evalShapeExpr sh1
+  sh2Code <- evalShapeExpr sh2
+  return $ "(" ++ sh1Code ++ " and " ++ sh2Code ++ ")"
+
+evalShapeExpr (EOrShape sh1 sh2) = do
+  sh1Code <- evalShapeExpr sh1
+  sh2Code <- evalShapeExpr sh2
+  return $ "(" ++ sh1Code ++ " or " ++ sh2Code ++ ")"
+
+evalSuitLit SuitLitC = return "c"
+evalSuitLit SuitLitD = return "d"
+evalSuitLit SuitLitH = return "h"
+evalSuitLit SuitLitS = return "s"
+
+evalTopShape (ShapeCond id shE) = do
+  shapesCode <- evalShapeExpr shE
+  return $ showIdent id ++ " = Shape.from_cond(lambda s, h, d, c: " ++ shapesCode ++ ")\n"
 
 evalTopShape (ShapeLit id shapes) = do
   shapesCode <- evalShapes shapes
