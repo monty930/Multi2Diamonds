@@ -28,7 +28,7 @@ $u = [. \n]          -- universal: any character
 
 -- Symbols and non-identifier-like reserved words
 
-@rsyms = \= | \{ | \} | \( | \) | \; | \, | \: | \[ | \] | \! | \+ | \. | \< | \< \= | \> | \> \= | \= \= | \! \=
+@rsyms = \= | \{ | \} | \( | \) | \; | \, | \: | \[ | \] | \! | \+ | \. | \[ "A" \] | \[ "K" \] | \[ "Q" \] | \[ "J" \] | \[ "T" \] | \[ "9" \] | \[ "8" \] | \[ "7" \] | \[ "6" \] | \[ "5" \] | \[ "4" \] | \[ "3" \] | \[ "2" \] | \< | \< \= | \> | \> \= | \= \= | \! \=
 
 :-
 
@@ -161,21 +161,31 @@ eitherResIdent tv s = treeFind resWords
 -- | The keywords and symbols of the language organized as binary search tree.
 resWords :: BTree
 resWords =
-  b "S" 19
-    (b "<" 10
-       (b "+" 5
-          (b "(" 3 (b "!=" 2 (b "!" 1 N N) N) (b ")" 4 N N))
-          (b ":" 8 (b "." 7 (b "," 6 N N) N) (b ";" 9 N N)))
-       (b ">=" 15
-          (b "==" 13 (b "=" 12 (b "<=" 11 N N) N) (b ">" 14 N N))
-          (b "Evaluator" 17 (b "E" 16 N N) (b "N" 18 N N))))
-    (b "h" 28
-       (b "c" 24
-          (b "]" 22 (b "[" 21 (b "W" 20 N N) N) (b "and" 23 N N))
-          (b "false" 26 (b "d" 25 N N) (b "final" 27 N N)))
-       (b "s" 33
-          (b "or" 31 (b "not" 30 (b "int" 29 N N) N) (b "predeal" 32 N N))
-          (b "{" 35 (b "true" 34 N N) (b "}" 36 N N))))
+  b "[6]" 26
+    (b "==" 13
+       (b "." 7
+          (b ")" 4
+             (b "!=" 2 (b "!" 1 N N) (b "(" 3 N N)) (b "," 6 (b "+" 5 N N) N))
+          (b "<" 10 (b ";" 9 (b ":" 8 N N) N) (b "=" 12 (b "<=" 11 N N) N)))
+       (b "X" 20
+          (b "N" 17
+             (b ">=" 15 (b ">" 14 N N) (b "E" 16 N N))
+             (b "W" 19 (b "S" 18 N N) N))
+          (b "[3]" 23
+             (b "[2]" 22 (b "[" 21 N N) N) (b "[5]" 25 (b "[4]" 24 N N) N))))
+    (b "evaluator" 39
+       (b "[Q]" 33
+          (b "[A]" 30
+             (b "[8]" 28 (b "[7]" 27 N N) (b "[9]" 29 N N))
+             (b "[K]" 32 (b "[J]" 31 N N) N))
+          (b "and" 36
+             (b "]" 35 (b "[T]" 34 N N) N) (b "d" 38 (b "c" 37 N N) N)))
+       (b "or" 46
+          (b "int" 43
+             (b "final" 41 (b "false" 40 N N) (b "h" 42 N N))
+             (b "not" 45 (b "length" 44 N N) N))
+          (b "true" 49
+             (b "s" 48 (b "predeal" 47 N N) N) (b "}" 51 (b "{" 50 N N) N))))
   where
   b s n = B bs (TS bs n)
     where

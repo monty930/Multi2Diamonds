@@ -12,6 +12,8 @@ TopDefShape.    TopDef ::= ShapeDef ;
 
 TopDefEval.     TopDef ::= Ident "=" "evaluator" "(" [EvalVal] ")" ;
 
+TopDefBool.     TopDef ::= Ident "=" "(" HoldingExpr ")" ;
+
 separator       TopDef ";" ;
 
 separator       HandPredeal "," ;
@@ -23,6 +25,8 @@ HandPredeal.    HandPredeal ::= Hand ":" HandFeature ;
 HandLit.        HandFeature ::= String ;
 
 SmartStackShape.     HandFeature ::= "(" Ident ")" ;
+
+SmartStackFunc.      HandFeature ::= "(" Ident "," Ident "," Integer ")" ;
 
 SmartStackFull.      HandFeature ::= "(" Ident "," Ident "," Value ")" ;
 
@@ -113,6 +117,50 @@ SuitLitH.  SuitLit ::= "h" ;
 SuitLitD.  SuitLit ::= "d" ;
 
 SuitLitC.  SuitLit ::= "c" ;
+
+-- Holding Expressions -------------------------------------
+
+HExprLen.  HoldingExpr5 ::= "length" ;
+
+HExprInt.  HoldingExpr5 ::= Integer ;
+
+HExprCard. HoldingExpr5 ::= Card ;
+
+HNotExpr.  HoldingExpr4 ::= "not" HoldingExpr5 ;
+
+HRelExpr.  HoldingExpr2 ::= HoldingExpr2 RelOp HoldingExpr3 ;
+
+HAndExpr.  HoldingExpr1 ::= HoldingExpr2 "and" HoldingExpr1 ;
+
+HOrExpr.   HoldingExpr ::= HoldingExpr1 "or" HoldingExpr ;
+
+coercions  HoldingExpr 5 ;
+
+CardA.     Card ::= "[A]" ;
+
+CardK.     Card ::= "[K]" ;
+
+CardQ.     Card ::= "[Q]" ;
+
+CardJ.     Card ::= "[J]" ;
+
+CardT.     Card ::= "[T]" ;
+
+Card9.     Card ::= "[9]" ;
+
+Card8.     Card ::= "[8]" ;
+
+Card7.     Card ::= "[7]" ;
+
+Card6.     Card ::= "[6]" ;
+
+Card5.     Card ::= "[5]" ;
+
+Card4.     Card ::= "[4]" ;
+
+Card3.     Card ::= "[3]" ;
+
+Card2.     Card ::= "[2]" ;
 
 -- operators -----------------------------------------------
 

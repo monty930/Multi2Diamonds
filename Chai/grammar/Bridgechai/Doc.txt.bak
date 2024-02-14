@@ -30,18 +30,21 @@ except ``"`` unless preceded by ``\``.
 The set of reserved words is the set of terminals appearing in the grammar. Those reserved words that consist of non-letter characters are called symbols, and they are treated in a different way from those that are similar to identifiers. The lexer follows rules familiar from languages like Haskell, C, and Java, including longest match and spacing conventions.
 
 The reserved words used in bridgechai are the following:
-  | ``E`` | ``Evaluator`` | ``N`` | ``S``
-  | ``W`` | ``and`` | ``c`` | ``d``
+  | ``E`` | ``N`` | ``S`` | ``W``
+  | ``and`` | ``c`` | ``d`` | ``evaluator``
   | ``false`` | ``final`` | ``h`` | ``int``
-  | ``not`` | ``or`` | ``predeal`` | ``s``
-  | ``true`` |  |  |
+  | ``length`` | ``not`` | ``or`` | ``predeal``
+  | ``s`` | ``true`` |  |
 
 The symbols used in bridgechai are the following:
   | = | { | } | (
   | ) | ; | , | :
   | [ | ] | ! | +
-  | . | < | <= | >
-  | >= | == | != |
+  | . | [A] | [K] | [Q]
+  | [J] | [T] | [9] | [8]
+  | [7] | [6] | [5] | [4]
+  | [3] | [2] | < | <=
+  | > | >= | == | !=
 
 ===Comments===
 Single-line comments begin with #, //.Multiple-line comments are  enclosed with /* and */.
@@ -56,7 +59,8 @@ All other symbols are terminals.
   | //TopDef// | -> | ``predeal`` ``=`` ``{`` //[HandPredeal]// ``}``
   |  |  **|**  | ``final`` ``=`` //Expr//
   |  |  **|**  | //ShapeDef//
-  |  |  **|**  | //Ident// ``=`` ``Evaluator`` ``(`` //[EvalVal]// ``)``
+  |  |  **|**  | //Ident// ``=`` ``evaluator`` ``(`` //[EvalVal]// ``)``
+  |  |  **|**  | //Ident// ``=`` ``(`` //HoldingExpr// ``)``
   | //[TopDef]// | -> | **eps**
   |  |  **|**  | //TopDef//
   |  |  **|**  | //TopDef// ``;`` //[TopDef]//
@@ -127,6 +131,32 @@ All other symbols are terminals.
   |  |  **|**  | ``h``
   |  |  **|**  | ``d``
   |  |  **|**  | ``c``
+  | //HoldingExpr5// | -> | ``length``
+  |  |  **|**  | //Integer//
+  |  |  **|**  | //Card//
+  |  |  **|**  | ``(`` //HoldingExpr// ``)``
+  | //HoldingExpr4// | -> | ``not`` //HoldingExpr5//
+  |  |  **|**  | //HoldingExpr5//
+  | //HoldingExpr2// | -> | //HoldingExpr2// //RelOp// //HoldingExpr3//
+  |  |  **|**  | //HoldingExpr3//
+  | //HoldingExpr1// | -> | //HoldingExpr2// ``and`` //HoldingExpr1//
+  |  |  **|**  | //HoldingExpr2//
+  | //HoldingExpr// | -> | //HoldingExpr1// ``or`` //HoldingExpr//
+  |  |  **|**  | //HoldingExpr1//
+  | //HoldingExpr3// | -> | //HoldingExpr4//
+  | //Card// | -> | ``[A]``
+  |  |  **|**  | ``[K]``
+  |  |  **|**  | ``[Q]``
+  |  |  **|**  | ``[J]``
+  |  |  **|**  | ``[T]``
+  |  |  **|**  | ``[9]``
+  |  |  **|**  | ``[8]``
+  |  |  **|**  | ``[7]``
+  |  |  **|**  | ``[6]``
+  |  |  **|**  | ``[5]``
+  |  |  **|**  | ``[4]``
+  |  |  **|**  | ``[3]``
+  |  |  **|**  | ``[2]``
   | //RelOp// | -> | ``<``
   |  |  **|**  | ``<=``
   |  |  **|**  | ``>``

@@ -18,6 +18,7 @@ data TopDef
     | Final Expr
     | TopDefShape ShapeDef
     | TopDefEval Ident [EvalVal]
+    | TopDefBool Ident HoldingExpr
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data HandPredeal = HandPredeal Hand HandFeature
@@ -26,6 +27,7 @@ data HandPredeal = HandPredeal Hand HandFeature
 data HandFeature
     = HandLit String
     | SmartStackShape Ident
+    | SmartStackFunc Ident Ident Integer
     | SmartStackFull Ident Ident Value
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
@@ -80,6 +82,32 @@ data ShapeExpr
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data SuitLit = SuitLitS | SuitLitH | SuitLitD | SuitLitC
+  deriving (C.Eq, C.Ord, C.Show, C.Read)
+
+data HoldingExpr
+    = HExprLen
+    | HExprInt Integer
+    | HExprCard Card
+    | HNotExpr HoldingExpr
+    | HRelExpr HoldingExpr RelOp HoldingExpr
+    | HAndExpr HoldingExpr HoldingExpr
+    | HOrExpr HoldingExpr HoldingExpr
+  deriving (C.Eq, C.Ord, C.Show, C.Read)
+
+data Card
+    = CardA
+    | CardK
+    | CardQ
+    | CardJ
+    | CardT
+    | Card9
+    | Card8
+    | Card7
+    | Card6
+    | Card5
+    | Card4
+    | Card3
+    | Card2
   deriving (C.Eq, C.Ord, C.Show, C.Read)
 
 data RelOp = LTH | LE | GTH | GE | EQU | NE

@@ -150,6 +150,7 @@ instance Print Bridgechai.Abs.TopDef where
     Bridgechai.Abs.Final expr -> prPrec i 0 (concatD [doc (showString "final"), doc (showString "="), prt 0 expr])
     Bridgechai.Abs.TopDefShape shapedef -> prPrec i 0 (concatD [prt 0 shapedef])
     Bridgechai.Abs.TopDefEval id_ evalvals -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "evaluator"), doc (showString "("), prt 0 evalvals, doc (showString ")")])
+    Bridgechai.Abs.TopDefBool id_ holdingexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "("), prt 0 holdingexpr, doc (showString ")")])
 
 instance Print [Bridgechai.Abs.TopDef] where
   prt _ [] = concatD []
@@ -169,6 +170,7 @@ instance Print Bridgechai.Abs.HandFeature where
   prt i = \case
     Bridgechai.Abs.HandLit str -> prPrec i 0 (concatD [printString str])
     Bridgechai.Abs.SmartStackShape id_ -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_, doc (showString ")")])
+    Bridgechai.Abs.SmartStackFunc id_1 id_2 n -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_1, doc (showString ","), prt 0 id_2, doc (showString ","), prt 0 n, doc (showString ")")])
     Bridgechai.Abs.SmartStackFull id_1 id_2 value -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_1, doc (showString ","), prt 0 id_2, doc (showString ","), prt 0 value, doc (showString ")")])
 
 instance Print Bridgechai.Abs.Value where
@@ -263,6 +265,32 @@ instance Print Bridgechai.Abs.SuitLit where
     Bridgechai.Abs.SuitLitH -> prPrec i 0 (concatD [doc (showString "h")])
     Bridgechai.Abs.SuitLitD -> prPrec i 0 (concatD [doc (showString "d")])
     Bridgechai.Abs.SuitLitC -> prPrec i 0 (concatD [doc (showString "c")])
+
+instance Print Bridgechai.Abs.HoldingExpr where
+  prt i = \case
+    Bridgechai.Abs.HExprLen -> prPrec i 5 (concatD [doc (showString "length")])
+    Bridgechai.Abs.HExprInt n -> prPrec i 5 (concatD [prt 0 n])
+    Bridgechai.Abs.HExprCard card -> prPrec i 5 (concatD [prt 0 card])
+    Bridgechai.Abs.HNotExpr holdingexpr -> prPrec i 4 (concatD [doc (showString "not"), prt 5 holdingexpr])
+    Bridgechai.Abs.HRelExpr holdingexpr1 relop holdingexpr2 -> prPrec i 2 (concatD [prt 2 holdingexpr1, prt 0 relop, prt 3 holdingexpr2])
+    Bridgechai.Abs.HAndExpr holdingexpr1 holdingexpr2 -> prPrec i 1 (concatD [prt 2 holdingexpr1, doc (showString "and"), prt 1 holdingexpr2])
+    Bridgechai.Abs.HOrExpr holdingexpr1 holdingexpr2 -> prPrec i 0 (concatD [prt 1 holdingexpr1, doc (showString "or"), prt 0 holdingexpr2])
+
+instance Print Bridgechai.Abs.Card where
+  prt i = \case
+    Bridgechai.Abs.CardA -> prPrec i 0 (concatD [doc (showString "[A]")])
+    Bridgechai.Abs.CardK -> prPrec i 0 (concatD [doc (showString "[K]")])
+    Bridgechai.Abs.CardQ -> prPrec i 0 (concatD [doc (showString "[Q]")])
+    Bridgechai.Abs.CardJ -> prPrec i 0 (concatD [doc (showString "[J]")])
+    Bridgechai.Abs.CardT -> prPrec i 0 (concatD [doc (showString "[T]")])
+    Bridgechai.Abs.Card9 -> prPrec i 0 (concatD [doc (showString "[9]")])
+    Bridgechai.Abs.Card8 -> prPrec i 0 (concatD [doc (showString "[8]")])
+    Bridgechai.Abs.Card7 -> prPrec i 0 (concatD [doc (showString "[7]")])
+    Bridgechai.Abs.Card6 -> prPrec i 0 (concatD [doc (showString "[6]")])
+    Bridgechai.Abs.Card5 -> prPrec i 0 (concatD [doc (showString "[5]")])
+    Bridgechai.Abs.Card4 -> prPrec i 0 (concatD [doc (showString "[4]")])
+    Bridgechai.Abs.Card3 -> prPrec i 0 (concatD [doc (showString "[3]")])
+    Bridgechai.Abs.Card2 -> prPrec i 0 (concatD [doc (showString "[2]")])
 
 instance Print Bridgechai.Abs.RelOp where
   prt i = \case

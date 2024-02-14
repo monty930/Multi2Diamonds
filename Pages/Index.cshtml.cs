@@ -98,7 +98,7 @@ public class IndexModel : PageModel
     private string RunScript(string filePath, int deals_num)
     {
         Console.WriteLine($"Generating deals for : {deals_num}");
-        string scriptPath = Path.Combine("Chai", "get_scenarios.sh");
+        string scriptPath = Path.Combine("Latte", "get_scenarios.sh");
 
         var processStartInfo = new ProcessStartInfo
         {

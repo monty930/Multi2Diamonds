@@ -29,6 +29,7 @@ transTopDef x = case x of
   Abs.Final expr -> failure x
   Abs.TopDefShape shapedef -> failure x
   Abs.TopDefEval ident evalvals -> failure x
+  Abs.TopDefBool ident holdingexpr -> failure x
 
 transHandPredeal :: Abs.HandPredeal -> Result
 transHandPredeal x = case x of
@@ -38,6 +39,7 @@ transHandFeature :: Abs.HandFeature -> Result
 transHandFeature x = case x of
   Abs.HandLit string -> failure x
   Abs.SmartStackShape ident -> failure x
+  Abs.SmartStackFunc ident1 ident2 integer -> failure x
   Abs.SmartStackFull ident1 ident2 value -> failure x
 
 transValue :: Abs.Value -> Result
@@ -112,6 +114,32 @@ transSuitLit x = case x of
   Abs.SuitLitH -> failure x
   Abs.SuitLitD -> failure x
   Abs.SuitLitC -> failure x
+
+transHoldingExpr :: Abs.HoldingExpr -> Result
+transHoldingExpr x = case x of
+  Abs.HExprLen -> failure x
+  Abs.HExprInt integer -> failure x
+  Abs.HExprCard card -> failure x
+  Abs.HNotExpr holdingexpr -> failure x
+  Abs.HRelExpr holdingexpr1 relop holdingexpr2 -> failure x
+  Abs.HAndExpr holdingexpr1 holdingexpr2 -> failure x
+  Abs.HOrExpr holdingexpr1 holdingexpr2 -> failure x
+
+transCard :: Abs.Card -> Result
+transCard x = case x of
+  Abs.CardA -> failure x
+  Abs.CardK -> failure x
+  Abs.CardQ -> failure x
+  Abs.CardJ -> failure x
+  Abs.CardT -> failure x
+  Abs.Card9 -> failure x
+  Abs.Card8 -> failure x
+  Abs.Card7 -> failure x
+  Abs.Card6 -> failure x
+  Abs.Card5 -> failure x
+  Abs.Card4 -> failure x
+  Abs.Card3 -> failure x
+  Abs.Card2 -> failure x
 
 transRelOp :: Abs.RelOp -> Result
 transRelOp x = case x of

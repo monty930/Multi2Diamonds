@@ -43,22 +43,36 @@ import Bridgechai.Lex
   'S'         { PT _ (TS _ 18) }
   'W'         { PT _ (TS _ 19) }
   '['         { PT _ (TS _ 20) }
-  ']'         { PT _ (TS _ 21) }
-  'and'       { PT _ (TS _ 22) }
-  'c'         { PT _ (TS _ 23) }
-  'd'         { PT _ (TS _ 24) }
-  'evaluator' { PT _ (TS _ 25) }
-  'false'     { PT _ (TS _ 26) }
-  'final'     { PT _ (TS _ 27) }
-  'h'         { PT _ (TS _ 28) }
-  'int'       { PT _ (TS _ 29) }
-  'not'       { PT _ (TS _ 30) }
-  'or'        { PT _ (TS _ 31) }
-  'predeal'   { PT _ (TS _ 32) }
-  's'         { PT _ (TS _ 33) }
-  'true'      { PT _ (TS _ 34) }
-  '{'         { PT _ (TS _ 35) }
-  '}'         { PT _ (TS _ 36) }
+  '[2]'       { PT _ (TS _ 21) }
+  '[3]'       { PT _ (TS _ 22) }
+  '[4]'       { PT _ (TS _ 23) }
+  '[5]'       { PT _ (TS _ 24) }
+  '[6]'       { PT _ (TS _ 25) }
+  '[7]'       { PT _ (TS _ 26) }
+  '[8]'       { PT _ (TS _ 27) }
+  '[9]'       { PT _ (TS _ 28) }
+  '[A]'       { PT _ (TS _ 29) }
+  '[J]'       { PT _ (TS _ 30) }
+  '[K]'       { PT _ (TS _ 31) }
+  '[Q]'       { PT _ (TS _ 32) }
+  '[T]'       { PT _ (TS _ 33) }
+  ']'         { PT _ (TS _ 34) }
+  'and'       { PT _ (TS _ 35) }
+  'c'         { PT _ (TS _ 36) }
+  'd'         { PT _ (TS _ 37) }
+  'evaluator' { PT _ (TS _ 38) }
+  'false'     { PT _ (TS _ 39) }
+  'final'     { PT _ (TS _ 40) }
+  'h'         { PT _ (TS _ 41) }
+  'int'       { PT _ (TS _ 42) }
+  'length'    { PT _ (TS _ 43) }
+  'not'       { PT _ (TS _ 44) }
+  'or'        { PT _ (TS _ 45) }
+  'predeal'   { PT _ (TS _ 46) }
+  's'         { PT _ (TS _ 47) }
+  'true'      { PT _ (TS _ 48) }
+  '{'         { PT _ (TS _ 49) }
+  '}'         { PT _ (TS _ 50) }
   L_Ident     { PT _ (TV $$)   }
   L_integ     { PT _ (TI $$)   }
   L_quoted    { PT _ (TL $$)   }
@@ -82,7 +96,8 @@ TopDef
   : 'predeal' '=' '{' ListHandPredeal '}' { Bridgechai.Abs.TopDefPredeal $4 }
   | 'final' '=' Expr { Bridgechai.Abs.Final $3 }
   | ShapeDef { Bridgechai.Abs.TopDefShape $1 }
-  | Ident '=' 'evaluator' '(' ListEvalVal ')' { Bridgechai.Abs.EvalSimp $1 $5 }
+  | Ident '=' 'evaluator' '(' ListEvalVal ')' { Bridgechai.Abs.TopDefEval $1 $5 }
+  | Ident '=' '(' HoldingExpr ')' { Bridgechai.Abs.TopDefBool $1 $4 }
 
 ListTopDef :: { [Bridgechai.Abs.TopDef] }
 ListTopDef
@@ -237,6 +252,52 @@ SuitLit
   | 'h' { Bridgechai.Abs.SuitLitH }
   | 'd' { Bridgechai.Abs.SuitLitD }
   | 'c' { Bridgechai.Abs.SuitLitC }
+
+HoldingExpr5 :: { Bridgechai.Abs.HoldingExpr }
+HoldingExpr5
+  : 'length' { Bridgechai.Abs.HExprLen }
+  | Integer { Bridgechai.Abs.HExprInt $1 }
+  | Card { Bridgechai.Abs.HExprCard $1 }
+  | '(' HoldingExpr ')' { $2 }
+
+HoldingExpr4 :: { Bridgechai.Abs.HoldingExpr }
+HoldingExpr4
+  : 'not' HoldingExpr5 { Bridgechai.Abs.HNotExpr $2 }
+  | HoldingExpr5 { $1 }
+
+HoldingExpr2 :: { Bridgechai.Abs.HoldingExpr }
+HoldingExpr2
+  : HoldingExpr2 RelOp HoldingExpr3 { Bridgechai.Abs.HRelExpr $1 $2 $3 }
+  | HoldingExpr3 { $1 }
+
+HoldingExpr1 :: { Bridgechai.Abs.HoldingExpr }
+HoldingExpr1
+  : HoldingExpr2 'and' HoldingExpr1 { Bridgechai.Abs.HAndExpr $1 $3 }
+  | HoldingExpr2 { $1 }
+
+HoldingExpr :: { Bridgechai.Abs.HoldingExpr }
+HoldingExpr
+  : HoldingExpr1 'or' HoldingExpr { Bridgechai.Abs.HOrExpr $1 $3 }
+  | HoldingExpr1 { $1 }
+
+HoldingExpr3 :: { Bridgechai.Abs.HoldingExpr }
+HoldingExpr3 : HoldingExpr4 { $1 }
+
+Card :: { Bridgechai.Abs.Card }
+Card
+  : '[A]' { Bridgechai.Abs.CardA }
+  | '[K]' { Bridgechai.Abs.CardK }
+  | '[Q]' { Bridgechai.Abs.CardQ }
+  | '[J]' { Bridgechai.Abs.CardJ }
+  | '[T]' { Bridgechai.Abs.CardT }
+  | '[9]' { Bridgechai.Abs.Card9 }
+  | '[8]' { Bridgechai.Abs.Card8 }
+  | '[7]' { Bridgechai.Abs.Card7 }
+  | '[6]' { Bridgechai.Abs.Card6 }
+  | '[5]' { Bridgechai.Abs.Card5 }
+  | '[4]' { Bridgechai.Abs.Card4 }
+  | '[3]' { Bridgechai.Abs.Card3 }
+  | '[2]' { Bridgechai.Abs.Card2 }
 
 RelOp :: { Bridgechai.Abs.RelOp }
 RelOp

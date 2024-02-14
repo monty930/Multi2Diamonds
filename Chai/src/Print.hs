@@ -150,6 +150,7 @@ instance Print Abs.TopDef where
     Abs.Final expr -> prPrec i 0 (concatD [doc (showString "final"), doc (showString "="), prt 0 expr])
     Abs.TopDefShape shapedef -> prPrec i 0 (concatD [prt 0 shapedef])
     Abs.TopDefEval id_ evalvals -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "evaluator"), doc (showString "("), prt 0 evalvals, doc (showString ")")])
+    Abs.TopDefBool id_ holdingexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "("), prt 0 holdingexpr, doc (showString ")")])
 
 instance Print [Abs.TopDef] where
   prt _ [] = concatD []
@@ -169,6 +170,7 @@ instance Print Abs.HandFeature where
   prt i = \case
     Abs.HandLit str -> prPrec i 0 (concatD [printString str])
     Abs.SmartStackShape id_ -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_, doc (showString ")")])
+    Abs.SmartStackFunc id_1 id_2 n -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_1, doc (showString ","), prt 0 id_2, doc (showString ","), prt 0 n, doc (showString ")")])
     Abs.SmartStackFull id_1 id_2 value -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_1, doc (showString ","), prt 0 id_2, doc (showString ","), prt 0 value, doc (showString ")")])
 
 instance Print Abs.Value where
@@ -263,6 +265,32 @@ instance Print Abs.SuitLit where
     Abs.SuitLitH -> prPrec i 0 (concatD [doc (showString "h")])
     Abs.SuitLitD -> prPrec i 0 (concatD [doc (showString "d")])
     Abs.SuitLitC -> prPrec i 0 (concatD [doc (showString "c")])
+
+instance Print Abs.HoldingExpr where
+  prt i = \case
+    Abs.HExprLen -> prPrec i 5 (concatD [doc (showString "length")])
+    Abs.HExprInt n -> prPrec i 5 (concatD [prt 0 n])
+    Abs.HExprCard card -> prPrec i 5 (concatD [prt 0 card])
+    Abs.HNotExpr holdingexpr -> prPrec i 4 (concatD [doc (showString "not"), prt 5 holdingexpr])
+    Abs.HRelExpr holdingexpr1 relop holdingexpr2 -> prPrec i 2 (concatD [prt 2 holdingexpr1, prt 0 relop, prt 3 holdingexpr2])
+    Abs.HAndExpr holdingexpr1 holdingexpr2 -> prPrec i 1 (concatD [prt 2 holdingexpr1, doc (showString "and"), prt 1 holdingexpr2])
+    Abs.HOrExpr holdingexpr1 holdingexpr2 -> prPrec i 0 (concatD [prt 1 holdingexpr1, doc (showString "or"), prt 0 holdingexpr2])
+
+instance Print Abs.Card where
+  prt i = \case
+    Abs.CardA -> prPrec i 0 (concatD [doc (showString "[A]")])
+    Abs.CardK -> prPrec i 0 (concatD [doc (showString "[K]")])
+    Abs.CardQ -> prPrec i 0 (concatD [doc (showString "[Q]")])
+    Abs.CardJ -> prPrec i 0 (concatD [doc (showString "[J]")])
+    Abs.CardT -> prPrec i 0 (concatD [doc (showString "[T]")])
+    Abs.Card9 -> prPrec i 0 (concatD [doc (showString "[9]")])
+    Abs.Card8 -> prPrec i 0 (concatD [doc (showString "[8]")])
+    Abs.Card7 -> prPrec i 0 (concatD [doc (showString "[7]")])
+    Abs.Card6 -> prPrec i 0 (concatD [doc (showString "[6]")])
+    Abs.Card5 -> prPrec i 0 (concatD [doc (showString "[5]")])
+    Abs.Card4 -> prPrec i 0 (concatD [doc (showString "[4]")])
+    Abs.Card3 -> prPrec i 0 (concatD [doc (showString "[3]")])
+    Abs.Card2 -> prPrec i 0 (concatD [doc (showString "[2]")])
 
 instance Print Abs.RelOp where
   prt i = \case

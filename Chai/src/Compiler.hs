@@ -119,7 +119,44 @@ evalTopDefs ((TopDefEval id vals) : topdefs) = do
   topDefsCode <- evalTopDefs topdefs
   return $ evCode ++ topDefsCode
 
+evalTopDefs (TopDefBool id expr : topdefs) = do
+  exCode <- evalHoldExpr expr
+  topDefsCode <- evalTopDefs topdefs
+  return $ 
+    "def " ++ 
+    showIdent id ++ 
+    "(holding):\n\t return(" ++ exCode ++ ")\n\n" ++ 
+    topDefsCode
+
 evalTopDefs [] = return "\n"
+
+evalHoldExpr HExprLen = return "len(holding)"
+
+evalHoldExpr (HExprInt i) = return $ show i
+
+evalHoldExpr (HExprCard c) = do
+  cCode <- evalCard c
+  return $ "(" ++ cCode ++ " in holding)"
+
+evalHoldExpr (HNotExpr e) = do
+  eCode <- evalHoldExpr e
+  return $ "(not " ++ eCode ++ ")"
+
+evalHoldExpr (HRelExpr e1 op e2) = do
+  e1Code <- evalHoldExpr e1
+  e2Code <- evalHoldExpr e2
+  opCode <- evalRelOp op
+  return $ "(" ++ e1Code ++ " " ++ opCode ++ " " ++ e2Code ++ ")"
+
+evalHoldExpr (HAndExpr e1 e2) = do
+  e1Code <- evalHoldExpr e1
+  e2Code <- evalHoldExpr e2
+  return $ "(" ++ e1Code ++ " and " ++ e2Code ++ ")"
+
+evalHoldExpr (HOrExpr e1 e2) = do
+  e1Code <- evalHoldExpr e1
+  e2Code <- evalHoldExpr e2
+  return $ "(" ++ e1Code ++ " or " ++ e2Code ++ ")"
 
 evalShapeExpr (ESuit str) = evalSuitLit str
 
@@ -256,6 +293,9 @@ evalHandFeatureCode (SmartStackFull shape eval val) = do
   valCode <- evalVal val
   return $ "SmartStack(" ++ showIdent shape ++ "," ++ showIdent eval ++ ", range" ++ valCode ++ ")"
 
+evalHandFeatureCode (SmartStackFunc shape eval i) = do
+  return $ "SmartStack(" ++ showIdent shape ++ "," ++ showIdent eval ++ ", [" ++ show i ++ "])"
+
 evalVal (ValueRange int1 int2) = do
   return $ "(" ++ show int1 ++ "," ++ show int2 ++")"
 
@@ -319,3 +359,29 @@ evalHand HandS = return "deal.south"
 evalHand HandE = return "deal.east"
 
 evalHand HandW = return "deal.west"
+
+evalCard CardA = return "A"
+
+evalCard CardK = return "K"
+
+evalCard CardQ = return "Q"
+
+evalCard CardJ = return "J"
+
+evalCard CardT = return "T"
+
+evalCard Card9 = return "9"
+
+evalCard Card8 = return "8"
+
+evalCard Card7 = return "7"
+
+evalCard Card6 = return "6"
+
+evalCard Card5 = return "5"
+
+evalCard Card4 = return "4"
+
+evalCard Card3 = return "3"
+
+evalCard Card2 = return "2"
