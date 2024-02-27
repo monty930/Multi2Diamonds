@@ -31,20 +31,13 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(string action)
     {
-        Console.WriteLine("---");
-        Console.WriteLine("action:");
-        Console.WriteLine(action);
-        Console.WriteLine("---");
-        var tempFilePath = Path.GetTempFileName();
-        await System.IO.File.WriteAllTextAsync(tempFilePath, TextInput);
-
         if (action == "save") {
             var scriptOutput = await RunScriptSaveAsync(tempFilePath, 10);
             var byteArray = Encoding.UTF8.GetBytes(scriptOutput);
             var stream = new MemoryStream(byteArray);
             return File(stream, "text/plain", "file.txt");
         
-        }
+        } // otherwise: action == "play"
 
         ScriptOutput = RunScript(tempFilePath, 1);
 
