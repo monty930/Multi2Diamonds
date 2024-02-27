@@ -8,9 +8,9 @@
   --input-box-height: calc(18 * (0.25em + 3vh));
   --button-face-color: rgb(116, 116, 116);
   --button-shadow: rgb(68, 68, 68);
-  /* --button-hover: rgb(158, 157, 157); */
   --button-hover: rgb(138, 138, 138);
-  /* --button-active: rgb(143, 143, 143); */
+  --text-area-background-color: rgb(63, 63, 63);
+  --button-face-deactiv: var(--text-area-background-color);
   --button-active: var(--button-hover);
   --tabs-img-size: calc(0.3em + min(3.5vh, 1.5vw));
   --line-numbers-width: calc(2.0em + 0.07vw);
@@ -130,6 +130,20 @@ html, body {
   cursor: default;
 }
 
+.deactivated{
+  background-color: var(--button-face-deactiv);
+}
+
+.deactivated:hover {
+  background-color: var(--button-face-deactiv);
+  cursor: default;
+}
+
+.deactivated:active {
+  background-color: var(--button-face-deactiv);
+  cursor: default;
+}
+
 .input-section {
   display: flex;
   flex-direction: column;
@@ -173,7 +187,7 @@ html, body {
 textarea, .examples-container-inner {
   flex: 1;
   resize: none;
-  background-color: rgb(63, 63, 63);
+  background-color: var(--text-area-background-color);
   color: var(--main-font-color);
   font-size: var(--code-font-size);
   padding: 3pt;
