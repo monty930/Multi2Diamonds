@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace BridgeScenarios.Pages;
 
@@ -38,10 +39,11 @@ public class IndexModel : PageModel
         await System.IO.File.WriteAllTextAsync(tempFilePath, TextInput);
 
         if (action == "save") {
-            ToSave = RunScript(tempFilePath, 10);
-            if (error_input) {
-                ToSave = "An error occured. Try to generate example deal.\n";
-            }
+            var scriptOutput = await RunScriptSaveAsync(tempFilePath, 10);
+            var byteArray = Encoding.UTF8.GetBytes(scriptOutput);
+            var stream = new MemoryStream(byteArray);
+            return File(stream, "text/plain", "file.txt");
+        
         }
 
         ScriptOutput = RunScript(tempFilePath, 1);
@@ -56,6 +58,15 @@ public class IndexModel : PageModel
         }
 
         return Page();
+    }
+
+    private async Task<string> RunScriptSaveAsync(string filePath, int deals_num)
+    {
+        var output = RunScript(filePath, 10);
+        if (error_input) {
+            output = "An error occured. Try to generate example deal.\n";
+        }
+        return output;
     }
 
     private void removeHarmfulChars() {
@@ -98,7 +109,7 @@ public class IndexModel : PageModel
     private string RunScript(string filePath, int deals_num)
     {
         Console.WriteLine($"Generating deals for : {deals_num}");
-        string scriptPath = Path.Combine("Latte", "get_scenarios.sh");
+        string scriptPath = Path.Combine("Chai", "get_scenarios.sh");
 
         var processStartInfo = new ProcessStartInfo
         {

@@ -216,7 +216,6 @@
 </div>
 
 <script>
-    var toSaveContent = '@Model.ToSave';
     const buttons = document.querySelectorAll('.button-save, .button-readme, .button-settings, .button-input');
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -347,19 +346,6 @@ final = E.spades > 7
                 document.getElementById('actionField').value = 'save';
                 // Submit the form
                 document.getElementById('gen_sc').submit();
-
-                var text = toSaveContent;
-                var blob = new Blob([text], { type: 'text/plain' });
-
-                var downloadLink = document.createElement('a');
-                downloadLink.href = window.URL.createObjectURL(blob);
-                downloadLink.download = "scenario.txt";
-
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-
-                document.body.removeChild(downloadLink);
-
             });
         }
 
