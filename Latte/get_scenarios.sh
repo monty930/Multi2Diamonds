@@ -2,14 +2,7 @@
 
 SCRIPT_DIR=$(dirname "$0")
 
-for file in "$SCRIPT_DIR"/grammar/Bridgelatte/*.hs; do
-    if [[ $(basename "$file") != "Test.hs" ]]; then
-        sed 's/Bridgelatte\.//g' "$file" > "$SCRIPT_DIR/src/$(basename "$file")"
-    fi
-done
-
 if [ $# -eq 0 ]; then
-    echo "Grammar files copied but no filepath provided."
     echo "Usage: $0 <filepath>"
     exit 1
 fi
