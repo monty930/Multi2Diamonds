@@ -3,8 +3,8 @@
 SCRIPT_DIR=$(dirname "$0")
 CHAI="$SCRIPT_DIR/$1"
 TEMPFILE=$(mktemp $SCRIPT_DIR/chai_output.XXXXXX)
-FILEPATH=$3
-N_DEALS=$4
+FILEPATH=$2
+N_DEALS=$3
 
 
 for file in "$SCRIPT_DIR"/grammar/Bridgechai/*.hs; do

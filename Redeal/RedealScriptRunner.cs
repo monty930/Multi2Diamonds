@@ -8,7 +8,6 @@ public class RedealScriptRunner
 {
     private readonly string _scriptPath = Path.Combine("Chai", "get_scenarios.sh");
     private readonly string _parserPath;
-    private readonly string _tempPath = Path.GetTempPath();
 
     private readonly ProcessStartInfo _processStartInfo = new()
     {
@@ -32,7 +31,7 @@ public class RedealScriptRunner
 
     public RedealScriptOutput RunScript(string filePath, int nDeals)
     {
-        _processStartInfo.Arguments = $"{_scriptPath} {_parserPath} {_tempPath} {filePath} {nDeals}";
+        _processStartInfo.Arguments = $"{_scriptPath} {_parserPath} {filePath} {nDeals}";
         
         using var process = Process.Start(_processStartInfo) ?? throw new NullReferenceException();
         string output = process.StandardOutput.ReadToEnd();
