@@ -10,24 +10,18 @@ namespace BridgeScenarios.Pages;
 
 public class IndexModel : PageModel
 {
-    public IndexModel() {
-        error_input = false;
-        TextInput = "";
-    }
+    [BindProperty] public string TextInput { get; set; } = string.Empty;
 
-    [BindProperty]
-    public string TextInput { get; set; }
-
-    public string? ScriptOutput { get; set; }
+    public string ScriptOutput { get; set; } = string.Empty;
 
     // N: S,H,D,C, E:...
     public string[] HandSuits { get; set; }
 
     public string Tries { get; set; }
 
-    public bool error_input { get; set; }
+    public bool error_input { get; set; } = false;
 
-    public string ToSave { get; set; }
+    public string ToSave { get; set; } = string.Empty;
 
     public async Task<IActionResult> OnPostAsync(string action)
     {
