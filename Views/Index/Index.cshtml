@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="~/css/log.css" />
 </head>
 
-
 <div class="page-layout">
     <div class="left-panel">
         <div class="container-for-input">
@@ -60,7 +59,7 @@
 
     <div class="right-panel" id="dynamic-content">
         <div class="grid-rows">
-            <div class="@("row-n" + (!Model.IsCorrectDeal ? " has-handsuits" : " no-handsuits"))">
+            <div class="@("row-n" + (Model.IsCorrectDeal ? " has-handsuits" : " no-handsuits"))">
                 <div>
                     <button id="playButton">
                         <img id="arrow-img" src="~/assets/arrow-white.png" />
@@ -100,7 +99,7 @@
                     }
                 </div>
                 <div>
-                    @if (Model.IsCorrectDeal)
+                    @if (!Model.IsCorrectDeal)
                     {
                         <button class="compile-error-button visible" id="errorButton">
                             <span class="error-font">ERROR</span><br>

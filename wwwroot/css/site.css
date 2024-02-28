@@ -467,5 +467,5 @@ textarea, .examples-container-inner {
 }
 
 .hidden-submit {
-  visibility: hidden;
+  display: none;
 }
