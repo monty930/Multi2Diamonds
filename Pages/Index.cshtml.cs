@@ -27,14 +27,7 @@ public class IndexModel : PageModel
     {
         var tempFilePath = Path.GetTempFileName();
         await System.IO.File.WriteAllTextAsync(tempFilePath, TextInput);
-
-        if (action == "save") {
-            var scriptOutput = await RunScriptSaveAsync(tempFilePath, 10);
-            var byteArray = Encoding.UTF8.GetBytes(scriptOutput);
-            var stream = new MemoryStream(byteArray);
-            return File(stream, "text/plain", "file.txt");
-        }
-
+        
         var scriptRunner = new RedealScriptRunner();
         var scriptOut = scriptRunner.RunScript(tempFilePath, 1);
 
@@ -48,24 +41,12 @@ public class IndexModel : PageModel
         else
         {
             var scriptResults = RedealResultExtractor.Extract(scriptOut);
-            HandSuits = scriptResults.HandSuits;
             Tries = scriptResults.Tries;
         }
 
         return Page();
     }
-
-    private async Task<string> RunScriptSaveAsync(string filePath, int deals_num)
-    {
-        var scriptRunner = new RedealScriptRunner();
-        var output = scriptRunner.RunScript(filePath, 10);
-        if (output.ExitCode != 0) {
-            output.RawOutput = "An error occured. Try to generate example deal.\n";
-
-        }
-        return output.RawOutput;
-    }
-
+    
     public IActionResult OnGetLogView()
     {
         return Partial("Shared/_LogView");

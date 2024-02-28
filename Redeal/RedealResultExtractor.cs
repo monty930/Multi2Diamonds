@@ -1,3 +1,4 @@
+using BridgeScenarios.Models;
 using BridgeScenarios.Redeal.Models;
 
 namespace BridgeScenarios.Redeal;
@@ -7,15 +8,16 @@ public static class RedealResultExtractor
     public static RedealScriptResult Extract(RedealScriptOutput output)
     {
         string rawOutput = output.RawOutput;
-        var result = new RedealScriptResult();
         
         // Extracting the tries part
         int start = rawOutput.IndexOf("Tries:", StringComparison.Ordinal) + "Tries:".Length;
         string tries = rawOutput[start..].Trim();
-        result.Tries = tries;
         
         if (rawOutput.Length < 20)
-            return result;
+            return new RedealScriptResult
+            {
+                Tries = tries
+            };
         
         
         start = rawOutput.IndexOf('"') + 1;
@@ -24,17 +26,23 @@ public static class RedealResultExtractor
 
         // Split the hands for N, E, S, W
         string[] hands = handsPart.Split(' ');
-        
         hands[0] = hands[0].Remove(0,2);
-        for (var i = 0; i < 4; i++) {
-            string hand = hands[i];
-            string[] suits = hand.Split('.').Select(s => string.IsNullOrEmpty(s) ? "-" : s).ToArray();
-            for (var j = 0; j < 4; j++) {
-                result.HandSuits[i * 4 + j] = suits[j];
-            }
-        }
 
-        return result;
+        string[][] splitHands = hands.Select(h => h.Split('.')).ToArray();
+
+        var deal = new Deal
+        {
+            North = new Hand(splitHands[0]),
+            East = new Hand(splitHands[1]),
+            South = new Hand(splitHands[2]),
+            West = new Hand(splitHands[3])
+        };
+        
+        return new RedealScriptResult
+        {
+            Tries = tries,
+            Deal = deal
+        };
     }
     
     public static void RemoveHarmfulChars(this RedealScriptOutput output) {

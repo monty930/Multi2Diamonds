@@ -7,7 +7,21 @@ public class Hand
     public string Diamonds { get; set; } = string.Empty;
     public string Clubs { get; set; } = string.Empty;
 
+
+    public Hand(IReadOnlyList<string> suits)
+    {
+        if (suits.Count != 4)
+            throw new ApplicationException("Ivalid hand declaration");
+        
+        Spades = suits[0];
+        Hearts = suits[1];
+        Diamonds = suits[2];
+        Clubs = suits[3];
+    }
+    
     public IEnumerable<string> Suits => new List<string> { Spades, Hearts, Diamonds, Clubs };
+    
+    
 }
 
 public static class HandExtensions
