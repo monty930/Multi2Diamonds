@@ -88,7 +88,7 @@ processFile filePath = do
               ]
             )
       let env = M.empty
-      let header = "from redeal import *\n\n"
+      let header = "from redeal import *\n\nany = Shape.from_cond(lambda s, h, d, c: True)\n"
       pythonCode <- runExceptT (runStateT (generatePythonCode ast) store)
       case pythonCode of
         Left err -> putStrLn err
@@ -199,7 +199,7 @@ evalShapes shapes = do
       combinedStr =
         case (null posCodes, null negCodes) of
           (True, True)   -> error "Empty shape!"
-          (True, False)  -> error "Shape must contain at least one positive."
+          (True, False)  ->  "any -" ++ negStr
           (False, True)  -> posStr
           (False, False) -> posStr ++ "-" ++ negStr
   return combinedStr

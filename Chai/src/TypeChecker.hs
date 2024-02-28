@@ -45,7 +45,7 @@ makeTypeError s pos = do
 
 typeCheck :: Prog -> IO ()
 typeCheck ast = do
-  let store = M.insert (Ident "balanced") Shape M.empty
+  let store = M.insert (Ident "any") Shape (M.insert (Ident "balanced") Shape M.empty)
   rse <- runExceptT (runStateT (checkProgram ast) store)
   return ()
 
