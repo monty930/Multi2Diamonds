@@ -1,12 +1,23 @@
 pn
 $\mathfrak{\color{cyan}{|}}$
-[player_nick_S],[player_nick_W],[player_nick_N],[player_nick_E]
+[player_nick_S]
+$\mathfrak{\color{white}{,}}$
+[player_nick_W]
+$\mathfrak{\color{white}{,}}$
+[player_nick_N]
+$\mathfrak{\color{white}{,}}$
+[player_nick_E]
 $\mathfrak{\color{cyan}{|}}$
 st
 $\mathfrak{\color{red}{||}}$
 md
 $\mathfrak{\color{cyan}{|}}$
-[dealer][cards of S],[cards of W],[cards of N],
+[dealer][cards of S]
+$\mathfrak{\color{white}{,}}$
+[cards of W]
+$\mathfrak{\color{white}{,}}$
+[cards of N]
+$\mathfrak{\color{white}{,}}$
 $\mathfrak{\color{cyan}{|}}$
 rh
 $\mathfrak{\color{red}{||}}$
@@ -23,7 +34,7 @@ $\mathfrak{\color{cyan}{|}}$
 [game record]
 $\mathfrak{\color{cyan}{|}}$
 
-- [dealer]: 1 - S, 2 - W, 3 - N, 4 - E
+- [dealer]: 1 = S, 2 = W, 3 = N, 4 = E
 
 - [cards of X] in format: S---H---D---C---
 
@@ -32,7 +43,8 @@ $\mathfrak{\color{cyan}{|}}$
 - [vul]: o = none, n = NS, b = both, e = EW
 
 - \[bids\]:
-mb
+  
+  mb
 $\mathfrak{\color{white}{|}}$
 \[bid\]
 $\mathfrak{\color{white}{|}}$
@@ -43,6 +55,7 @@ $\mathfrak{\color{white}{|}}$
 mb...
 
   Example:
+  
   mb
 $\mathfrak{\color{white}{|}}$
 3H
@@ -231,7 +244,65 @@ pg
 $\mathfrak{\color{white}{||}}$
 pc
 $\mathfrak{\color{white}{|}}$
-S5|pc|SA|pc|ST|pc|S2|pg||pc|S3|pc|SK|pc|S7|pc|S6|pg||pc|H5|pc|DJ|pc|H9|pc|D9|pg||pc|C2|pc|C3
+S5
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+SA
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+ST
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+S2
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+S3
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+SK
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+S7
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+S6
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+H5
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+DJ
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+H9
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+D9
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+C2
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+C3
 $\mathfrak{\color{white}{|}}$
 pc
 $\mathfrak{\color{white}{|}}$
@@ -285,14 +356,24 @@ Complete example:
 
 pn
 $\mathfrak{\color{cyan}{|}}$
-krysieq,uijallen,ElMacaroni,Player1771
+krysieq
+$\mathfrak{\color{white}{,}}$
+uijallen
+$\mathfrak{\color{white}{,}}$
+ElMacaroni
+$\mathfrak{\color{white}{,}}$
+Player1771
 $\mathfrak{\color{cyan}{|}}$
 st
 $\mathfrak{\color{red}{||}}$
 md
 $\mathfrak{\color{cyan}{|}}$
-3S865HAK9DKT3CJ862,SAQ3HQ8D9652CA753,
-SKT4HJT76532DACKT,
+3S865HAK9DKT3CJ862
+$\mathfrak{\color{white}{,}}$
+SAQ3HQ8D9652CA753
+$\mathfrak{\color{white}{,}}$
+SKT4HJT76532DACKT
+$\mathfrak{\color{white}{,}}$
 $\mathfrak{\color{cyan}{|}}$
 rh
 $\mathfrak{\color{red}{||}}$
@@ -510,7 +591,7 @@ $\mathfrak{\color{white}{|}}$
 $\mathfrak{\color{cyan}{|}}$
 
 Explanations:
-- Players (SWNE): krysieq,uijallen,ElMacaroni,Player1771
+- Players (SWNE): krysieq, uijallen, ElMacaroni, Player1771
 - Dealer: N
 - Players' cards (SWN): S865HAK9DKT3CJ862, SAQ3HQ8D9652CA753, SKT4HJT76532DACKT
 - Name of the board: Board 1
