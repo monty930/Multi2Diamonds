@@ -181,13 +181,46 @@ checkIfShapeDefined ident pos = do
     Nothing -> makeTypeError ("Shape " ++ identToStr ident ++ " is not defined.") pos
 
 checkFinalExpr :: Expr -> RSET ()
-checkFinalExpr _ = return ()
+checkFinalExpr _ = return () -- TODO
 
 checkShapeExpr :: ShapeExpr -> RSET ()
-checkShapeExpr _ = return ()
+checkShapeExpr _ = return () -- TODO
 
 checkShapes :: [Shape] -> RSET ()
-checkShapes _ = return () -- TODO
+checkShapes [] = return () -- TODO
+
+checkShapes (x : xs) = do
+  checkShape x
+  checkShapes xs
+
+checkShape :: Shape -> RSET ()
+checkShape (ShapeOk _ (OneShapeOk pos suitCounts)) = do
+  checkSuitCounts pos suitCounts 0 0
+
+checkShape (ShapeNeg _ (OneShapeNeg _ (OneShapeOk pos suitCounts))) = do
+  checkSuitCounts pos suitCounts 0 0
+
+checkSuitCounts :: BNFC'Position -> [SuitCount] -> Integer -> Integer -> RSET ()
+checkSuitCounts pos [] howMany sum = do
+  when (howMany /= 4) $ makeTypeError "Incorrect number of suits in shape" pos
+  when (sum /= 13) $ makeTypeError "Incorrect number of cards in shape" pos
+
+checkSuitCounts pos ((SuitIntCount _ v) : xs) howMany sum = do
+  let i = case v of
+        SuitInt _ i -> i
+  checkSuitCounts pos xs (howMany + 1) (sum + i)
+
+checkSuitCounts pos ((SuitChoice _ suitInts) : xs) howMany sum = do
+  (h, s) <- checkSuitInts pos suitInts 0 0
+  if h == 0
+    then makeTypeError "Incorrect number of suits in shape" pos
+    else checkSuitCounts pos xs (howMany + h) (sum + s)
+
+checkSuitInts :: BNFC'Position -> [SuitInt] -> Integer -> Integer -> RSET (Integer, Integer)
+checkSuitInts pos [] howMany sum = return (howMany, sum)
+
+checkSuitInts pos ((SuitInt _ i) : xs) howMany sum = do
+  checkSuitInts pos xs (howMany + 1) (sum + i)
 
 checkEvalVals :: BNFC'Position -> [EvalVal] -> RSET ()
 checkEvalVals pos evalVals = do
@@ -195,7 +228,7 @@ checkEvalVals pos evalVals = do
     when (len < 1 || len > 13) $ makeTypeError "Incorrect number of values in evaluator" pos
 
 checkEvalVals' :: BNFC'Position -> [EvalVal] -> RSET ()
-checkEvalVals' pos [] = return ()
+checkEvalVals' pos [] = return () -- TODO
 
 checkEvalVals' pos (x : xs) = do
   checkEvalVal pos x
