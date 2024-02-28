@@ -99,7 +99,7 @@
                     }
                 </div>
                 <div>
-                    @if (!Model.IsCorrectDeal)
+                    @if (Model.IsErrorInput)
                     {
                         <button class="compile-error-button visible" id="errorButton">
                             <span class="error-font">ERROR</span><br>
