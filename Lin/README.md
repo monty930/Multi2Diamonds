@@ -32,15 +32,104 @@ $\mathfrak{\color{cyan}{|}}$
 - [vul]: o = none, n = NS, b = both, e = EW
 
 - \[bids\]:
-mb|\[bid\]|mb|bid|mb...
+mb
+$\mathfrak{\color{white}{|}}$
+\[bid\]
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+bid
+$\mathfrak{\color{white}{|}}$
+mb...
 
   Example:
-  mb|3H|mb|p|mb|4H|mb|d|mb|p|mb|4S|mb|d|mb|p|mb|p|mb|p
+  mb
+$\mathfrak{\color{white}{|}}$
+3H
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+4H
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+d
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+4S
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+d
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
 
-  if bid is alerted: mb|\[bid!\]|an|[alert message]
+  if bid is alerted:
+
+  mb
+$\mathfrak{\color{white}{|}}$
+\[bid!\]
+$\mathfrak{\color{white}{|}}$
+an
+$\mathfrak{\color{white}{|}}$
+[alert message]
 
   example:
-  mb|1H|mb|p|mb|2N!|an|inv+fit|mb|p|mb|4H|mb|p|mb|p|mb|p
+  
+  mb
+$\mathfrak{\color{white}{|}}$
+1H
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+2N!
+$\mathfrak{\color{white}{|}}$
+an
+$\mathfrak{\color{white}{|}}$
+inv+fit
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+4H
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
+$\mathfrak{\color{white}{|}}$
+mb
+$\mathfrak{\color{white}{|}}$
+p
 
 - [game record]
 
@@ -48,13 +137,145 @@ mb|\[bid\]|mb|bid|mb...
 
   Example:
 
-  pg||pc|DQ|pc|D3|pc|D2|pc|DA|pg||pc|H2|pc|H4|pc|HA|pc|H8|pg||pc|DK|pc|D5|pc|S4|pc|D4|pg||pc|DT|pc|D6|pc|HT|pc|D7|pg||pc|H3|pc|D8|pc|HK|pc|HQ|pg||pc|S5|pc|SA|pc|ST|pc|S2|pg||pc|S3|pc|SK|pc|S7|pc|S6|pg||pc|H5|pc|DJ|pc|H9|pc|D9|pg||pc|C2|pc|C3|pc|CK|pc|C4|pg||mc|11|
+  pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+DQ
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+D3
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+D2
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+DA
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+H2
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+H4
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+HA
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+H8
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+DK
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+D5
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+S4
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+D4
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+DT
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+D6
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+HT
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+D7
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+H3
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+D8
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+HK
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+HQ
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+S5|pc|SA|pc|ST|pc|S2|pg||pc|S3|pc|SK|pc|S7|pc|S6|pg||pc|H5|pc|DJ|pc|H9|pc|D9|pg||pc|C2|pc|C3
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+CK
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+C4
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+mc
+$\mathfrak{\color{white}{|}}$
+11
+$\mathfrak{\color{cyan}{|}}$
 
-  note that there are two '|' after each 'pg'.
+
+  note that there are two 
+$\mathfrak{\color{white}{|}}$
+ after each 'pg'.
 
   The game can also end by the claim in the middle of the claim:
 
-  ...|pg||pc|CA|pc|CJ|pc|CT|mc|7|
+  ...
+$\mathfrak{\color{white}{|}}$
+pg
+$\mathfrak{\color{white}{||}}$
+pc
+$\mathfrak{\color{white}{|}}$
+CA
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+CJ
+$\mathfrak{\color{white}{|}}$
+pc
+$\mathfrak{\color{white}{|}}$
+CT
+$\mathfrak{\color{white}{|}}$
+mc
+$\mathfrak{\color{white}{|}}$
+7
+$\mathfrak{\color{white}{|}}$
+
 
 - What I stil do not know: "pn", "rh", "ah", "sv". maybe tells if MP/IMP? All tables I've seen had those values unchanged.
 
