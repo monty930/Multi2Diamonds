@@ -20,11 +20,9 @@ import           System.Directory      (canonicalizePath)
 import           System.Environment    (getArgs, getExecutablePath)
 import           System.Exit
 import           System.FilePath       (dropExtension, takeDirectory,
-                                        takeFileName, (<.>), (</>))
-import           System.FilePath.Posix
+                                        takeFileName, takeBaseName, (<.>), (</>))
 import           System.IO
 import           System.Process
-import           Test.QuickCheck       (label)
 
 type StoreVar = M.Map Ident Type
 
