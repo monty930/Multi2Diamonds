@@ -19,7 +19,7 @@ all : Bridgechai/Test
 # Rules for building the parser.
 
 Bridgechai/Abs.hs Bridgechai/Lex.x Bridgechai/Par.y Bridgechai/Print.hs Bridgechai/Test.hs : bridgechai.cf
-	bnfc --haskell -d bridgechai.cf
+	bnfc --haskell -d --functor bridgechai.cf
 
 %.hs : %.y
 	${HAPPY} ${HAPPY_OPTS} $<

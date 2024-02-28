@@ -25,6 +25,7 @@ import           System.FilePath.Posix
 import           System.IO
 import           System.Process
 import           Test.QuickCheck       (label)
+import           TypeChecker
 
 type StoreVar = M.Map Ident Type
 
@@ -92,34 +93,31 @@ processFile filePath = do
           let outputPathLLVM = directory </> baseName <.> "ll"
           putStrLn $ header ++ pythonCode
 
-typeCheck :: Prog -> IO ()
-typeCheck prog = return ()
-
 generatePythonCode :: Prog -> RSE String
-generatePythonCode (Program topdefs) = do
+generatePythonCode (Program _ topdefs) = do
   evalTopDefs topdefs
 
-evalTopDefs ((TopDefPredeal p) : topdefs) = do
+evalTopDefs ((TopDefPredeal _ p) : topdefs) = do
   pCode <- evalPredeal p
   topDefsCode <- evalTopDefs topdefs
   return $ pCode ++ topDefsCode
 
-evalTopDefs ((Final f) : topdefs) = do
+evalTopDefs ((Final _ f) : topdefs) = do
   fCode <- evalFinal f
   topDefsCode <- evalTopDefs topdefs
   return $ fCode ++ topDefsCode
 
-evalTopDefs ((TopDefShape sh) : topdefs) = do
+evalTopDefs ((TopDefShape _ sh) : topdefs) = do
   shCode <- evalTopShape sh
   topDefsCode <- evalTopDefs topdefs
   return $ shCode ++ topDefsCode
 
-evalTopDefs ((TopDefEval id vals) : topdefs) = do
+evalTopDefs ((TopDefEval _ id vals) : topdefs) = do
   evCode <- evalTopEv id vals
   topDefsCode <- evalTopDefs topdefs
   return $ evCode ++ topDefsCode
 
-evalTopDefs (TopDefBool id expr : topdefs) = do
+evalTopDefs (TopDefHold _ id expr : topdefs) = do
   exCode <- evalHoldExpr expr
   topDefsCode <- evalTopDefs topdefs
   return $ 
@@ -130,68 +128,68 @@ evalTopDefs (TopDefBool id expr : topdefs) = do
 
 evalTopDefs [] = return "\n"
 
-evalHoldExpr HExprLen = return "len(holding)"
+evalHoldExpr (HExprLen _) = return "len(holding)"
 
-evalHoldExpr (HExprInt i) = return $ show i
+evalHoldExpr (HExprInt _ i) = return $ show i
 
-evalHoldExpr (HExprCard c) = do
+evalHoldExpr (HExprCard _ c) = do
   cCode <- evalCard c
   return $ "(" ++ cCode ++ " in holding)"
 
-evalHoldExpr (HNotExpr e) = do
+evalHoldExpr (HNotExpr _ e) = do
   eCode <- evalHoldExpr e
   return $ "(not " ++ eCode ++ ")"
 
-evalHoldExpr (HRelExpr e1 op e2) = do
+evalHoldExpr (HRelExpr _ e1 op e2) = do
   e1Code <- evalHoldExpr e1
   e2Code <- evalHoldExpr e2
   opCode <- evalRelOp op
   return $ "(" ++ e1Code ++ " " ++ opCode ++ " " ++ e2Code ++ ")"
 
-evalHoldExpr (HAndExpr e1 e2) = do
+evalHoldExpr (HAndExpr _ e1 e2) = do
   e1Code <- evalHoldExpr e1
   e2Code <- evalHoldExpr e2
   return $ "(" ++ e1Code ++ " and " ++ e2Code ++ ")"
 
-evalHoldExpr (HOrExpr e1 e2) = do
+evalHoldExpr (HOrExpr _ e1 e2) = do
   e1Code <- evalHoldExpr e1
   e2Code <- evalHoldExpr e2
   return $ "(" ++ e1Code ++ " or " ++ e2Code ++ ")"
 
-evalShapeExpr (ESuit str) = evalSuitLit str
+evalShapeExpr (ESuit _ str) = evalSuitLit str
 
-evalShapeExpr (EShapeInt i) = return $ show i
+evalShapeExpr (EShapeInt _ i) = return $ show i
 
-evalShapeExpr (ENotShape sh) = do
+evalShapeExpr (ENotShape _ sh) = do
   shCode <- evalShapeExpr sh
   return $ "not (" ++ shCode ++ ")"
 
-evalShapeExpr (ERelShape sh1 op sh2) = do
+evalShapeExpr (ERelShape _ sh1 op sh2) = do
   sh1Code <- evalShapeExpr sh1
   sh2Code <- evalShapeExpr sh2
   opCode <- evalRelOp op
   return $ "(" ++ sh1Code ++ " " ++ opCode ++ " " ++ sh2Code ++ ")"
 
-evalShapeExpr (EAndShape sh1 sh2) = do
+evalShapeExpr (EAndShape _ sh1 sh2) = do
   sh1Code <- evalShapeExpr sh1
   sh2Code <- evalShapeExpr sh2
   return $ "(" ++ sh1Code ++ " and " ++ sh2Code ++ ")"
 
-evalShapeExpr (EOrShape sh1 sh2) = do
+evalShapeExpr (EOrShape _ sh1 sh2) = do
   sh1Code <- evalShapeExpr sh1
   sh2Code <- evalShapeExpr sh2
   return $ "(" ++ sh1Code ++ " or " ++ sh2Code ++ ")"
 
-evalSuitLit SuitLitC = return "c"
-evalSuitLit SuitLitD = return "d"
-evalSuitLit SuitLitH = return "h"
-evalSuitLit SuitLitS = return "s"
+evalSuitLit (SuitLitC _) = return "c"
+evalSuitLit (SuitLitD _) = return "d"
+evalSuitLit (SuitLitH _) = return "h"
+evalSuitLit (SuitLitS _) = return "s"
 
-evalTopShape (ShapeCond id shE) = do
+evalTopShape (ShapeCond _ id shE) = do
   shapesCode <- evalShapeExpr shE
   return $ showIdent id ++ " = Shape.from_cond(lambda s, h, d, c: " ++ shapesCode ++ ")\n"
 
-evalTopShape (ShapeLit id shapes) = do
+evalTopShape (ShapeLit _ id shapes) = do
   shapesCode <- evalShapes shapes
   return $ showIdent id ++ " = " ++ shapesCode ++ "\n"
 
@@ -210,20 +208,20 @@ evalShapes shapes = do
     concatIntersperse sep xs = case xs of
         [] -> ""
         _ -> foldr1 (\a b -> a ++ sep ++ b) xs
-    isShapeOk (ShapeOk _) = True
+    isShapeOk (ShapeOk _ _) = True
     isShapeOk _ = False
-    isShapeNeg (ShapeNeg _) = True
+    isShapeNeg (ShapeNeg _ _) = True
     isShapeNeg _ = False
 
 evalShape :: Shape -> RSE String
-evalShape (ShapeOk sh) = evalShapeOk sh
-evalShape (ShapeNeg sh) = evalShapeNeg sh
+evalShape (ShapeOk _ sh) = evalShapeOk sh
+evalShape (ShapeNeg _ sh) = evalShapeNeg sh
 
-evalShapeOk (OneShapeOk scs) = do
+evalShapeOk (OneShapeOk _ scs) = do
   scsCodes <- mapM evalSuitCount scs
   return $ "Shape(\"" ++ concat scsCodes ++ "\")"
 
-evalShapeNeg (OneShapeNeg (OneShapeOk scs)) = do
+evalShapeNeg (OneShapeNeg _ (OneShapeOk _ scs)) = do
   scsCodes <- mapM evalSuitCount scs
   return $ "Shape(\"" ++ concat scsCodes ++ "\")"
 
@@ -231,23 +229,23 @@ evalShapeNeg (OneShapeNeg (OneShapeOk scs)) = do
 evalSuitCount :: SuitCount -> RSE String
 evalSuitCount a = do
   case a of
-    (SuitIntCount (SuitInt a)) -> return $ show a
-    (SuitChoice as) -> do
+    (SuitIntCount _ (SuitInt _ a)) -> return $ show a
+    (SuitChoice _ as) -> do
       asCodes <- mapM evalSuitInt as
       return $ "(" ++ concat asCodes ++ ")"
 
 evalSuitInt :: SuitInt -> RSE String
-evalSuitInt (SuitInt a) = return $ show a
+evalSuitInt (SuitInt _ a) = return $ show a
 
 evalTopEv ident vals = do
   valsCode <- evalEvValsCode vals
   return $ showIdent ident ++ " = Evaluator(" ++ valsCode ++ ")\n"
 
 evalEvValsCode :: [EvalVal] -> RSE String
-evalEvValsCode [EvalVal val] = 
+evalEvValsCode [EvalVal _ val] = 
   return $ show val
 
-evalEvValsCode ((EvalVal val) : vals) = do
+evalEvValsCode ((EvalVal _ val) : vals) = do
   valsCode <- evalEvValsCode vals
   return $ show val ++ ", " ++ valsCode
 
@@ -255,7 +253,7 @@ evalEvValsCode [] = undefined -- intended
 
 evalFinal expr = do
   exprCode <- evalExp expr
-  return $ "\ndef accept(deal):\n\treturn " ++ exprCode
+  return $ "\ndef accept(deal):\n\treturn " ++ exprCode ++ "\n"
 
 evalPredeal :: [HandPredeal] -> RSE String
 evalPredeal preArgs = do
@@ -274,33 +272,33 @@ evalOneHandPres (pre : pres) = do
 evalOneHandPres [] = undefined -- intended
 
 evalOneHandPre :: HandPredeal -> RSE String
-evalOneHandPre (HandPredeal h hf) = do
+evalOneHandPre (HandPredeal _ h hf) = do
   hCode <- case h of
-    HandN -> return "N"
-    HandE -> return "E"
-    HandS -> return "S"
-    HandW -> return "W"
+    HandN _ -> return "N"
+    HandE _ -> return "E"
+    HandS _ -> return "S"
+    HandW _ -> return "W"
   hfCode <- evalHandFeatureCode hf
   return $ "\"" ++ hCode ++ "\": " ++ hfCode
 
 evalHandFeatureCode :: HandFeature -> RSE String
-evalHandFeatureCode (HandLit str) = return $ "\"" ++ str ++ "\""
+evalHandFeatureCode (HandLit _ str) = return $ "\"" ++ str ++ "\""
 
-evalHandFeatureCode (SmartStackShape shape) = do
+evalHandFeatureCode (SmartStackShape _ shape) = do
   return $ "SmartStack(" ++ showIdent shape ++ ", Evaluator(4,3,2,1), range(0, 40))"
 
-evalHandFeatureCode (SmartStackFull shape eval val) = do
+evalHandFeatureCode (SmartStackFull _ shape eval val) = do
   valCode <- evalVal val
   return $ "SmartStack(" ++ showIdent shape ++ "," ++ showIdent eval ++ ", range" ++ valCode ++ ")"
 
-evalHandFeatureCode (SmartStackFunc shape eval i) = do
+evalHandFeatureCode (SmartStackFunc _ shape eval i) = do
   return $ "SmartStack(" ++ showIdent shape ++ "," ++ showIdent eval ++ ", [" ++ show i ++ "])"
 
-evalVal (ValueRange int1 int2) = do
+evalVal (ValueRange _ int1 int2) = do
   return $ "(" ++ show int1 ++ "," ++ show int2 ++")"
 
 evalExp :: Expr -> RSE String
-evalExp (HandAttr h attr) = do
+evalExp (HandAttr _ h attr) = do
   (_, lenAttr, featureAttr) <- get
   hCode <- evalHand h
   if attr `elem` lenAttr then do
@@ -311,28 +309,28 @@ evalExp (HandAttr h attr) = do
     else do
       return $ showIdent attr ++ "(" ++ hCode ++ ")"
 
-evalExp (ELitInt i) = return $ show i
+evalExp (ELitInt _ i) = return $ show i
 
-evalExp ELitTrue = return "True"
+evalExp (ELitTrue _) = return "True"
 
-evalExp ELitFalse = return "False"
+evalExp (ELitFalse _) = return "False"
 
-evalExp (ENot e) = do
+evalExp (ENot _ e) = do
   eCode <- evalExp e
   return $ "not (" ++ eCode ++ ")"
 
-evalExp (ERel e1 op e2) = do
+evalExp (ERel _ e1 op e2) = do
   e1Code <- evalExp e1
   e2Code <- evalExp e2
   opCode <- evalRelOp op
   return $ "(" ++ e1Code ++ " " ++ opCode ++ " " ++ e2Code ++ ")"
 
-evalExp (EAnd e1 e2) = do
+evalExp (EAnd _ e1 e2) = do
   e1Code <- evalExp e1
   e2Code <- evalExp e2
   return $ "(" ++ e1Code ++ " and " ++ e2Code ++ ")"
 
-evalExp (EOr e1 e2) = do
+evalExp (EOr _ e1 e2) = do
   e1Code <- evalExp e1
   e2Code <- evalExp e2
   return $ "(" ++ e1Code ++ " or " ++ e2Code ++ ")"
@@ -340,48 +338,48 @@ evalExp (EOr e1 e2) = do
 showIdent :: Ident -> String
 showIdent (Ident ident) = ident
 
-evalRelOp LTH = return "<"
+evalRelOp (LTH _) = return "<"
 
-evalRelOp LE = return "<="
+evalRelOp (LE _) = return "<="
 
-evalRelOp GTH = return ">"
+evalRelOp (GTH _) = return ">"
 
-evalRelOp GE = return ">="
+evalRelOp (GE _) = return ">="
 
-evalRelOp EQU = return "=="
+evalRelOp (EQU _) = return "=="
 
-evalRelOp NE = return "!="
+evalRelOp (NE _) = return "!="
 
-evalHand HandN = return "deal.north"
+evalHand (HandN _) = return "deal.north"
 
-evalHand HandS = return "deal.south"
+evalHand (HandS _) = return "deal.south"
 
-evalHand HandE = return "deal.east"
+evalHand (HandE _) = return "deal.east"
 
-evalHand HandW = return "deal.west"
+evalHand (HandW _) = return "deal.west"
 
-evalCard CardA = return "A"
+evalCard (CardA _) = return "A"
 
-evalCard CardK = return "K"
+evalCard (CardK _) = return "K"
 
-evalCard CardQ = return "Q"
+evalCard (CardQ _) = return "Q"
 
-evalCard CardJ = return "J"
+evalCard (CardJ _) = return "J"
 
-evalCard CardT = return "T"
+evalCard (CardT _) = return "T"
 
-evalCard Card9 = return "9"
+evalCard (Card9 _) = return "9"
 
-evalCard Card8 = return "8"
+evalCard (Card8 _) = return "8"
 
-evalCard Card7 = return "7"
+evalCard (Card7 _) = return "7"
 
-evalCard Card6 = return "6"
+evalCard (Card6 _) = return "6"
 
-evalCard Card5 = return "5"
+evalCard (Card5 _) = return "5"
 
-evalCard Card4 = return "4"
+evalCard (Card4 _) = return "4"
 
-evalCard Card3 = return "3"
+evalCard (Card3 _) = return "3"
 
-evalCard Card2 = return "2"
+evalCard (Card2 _) = return "2"

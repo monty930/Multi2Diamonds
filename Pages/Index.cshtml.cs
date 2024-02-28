@@ -9,7 +9,6 @@ namespace BridgeScenarios.Pages;
 
 public class IndexModel : PageModel
 {
-
     public IndexModel() {
         error_input = false;
         TextInput = "";
@@ -39,7 +38,6 @@ public class IndexModel : PageModel
             var byteArray = Encoding.UTF8.GetBytes(scriptOutput);
             var stream = new MemoryStream(byteArray);
             return File(stream, "text/plain", "file.txt");
-        
         }
 
         ScriptOutput = RunScript(tempFilePath, 1);
@@ -104,7 +102,7 @@ public class IndexModel : PageModel
 
     private string RunScript(string filePath, int deals_num)
     {
-        string scriptPath = Path.Combine("Chai", "get_scenarios.sh");
+        string scriptPath = Path.Combine("Latte", "get_scenarios.sh");
 
         var processStartInfo = new ProcessStartInfo
         {

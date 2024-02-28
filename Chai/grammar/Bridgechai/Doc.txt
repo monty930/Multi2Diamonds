@@ -38,13 +38,14 @@ The reserved words used in bridgechai are the following:
 
 The symbols used in bridgechai are the following:
   | = | { | } | (
-  | ) | ; | , | :
-  | [ | ] | ! | +
-  | . | [A] | [K] | [Q]
-  | [J] | [T] | [9] | [8]
-  | [7] | [6] | [5] | [4]
-  | [3] | [2] | < | <=
-  | > | >= | == | !=
+  | ) | holding( | ; | ,
+  | : | [ | ] | !
+  | + | . | [A] | [K]
+  | [Q] | [J] | [T] | [9]
+  | [8] | [7] | [6] | [5]
+  | [4] | [3] | [2] | <
+  | <= | > | >= | ==
+  | != |  |  |
 
 ===Comments===
 Single-line comments begin with #, //.Multiple-line comments are  enclosed with /* and */.
@@ -60,7 +61,7 @@ All other symbols are terminals.
   |  |  **|**  | ``final`` ``=`` //Expr//
   |  |  **|**  | //ShapeDef//
   |  |  **|**  | //Ident// ``=`` ``evaluator`` ``(`` //[EvalVal]// ``)``
-  |  |  **|**  | //Ident// ``=`` ``(`` //HoldingExpr// ``)``
+  |  |  **|**  | //Ident// ``=`` ``holding(`` //HoldingExpr// ``)``
   | //[TopDef]// | -> | **eps**
   |  |  **|**  | //TopDef//
   |  |  **|**  | //TopDef// ``;`` //[TopDef]//

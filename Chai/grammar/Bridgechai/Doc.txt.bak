@@ -70,6 +70,7 @@ All other symbols are terminals.
   | //HandPredeal// | -> | //Hand// ``:`` //HandFeature//
   | //HandFeature// | -> | //String//
   |  |  **|**  | ``(`` //Ident// ``)``
+  |  |  **|**  | ``(`` //Ident// ``,`` //Ident// ``,`` //Integer// ``)``
   |  |  **|**  | ``(`` //Ident// ``,`` //Ident// ``,`` //Value// ``)``
   | //Value// | -> | ``(`` //Integer// ``,`` //Integer// ``)``
   | //ShapeDef// | -> | //Ident// ``=`` ``(`` //ShapeExpr// ``)``
