@@ -15,6 +15,7 @@ CHAI_OUTPUT=$("$CHAI" "$FILEPATH" 2>&1)
 if [ $? -ne 0 ]; then
     echo "Execution of chai_py failed."
     echo "$CHAI_OUTPUT"
+    rm "$TEMPFILE"
     exit 1
 fi
 echo "$CHAI_OUTPUT" > "$TEMPFILE"
@@ -24,6 +25,7 @@ REDEAL_OUTPUT=$(python -mredeal --max 100000 -n "$N_DEALS" --format=pbn "$TEMPFI
 if [ $? -ne 0 ]; then
     echo "Execution of redeal failed."
     echo "$REDEAL_OUTPUT"
+    rm "$TEMPFILE"
     exit 1
 fi
 echo "$REDEAL_OUTPUT"
