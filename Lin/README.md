@@ -1,3 +1,5 @@
+### LIN spec
+
 pn
 $\mathfrak{\color{cyan}{|}}$
 [player_nick_S]
@@ -36,7 +38,7 @@ $\mathfrak{\color{cyan}{|}}$
 
 - [dealer]: 1 = S, 2 = W, 3 = N, 4 = E
 
-- [cards of X] in format: S---H---D---C---
+- [cards of X] in format: SxxxHxxxDxxxCxxx
 
   note that there is a coma after N-th player's cards
 
