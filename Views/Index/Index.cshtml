@@ -1,0 +1,413 @@
+﻿
+@model BridgeScenarios.Models.ViewModels.IndexViewModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/log.css" />
+</head>
+
+<div class="page-layout">
+    <div class="left-panel">
+        <div class="container-for-input">
+            <div class="left-container">
+                <div class="input-section" id="tab-dynamics">
+                    <h4>Enter constraints:</h4>
+                    <form id="FormGenSc" method="post">
+                        <div class="editor-container">
+                            <div class="line-numbers" id="lineNumbers"></div>
+                            <textarea spellcheck="false" asp-for="TextInput"
+                                placeholder="See README for constraints examples." id="codeInput"
+                                oninput="updateLineNumbers()">
+                            </textarea>
+                            <input type="hidden" name="action" id="actionField">
+                            <input class="hidden-submit" type="submit" id="formSubmitPlay" asp-action="Play">
+                            <input class="hidden-submit" type="submit" id="formSubmitSave" asp-action="Save">
+                        </div>
+                    </form>
+                </div>
+                <div class="left-switches">
+                    <div></div>
+                    <div class="button-cont">
+                        <button id="inputButton" class="button-input button-active-tab">
+                            <img id="tabs-img" src="~/assets/input.png" />
+                        </button>
+                    </div>
+                    <div class="button-cont">
+                        <button id="readmeButton" class="button-readme">
+                            <img id="tabs-img" src="~/assets/lightbulb.png" />
+                        </button>
+                    </div>
+                    <div class="button-cont">
+                        <button id="settingsButton" class="button-settings">
+                            <img id="tabs-img" src="~/assets/settings.png" />
+                        </button>
+                    </div>
+                    <div class="button-cont">
+                        <button id="saveButton" class="button-save">
+                            <img id="tabs-img" src="~/assets/save.png" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="right-panel" id="dynamic-content">
+        <div class="grid-rows">
+            <div class="@("row-n" + (Model.IsCorrectDeal ? " has-handsuits" : " no-handsuits"))">
+                <div>
+                    <button id="playButton">
+                        <img id="arrow-img" src="~/assets/arrow-white.png" />
+                    </button>
+                </div>
+                <div class="hands">
+                    @if (Model.IsCorrectDeal)
+                    {
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/spade.png" />
+                            @Html.Raw(Model.Deal.North.Spades)<br>
+                        </div>
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/heart.png" />
+                            @Html.Raw(Model.Deal.North.Hearts)<br>
+                        </div>
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/diamond.png" />
+                            <div> </div>
+                            @Html.Raw(Model.Deal.North.Diamonds)<br>
+                        </div>
+                        <div class="suit">
+                            <img id="suit-img" src="~/assets/club.png" />
+                            @Html.Raw(Model.Deal.North.Clubs)<br>
+                        </div>
+                    }
+                    else
+                    {
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>
+                            Press
+                            <img id="play-img" src="~/assets/arrow-white.png" />
+                            to generate an example.
+                        </div>
+                    }
+                </div>
+                <div>
+                    @if (Model.IsErrorInput)
+                    {
+                        <button class="compile-error-button visible" id="errorButton">
+                            <span class="error-font">ERROR</span><br>
+                            <span class="logs-font">see logs</span>
+                        </button>
+                    }
+                    @if (Model.Tries != string.Empty)
+                    {
+                        if (!Model.IsCorrectDeal)
+                        {
+                            <div># of tries: @Model.Tries</div>
+                        }
+                    }
+                </div>
+            </div>
+            <div>
+                <div class="row-mid">
+                    <div class="aligning-cells">
+                        <div></div>
+                        <div class="hands">
+                            @if (Model.IsCorrectDeal)
+                            {
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/spade.png" />
+                                    @Html.Raw(Model.Deal.West.Spades)<br>
+                                </div>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/heart.png" />
+                                    @Html.Raw(Model.Deal.West.Hearts)<br>
+                                </div>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/diamond.png" />
+                                    <div> </div>
+                                    @Html.Raw(Model.Deal.West.Diamonds)<br>
+                                </div>
+                                <div class="suit">
+                                    <img id="suit-img" src="~/assets/club.png" />
+                                    @Html.Raw(Model.Deal.West.Clubs)<br>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="grid-snwe">
+                        <div></div>
+                        <div>N</div>
+                        <div></div>
+                        <div>W</div>
+                        <div>
+                            <div id="spinner" style="display:none;">
+                                <div class="loader">
+                                    <img id="loading-img" src="~/assets/loading-simp.png"
+                                        alt="Randomly Oriented Image" />
+                                </div>
+                            </div>
+                        </div>
+                        <div>E</div>
+                        <div></div>
+                        <div>S</div>
+                        <div></div>
+                    </div>
+                    <div class="hands">
+                        @if (Model.IsCorrectDeal)
+                        {
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/spade.png" />
+                                @Html.Raw(Model.Deal.East.Spades)<br>
+                            </div>
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/heart.png" />
+                                @Html.Raw(Model.Deal.East.Hearts)<br>
+                            </div>
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/diamond.png" />
+                                <div> </div>
+                                @Html.Raw(Model.Deal.East.Diamonds)<br>
+                            </div>
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/club.png" />
+                                @Html.Raw(Model.Deal.East.Clubs)<br>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row-s">
+                    <div></div>
+                    <div class="hands">
+                        @if (Model.IsCorrectDeal)
+                        {
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/spade.png" />
+                                @Html.Raw(Model.Deal.South.Spades)<br>
+                            </div>
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/heart.png" />
+                                @Html.Raw(Model.Deal.South.Hearts)<br>
+                            </div>
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/diamond.png" />
+                                <div> </div>
+                                @Html.Raw(Model.Deal.South.Diamonds)<br>
+                            </div>
+                            <div class="suit">
+                                <img id="suit-img" src="~/assets/club.png" />
+                                @Html.Raw(Model.Deal.South.Clubs)<br>
+                            </div>
+                        }
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const buttons = document.querySelectorAll('.button-save, .button-readme, .button-settings, .button-input');
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.getElementById('gen_sc');
+
+        var dynamicContent = document.getElementById('dynamic-content');
+        var originalContent = dynamicContent.innerHTML; // Store the original content
+
+        function addErrorButtonListener() {
+            var errorButton = document.getElementById('errorButton');
+            if (errorButton) {
+                errorButton.addEventListener('click', function () {
+                    // The new content
+                    dynamicContent.innerHTML = `
+                    <div class="log-view">
+                        <div class="grid-log-columns">
+                            <div class="logs-output">
+    @if (Model.ScriptOutput != string.Empty)
+    {
+                                        <pre>@Model.ScriptOutput</pre>
+    }
+                            </div>
+                            <div>
+                                <button class="compile-error-button back" id="backButton">BACK</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                    addBackButtonListener();
+                    return false;
+                });
+            }
+        }
+
+        function addBackButtonListener() {
+            var backButton = document.getElementById('backButton');
+            if (backButton) {
+                backButton.addEventListener('click', function () {
+                    // Restore the original content
+                    dynamicContent.innerHTML = originalContent;
+                    addErrorButtonListener();
+                    addPlayButtonListener()
+                    return false;
+                });
+            }
+        }
+
+        var tabsDynamicContent = document.getElementById('tab-dynamics');
+        var originalInputContent = tabsDynamicContent.innerHTML; // Store the original input content
+
+        function addLightbulbButtonListener() {
+            var lightButton = document.getElementById('readmeButton');
+            if (lightButton) {
+                lightButton.addEventListener('click', function () {
+                    // The new content
+                    tabsDynamicContent.innerHTML = `
+                    <h4>Examples</h4>
+                    <div class="editor-container">
+                        <div class="line-numbers"></div>
+                        <div class="examples-container-inner">
+                            Tu jakieś readme<br>
+                            <pre>
+final = E.spades > 7
+                            </pre>
+                        </div>
+                        <input type="hidden" name="action" id="actionField" value="save">
+                    </div>
+                `;
+                    buttons.forEach(button => {
+                        button.classList.remove('button-active-tab');
+                    });
+                    lightButton.classList.add('button-active-tab');
+
+                    var playButton = document.getElementById('playButton');
+                    var saveButton = document.getElementById('saveButton');
+                    playButton.classList.add('deactivated');
+                    saveButton.classList.add('deactivated');
+
+                    addInputButtonListener();
+                    return false;
+                });
+            }
+        }
+
+        function addInputButtonListener() {
+            var inputButton = document.getElementById('inputButton');
+            var playButton = document.getElementById('playButton');
+            var saveButton = document.getElementById('saveButton');
+            if (inputButton) {
+                inputButton.addEventListener('click', function () {
+                    // Restore the original content
+                    tabsDynamicContent.innerHTML = originalInputContent;
+                    updateLineNumbers();
+                    buttons.forEach(button => {
+                        button.classList.remove('button-active-tab');
+                    });
+                    inputButton.classList.add('button-active-tab');
+                    playButton.classList.remove('deactivated');
+                    saveButton.classList.remove('deactivated');
+                    addLightbulbButtonListener()
+                    return false;
+                });
+            }
+        }
+
+        function addPlayButtonListener() {
+            var playButton = document.getElementById('playButton');
+            var spinner = document.getElementById('spinner');
+            playButton.addEventListener('click', function () {
+                if (playButton.classList.contains('deactivated')) {
+                    return;
+                }
+                // loading circle
+                spinner.style.display = 'block';
+                // Set the action value
+                document.getElementById('actionField').value = 'play';
+                // Submit the form
+                let submitter = document.getElementById('formSubmitPlay');
+                document.getElementById('FormGenSc').requestSubmit(submitter);
+            });
+
+            var saveButton = document.getElementById('saveButton');
+            saveButton.addEventListener('click', function () {
+                if (saveButton.classList.contains('deactivated')) {
+                    return;
+                }
+                // Set the action value
+                document.getElementById('actionField').value = 'save';
+                // Submit the form
+                let submitter = document.getElementById('formSubmitSave');
+                document.getElementById('FormGenSc').requestSubmit(submitter)
+            });
+        }
+
+        addErrorButtonListener();
+
+        addPlayButtonListener();
+
+        updateLineNumbers();
+
+        addLightbulbButtonListener();
+
+        // Check if a saved scroll position exists and restore it
+        var savedScrollTop = localStorage.getItem('textareaScrollTop');
+        if (savedScrollTop !== null) {
+            document.getElementById('codeInput').scrollTop = parseInt(savedScrollTop, 10);
+        }
+    });
+
+    window.onload = function () {
+        var image = document.getElementById('loading-img');
+        var randomAngle = Math.floor(Math.random() * 360); // Generate a random angle between 0 and 359
+        image.style.transform = 'rotate(' + randomAngle + 'deg)'; // Rotate the image
+    };
+
+    function updateLineNumbers() {
+        const textarea = document.getElementById('codeInput');
+        if (textarea != null) {
+            const lineNumbers = document.getElementById('lineNumbers');
+            const lineCount = textarea.value.split('\n').length;
+
+            // Get the computed line height of the textarea for accurate calculations
+            const computedStyle = window.getComputedStyle(textarea);
+            const lineHeight = parseInt(computedStyle.lineHeight, 10); // Convert the line-height value to an integer
+
+            // Calculate visible lines based on textarea height and the computed line height
+            const visibleLines = Math.floor(textarea.clientHeight / lineHeight);
+
+            // Ensure we cover all lines that have content or are within the initial visible area
+            const totalLines = Math.max(lineCount, visibleLines);
+
+            let numbers = '';
+            for (let i = 1; i <= totalLines; i++) {
+                // Apply "used-line" class to lines with content, and "unused-line" to empty but visible lines
+                numbers += i <= lineCount ? `<span class="used-line">${i}</span>\n` : `<span class="unused-line">${i}</span>\n`;
+            }
+
+            lineNumbers.innerHTML = numbers;
+        }
+    }
+
+    document.getElementById('codeInput').addEventListener('input', updateLineNumbers);
+    document.getElementById('codeInput').addEventListener('scroll', function () {
+        document.getElementById('lineNumbers').scrollTop = this.scrollTop;
+    });
+
+    window.addEventListener('resize', updateLineNumbers);
+
+    window.addEventListener('beforeunload', function () {
+        // Save the current scroll position of the textarea to localStorage
+        localStorage.setItem('textareaScrollTop', document.getElementById('codeInput').scrollTop);
+    });
+
+</script>
