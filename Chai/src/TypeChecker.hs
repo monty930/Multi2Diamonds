@@ -4,33 +4,28 @@
 
 module TypeChecker where
 
-import Abs
-import Control.Exception
-import Control.Monad
-import Control.Monad.Except
-import Control.Monad.Reader
-import Control.Monad.State
+import           Abs
+import           Control.Exception
+import           Control.Monad
+import           Control.Monad.Except
+import           Control.Monad.Reader
+import           Control.Monad.State
 import qualified Data.ByteString.Char8 as B
-import Data.List (nub)
-import qualified Data.Map as M
-import qualified Data.Map as Map
-import Lex (Token, mkPosToken)
-import Par
-import Print (Print, printTree)
-import Skel
-import System.Directory (canonicalizePath)
-import System.Environment (getArgs, getExecutablePath)
-import System.Exit
-import System.FilePath
-  ( dropExtension,
-    takeDirectory,
-    takeFileName,
-    (<.>),
-    (</>),
-  )
-import System.FilePath.Posix
-import System.IO
-import System.Process
+import           Data.List             (nub)
+import qualified Data.Map              as M
+import qualified Data.Map              as Map
+import           Lex                   (Token, mkPosToken)
+import           Par
+import           Print                 (Print, printTree)
+import           Skel
+import           System.Directory      (canonicalizePath)
+import           System.Environment    (getArgs, getExecutablePath)
+import           System.Exit
+import           System.FilePath       (dropExtension, takeDirectory,
+                                        takeFileName, (<.>), (</>))
+import           System.FilePath.Posix
+import           System.IO
+import           System.Process
 
 type StoreT = M.Map Ident VarType
 

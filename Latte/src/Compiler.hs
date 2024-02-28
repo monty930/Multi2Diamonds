@@ -11,9 +11,9 @@ import           Control.Monad.State
 import qualified Data.ByteString.Char8 as B
 import qualified Data.Map              as M
 import qualified Data.Map              as Map
-import           Lex       (Token, mkPosToken)
+import           Lex                   (Token, mkPosToken)
 import           Par
-import           Print     (Print, printTree)
+import           Print                 (Print, printTree)
 import           Skel
 import           System.Directory      (canonicalizePath)
 import           System.Environment    (getArgs, getExecutablePath)
@@ -42,7 +42,7 @@ getParsedProgramFromFile p f = readFile f >>= getParsedProgram p
 getParsedProgram :: ParseFun Prog -> String -> IO Prog
 getParsedProgram p s =
   case p ts of
-    Left err -> errorWithoutStackTrace err
+    Left err   -> errorWithoutStackTrace err
     Right tree -> return tree
   where
     ts = myLexer s
@@ -75,8 +75,8 @@ processFile filePath = do
       let directory = takeDirectory filePath
           baseName = takeBaseName filePath
       let store = (
-            M.empty, 
-            [Ident "spades", Ident "hearts", Ident "clubs", Ident "diams"], 
+            M.empty,
+            [Ident "spades", Ident "hearts", Ident "clubs", Ident "diams"],
             [Ident "hcp", Ident "freakness", Ident "losers", Ident "pt", Ident "controls"])
       let env = M.empty
       let header =
@@ -132,7 +132,7 @@ evalShapes [] = undefined
 --   return $ "Shape(\"" ++ concat scsCodes ++ "\")"
 
 evalShape :: Shape -> RSE String
-evalShape (ShapeOk sh) = evalShapeOk sh
+evalShape (ShapeOk sh)  = evalShapeOk sh
 evalShape (ShapeNeg sh) = evalShapeNeg sh
 
 evalShapeOk (OneShapeOk scs) = do
@@ -167,7 +167,7 @@ evalExp (HandAttr h attr) = do
       return $ hCode ++ "." ++ showIdent attr
     else do
       return $ showIdent attr ++ "(" ++ hCode ++ ")"
-      
+
 
 evalExp (ELitInt i) = return $ show i
 
@@ -214,15 +214,15 @@ showIdent (Ident ident) = ident
 
 evalRelOp LTH = return "<"
 
-evalRelOp LE = return "<="
+evalRelOp LE  = return "<="
 
 evalRelOp GTH = return ">"
 
-evalRelOp GE = return ">="
+evalRelOp GE  = return ">="
 
 evalRelOp EQU = return "=="
 
-evalRelOp NE = return "!="
+evalRelOp NE  = return "!="
 
 evalHand HandN = return "deal.north"
 
@@ -231,19 +231,3 @@ evalHand HandS = return "deal.south"
 evalHand HandE = return "deal.east"
 
 evalHand HandW = return "deal.west"
-
--- evalLenAttr :: LenAttr -> RSE String
--- evalLenAttr AttrSpades = return "spades"
-
--- evalLenAttr AttrHearts = return "hearts"
-
--- evalLenAttr AttrDiams = return "diamonds"
-
--- evalLenAttr AttrClubs = return "clubs"
-
--- evalSimpAttr :: SimpAttr -> RSE String
--- evalSimpAttr AttrHcp = return "hcp"
-
--- evalSimpAttr AttrFreak = return "freakness"
-
--- evalSimpAttr AttrLoser = return "losers"

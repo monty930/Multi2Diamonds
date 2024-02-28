@@ -6,7 +6,6 @@ TEMPFILE=$(mktemp $SCRIPT_DIR/chai_output.XXXXXX)
 FILEPATH=$2
 N_DEALS=$3
 
-
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <filepath> <number of deals>"
     exit 1

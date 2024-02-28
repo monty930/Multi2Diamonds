@@ -63,7 +63,6 @@ public class IndexModel : PageModel
 
     private async Task<string> RunScriptSaveAsync(string filePath, int deals_num)
     {
-
         var scriptRunner = new RedealScriptRunner();
         var output = scriptRunner.RunScript(filePath, 10);
         if (output.ExitCode != 0) {
@@ -72,8 +71,6 @@ public class IndexModel : PageModel
         }
         return output.RawOutput;
     }
-    
-    
 
     public IActionResult OnGetLogView()
     {
