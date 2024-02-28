@@ -32,6 +32,7 @@ public class IndexManager
             ScriptOutput = scriptOut.RawOutput,
             IsErrorInput = false,
             Deal = scriptResults.Deal,
+            IsCorrectDeal = true,
             Tries = scriptResults.Tries
         };
     }

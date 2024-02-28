@@ -60,14 +60,14 @@
 
     <div class="right-panel" id="dynamic-content">
         <div class="grid-rows">
-            <div class="@("row-n" + (Model.Deal != null ? " has-handsuits" : " no-handsuits"))">
+            <div class="@("row-n" + (!Model.IsCorrectDeal ? " has-handsuits" : " no-handsuits"))">
                 <div>
                     <button id="playButton">
                         <img id="arrow-img" src="~/assets/arrow-white.png" />
                     </button>
                 </div>
                 <div class="hands">
-                    @if (Model.Deal != null)
+                    @if (Model.IsCorrectDeal)
                     {
                         <div class="suit">
                             <img id="suit-img" src="~/assets/spade.png" />
@@ -100,7 +100,7 @@
                     }
                 </div>
                 <div>
-                    @if (Model.IsErrorInput)
+                    @if (Model.IsCorrectDeal)
                     {
                         <button class="compile-error-button visible" id="errorButton">
                             <span class="error-font">ERROR</span><br>
@@ -109,7 +109,7 @@
                     }
                     @if (Model.Tries != string.Empty)
                     {
-                        if (!Model.IsErrorInput)
+                        if (!Model.IsCorrectDeal)
                         {
                             <div># of tries: @Model.Tries</div>
                         }
@@ -121,7 +121,7 @@
                     <div class="aligning-cells">
                         <div></div>
                         <div class="hands">
-                            @if (Model.Deal != null)
+                            @if (Model.IsCorrectDeal)
                             {
                                 <div class="suit">
                                     <img id="suit-img" src="~/assets/spade.png" />
@@ -162,7 +162,7 @@
                         <div></div>
                     </div>
                     <div class="hands">
-                        @if (Model.Deal != null)
+                        @if (Model.IsCorrectDeal)
                         {
                             <div class="suit">
                                 <img id="suit-img" src="~/assets/spade.png" />
@@ -189,7 +189,7 @@
                 <div class="row-s">
                     <div></div>
                     <div class="hands">
-                        @if (Model.Deal != null)
+                        @if (Model.IsCorrectDeal)
                         {
                             <div class="suit">
                                 <img id="suit-img" src="~/assets/spade.png" />
