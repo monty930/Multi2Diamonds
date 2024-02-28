@@ -101,7 +101,7 @@ checkTopDefShape _ = undefined -- intended
 checkTopDefEval :: BNFC'Position -> Ident -> [EvalVal] -> RSET ()
 checkTopDefEval (BNFC'Position l c) ident evalVals = do
   checkForRedefinition ident l Evaluator
-  checkEvalVals evalVals
+  checkEvalVals (BNFC'Position l c) evalVals
 checkTopDefEval _ _ _ = undefined -- intended
 
 checkTopDefHold :: BNFC'Position -> Ident -> HoldingExpr -> RSET ()
@@ -186,16 +186,31 @@ checkIfShapeDefined ident pos = do
     Nothing -> makeTypeError ("Shape " ++ identToStr ident ++ " is not defined.") pos
 
 checkFinalExpr :: Expr -> RSET ()
-checkFinalExpr _ = return () -- TODO
+checkFinalExpr _ = return ()
 
 checkShapeExpr :: ShapeExpr -> RSET ()
-checkShapeExpr _ = return () -- TODO
+checkShapeExpr _ = return ()
 
 checkShapes :: [Shape] -> RSET ()
 checkShapes _ = return () -- TODO
 
-checkEvalVals :: [EvalVal] -> RSET ()
-checkEvalVals _ = return () -- TODO
+checkEvalVals :: BNFC'Position -> [EvalVal] -> RSET ()
+checkEvalVals pos evalVals = do
+    let len = length evalVals
+    when (len < 1 || len > 13) $ makeTypeError "Incorrect number of values in evaluator" pos
+
+checkEvalVals' :: BNFC'Position -> [EvalVal] -> RSET ()
+checkEvalVals' pos [] = return ()
+
+checkEvalVals' pos (x : xs) = do
+  checkEvalVal pos x
+  checkEvalVals' pos xs
+
+checkEvalVal :: BNFC'Position -> EvalVal -> RSET ()
+checkEvalVal pos val = do
+    let i = case val of
+            EvalVal _ i -> i
+    when (i < 0 || i > 1000) $ makeTypeError "Incorrect value in evaluator" pos
 
 checkHoldingExpr :: HoldingExpr -> RSET ()
 checkHoldingExpr _ = return () -- TODO
