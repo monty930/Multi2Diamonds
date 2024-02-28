@@ -23,9 +23,6 @@ $\mathfrak{\color{cyan}{|}}$
 [game record]
 $\mathfrak{\color{cyan}{|}}$
 
-- What I stil do not know: "pn", "rh", "ah", "sv"
-maybe tells if MP/IMP? All tables I've seen had those values unchanged
-
 - [dealer]: 1 - S, 2 - W, 3 - N, 4 - E
 
 - [cards of X] in format: S---H---D---C---
@@ -58,6 +55,8 @@ mb|\[bid\]|mb|bid|mb...
   The game can also end by the claim in the middle of the claim:
 
   ...|pg||pc|CA|pc|CJ|pc|CT|mc|7|
+
+- What I stil do not know: "pn", "rh", "ah", "sv". maybe tells if MP/IMP? All tables I've seen had those values unchanged.
 
   ---
 
