@@ -1,6 +1,7 @@
 using BridgeScenarios.Managers;
 using BridgeScenarios.Models.ViewModels;
 using BridgeScenarios.Redeal;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,29 +10,35 @@ namespace BridgeScenarios.Controllers;
 
 public class IndexController : Controller
 {
-    private IndexManager _indexManager = new();
+    private readonly IndexManager _indexManager = new();
+
+    [HttpGet]
+    [EnableCors]
+    public async Task<IActionResult> Index()
+    {
+        return View("Index", new IndexViewModel());
+    }
+
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> Play([FromForm] string textInput)
+    {
+        var model = await _indexManager.Play(new IndexViewModel
+        {
+            TextInput = textInput
+        });
+        return View("Index", model);
+    }
     
-    [Route("play")]
-    public async Task<IActionResult> Play([BindRequired] IndexViewModel model)
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> Save([FromForm] string textInput)
     {
-        
-
-        return Page("Index");
+        var model = await _indexManager.Save(new IndexViewModel
+        {
+            TextInput = textInput
+        });
+        return View("Index", model);
     }
-
-    private async Task<string> RunScriptSaveAsync(string filePath, int deals_num)
-    {
-        var scriptRunner = new RedealScriptRunner();
-        var output = scriptRunner.RunScript(filePath, 10);
-        if (output.ExitCode != 0) {
-            output.RawOutput = "An error occured. Try to generate example deal.\n";
-
-        }
-        return output.RawOutput;
-    }
-
-    public IActionResult OnGetLogView()
-    {
-        return Partial("Shared/_LogView");
-    }
+    
 }

@@ -465,3 +465,7 @@ textarea, .examples-container-inner {
 .compile-error-button br {
   display: none;
 }
+
+.hidden-submit {
+  visibility: hidden;
+}

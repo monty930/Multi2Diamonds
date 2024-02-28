@@ -7,6 +7,7 @@ public class Hand
     public string Diamonds { get; set; } = string.Empty;
     public string Clubs { get; set; } = string.Empty;
 
+    public Hand() {}
 
     public Hand(IReadOnlyList<string> suits)
     {
