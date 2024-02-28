@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Text;
+using BridgeScenarios.Redeal;
 
 namespace BridgeScenarios.Pages;
 
@@ -17,7 +18,7 @@ public class IndexModel : PageModel
     [BindProperty]
     public string TextInput { get; set; }
 
-    public string ScriptOutput { get; set; }
+    public string? ScriptOutput { get; set; }
 
     // N: S,H,D,C, E:...
     public string[] HandSuits { get; set; }
@@ -40,15 +41,21 @@ public class IndexModel : PageModel
             return File(stream, "text/plain", "file.txt");
         }
 
-        ScriptOutput = RunScript(tempFilePath, 1);
+        var scriptRunner = new RedealScriptRunner();
+        var scriptOut = scriptRunner.RunScript(tempFilePath, 1);
 
         System.IO.File.Delete(tempFilePath);
 
-        if (!error_input) {
-            getHands(ScriptOutput);
-        } else {
-            removeHarmfulChars();
-            ScriptOutput += " ";
+        if (scriptOut.ExitCode != 0)
+        {
+            scriptOut.RemoveHarmfulChars();
+            ScriptOutput = scriptOut.RawOutput + " ";
+        }
+        else
+        {
+            var scriptResults = RedealResultExtractor.Extract(scriptOut);
+            HandSuits = scriptResults.HandSuits;
+            Tries = scriptResults.Tries;
         }
 
         return Page();
@@ -56,74 +63,17 @@ public class IndexModel : PageModel
 
     private async Task<string> RunScriptSaveAsync(string filePath, int deals_num)
     {
-        var output = RunScript(filePath, 10);
-        if (error_input) {
-            output = "An error occured. Try to generate example deal.\n";
+
+        var scriptRunner = new RedealScriptRunner();
+        var output = scriptRunner.RunScript(filePath, 10);
+        if (output.ExitCode != 0) {
+            output.RawOutput = "An error occured. Try to generate example deal.\n";
+
         }
-        return output;
+        return output.RawOutput;
     }
-
-    private void removeHarmfulChars() {
-        ScriptOutput = ScriptOutput.Replace("`", "'");
-    }
-
-    private void getHands(string input) {
-        // Extracting the tries part
-        int start = input.IndexOf("Tries:") + "Tries:".Length;
-        string tries = input.Substring(start).Trim();
-        Tries = tries;
-        error_input = false;
-        if (input.Length < 20) {
-            return;
-        }
-        start = input.IndexOf('"') + 1;
-        int end = input.IndexOf('"', start);
-        string handsPart = input.Substring(start, end - start);
-
-        // Split the hands for N, E, S, W
-        string[] hands = handsPart.Split(' ');
-
-        if (HandSuits == null) {
-            HandSuits = new string[16];
-        }
-
-        hands[0] = hands[0].Remove(0,2);
-
-        string hand;
-        string[] suits;
-        for (int i = 0;i < 4; i++) {
-            hand = hands[i];
-            suits = hand.Split('.').Select(s => string.IsNullOrEmpty(s) ? "-" : s).ToArray();
-            for (int j = 0; j < 4; j++) {
-               HandSuits[i * 4 + j] = suits[j];
-            }
-        }
-    }
-
-    private string RunScript(string filePath, int deals_num)
-    {
-        string scriptPath = Path.Combine("Latte", "get_scenarios.sh");
-
-        var processStartInfo = new ProcessStartInfo
-        {
-            FileName = "/bin/bash",
-            Arguments = $"{scriptPath} {filePath} {deals_num}",
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true,
-        };
-
-        using (var process = Process.Start(processStartInfo))
-        {
-            var result = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-            var exitCode = process.ExitCode;
-            if (exitCode != 0) {
-                error_input = true;
-            }
-            return result;
-        }
-    }
+    
+    
 
     public IActionResult OnGetLogView()
     {
