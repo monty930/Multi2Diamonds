@@ -14,7 +14,7 @@ import qualified Data.ByteString.Char8 as B
 import           Data.List             (nub)
 import qualified Data.Map              as M
 import qualified Data.Map              as Map
-import           Lex                   (Token, mkPosToken)
+import           Lex                   (Token, mkPosToken, posLineCol)
 import           Par
 import           Print                 (Print, printTree)
 import           Skel
@@ -31,7 +31,7 @@ type StoreT = M.Map Ident VarType
 
 type RSET a = StateT StoreT (ExceptT String IO) a
 
-data VarType = Shape | Holding | Evaluator | Unique
+data VarType = Shape | Holding | Evaluator | Attr | Unique
 
 makeTypeError :: String -> BNFC'Position -> RSET a
 makeTypeError s pos = do
@@ -45,7 +45,16 @@ makeTypeError s pos = do
 
 typeCheck :: Prog -> IO ()
 typeCheck ast = do
-  let store = M.insert (Ident "any") Shape (M.insert (Ident "balanced") Shape M.empty)
+  let store0 = M.insert (Ident "any") Shape (M.insert (Ident "balanced") Shape M.empty)
+  let store1 = M.insert (Ident "hcp") Evaluator store0
+  let store3 = M.insert (Ident "spades") Attr store1
+  let store4 = M.insert (Ident "hearts") Attr store3
+  let store5 = M.insert (Ident "diamonds") Attr store4
+  let store6 = M.insert (Ident "clubs") Attr store5
+  let store7 = M.insert (Ident "losers") Attr store6
+  let store8 = M.insert (Ident "freakness") Attr store7
+  let store9 = M.insert (Ident "controls") Attr store8
+  let store = M.insert (Ident "pt") Attr store9
   rse <- runExceptT (runStateT (checkProgram ast) store)
   return ()
 
@@ -181,13 +190,37 @@ checkIfShapeDefined ident pos = do
     Nothing -> makeTypeError ("Shape " ++ identToStr ident ++ " is not defined.") pos
 
 checkFinalExpr :: Expr -> RSET ()
-checkFinalExpr _ = return () -- TODO
+checkFinalExpr (HandAttr pos hand ident) = do
+  store <- get
+  case M.lookup ident store of
+    Just Shape -> return ()
+    Just Evaluator -> return ()
+    Just Attr -> return ()
+    Just _ -> makeTypeError "Type error" pos
+    Nothing -> makeTypeError (identToStr ident ++ " is not defined.") pos
 
+checkFinalExpr (ENot pos expr) = checkFinalExpr expr
+
+checkFinalExpr (EAnd pos expr1 expr2) = do
+  checkFinalExpr expr1
+  checkFinalExpr expr2
+
+checkFinalExpr (EOr pos expr1 expr2) = do
+  checkFinalExpr expr1
+  checkFinalExpr expr2
+
+checkFinalExpr (ERel pos expr1 _ expr2) = do
+  checkFinalExpr expr1
+  checkFinalExpr expr2
+
+checkFinalExpr _ = return () -- intended
+
+-- sense of shape expression is not checked
 checkShapeExpr :: ShapeExpr -> RSET ()
-checkShapeExpr _ = return () -- TODO
+checkShapeExpr _ = return ()
 
 checkShapes :: [Shape] -> RSET ()
-checkShapes [] = return () -- TODO
+checkShapes [] = return ()
 
 checkShapes (x : xs) = do
   checkShape x
@@ -228,7 +261,7 @@ checkEvalVals pos evalVals = do
     when (len < 1 || len > 13) $ makeTypeError "Incorrect number of values in evaluator" pos
 
 checkEvalVals' :: BNFC'Position -> [EvalVal] -> RSET ()
-checkEvalVals' pos [] = return () -- TODO
+checkEvalVals' pos [] = return ()
 
 checkEvalVals' pos (x : xs) = do
   checkEvalVal pos x
@@ -240,8 +273,9 @@ checkEvalVal pos val = do
             EvalVal _ i -> i
     when (i < 0 || i > 1000) $ makeTypeError "Incorrect value in evaluator" pos
 
+-- sense of holding expression is not checked
 checkHoldingExpr :: HoldingExpr -> RSET ()
-checkHoldingExpr _ = return () -- TODO
+checkHoldingExpr _ = return ()
 
 identToStr :: Ident -> String
 identToStr (Ident s) = s
