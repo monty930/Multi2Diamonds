@@ -19,132 +19,133 @@ transIdent :: Bridgechai.Abs.Ident -> Result
 transIdent x = case x of
   Bridgechai.Abs.Ident string -> failure x
 
-transProg :: Bridgechai.Abs.Prog -> Result
+transProg :: Show a => Bridgechai.Abs.Prog' a -> Result
 transProg x = case x of
-  Bridgechai.Abs.Program topdefs -> failure x
+  Bridgechai.Abs.Program _ topdefs -> failure x
 
-transTopDef :: Bridgechai.Abs.TopDef -> Result
+transTopDef :: Show a => Bridgechai.Abs.TopDef' a -> Result
 transTopDef x = case x of
-  Bridgechai.Abs.TopDefPredeal handpredeals -> failure x
-  Bridgechai.Abs.Final expr -> failure x
-  Bridgechai.Abs.TopDefShape shapedef -> failure x
-  Bridgechai.Abs.TopDefEval ident evalvals -> failure x
-  Bridgechai.Abs.TopDefBool ident holdingexpr -> failure x
+  Bridgechai.Abs.TopDefPredeal _ handpredeals -> failure x
+  Bridgechai.Abs.Final _ expr -> failure x
+  Bridgechai.Abs.TopDefShape _ shapedef -> failure x
+  Bridgechai.Abs.TopDefEval _ ident evalvals -> failure x
+  Bridgechai.Abs.TopDefBool _ ident holdingexpr -> failure x
 
-transHandPredeal :: Bridgechai.Abs.HandPredeal -> Result
+transHandPredeal :: Show a => Bridgechai.Abs.HandPredeal' a -> Result
 transHandPredeal x = case x of
-  Bridgechai.Abs.HandPredeal hand handfeature -> failure x
+  Bridgechai.Abs.HandPredeal _ hand handfeature -> failure x
 
-transHandFeature :: Bridgechai.Abs.HandFeature -> Result
+transHandFeature :: Show a => Bridgechai.Abs.HandFeature' a -> Result
 transHandFeature x = case x of
-  Bridgechai.Abs.HandLit string -> failure x
-  Bridgechai.Abs.SmartStackShape ident -> failure x
-  Bridgechai.Abs.SmartStackFull ident1 ident2 value -> failure x
+  Bridgechai.Abs.HandLit _ string -> failure x
+  Bridgechai.Abs.SmartStackShape _ ident -> failure x
+  Bridgechai.Abs.SmartStackFunc _ ident1 ident2 integer -> failure x
+  Bridgechai.Abs.SmartStackFull _ ident1 ident2 value -> failure x
 
-transValue :: Bridgechai.Abs.Value -> Result
+transValue :: Show a => Bridgechai.Abs.Value' a -> Result
 transValue x = case x of
-  Bridgechai.Abs.ValueRange integer1 integer2 -> failure x
+  Bridgechai.Abs.ValueRange _ integer1 integer2 -> failure x
 
-transShapeDef :: Bridgechai.Abs.ShapeDef -> Result
+transShapeDef :: Show a => Bridgechai.Abs.ShapeDef' a -> Result
 transShapeDef x = case x of
-  Bridgechai.Abs.ShapeCond ident shapeexpr -> failure x
-  Bridgechai.Abs.ShapeLit ident shapes -> failure x
+  Bridgechai.Abs.ShapeCond _ ident shapeexpr -> failure x
+  Bridgechai.Abs.ShapeLit _ ident shapes -> failure x
 
-transEvalVal :: Bridgechai.Abs.EvalVal -> Result
+transEvalVal :: Show a => Bridgechai.Abs.EvalVal' a -> Result
 transEvalVal x = case x of
-  Bridgechai.Abs.EvalVal integer -> failure x
+  Bridgechai.Abs.EvalVal _ integer -> failure x
 
-transShape :: Bridgechai.Abs.Shape -> Result
+transShape :: Show a => Bridgechai.Abs.Shape' a -> Result
 transShape x = case x of
-  Bridgechai.Abs.ShapeOk shapeok -> failure x
-  Bridgechai.Abs.ShapeNeg shapeneg -> failure x
+  Bridgechai.Abs.ShapeOk _ shapeok -> failure x
+  Bridgechai.Abs.ShapeNeg _ shapeneg -> failure x
 
-transShapeOk :: Bridgechai.Abs.ShapeOk -> Result
+transShapeOk :: Show a => Bridgechai.Abs.ShapeOk' a -> Result
 transShapeOk x = case x of
-  Bridgechai.Abs.OneShapeOk suitcounts -> failure x
+  Bridgechai.Abs.OneShapeOk _ suitcounts -> failure x
 
-transShapeNeg :: Bridgechai.Abs.ShapeNeg -> Result
+transShapeNeg :: Show a => Bridgechai.Abs.ShapeNeg' a -> Result
 transShapeNeg x = case x of
-  Bridgechai.Abs.OneShapeNeg shapeok -> failure x
+  Bridgechai.Abs.OneShapeNeg _ shapeok -> failure x
 
-transSuitCount :: Bridgechai.Abs.SuitCount -> Result
+transSuitCount :: Show a => Bridgechai.Abs.SuitCount' a -> Result
 transSuitCount x = case x of
-  Bridgechai.Abs.SuitIntCount suitint -> failure x
-  Bridgechai.Abs.SuitChoice suitints -> failure x
+  Bridgechai.Abs.SuitIntCount _ suitint -> failure x
+  Bridgechai.Abs.SuitChoice _ suitints -> failure x
 
-transSuitInt :: Bridgechai.Abs.SuitInt -> Result
+transSuitInt :: Show a => Bridgechai.Abs.SuitInt' a -> Result
 transSuitInt x = case x of
-  Bridgechai.Abs.SuitInt integer -> failure x
+  Bridgechai.Abs.SuitInt _ integer -> failure x
 
-transType :: Bridgechai.Abs.Type -> Result
+transType :: Show a => Bridgechai.Abs.Type' a -> Result
 transType x = case x of
-  Bridgechai.Abs.Int -> failure x
+  Bridgechai.Abs.Int _ -> failure x
 
-transExpr :: Bridgechai.Abs.Expr -> Result
+transExpr :: Show a => Bridgechai.Abs.Expr' a -> Result
 transExpr x = case x of
-  Bridgechai.Abs.HandAttr hand ident -> failure x
-  Bridgechai.Abs.ELitInt integer -> failure x
-  Bridgechai.Abs.ELitTrue -> failure x
-  Bridgechai.Abs.ELitFalse -> failure x
-  Bridgechai.Abs.ENot expr -> failure x
-  Bridgechai.Abs.ERel expr1 relop expr2 -> failure x
-  Bridgechai.Abs.EAnd expr1 expr2 -> failure x
-  Bridgechai.Abs.EOr expr1 expr2 -> failure x
+  Bridgechai.Abs.HandAttr _ hand ident -> failure x
+  Bridgechai.Abs.ELitInt _ integer -> failure x
+  Bridgechai.Abs.ELitTrue _ -> failure x
+  Bridgechai.Abs.ELitFalse _ -> failure x
+  Bridgechai.Abs.ENot _ expr -> failure x
+  Bridgechai.Abs.ERel _ expr1 relop expr2 -> failure x
+  Bridgechai.Abs.EAnd _ expr1 expr2 -> failure x
+  Bridgechai.Abs.EOr _ expr1 expr2 -> failure x
 
-transHand :: Bridgechai.Abs.Hand -> Result
+transHand :: Show a => Bridgechai.Abs.Hand' a -> Result
 transHand x = case x of
-  Bridgechai.Abs.HandN -> failure x
-  Bridgechai.Abs.HandE -> failure x
-  Bridgechai.Abs.HandW -> failure x
-  Bridgechai.Abs.HandS -> failure x
+  Bridgechai.Abs.HandN _ -> failure x
+  Bridgechai.Abs.HandE _ -> failure x
+  Bridgechai.Abs.HandW _ -> failure x
+  Bridgechai.Abs.HandS _ -> failure x
 
-transShapeExpr :: Bridgechai.Abs.ShapeExpr -> Result
+transShapeExpr :: Show a => Bridgechai.Abs.ShapeExpr' a -> Result
 transShapeExpr x = case x of
-  Bridgechai.Abs.ESuit suitlit -> failure x
-  Bridgechai.Abs.EShapeInt integer -> failure x
-  Bridgechai.Abs.ENotShape shapeexpr -> failure x
-  Bridgechai.Abs.ERelShape shapeexpr1 relop shapeexpr2 -> failure x
-  Bridgechai.Abs.EAndShape shapeexpr1 shapeexpr2 -> failure x
-  Bridgechai.Abs.EOrShape shapeexpr1 shapeexpr2 -> failure x
+  Bridgechai.Abs.ESuit _ suitlit -> failure x
+  Bridgechai.Abs.EShapeInt _ integer -> failure x
+  Bridgechai.Abs.ENotShape _ shapeexpr -> failure x
+  Bridgechai.Abs.ERelShape _ shapeexpr1 relop shapeexpr2 -> failure x
+  Bridgechai.Abs.EAndShape _ shapeexpr1 shapeexpr2 -> failure x
+  Bridgechai.Abs.EOrShape _ shapeexpr1 shapeexpr2 -> failure x
 
-transSuitLit :: Bridgechai.Abs.SuitLit -> Result
+transSuitLit :: Show a => Bridgechai.Abs.SuitLit' a -> Result
 transSuitLit x = case x of
-  Bridgechai.Abs.SuitLitS -> failure x
-  Bridgechai.Abs.SuitLitH -> failure x
-  Bridgechai.Abs.SuitLitD -> failure x
-  Bridgechai.Abs.SuitLitC -> failure x
+  Bridgechai.Abs.SuitLitS _ -> failure x
+  Bridgechai.Abs.SuitLitH _ -> failure x
+  Bridgechai.Abs.SuitLitD _ -> failure x
+  Bridgechai.Abs.SuitLitC _ -> failure x
 
-transHoldingExpr :: Bridgechai.Abs.HoldingExpr -> Result
+transHoldingExpr :: Show a => Bridgechai.Abs.HoldingExpr' a -> Result
 transHoldingExpr x = case x of
-  Bridgechai.Abs.HExprLen -> failure x
-  Bridgechai.Abs.HExprInt integer -> failure x
-  Bridgechai.Abs.HExprCard card -> failure x
-  Bridgechai.Abs.HNotExpr holdingexpr -> failure x
-  Bridgechai.Abs.HRelExpr holdingexpr1 relop holdingexpr2 -> failure x
-  Bridgechai.Abs.HAndExpr holdingexpr1 holdingexpr2 -> failure x
-  Bridgechai.Abs.HOrExpr holdingexpr1 holdingexpr2 -> failure x
+  Bridgechai.Abs.HExprLen _ -> failure x
+  Bridgechai.Abs.HExprInt _ integer -> failure x
+  Bridgechai.Abs.HExprCard _ card -> failure x
+  Bridgechai.Abs.HNotExpr _ holdingexpr -> failure x
+  Bridgechai.Abs.HRelExpr _ holdingexpr1 relop holdingexpr2 -> failure x
+  Bridgechai.Abs.HAndExpr _ holdingexpr1 holdingexpr2 -> failure x
+  Bridgechai.Abs.HOrExpr _ holdingexpr1 holdingexpr2 -> failure x
 
-transCard :: Bridgechai.Abs.Card -> Result
+transCard :: Show a => Bridgechai.Abs.Card' a -> Result
 transCard x = case x of
-  Bridgechai.Abs.CardA -> failure x
-  Bridgechai.Abs.CardK -> failure x
-  Bridgechai.Abs.CardQ -> failure x
-  Bridgechai.Abs.CardJ -> failure x
-  Bridgechai.Abs.CardT -> failure x
-  Bridgechai.Abs.Card9 -> failure x
-  Bridgechai.Abs.Card8 -> failure x
-  Bridgechai.Abs.Card7 -> failure x
-  Bridgechai.Abs.Card6 -> failure x
-  Bridgechai.Abs.Card5 -> failure x
-  Bridgechai.Abs.Card4 -> failure x
-  Bridgechai.Abs.Card3 -> failure x
-  Bridgechai.Abs.Card2 -> failure x
+  Bridgechai.Abs.CardA _ -> failure x
+  Bridgechai.Abs.CardK _ -> failure x
+  Bridgechai.Abs.CardQ _ -> failure x
+  Bridgechai.Abs.CardJ _ -> failure x
+  Bridgechai.Abs.CardT _ -> failure x
+  Bridgechai.Abs.Card9 _ -> failure x
+  Bridgechai.Abs.Card8 _ -> failure x
+  Bridgechai.Abs.Card7 _ -> failure x
+  Bridgechai.Abs.Card6 _ -> failure x
+  Bridgechai.Abs.Card5 _ -> failure x
+  Bridgechai.Abs.Card4 _ -> failure x
+  Bridgechai.Abs.Card3 _ -> failure x
+  Bridgechai.Abs.Card2 _ -> failure x
 
-transRelOp :: Bridgechai.Abs.RelOp -> Result
+transRelOp :: Show a => Bridgechai.Abs.RelOp' a -> Result
 transRelOp x = case x of
-  Bridgechai.Abs.LTH -> failure x
-  Bridgechai.Abs.LE -> failure x
-  Bridgechai.Abs.GTH -> failure x
-  Bridgechai.Abs.GE -> failure x
-  Bridgechai.Abs.EQU -> failure x
-  Bridgechai.Abs.NE -> failure x
+  Bridgechai.Abs.LTH _ -> failure x
+  Bridgechai.Abs.LE _ -> failure x
+  Bridgechai.Abs.GTH _ -> failure x
+  Bridgechai.Abs.GE _ -> failure x
+  Bridgechai.Abs.EQU _ -> failure x
+  Bridgechai.Abs.NE _ -> failure x

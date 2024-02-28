@@ -10,7 +10,6 @@ namespace BridgeScenarios.Pages;
 
 public class IndexModel : PageModel
 {
-
     public IndexModel() {
         error_input = false;
         TextInput = "";
@@ -40,7 +39,6 @@ public class IndexModel : PageModel
             var byteArray = Encoding.UTF8.GetBytes(scriptOutput);
             var stream = new MemoryStream(byteArray);
             return File(stream, "text/plain", "file.txt");
-        
         }
 
         var scriptRunner = new RedealScriptRunner();
@@ -65,10 +63,12 @@ public class IndexModel : PageModel
 
     private async Task<string> RunScriptSaveAsync(string filePath, int deals_num)
     {
+
         var scriptRunner = new RedealScriptRunner();
         var output = scriptRunner.RunScript(filePath, 10);
         if (output.ExitCode != 0) {
             output.RawOutput = "An error occured. Try to generate example deal.\n";
+
         }
         return output.RawOutput;
     }

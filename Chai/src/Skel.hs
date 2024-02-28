@@ -19,133 +19,133 @@ transIdent :: Abs.Ident -> Result
 transIdent x = case x of
   Abs.Ident string -> failure x
 
-transProg :: Abs.Prog -> Result
+transProg :: Show a => Abs.Prog' a -> Result
 transProg x = case x of
-  Abs.Program topdefs -> failure x
+  Abs.Program _ topdefs -> failure x
 
-transTopDef :: Abs.TopDef -> Result
+transTopDef :: Show a => Abs.TopDef' a -> Result
 transTopDef x = case x of
-  Abs.TopDefPredeal handpredeals -> failure x
-  Abs.Final expr -> failure x
-  Abs.TopDefShape shapedef -> failure x
-  Abs.TopDefEval ident evalvals -> failure x
-  Abs.TopDefBool ident holdingexpr -> failure x
+  Abs.TopDefPredeal _ handpredeals -> failure x
+  Abs.Final _ expr -> failure x
+  Abs.TopDefShape _ shapedef -> failure x
+  Abs.TopDefEval _ ident evalvals -> failure x
+  Abs.TopDefHold _ ident holdingexpr -> failure x
 
-transHandPredeal :: Abs.HandPredeal -> Result
+transHandPredeal :: Show a => Abs.HandPredeal' a -> Result
 transHandPredeal x = case x of
-  Abs.HandPredeal hand handfeature -> failure x
+  Abs.HandPredeal _ hand handfeature -> failure x
 
-transHandFeature :: Abs.HandFeature -> Result
+transHandFeature :: Show a => Abs.HandFeature' a -> Result
 transHandFeature x = case x of
-  Abs.HandLit string -> failure x
-  Abs.SmartStackShape ident -> failure x
-  Abs.SmartStackFunc ident1 ident2 integer -> failure x
-  Abs.SmartStackFull ident1 ident2 value -> failure x
+  Abs.HandLit _ string -> failure x
+  Abs.SmartStackShape _ ident -> failure x
+  Abs.SmartStackFunc _ ident1 ident2 integer -> failure x
+  Abs.SmartStackFull _ ident1 ident2 value -> failure x
 
-transValue :: Abs.Value -> Result
+transValue :: Show a => Abs.Value' a -> Result
 transValue x = case x of
-  Abs.ValueRange integer1 integer2 -> failure x
+  Abs.ValueRange _ integer1 integer2 -> failure x
 
-transShapeDef :: Abs.ShapeDef -> Result
+transShapeDef :: Show a => Abs.ShapeDef' a -> Result
 transShapeDef x = case x of
-  Abs.ShapeCond ident shapeexpr -> failure x
-  Abs.ShapeLit ident shapes -> failure x
+  Abs.ShapeCond _ ident shapeexpr -> failure x
+  Abs.ShapeLit _ ident shapes -> failure x
 
-transEvalVal :: Abs.EvalVal -> Result
+transEvalVal :: Show a => Abs.EvalVal' a -> Result
 transEvalVal x = case x of
-  Abs.EvalVal integer -> failure x
+  Abs.EvalVal _ integer -> failure x
 
-transShape :: Abs.Shape -> Result
+transShape :: Show a => Abs.Shape' a -> Result
 transShape x = case x of
-  Abs.ShapeOk shapeok -> failure x
-  Abs.ShapeNeg shapeneg -> failure x
+  Abs.ShapeOk _ shapeok -> failure x
+  Abs.ShapeNeg _ shapeneg -> failure x
 
-transShapeOk :: Abs.ShapeOk -> Result
+transShapeOk :: Show a => Abs.ShapeOk' a -> Result
 transShapeOk x = case x of
-  Abs.OneShapeOk suitcounts -> failure x
+  Abs.OneShapeOk _ suitcounts -> failure x
 
-transShapeNeg :: Abs.ShapeNeg -> Result
+transShapeNeg :: Show a => Abs.ShapeNeg' a -> Result
 transShapeNeg x = case x of
-  Abs.OneShapeNeg shapeok -> failure x
+  Abs.OneShapeNeg _ shapeok -> failure x
 
-transSuitCount :: Abs.SuitCount -> Result
+transSuitCount :: Show a => Abs.SuitCount' a -> Result
 transSuitCount x = case x of
-  Abs.SuitIntCount suitint -> failure x
-  Abs.SuitChoice suitints -> failure x
+  Abs.SuitIntCount _ suitint -> failure x
+  Abs.SuitChoice _ suitints -> failure x
 
-transSuitInt :: Abs.SuitInt -> Result
+transSuitInt :: Show a => Abs.SuitInt' a -> Result
 transSuitInt x = case x of
-  Abs.SuitInt integer -> failure x
+  Abs.SuitInt _ integer -> failure x
 
-transType :: Abs.Type -> Result
+transType :: Show a => Abs.Type' a -> Result
 transType x = case x of
-  Abs.Int -> failure x
+  Abs.Int _ -> failure x
 
-transExpr :: Abs.Expr -> Result
+transExpr :: Show a => Abs.Expr' a -> Result
 transExpr x = case x of
-  Abs.HandAttr hand ident -> failure x
-  Abs.ELitInt integer -> failure x
-  Abs.ELitTrue -> failure x
-  Abs.ELitFalse -> failure x
-  Abs.ENot expr -> failure x
-  Abs.ERel expr1 relop expr2 -> failure x
-  Abs.EAnd expr1 expr2 -> failure x
-  Abs.EOr expr1 expr2 -> failure x
+  Abs.HandAttr _ hand ident -> failure x
+  Abs.ELitInt _ integer -> failure x
+  Abs.ELitTrue _ -> failure x
+  Abs.ELitFalse _ -> failure x
+  Abs.ENot _ expr -> failure x
+  Abs.ERel _ expr1 relop expr2 -> failure x
+  Abs.EAnd _ expr1 expr2 -> failure x
+  Abs.EOr _ expr1 expr2 -> failure x
 
-transHand :: Abs.Hand -> Result
+transHand :: Show a => Abs.Hand' a -> Result
 transHand x = case x of
-  Abs.HandN -> failure x
-  Abs.HandE -> failure x
-  Abs.HandW -> failure x
-  Abs.HandS -> failure x
+  Abs.HandN _ -> failure x
+  Abs.HandE _ -> failure x
+  Abs.HandW _ -> failure x
+  Abs.HandS _ -> failure x
 
-transShapeExpr :: Abs.ShapeExpr -> Result
+transShapeExpr :: Show a => Abs.ShapeExpr' a -> Result
 transShapeExpr x = case x of
-  Abs.ESuit suitlit -> failure x
-  Abs.EShapeInt integer -> failure x
-  Abs.ENotShape shapeexpr -> failure x
-  Abs.ERelShape shapeexpr1 relop shapeexpr2 -> failure x
-  Abs.EAndShape shapeexpr1 shapeexpr2 -> failure x
-  Abs.EOrShape shapeexpr1 shapeexpr2 -> failure x
+  Abs.ESuit _ suitlit -> failure x
+  Abs.EShapeInt _ integer -> failure x
+  Abs.ENotShape _ shapeexpr -> failure x
+  Abs.ERelShape _ shapeexpr1 relop shapeexpr2 -> failure x
+  Abs.EAndShape _ shapeexpr1 shapeexpr2 -> failure x
+  Abs.EOrShape _ shapeexpr1 shapeexpr2 -> failure x
 
-transSuitLit :: Abs.SuitLit -> Result
+transSuitLit :: Show a => Abs.SuitLit' a -> Result
 transSuitLit x = case x of
-  Abs.SuitLitS -> failure x
-  Abs.SuitLitH -> failure x
-  Abs.SuitLitD -> failure x
-  Abs.SuitLitC -> failure x
+  Abs.SuitLitS _ -> failure x
+  Abs.SuitLitH _ -> failure x
+  Abs.SuitLitD _ -> failure x
+  Abs.SuitLitC _ -> failure x
 
-transHoldingExpr :: Abs.HoldingExpr -> Result
+transHoldingExpr :: Show a => Abs.HoldingExpr' a -> Result
 transHoldingExpr x = case x of
-  Abs.HExprLen -> failure x
-  Abs.HExprInt integer -> failure x
-  Abs.HExprCard card -> failure x
-  Abs.HNotExpr holdingexpr -> failure x
-  Abs.HRelExpr holdingexpr1 relop holdingexpr2 -> failure x
-  Abs.HAndExpr holdingexpr1 holdingexpr2 -> failure x
-  Abs.HOrExpr holdingexpr1 holdingexpr2 -> failure x
+  Abs.HExprLen _ -> failure x
+  Abs.HExprInt _ integer -> failure x
+  Abs.HExprCard _ card -> failure x
+  Abs.HNotExpr _ holdingexpr -> failure x
+  Abs.HRelExpr _ holdingexpr1 relop holdingexpr2 -> failure x
+  Abs.HAndExpr _ holdingexpr1 holdingexpr2 -> failure x
+  Abs.HOrExpr _ holdingexpr1 holdingexpr2 -> failure x
 
-transCard :: Abs.Card -> Result
+transCard :: Show a => Abs.Card' a -> Result
 transCard x = case x of
-  Abs.CardA -> failure x
-  Abs.CardK -> failure x
-  Abs.CardQ -> failure x
-  Abs.CardJ -> failure x
-  Abs.CardT -> failure x
-  Abs.Card9 -> failure x
-  Abs.Card8 -> failure x
-  Abs.Card7 -> failure x
-  Abs.Card6 -> failure x
-  Abs.Card5 -> failure x
-  Abs.Card4 -> failure x
-  Abs.Card3 -> failure x
-  Abs.Card2 -> failure x
+  Abs.CardA _ -> failure x
+  Abs.CardK _ -> failure x
+  Abs.CardQ _ -> failure x
+  Abs.CardJ _ -> failure x
+  Abs.CardT _ -> failure x
+  Abs.Card9 _ -> failure x
+  Abs.Card8 _ -> failure x
+  Abs.Card7 _ -> failure x
+  Abs.Card6 _ -> failure x
+  Abs.Card5 _ -> failure x
+  Abs.Card4 _ -> failure x
+  Abs.Card3 _ -> failure x
+  Abs.Card2 _ -> failure x
 
-transRelOp :: Abs.RelOp -> Result
+transRelOp :: Show a => Abs.RelOp' a -> Result
 transRelOp x = case x of
-  Abs.LTH -> failure x
-  Abs.LE -> failure x
-  Abs.GTH -> failure x
-  Abs.GE -> failure x
-  Abs.EQU -> failure x
-  Abs.NE -> failure x
+  Abs.LTH _ -> failure x
+  Abs.LE _ -> failure x
+  Abs.GTH _ -> failure x
+  Abs.GE _ -> failure x
+  Abs.EQU _ -> failure x
+  Abs.NE _ -> failure x

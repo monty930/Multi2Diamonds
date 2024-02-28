@@ -12,7 +12,7 @@ TopDefShape.    TopDef ::= ShapeDef ;
 
 TopDefEval.     TopDef ::= Ident "=" "evaluator" "(" [EvalVal] ")" ;
 
-TopDefBool.     TopDef ::= Ident "=" "(" HoldingExpr ")" ;
+TopDefHold.     TopDef ::= Ident "=" "holding(" HoldingExpr ")" ;
 
 separator       TopDef ";" ;
 

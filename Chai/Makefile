@@ -11,6 +11,7 @@ SOURCES= \
 	$(SRC_DIR)/Print.hs \
 	$(SRC_DIR)/Skel.hs \
 	$(SRC_DIR)/ErrM.hs \
+	$(SRC_DIR)/TypeChecker.hs \
 	$(SRC_DIR)/Compiler.hs \
 
 OBJS=$(BUILD_DIR)/*.o

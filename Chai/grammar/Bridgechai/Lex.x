@@ -28,7 +28,7 @@ $u = [. \n]          -- universal: any character
 
 -- Symbols and non-identifier-like reserved words
 
-@rsyms = \= | \{ | \} | \( | \) | \; | \, | \: | \[ | \] | \! | \+ | \. | \[ "A" \] | \[ "K" \] | \[ "Q" \] | \[ "J" \] | \[ "T" \] | \[ "9" \] | \[ "8" \] | \[ "7" \] | \[ "6" \] | \[ "5" \] | \[ "4" \] | \[ "3" \] | \[ "2" \] | \< | \< \= | \> | \> \= | \= \= | \! \=
+@rsyms = \= | \{ | \} | \( | \) | "holding" \( | \; | \, | \: | \[ | \] | \! | \+ | \. | \[ "A" \] | \[ "K" \] | \[ "Q" \] | \[ "J" \] | \[ "T" \] | \[ "9" \] | \[ "8" \] | \[ "7" \] | \[ "6" \] | \[ "5" \] | \[ "4" \] | \[ "3" \] | \[ "2" \] | \< | \< \= | \> | \> \= | \= \= | \! \=
 
 :-
 
@@ -180,11 +180,12 @@ resWords =
              (b "[Q]" 32 (b "[K]" 31 N N) N))
           (b "c" 36
              (b "and" 35 (b "]" 34 N N) N) (b "evaluator" 38 (b "d" 37 N N) N)))
-       (b "or" 45
-          (b "int" 42
-             (b "h" 41 (b "final" 40 N N) N) (b "not" 44 (b "length" 43 N N) N))
-          (b "true" 48
-             (b "s" 47 (b "predeal" 46 N N) N) (b "}" 50 (b "{" 49 N N) N))))
+       (b "or" 46
+          (b "int" 43
+             (b "h" 41 (b "final" 40 N N) (b "holding(" 42 N N))
+             (b "not" 45 (b "length" 44 N N) N))
+          (b "true" 49
+             (b "s" 48 (b "predeal" 47 N N) N) (b "}" 51 (b "{" 50 N N) N))))
   where
   b s n = B bs (TS bs n)
     where

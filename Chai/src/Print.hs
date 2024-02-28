@@ -140,163 +140,163 @@ instance Print Double where
 
 instance Print Abs.Ident where
   prt _ (Abs.Ident i) = doc $ showString i
-instance Print Abs.Prog where
+instance Print (Abs.Prog' a) where
   prt i = \case
-    Abs.Program topdefs -> prPrec i 0 (concatD [prt 0 topdefs])
+    Abs.Program _ topdefs -> prPrec i 0 (concatD [prt 0 topdefs])
 
-instance Print Abs.TopDef where
+instance Print (Abs.TopDef' a) where
   prt i = \case
-    Abs.TopDefPredeal handpredeals -> prPrec i 0 (concatD [doc (showString "predeal"), doc (showString "="), doc (showString "{"), prt 0 handpredeals, doc (showString "}")])
-    Abs.Final expr -> prPrec i 0 (concatD [doc (showString "final"), doc (showString "="), prt 0 expr])
-    Abs.TopDefShape shapedef -> prPrec i 0 (concatD [prt 0 shapedef])
-    Abs.TopDefEval id_ evalvals -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "evaluator"), doc (showString "("), prt 0 evalvals, doc (showString ")")])
-    Abs.TopDefBool id_ holdingexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "("), prt 0 holdingexpr, doc (showString ")")])
+    Abs.TopDefPredeal _ handpredeals -> prPrec i 0 (concatD [doc (showString "predeal"), doc (showString "="), doc (showString "{"), prt 0 handpredeals, doc (showString "}")])
+    Abs.Final _ expr -> prPrec i 0 (concatD [doc (showString "final"), doc (showString "="), prt 0 expr])
+    Abs.TopDefShape _ shapedef -> prPrec i 0 (concatD [prt 0 shapedef])
+    Abs.TopDefEval _ id_ evalvals -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "evaluator"), doc (showString "("), prt 0 evalvals, doc (showString ")")])
+    Abs.TopDefHold _ id_ holdingexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "holding("), prt 0 holdingexpr, doc (showString ")")])
 
-instance Print [Abs.TopDef] where
+instance Print [Abs.TopDef' a] where
   prt _ [] = concatD []
   prt _ [x] = concatD [prt 0 x]
   prt _ (x:xs) = concatD [prt 0 x, doc (showString ";"), prt 0 xs]
 
-instance Print [Abs.HandPredeal] where
+instance Print [Abs.HandPredeal' a] where
   prt _ [] = concatD []
   prt _ [x] = concatD [prt 0 x]
   prt _ (x:xs) = concatD [prt 0 x, doc (showString ","), prt 0 xs]
 
-instance Print Abs.HandPredeal where
+instance Print (Abs.HandPredeal' a) where
   prt i = \case
-    Abs.HandPredeal hand handfeature -> prPrec i 0 (concatD [prt 0 hand, doc (showString ":"), prt 0 handfeature])
+    Abs.HandPredeal _ hand handfeature -> prPrec i 0 (concatD [prt 0 hand, doc (showString ":"), prt 0 handfeature])
 
-instance Print Abs.HandFeature where
+instance Print (Abs.HandFeature' a) where
   prt i = \case
-    Abs.HandLit str -> prPrec i 0 (concatD [printString str])
-    Abs.SmartStackShape id_ -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_, doc (showString ")")])
-    Abs.SmartStackFunc id_1 id_2 n -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_1, doc (showString ","), prt 0 id_2, doc (showString ","), prt 0 n, doc (showString ")")])
-    Abs.SmartStackFull id_1 id_2 value -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_1, doc (showString ","), prt 0 id_2, doc (showString ","), prt 0 value, doc (showString ")")])
+    Abs.HandLit _ str -> prPrec i 0 (concatD [printString str])
+    Abs.SmartStackShape _ id_ -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_, doc (showString ")")])
+    Abs.SmartStackFunc _ id_1 id_2 n -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_1, doc (showString ","), prt 0 id_2, doc (showString ","), prt 0 n, doc (showString ")")])
+    Abs.SmartStackFull _ id_1 id_2 value -> prPrec i 0 (concatD [doc (showString "("), prt 0 id_1, doc (showString ","), prt 0 id_2, doc (showString ","), prt 0 value, doc (showString ")")])
 
-instance Print Abs.Value where
+instance Print (Abs.Value' a) where
   prt i = \case
-    Abs.ValueRange n1 n2 -> prPrec i 0 (concatD [doc (showString "("), prt 0 n1, doc (showString ","), prt 0 n2, doc (showString ")")])
+    Abs.ValueRange _ n1 n2 -> prPrec i 0 (concatD [doc (showString "("), prt 0 n1, doc (showString ","), prt 0 n2, doc (showString ")")])
 
-instance Print Abs.ShapeDef where
+instance Print (Abs.ShapeDef' a) where
   prt i = \case
-    Abs.ShapeCond id_ shapeexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "("), prt 0 shapeexpr, doc (showString ")")])
-    Abs.ShapeLit id_ shapes -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 shapes])
+    Abs.ShapeCond _ id_ shapeexpr -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), doc (showString "("), prt 0 shapeexpr, doc (showString ")")])
+    Abs.ShapeLit _ id_ shapes -> prPrec i 0 (concatD [prt 0 id_, doc (showString "="), prt 0 shapes])
 
-instance Print Abs.EvalVal where
+instance Print (Abs.EvalVal' a) where
   prt i = \case
-    Abs.EvalVal n -> prPrec i 0 (concatD [prt 0 n])
+    Abs.EvalVal _ n -> prPrec i 0 (concatD [prt 0 n])
 
-instance Print [Abs.EvalVal] where
+instance Print [Abs.EvalVal' a] where
   prt _ [] = concatD []
   prt _ [x] = concatD [prt 0 x]
   prt _ (x:xs) = concatD [prt 0 x, doc (showString ","), prt 0 xs]
 
-instance Print Abs.Shape where
+instance Print (Abs.Shape' a) where
   prt i = \case
-    Abs.ShapeOk shapeok -> prPrec i 0 (concatD [prt 0 shapeok])
-    Abs.ShapeNeg shapeneg -> prPrec i 0 (concatD [prt 0 shapeneg])
+    Abs.ShapeOk _ shapeok -> prPrec i 0 (concatD [prt 0 shapeok])
+    Abs.ShapeNeg _ shapeneg -> prPrec i 0 (concatD [prt 0 shapeneg])
 
-instance Print Abs.ShapeOk where
+instance Print (Abs.ShapeOk' a) where
   prt i = \case
-    Abs.OneShapeOk suitcounts -> prPrec i 0 (concatD [doc (showString "["), prt 0 suitcounts, doc (showString "]")])
+    Abs.OneShapeOk _ suitcounts -> prPrec i 0 (concatD [doc (showString "["), prt 0 suitcounts, doc (showString "]")])
 
-instance Print Abs.ShapeNeg where
+instance Print (Abs.ShapeNeg' a) where
   prt i = \case
-    Abs.OneShapeNeg shapeok -> prPrec i 0 (concatD [doc (showString "!"), prt 0 shapeok])
+    Abs.OneShapeNeg _ shapeok -> prPrec i 0 (concatD [doc (showString "!"), prt 0 shapeok])
 
-instance Print [Abs.Shape] where
+instance Print [Abs.Shape' a] where
   prt _ [] = concatD []
   prt _ [x] = concatD [prt 0 x]
   prt _ (x:xs) = concatD [prt 0 x, doc (showString "+"), prt 0 xs]
 
-instance Print Abs.SuitCount where
+instance Print (Abs.SuitCount' a) where
   prt i = \case
-    Abs.SuitIntCount suitint -> prPrec i 0 (concatD [prt 0 suitint])
-    Abs.SuitChoice suitints -> prPrec i 0 (concatD [doc (showString "("), prt 0 suitints, doc (showString ")")])
+    Abs.SuitIntCount _ suitint -> prPrec i 0 (concatD [prt 0 suitint])
+    Abs.SuitChoice _ suitints -> prPrec i 0 (concatD [doc (showString "("), prt 0 suitints, doc (showString ")")])
 
-instance Print Abs.SuitInt where
+instance Print (Abs.SuitInt' a) where
   prt i = \case
-    Abs.SuitInt n -> prPrec i 0 (concatD [prt 0 n])
+    Abs.SuitInt _ n -> prPrec i 0 (concatD [prt 0 n])
 
-instance Print [Abs.SuitCount] where
+instance Print [Abs.SuitCount' a] where
   prt _ [] = concatD []
   prt _ [x] = concatD [prt 0 x]
   prt _ (x:xs) = concatD [prt 0 x, doc (showString ";"), prt 0 xs]
 
-instance Print [Abs.SuitInt] where
+instance Print [Abs.SuitInt' a] where
   prt _ [] = concatD []
   prt _ [x] = concatD [prt 0 x]
   prt _ (x:xs) = concatD [prt 0 x, doc (showString ";"), prt 0 xs]
 
-instance Print Abs.Type where
+instance Print (Abs.Type' a) where
   prt i = \case
-    Abs.Int -> prPrec i 0 (concatD [doc (showString "int")])
+    Abs.Int _ -> prPrec i 0 (concatD [doc (showString "int")])
 
-instance Print Abs.Expr where
+instance Print (Abs.Expr' a) where
   prt i = \case
-    Abs.HandAttr hand id_ -> prPrec i 6 (concatD [prt 0 hand, doc (showString "."), prt 0 id_])
-    Abs.ELitInt n -> prPrec i 6 (concatD [prt 0 n])
-    Abs.ELitTrue -> prPrec i 6 (concatD [doc (showString "true")])
-    Abs.ELitFalse -> prPrec i 6 (concatD [doc (showString "false")])
-    Abs.ENot expr -> prPrec i 5 (concatD [doc (showString "not"), prt 6 expr])
-    Abs.ERel expr1 relop expr2 -> prPrec i 2 (concatD [prt 2 expr1, prt 0 relop, prt 3 expr2])
-    Abs.EAnd expr1 expr2 -> prPrec i 1 (concatD [prt 2 expr1, doc (showString "and"), prt 1 expr2])
-    Abs.EOr expr1 expr2 -> prPrec i 0 (concatD [prt 1 expr1, doc (showString "or"), prt 0 expr2])
+    Abs.HandAttr _ hand id_ -> prPrec i 6 (concatD [prt 0 hand, doc (showString "."), prt 0 id_])
+    Abs.ELitInt _ n -> prPrec i 6 (concatD [prt 0 n])
+    Abs.ELitTrue _ -> prPrec i 6 (concatD [doc (showString "true")])
+    Abs.ELitFalse _ -> prPrec i 6 (concatD [doc (showString "false")])
+    Abs.ENot _ expr -> prPrec i 5 (concatD [doc (showString "not"), prt 6 expr])
+    Abs.ERel _ expr1 relop expr2 -> prPrec i 2 (concatD [prt 2 expr1, prt 0 relop, prt 3 expr2])
+    Abs.EAnd _ expr1 expr2 -> prPrec i 1 (concatD [prt 2 expr1, doc (showString "and"), prt 1 expr2])
+    Abs.EOr _ expr1 expr2 -> prPrec i 0 (concatD [prt 1 expr1, doc (showString "or"), prt 0 expr2])
 
-instance Print Abs.Hand where
+instance Print (Abs.Hand' a) where
   prt i = \case
-    Abs.HandN -> prPrec i 0 (concatD [doc (showString "N")])
-    Abs.HandE -> prPrec i 0 (concatD [doc (showString "E")])
-    Abs.HandW -> prPrec i 0 (concatD [doc (showString "W")])
-    Abs.HandS -> prPrec i 0 (concatD [doc (showString "S")])
+    Abs.HandN _ -> prPrec i 0 (concatD [doc (showString "N")])
+    Abs.HandE _ -> prPrec i 0 (concatD [doc (showString "E")])
+    Abs.HandW _ -> prPrec i 0 (concatD [doc (showString "W")])
+    Abs.HandS _ -> prPrec i 0 (concatD [doc (showString "S")])
 
-instance Print Abs.ShapeExpr where
+instance Print (Abs.ShapeExpr' a) where
   prt i = \case
-    Abs.ESuit suitlit -> prPrec i 6 (concatD [prt 0 suitlit])
-    Abs.EShapeInt n -> prPrec i 6 (concatD [prt 0 n])
-    Abs.ENotShape shapeexpr -> prPrec i 5 (concatD [doc (showString "not"), prt 6 shapeexpr])
-    Abs.ERelShape shapeexpr1 relop shapeexpr2 -> prPrec i 2 (concatD [prt 2 shapeexpr1, prt 0 relop, prt 3 shapeexpr2])
-    Abs.EAndShape shapeexpr1 shapeexpr2 -> prPrec i 1 (concatD [prt 2 shapeexpr1, doc (showString "and"), prt 1 shapeexpr2])
-    Abs.EOrShape shapeexpr1 shapeexpr2 -> prPrec i 0 (concatD [prt 1 shapeexpr1, doc (showString "or"), prt 0 shapeexpr2])
+    Abs.ESuit _ suitlit -> prPrec i 6 (concatD [prt 0 suitlit])
+    Abs.EShapeInt _ n -> prPrec i 6 (concatD [prt 0 n])
+    Abs.ENotShape _ shapeexpr -> prPrec i 5 (concatD [doc (showString "not"), prt 6 shapeexpr])
+    Abs.ERelShape _ shapeexpr1 relop shapeexpr2 -> prPrec i 2 (concatD [prt 2 shapeexpr1, prt 0 relop, prt 3 shapeexpr2])
+    Abs.EAndShape _ shapeexpr1 shapeexpr2 -> prPrec i 1 (concatD [prt 2 shapeexpr1, doc (showString "and"), prt 1 shapeexpr2])
+    Abs.EOrShape _ shapeexpr1 shapeexpr2 -> prPrec i 0 (concatD [prt 1 shapeexpr1, doc (showString "or"), prt 0 shapeexpr2])
 
-instance Print Abs.SuitLit where
+instance Print (Abs.SuitLit' a) where
   prt i = \case
-    Abs.SuitLitS -> prPrec i 0 (concatD [doc (showString "s")])
-    Abs.SuitLitH -> prPrec i 0 (concatD [doc (showString "h")])
-    Abs.SuitLitD -> prPrec i 0 (concatD [doc (showString "d")])
-    Abs.SuitLitC -> prPrec i 0 (concatD [doc (showString "c")])
+    Abs.SuitLitS _ -> prPrec i 0 (concatD [doc (showString "s")])
+    Abs.SuitLitH _ -> prPrec i 0 (concatD [doc (showString "h")])
+    Abs.SuitLitD _ -> prPrec i 0 (concatD [doc (showString "d")])
+    Abs.SuitLitC _ -> prPrec i 0 (concatD [doc (showString "c")])
 
-instance Print Abs.HoldingExpr where
+instance Print (Abs.HoldingExpr' a) where
   prt i = \case
-    Abs.HExprLen -> prPrec i 5 (concatD [doc (showString "length")])
-    Abs.HExprInt n -> prPrec i 5 (concatD [prt 0 n])
-    Abs.HExprCard card -> prPrec i 5 (concatD [prt 0 card])
-    Abs.HNotExpr holdingexpr -> prPrec i 4 (concatD [doc (showString "not"), prt 5 holdingexpr])
-    Abs.HRelExpr holdingexpr1 relop holdingexpr2 -> prPrec i 2 (concatD [prt 2 holdingexpr1, prt 0 relop, prt 3 holdingexpr2])
-    Abs.HAndExpr holdingexpr1 holdingexpr2 -> prPrec i 1 (concatD [prt 2 holdingexpr1, doc (showString "and"), prt 1 holdingexpr2])
-    Abs.HOrExpr holdingexpr1 holdingexpr2 -> prPrec i 0 (concatD [prt 1 holdingexpr1, doc (showString "or"), prt 0 holdingexpr2])
+    Abs.HExprLen _ -> prPrec i 5 (concatD [doc (showString "length")])
+    Abs.HExprInt _ n -> prPrec i 5 (concatD [prt 0 n])
+    Abs.HExprCard _ card -> prPrec i 5 (concatD [prt 0 card])
+    Abs.HNotExpr _ holdingexpr -> prPrec i 4 (concatD [doc (showString "not"), prt 5 holdingexpr])
+    Abs.HRelExpr _ holdingexpr1 relop holdingexpr2 -> prPrec i 2 (concatD [prt 2 holdingexpr1, prt 0 relop, prt 3 holdingexpr2])
+    Abs.HAndExpr _ holdingexpr1 holdingexpr2 -> prPrec i 1 (concatD [prt 2 holdingexpr1, doc (showString "and"), prt 1 holdingexpr2])
+    Abs.HOrExpr _ holdingexpr1 holdingexpr2 -> prPrec i 0 (concatD [prt 1 holdingexpr1, doc (showString "or"), prt 0 holdingexpr2])
 
-instance Print Abs.Card where
+instance Print (Abs.Card' a) where
   prt i = \case
-    Abs.CardA -> prPrec i 0 (concatD [doc (showString "[A]")])
-    Abs.CardK -> prPrec i 0 (concatD [doc (showString "[K]")])
-    Abs.CardQ -> prPrec i 0 (concatD [doc (showString "[Q]")])
-    Abs.CardJ -> prPrec i 0 (concatD [doc (showString "[J]")])
-    Abs.CardT -> prPrec i 0 (concatD [doc (showString "[T]")])
-    Abs.Card9 -> prPrec i 0 (concatD [doc (showString "[9]")])
-    Abs.Card8 -> prPrec i 0 (concatD [doc (showString "[8]")])
-    Abs.Card7 -> prPrec i 0 (concatD [doc (showString "[7]")])
-    Abs.Card6 -> prPrec i 0 (concatD [doc (showString "[6]")])
-    Abs.Card5 -> prPrec i 0 (concatD [doc (showString "[5]")])
-    Abs.Card4 -> prPrec i 0 (concatD [doc (showString "[4]")])
-    Abs.Card3 -> prPrec i 0 (concatD [doc (showString "[3]")])
-    Abs.Card2 -> prPrec i 0 (concatD [doc (showString "[2]")])
+    Abs.CardA _ -> prPrec i 0 (concatD [doc (showString "[A]")])
+    Abs.CardK _ -> prPrec i 0 (concatD [doc (showString "[K]")])
+    Abs.CardQ _ -> prPrec i 0 (concatD [doc (showString "[Q]")])
+    Abs.CardJ _ -> prPrec i 0 (concatD [doc (showString "[J]")])
+    Abs.CardT _ -> prPrec i 0 (concatD [doc (showString "[T]")])
+    Abs.Card9 _ -> prPrec i 0 (concatD [doc (showString "[9]")])
+    Abs.Card8 _ -> prPrec i 0 (concatD [doc (showString "[8]")])
+    Abs.Card7 _ -> prPrec i 0 (concatD [doc (showString "[7]")])
+    Abs.Card6 _ -> prPrec i 0 (concatD [doc (showString "[6]")])
+    Abs.Card5 _ -> prPrec i 0 (concatD [doc (showString "[5]")])
+    Abs.Card4 _ -> prPrec i 0 (concatD [doc (showString "[4]")])
+    Abs.Card3 _ -> prPrec i 0 (concatD [doc (showString "[3]")])
+    Abs.Card2 _ -> prPrec i 0 (concatD [doc (showString "[2]")])
 
-instance Print Abs.RelOp where
+instance Print (Abs.RelOp' a) where
   prt i = \case
-    Abs.LTH -> prPrec i 0 (concatD [doc (showString "<")])
-    Abs.LE -> prPrec i 0 (concatD [doc (showString "<=")])
-    Abs.GTH -> prPrec i 0 (concatD [doc (showString ">")])
-    Abs.GE -> prPrec i 0 (concatD [doc (showString ">=")])
-    Abs.EQU -> prPrec i 0 (concatD [doc (showString "==")])
-    Abs.NE -> prPrec i 0 (concatD [doc (showString "!=")])
+    Abs.LTH _ -> prPrec i 0 (concatD [doc (showString "<")])
+    Abs.LE _ -> prPrec i 0 (concatD [doc (showString "<=")])
+    Abs.GTH _ -> prPrec i 0 (concatD [doc (showString ">")])
+    Abs.GE _ -> prPrec i 0 (concatD [doc (showString ">=")])
+    Abs.EQU _ -> prPrec i 0 (concatD [doc (showString "==")])
+    Abs.NE _ -> prPrec i 0 (concatD [doc (showString "!=")])
