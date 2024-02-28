@@ -24,7 +24,6 @@ import           System.FilePath       (dropExtension, takeDirectory,
 import           System.FilePath.Posix
 import           System.IO
 import           System.Process
-import           Test.QuickCheck       (label)
 import           TypeChecker
 
 type StoreVar = M.Map Ident Type

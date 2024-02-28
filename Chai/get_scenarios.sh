@@ -2,14 +2,7 @@
 
 SCRIPT_DIR=$(dirname "$0")
 
-for file in "$SCRIPT_DIR"/grammar/Bridgechai/*.hs; do
-    if [[ $(basename "$file") != "Test.hs" ]]; then
-        sed 's/Bridgechai\.//g' "$file" > "$SCRIPT_DIR/src/$(basename "$file")"
-    fi
-done
-
 if [ $# -eq 0 ]; then
-    echo "Grammar files copied but no filepath provided."
     echo "Usage: $0 <filepath> <number of deals>"
     exit 1
 fi
