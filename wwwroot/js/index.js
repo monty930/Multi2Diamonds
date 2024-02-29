@@ -87,7 +87,9 @@ MyButtons = {
             MyButtons.settings.setActivePressed(false);
             
             MyButtons.play.setDeactivated(false);
+            document.getElementById('tabs-play').src = "/assets/play.png";
             MyButtons.save.setDeactivated(false);
+            document.getElementById('tabs-save').src = "/assets/save.png";
         }
     }),
 
@@ -107,7 +109,9 @@ MyButtons = {
             MyButtons.settings.setActivePressed(false);
             
             MyButtons.play.setDeactivated(true);
+            document.getElementById('tabs-play').src = "/assets/play-deactivated.png";
             MyButtons.save.setDeactivated(true);
+            document.getElementById('tabs-save').src = "/assets/save-deactivated.png";
         }
     }),
 
@@ -125,9 +129,11 @@ MyButtons = {
             MyButtons.input.setActivePressed(false);
             MyButtons.lightbulb.setActivePressed(false);
             MyButtons.settings.setActivePressed(true);
-            
+
             MyButtons.play.setDeactivated(true);
+            document.getElementById('tabs-play').src = "/assets/play-deactivated.png";
             MyButtons.save.setDeactivated(true);
+            document.getElementById('tabs-save').src = "/assets/save-deactivated.png";
         }
     }),
 

@@ -348,7 +348,7 @@ textarea, .examples-container-inner {
   box-shadow: 0 2px var(--button-shadow);
 }
 
-#arrow-img {
+.arrow-img {
   width: 40px;
 }
 
@@ -357,7 +357,7 @@ textarea, .examples-container-inner {
   width: 20px
 }
 
-#tabs-img {
+.tabs-img {
   padding-bottom: 2pt;
   width: var(--tabs-img-size);
 }
