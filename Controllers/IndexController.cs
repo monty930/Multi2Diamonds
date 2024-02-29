@@ -1,4 +1,5 @@
 using BridgeScenarios.Managers;
+using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
 using BridgeScenarios.Redeal;
 using Microsoft.AspNetCore.Cors;
@@ -40,5 +41,4 @@ public class IndexController : Controller
         });
         return View("Index", model);
     }
-    
 }

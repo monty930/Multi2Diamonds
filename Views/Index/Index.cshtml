@@ -68,23 +68,7 @@
                 <div class="hands">
                     @if (Model.IsCorrectDeal)
                     {
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/spade.png" />
-                            @Html.Raw(Model.Deal.North.Spades)<br>
-                        </div>
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/heart.png" />
-                            @Html.Raw(Model.Deal.North.Hearts)<br>
-                        </div>
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/diamond.png" />
-                            <div> </div>
-                            @Html.Raw(Model.Deal.North.Diamonds)<br>
-                        </div>
-                        <div class="suit">
-                            <img id="suit-img" src="~/assets/club.png" />
-                            @Html.Raw(Model.Deal.North.Clubs)<br>
-                        </div>
+                        await Html.RenderPartialAsync("Hand", Model.Deal.North); 
                     }
                     else
                     {
@@ -122,64 +106,17 @@
                         <div class="hands">
                             @if (Model.IsCorrectDeal)
                             {
-                                <div class="suit">
-                                    <img id="suit-img" src="~/assets/spade.png" />
-                                    @Html.Raw(Model.Deal.West.Spades)<br>
-                                </div>
-                                <div class="suit">
-                                    <img id="suit-img" src="~/assets/heart.png" />
-                                    @Html.Raw(Model.Deal.West.Hearts)<br>
-                                </div>
-                                <div class="suit">
-                                    <img id="suit-img" src="~/assets/diamond.png" />
-                                    <div> </div>
-                                    @Html.Raw(Model.Deal.West.Diamonds)<br>
-                                </div>
-                                <div class="suit">
-                                    <img id="suit-img" src="~/assets/club.png" />
-                                    @Html.Raw(Model.Deal.West.Clubs)<br>
-                                </div>
+                                await Html.RenderPartialAsync("Hand", Model.Deal.West);
                             }
                         </div>
                     </div>
-                    <div class="grid-snwe">
-                        <div></div>
-                        <div>N</div>
-                        <div></div>
-                        <div>W</div>
-                        <div>
-                            <div id="spinner" style="display:none;">
-                                <div class="loader">
-                                    <img id="loading-img" src="~/assets/loading-simp.png"
-                                        alt="Randomly Oriented Image" />
-                                </div>
-                            </div>
-                        </div>
-                        <div>E</div>
-                        <div></div>
-                        <div>S</div>
-                        <div></div>
-                    </div>
+
+                    @await Html.PartialAsync("Compass");
+                    
                     <div class="hands">
                         @if (Model.IsCorrectDeal)
                         {
-                            <div class="suit">
-                                <img id="suit-img" src="~/assets/spade.png" />
-                                @Html.Raw(Model.Deal.East.Spades)<br>
-                            </div>
-                            <div class="suit">
-                                <img id="suit-img" src="~/assets/heart.png" />
-                                @Html.Raw(Model.Deal.East.Hearts)<br>
-                            </div>
-                            <div class="suit">
-                                <img id="suit-img" src="~/assets/diamond.png" />
-                                <div> </div>
-                                @Html.Raw(Model.Deal.East.Diamonds)<br>
-                            </div>
-                            <div class="suit">
-                                <img id="suit-img" src="~/assets/club.png" />
-                                @Html.Raw(Model.Deal.East.Clubs)<br>
-                            </div>
+                            await Html.RenderPartialAsync("Hand", Model.Deal.East);
                         }
                     </div>
                 </div>
@@ -190,23 +127,7 @@
                     <div class="hands">
                         @if (Model.IsCorrectDeal)
                         {
-                            <div class="suit">
-                                <img id="suit-img" src="~/assets/spade.png" />
-                                @Html.Raw(Model.Deal.South.Spades)<br>
-                            </div>
-                            <div class="suit">
-                                <img id="suit-img" src="~/assets/heart.png" />
-                                @Html.Raw(Model.Deal.South.Hearts)<br>
-                            </div>
-                            <div class="suit">
-                                <img id="suit-img" src="~/assets/diamond.png" />
-                                <div> </div>
-                                @Html.Raw(Model.Deal.South.Diamonds)<br>
-                            </div>
-                            <div class="suit">
-                                <img id="suit-img" src="~/assets/club.png" />
-                                @Html.Raw(Model.Deal.South.Clubs)<br>
-                            </div>
+                            await Html.RenderPartialAsync("Hand", Model.Deal.South);
                         }
                     </div>
                     <div></div>
@@ -365,12 +286,6 @@ final = E.spades > 7
             document.getElementById('codeInput').scrollTop = parseInt(savedScrollTop, 10);
         }
     });
-
-    window.onload = function () {
-        var image = document.getElementById('loading-img');
-        var randomAngle = Math.floor(Math.random() * 360); // Generate a random angle between 0 and 359
-        image.style.transform = 'rotate(' + randomAngle + 'deg)'; // Rotate the image
-    };
 
     function updateLineNumbers() {
         const textarea = document.getElementById('codeInput');
