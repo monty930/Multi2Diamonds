@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using BridgeScenarios.Redeal;
 
 namespace BridgeScenarios.Models.ViewModels;
 
@@ -12,4 +13,5 @@ public class IndexViewModel : PageModel
     public bool IsErrorInput { get; set; }
     public bool IsCorrectDeal { get; set; }
     public MemoryStream? OutputStream { get; set; }
+    public CompilerSettings Compiler { get; set; } = new ChaiCompiler(0);
 }
