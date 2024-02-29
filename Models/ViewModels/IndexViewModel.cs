@@ -13,5 +13,5 @@ public class IndexViewModel : PageModel
     public bool IsErrorInput { get; set; }
     public bool IsCorrectDeal { get; set; }
     public MemoryStream? OutputStream { get; set; }
-    public CompilerSettings Compiler { get; set; } = new ChaiCompiler(0);
+    public CompilerSettings Compiler { get; set; } = new ChaiCompilerSettings(0);
 }
