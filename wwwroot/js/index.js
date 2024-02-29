@@ -3,7 +3,7 @@ const buttons = document.querySelectorAll('.button-save, .button-readme, .button
 MyButton = function ({htmlObject, listener}) {
     this.htmlObject = htmlObject;
     this.listener = listener;
-    
+
     this.setDeactivated = (deactivated) => {
         if (deactivated) {
             this.htmlObject.classList.add('deactivated');
@@ -19,7 +19,7 @@ MyButton = function ({htmlObject, listener}) {
             this.htmlObject.classList.remove('button-active-tab');
         }
     }
-    
+
     this.isDeactivated = () => this.htmlObject.classList.contains('deactivated');
 }
 
@@ -79,28 +79,28 @@ MyButtons = {
                 else
                     button.setActivePressed(false);
             });
-            
+
             this.setActivePressed(true);
             this.setDeactivated(false);
             MyButtons.play.setDeactivated(false);
             MyButtons.save.setDeactivated(false);
         }
     }),
-    
-    
+
+
     lightbulb: new MyButton({
         htmlObject: document.getElementById("lightbulbButton"),
         listener: function () {
             setTabDynamics(originalInputContent);
         }
     }),
-    
-    
+
+
     settings: new MyButton({
         htmlObject: document.getElementById("settingsButton"),
         listener: function () {
             setTabDynamics(settingsHTML);
-            
+
             buttons.forEach(button => {
                 if (button === this)
                     button.setActivePressed(true);
@@ -112,14 +112,14 @@ MyButtons = {
             MyButtons.save.setDeactivated(false);
         }
     }),
-    
-    
+
+
     play: new MyButton({
         htmlObject: document.getElementById("playButton"),
         listener: function () {
-            if (MyButtons.play.isDeactivated()) 
+            if (MyButtons.play.isDeactivated())
                 return;
-            
+
             // loading circle
             document.getElementById('spinner').style.display = 'block';
             // Set the action value
@@ -129,12 +129,12 @@ MyButtons = {
             document.getElementById('FormGenSc').requestSubmit(submitter);
         },
     }),
-    
+
     save: new MyButton({
         htmlObject: document.getElementById("saveButton"),
         listener: null
     }),
-    
+
     error: new MyButton({
         htmlObject: document.getElementById("errorButton"),
         listener: function () {
@@ -173,7 +173,6 @@ let updateLineNumbers = function () {
 }
 
 
-
 document.addEventListener('DOMContentLoaded', function () {
 
     const dynamicContent = document.getElementById('dynamic-content');
@@ -181,15 +180,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tabsDynamicContent = document.getElementById('tab-dynamics');
     originalInputContent = tabsDynamicContent.innerHTML; // Store the original input content
-    
-    
+
+
     Object.values(MyButtons).forEach(button => {
         if (button.listener != null && button.htmlObject != null)
             button.htmlObject.addEventListener('click', button.listener);
     });
-    
+
     console.log("Added listeners");
-    
+
     // Check if a saved scroll position exists and restore it
     const savedScrollTop = localStorage.getItem('textareaScrollTop');
     if (savedScrollTop !== null) {
