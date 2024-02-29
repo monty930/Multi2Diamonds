@@ -46,7 +46,7 @@ public class IndexManager
         var scriptOut = model.Compiler.Run(tempFilePath, 0);
 
         File.Delete(tempFilePath);
-        
+
         if (scriptOut.ExitCode != 0)
         {
             scriptOut.RawOutput = "An error occured. Try to generate example deal.\n";
