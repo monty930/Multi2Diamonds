@@ -41,10 +41,11 @@ public class IndexManager
     {
         var tempFilePath = Path.GetTempFileName();
         await System.IO.File.WriteAllTextAsync(tempFilePath, model.TextInput);
-        
+
         var scriptRunner = new RedealScriptRunner();
         var output = scriptRunner.RunScript(tempFilePath, 10);
-        if (output.ExitCode != 0) {
+        if (output.ExitCode != 0)
+        {
             output.RawOutput = "An error occured. Try to generate example deal.\n";
             return new IndexViewModel
             {
@@ -52,7 +53,7 @@ public class IndexManager
                 IsErrorInput = true
             };
         }
-        
+
         var byteArray = Encoding.UTF8.GetBytes(output.RawOutput);
         var stream = new MemoryStream(byteArray);
         return new IndexViewModel

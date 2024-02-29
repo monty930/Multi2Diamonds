@@ -6,7 +6,7 @@ namespace BridgeScenarios.Redeal;
 
 public class RedealScriptRunner
 {
-    private readonly string _scriptPath = Path.Combine("Chai", "get_scenarios.sh");
+    private readonly string _scriptPath = Path.Combine("BridgeTools", "Chai", "get_scenarios.sh");
     private readonly string _parserPath;
 
     private readonly ProcessStartInfo _processStartInfo = new()
