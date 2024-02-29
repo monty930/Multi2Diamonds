@@ -174,6 +174,9 @@ MyButtons = {
         listener: function () {
             // The new content
             setDynamicContent(errorHTML);
+            document.getElementById("backButton").addEventListener(
+                'click',
+                document.getElementById("backButton").listener);
             return false;
         }
     }),
