@@ -130,20 +130,6 @@ html, body {
   cursor: default;
 }
 
-.deactivated{
-  background-color: var(--button-face-deactiv);
-}
-
-.deactivated:hover {
-  background-color: var(--button-face-deactiv);
-  cursor: default;
-}
-
-.deactivated:active {
-  background-color: var(--button-face-deactiv);
-  cursor: default;
-}
-
 .input-section {
   display: flex;
   flex-direction: column;
@@ -473,4 +459,32 @@ textarea, .examples-container-inner {
 
 .hidden-submit {
   display: none;
+}
+
+.deactivated{
+  background-color: var(--button-face-deactiv);
+}
+
+.deactivated:hover {
+  background-color: var(--button-face-deactiv);
+  cursor: default;
+}
+
+.deactivated:active {
+  background-color: var(--button-face-deactiv);
+  cursor: default;
+}
+
+#playButton.deactivated {
+  background-color: var(--button-face-deactiv);
+}
+
+#playButton.deactivated:hover {
+  background-color: var(--button-face-deactiv);
+  cursor: default;
+}
+
+#playButton.deactivated:active {
+  background-color: var(--button-face-deactiv);
+  cursor: default;
 }

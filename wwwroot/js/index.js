@@ -13,7 +13,6 @@ MyButton = function ({htmlObject, listener}) {
     }
 
     this.setActivePressed = (activePressed) => {
-        console.log(this.htmlObject.id + " is active: " + activePressed);
         if (activePressed) {
             this.htmlObject.classList.add('button-active-tab');
         } else {
@@ -22,7 +21,6 @@ MyButton = function ({htmlObject, listener}) {
     }
 
     this.isDeactivated = () => {
-        console.log(this.htmlObject.id + " is deactivated: " + this.htmlObject.classList.contains('deactivated'));
         return this.htmlObject.classList.contains('deactivated');
     }
 }
@@ -143,6 +141,7 @@ MyButtons = {
 
             // loading circle
             document.getElementById('spinner').style.display = 'block';
+            
             // Set the action value
             document.getElementById('actionField').value = 'play';
             // Submit the form
@@ -204,14 +203,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tabsDynamicContent = document.getElementById('tab-dynamics');
     originalInputContent = tabsDynamicContent.innerHTML; // Store the original input content
-
-
+    
     Object.values(MyButtons).forEach(button => {
         if (button.listener != null && button.htmlObject != null)
             button.htmlObject.addEventListener('click', button.listener);
     });
-
-    console.log("Added listeners");
 
     // Check if a saved scroll position exists and restore it
     const savedScrollTop = localStorage.getItem('textareaScrollTop');
