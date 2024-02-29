@@ -36,6 +36,8 @@ $\mathfrak{\color{cyan}{|}}$
 [game record]
 $\mathfrak{\color{cyan}{|}}$
 
+- [player_nick_X]: If player is a robot, the name is preceded by '~~'. Example: ~~M54586. Idk if the robot's 'name' has to have any specific format.
+
 - [dealer]: 1 = S, 2 = W, 3 = N, 4 = E
 
 - [cards of X] in format: SxxxHxxxDxxxCxxx
@@ -350,7 +352,7 @@ $\mathfrak{\color{white}{|}}$
 $\mathfrak{\color{white}{|}}$
 
 
-- What I stil do not know: "pn", "rh", "ah", "sv". maybe tells if MP/IMP? All tables I've seen had those values unchanged.
+- What I stil do not know: 'pn', 'st', 'md', 'rh', 'ah', 'sv'. All tables I've seen had those values unchanged.
 
   ---
 
