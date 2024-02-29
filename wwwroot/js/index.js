@@ -1,4 +1,9 @@
-const buttons = document.querySelectorAll('.button-save, .button-readme, .button-settings, .button-input');
+const buttons =
+    document.querySelectorAll('' +
+        '.button-save, ' +
+        '.button-readme, ' +
+        '.button-settings, ' +
+        '.button-input');
 
 MyButton = function ({htmlObject, listener}) {
     this.htmlObject = htmlObject;
@@ -168,10 +173,20 @@ MyButtons = {
         htmlObject: document.getElementById("errorButton"),
         listener: function () {
             // The new content
+            setDynamicContent(errorHTML);
+            return false;
+        }
+    }),
+    
+    back: new MyButton({
+        htmlObject: document.getElementById("backButton"),
+        listener: function () {
+            console.log("BACK");
+            // Restore the original content
             setDynamicContent(originalDynamicContent);
             return false;
         }
-    })
+    }),
 }
 
 
@@ -203,7 +218,6 @@ let updateLineNumbers = function () {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-
     const dynamicContent = document.getElementById('dynamic-content');
     originalDynamicContent = dynamicContent.innerHTML; // Store the original content
 
@@ -211,8 +225,11 @@ document.addEventListener('DOMContentLoaded', function () {
     originalInputContent = tabsDynamicContent.innerHTML; // Store the original input content
     
     Object.values(MyButtons).forEach(button => {
-        if (button.listener != null && button.htmlObject != null)
+        if (button.listener != null && button.htmlObject != null) {
+            // log button name
+            console.log(button.htmlObject.id);
             button.htmlObject.addEventListener('click', button.listener);
+        }
     });
 
     // Check if a saved scroll position exists and restore it
