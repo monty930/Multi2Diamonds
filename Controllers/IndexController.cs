@@ -38,7 +38,7 @@ public class IndexController : Controller
         {
             TextInput = textInput
         });
-        return View("Index", model);
+        return File(model.OutputStream, "application/octet-stream", "scenario.txt");
     }
     
 }

@@ -6,7 +6,7 @@ namespace BridgeScenarios.Redeal;
 
 public class RedealScriptRunner
 {
-    private readonly string _scriptPath = Path.Combine("Chai", "get_scenarios.sh");
+    private readonly string _scriptPath = Path.Combine("BridgeTools", "Chai", "get_scenarios.sh");
     private readonly string _parserPath;
 
     private readonly ProcessStartInfo _processStartInfo = new()
@@ -22,7 +22,6 @@ public class RedealScriptRunner
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             _parserPath = Path.Combine("chai_py");
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            // You windows whore
             // You still need CygWin to run the .sh script
             _parserPath = Path.Combine("chai_py.exe");
         else
