@@ -62,7 +62,6 @@ public class IndexManager
         return new IndexViewModel
         {
             ScriptOutput = scriptOut.RawOutput,
-            IsErrorInput = false,
             OutputStream = stream
         };
     }

@@ -34,11 +34,8 @@ public class IndexController : Controller
     [HttpPost]
     public async Task<IActionResult> Save([FromForm] string textInput)
     {
-        var model = await _indexManager.Save(new IndexViewModel
-        {
-            TextInput = textInput
-        });
-        return View("Index", model);
+        var model = await _indexManager.Save(new IndexViewModel {});
+        return File(model.OutputStream, "application/octet-stream", "scenario.txt");
     }
     
 }
