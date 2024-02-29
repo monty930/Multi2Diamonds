@@ -13,6 +13,7 @@ MyButton = function ({htmlObject, listener}) {
     }
 
     this.setActivePressed = (activePressed) => {
+        console.log(this.htmlObject.id + " is active: " + activePressed);
         if (activePressed) {
             this.htmlObject.classList.add('button-active-tab');
         } else {
@@ -20,7 +21,10 @@ MyButton = function ({htmlObject, listener}) {
         }
     }
 
-    this.isDeactivated = () => this.htmlObject.classList.contains('deactivated');
+    this.isDeactivated = () => {
+        console.log(this.htmlObject.id + " is deactivated: " + this.htmlObject.classList.contains('deactivated'));
+        return this.htmlObject.classList.contains('deactivated');
+    }
 }
 
 
@@ -69,19 +73,21 @@ let errorHTML = `
 MyButtons = {
     input: new MyButton({
         htmlObject: document.getElementById("inputButton"),
-        listener: function () {
+
+        listener: () => {
             // Restore the original content
             setTabDynamics(originalInputContent);
             updateLineNumbers();
-            MyButtons.forEach(button => {
-                if (button === this)
-                    button.setActivePressed(true);
-                else
-                    button.setActivePressed(false);
-            });
+            
+            // if deactivated, do nothing
+            if (MyButtons.input.isDeactivated())
+                return;
 
-            this.setActivePressed(true);
-            this.setDeactivated(false);
+            MyButtons.save.setActivePressed(false);
+            MyButtons.input.setActivePressed(true);
+            MyButtons.lightbulb.setActivePressed(false);
+            MyButtons.settings.setActivePressed(false);
+            
             MyButtons.play.setDeactivated(false);
             MyButtons.save.setDeactivated(false);
         }
@@ -91,7 +97,19 @@ MyButtons = {
     lightbulb: new MyButton({
         htmlObject: document.getElementById("lightbulbButton"),
         listener: function () {
-            setTabDynamics(originalInputContent);
+            setTabDynamics(settingsHTML);
+            
+            // if deactivated, do nothing
+            if (MyButtons.lightbulb.isDeactivated())
+                return;
+            
+            MyButtons.save.setActivePressed(false);
+            MyButtons.input.setActivePressed(false);
+            MyButtons.lightbulb.setActivePressed(true);
+            MyButtons.settings.setActivePressed(false);
+            
+            MyButtons.play.setDeactivated(true);
+            MyButtons.save.setDeactivated(true);
         }
     }),
 
@@ -99,17 +117,19 @@ MyButtons = {
     settings: new MyButton({
         htmlObject: document.getElementById("settingsButton"),
         listener: function () {
-            setTabDynamics(settingsHTML);
-
-            buttons.forEach(button => {
-                if (button === this)
-                    button.setActivePressed(true);
-                else
-                    button.setActivePressed(false);
-            });
-
-            MyButtons.play.setDeactivated(false);
-            MyButtons.save.setDeactivated(false);
+            setTabDynamics(originalInputContent);
+            
+            // if deactivated, do nothing
+            if (MyButtons.settings.isDeactivated())
+                return;
+            
+            MyButtons.save.setActivePressed(false);
+            MyButtons.input.setActivePressed(false);
+            MyButtons.lightbulb.setActivePressed(false);
+            MyButtons.settings.setActivePressed(true);
+            
+            MyButtons.play.setDeactivated(true);
+            MyButtons.save.setDeactivated(true);
         }
     }),
 
@@ -117,6 +137,7 @@ MyButtons = {
     play: new MyButton({
         htmlObject: document.getElementById("playButton"),
         listener: function () {
+            // if deactivated, do nothing
             if (MyButtons.play.isDeactivated())
                 return;
 
@@ -127,6 +148,9 @@ MyButtons = {
             // Submit the form
             let submitter = document.getElementById('formSubmitPlay');
             document.getElementById('FormGenSc').requestSubmit(submitter);
+
+            MyButtons.play.setDeactivated(false);
+            MyButtons.save.setDeactivated(false);
         },
     }),
 
@@ -206,4 +230,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('beforeunload', function () {
         localStorage.setItem('textareaScrollTop', document.getElementById('codeInput').scrollTop.toString());
     });
+    
+    updateLineNumbers();
 });
