@@ -24,7 +24,8 @@ public class IndexController : Controller
         {
             TextInput = textInput
         });
-        return View("Index", model);
+        Console.WriteLine(model.TextInput);
+        return PartialView("Play", model);
     }
     
     [EnableCors]

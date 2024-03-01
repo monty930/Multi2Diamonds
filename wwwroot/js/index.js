@@ -182,19 +182,35 @@ MyButtons = {
             if (MyButtons.play.isDeactivated())
                 return;
 
+            event.preventDefault();
+
             // loading circle
             document.getElementById('spinner').style.display = 'block';
 
-            // Set the action value
             document.getElementById('actionField').value = 'play';
-            // Submit the form
-            let submitter = document.getElementById('formSubmitPlay');
-            document.getElementById('FormGenSc').requestSubmit(submitter);
 
+            var formData = new FormData(document.getElementById('FormGenSc'));
+
+            fetch('/Index/Play', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('right-partial').innerHTML = html;
+                    
+                    // Hide the loading circle
+                    document.getElementById('spinner').style.display = 'none';
+                    MyButtons.play.rebind();
+                    MyButtons.error.rebind();
+                })
+                .catch(error => console.error('Error:', error));
+            
             MyButtons.play.setDeactivated(false);
             MyButtons.save.setDeactivated(false);
         },
     }),
+
 
     save: new MyButton({
         elementId: "saveButton",
