@@ -95,8 +95,11 @@ MyButton = function ({elementId, listener}) {
     }
     
     this.defaultListener = () => {
-        if (this !== MyButtons.input)
+        console.log(MyButtons.activeButtonId)
+        if (MyButtons.activeButtonId === MyButtons.input.elementId)
             saveCodeContent();
+
+        MyButtons.activeButtonId = this.elementId;
     }
 
     this.rebind();
@@ -104,6 +107,8 @@ MyButton = function ({elementId, listener}) {
 
 
 MyButtons = {
+    activeButtonId: "inputButton",
+    
     input: new MyButton({
         elementId: "inputButton",
         listener: () => {
