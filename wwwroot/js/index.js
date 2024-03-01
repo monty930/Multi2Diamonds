@@ -211,7 +211,6 @@ MyButtons = {
         },
     }),
 
-
     save: new MyButton({
         elementId: "saveButton",
         listener: function () {
@@ -219,11 +218,28 @@ MyButtons = {
             if (MyButtons.save.isDeactivated())
                 return;
 
-            // Set the action value
+            event.preventDefault();
+
             document.getElementById('actionField').value = 'save';
-            // Submit the form
-            let submitter = document.getElementById('formSubmitSave');
-            document.getElementById('FormGenSc').requestSubmit(submitter);
+
+            var formData = new FormData(document.getElementById('FormGenSc'));
+
+            fetch('/Index/Save', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = "scenario.txt";
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error:', error));
         }
     }),
 
