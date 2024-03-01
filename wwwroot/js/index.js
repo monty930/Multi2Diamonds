@@ -39,23 +39,6 @@ final = E.spades > 7
 `;
 
 
-let errorHTML = `
-<div class="log-view">
-    <div class="grid-log-columns">
-        <div class="logs-output">
-            @if (Model.ScriptOutput != string.Empty)
-            {
-                <pre>@Model.ScriptOutput</pre>
-            }
-        </div>
-        <div>
-            <button class="compile-error-button back" id="backButton">BACK</button>
-        </div>
-    </div>
-</div>
-`;
-
-
 MyButton = function ({elementId, listener}) {
     this.elementId = elementId;
     this.listener = listener;
@@ -184,6 +167,13 @@ MyButtons = {
 
             event.preventDefault();
 
+            // if entry-message is not null, make it display none
+            if (document.getElementById('entry-message') != null) {
+                document.getElementById('entry-message').style.display = 'none';
+            } else {
+                console.log('entry-message is null');
+            }
+            
             // loading circle
             document.getElementById('spinner').style.display = 'block';
 
