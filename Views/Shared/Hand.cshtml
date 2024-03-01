@@ -1,0 +1,19 @@
+@* Single hand *@
+@model Models.Hand
+<div class="suit">
+    <img id="suit-img" src="~/assets/spade.png" />
+    @Html.Raw(Model.Spades)<br>
+</div>
+<div class="suit">
+    <img id="suit-img" src="~/assets/heart.png" />
+    @Html.Raw(Model.Hearts)<br>
+</div>
+<div class="suit">
+    <img id="suit-img" src="~/assets/diamond.png" />
+    <div> </div>
+    @Html.Raw(Model.Diamonds)<br>
+</div>
+<div class="suit">
+    <img id="suit-img" src="~/assets/club.png" />
+    @Html.Raw(Model.Clubs)<br>
+</div>
