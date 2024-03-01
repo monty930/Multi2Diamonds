@@ -5,30 +5,7 @@ const buttons =
         '.button-settings, ' +
         '.button-input');
 
-MyButton = function ({htmlObject, listener}) {
-    this.htmlObject = htmlObject;
-    this.listener = listener;
 
-    this.setDeactivated = (deactivated) => {
-        if (deactivated) {
-            this.htmlObject.classList.add('deactivated');
-        } else {
-            this.htmlObject.classList.remove('deactivated');
-        }
-    }
-
-    this.setActivePressed = (activePressed) => {
-        if (activePressed) {
-            this.htmlObject.classList.add('button-active-tab');
-        } else {
-            this.htmlObject.classList.remove('button-active-tab');
-        }
-    }
-
-    this.isDeactivated = () => {
-        return this.htmlObject.classList.contains('deactivated');
-    }
-}
 
 
 let originalInputContent, originalDynamicContent;
@@ -73,10 +50,53 @@ let errorHTML = `
 `;
 
 
+MyButton = function ({elementId, listener}) {
+    this.elementId = elementId;
+    this.listener = listener;
+    
+    this.rebind = () => {
+        this.element = document.getElementById(this.elementId);
+        if (this.element == null)
+            return false;
+        
+        this.element.addEventListener('click', () => {
+            this.defaultListener();
+            this.listener();
+        });
+        return true;
+    }
+    
+    this.setDeactivated = (deactivated) => {
+        if (deactivated) {
+            this.element.classList.add('deactivated');
+        } else {
+            this.element.classList.remove('deactivated');
+        }
+    }
+
+    this.setActivePressed = (activePressed) => {
+        if (activePressed) {
+            this.element.classList.add('button-active-tab');
+        } else {
+            this.element.classList.remove('button-active-tab');
+        }
+    }
+
+    this.isDeactivated = () => {
+        return this.element.classList.contains('deactivated');
+    }
+    
+    this.defaultListener = () => {
+        console.log(this.element.id);
+    }
+
+    this.rebind();
+}
+
+
 MyButtons = {
     input: new MyButton({
-        htmlObject: document.getElementById("inputButton"),
-
+        elementId: "inputButton",
         listener: () => {
             // Restore the original content
             setTabDynamics(originalInputContent);
@@ -100,7 +120,7 @@ MyButtons = {
 
 
     lightbulb: new MyButton({
-        htmlObject: document.getElementById("lightbulbButton"),
+        elementId: "lightbulbButton",
         listener: function () {
             setTabDynamics(settingsHTML);
             
@@ -122,7 +142,7 @@ MyButtons = {
 
 
     settings: new MyButton({
-        htmlObject: document.getElementById("settingsButton"),
+        elementId: "settingsButton",
         listener: function () {
             setTabDynamics(originalInputContent);
             
@@ -144,7 +164,7 @@ MyButtons = {
 
 
     play: new MyButton({
-        htmlObject: document.getElementById("playButton"),
+        elementId: "playButton",
         listener: function () {
             // if deactivated, do nothing
             if (MyButtons.play.isDeactivated())
@@ -165,28 +185,28 @@ MyButtons = {
     }),
 
     save: new MyButton({
-        htmlObject: document.getElementById("saveButton"),
+        elementId: "saveButton",
         listener: null
     }),
 
     error: new MyButton({
-        htmlObject: document.getElementById("errorButton"),
+        elementId: "errorButton",
         listener: function () {
             // The new content
             setDynamicContent(errorHTML);
-            document.getElementById("backButton").addEventListener(
-                'click',
-                document.getElementById("backButton").listener);
+            MyButtons.back.rebind();
             return false;
         }
     }),
     
     back: new MyButton({
-        htmlObject: document.getElementById("backButton"),
+        elementId: "backButton",
         listener: function () {
             console.log("BACK");
             // Restore the original content
             setDynamicContent(originalDynamicContent);
+            MyButtons.error.rebind();
+            MyButtons.play.rebind();
             return false;
         }
     }),
@@ -228,11 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
     originalInputContent = tabsDynamicContent.innerHTML; // Store the original input content
     
     Object.values(MyButtons).forEach(button => {
-        if (button.listener != null && button.htmlObject != null) {
-            // log button name
-            console.log(button.htmlObject.id);
-            button.htmlObject.addEventListener('click', button.listener);
-        }
+        button.rebind();
     });
 
     // Check if a saved scroll position exists and restore it
