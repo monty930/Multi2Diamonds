@@ -6,8 +6,6 @@ const buttons =
         '.button-input');
 
 
-
-
 let originalInputContent, originalDynamicContent, codeContent;
 
 let setTabDynamics = (content) => {
@@ -61,19 +59,19 @@ let errorHTML = `
 MyButton = function ({elementId, listener}) {
     this.elementId = elementId;
     this.listener = listener;
-    
+
     this.rebind = () => {
         this.element = document.getElementById(this.elementId);
         if (this.element == null)
             return false;
-        
+
         this.element.addEventListener('click', () => {
             this.defaultListener();
             this.listener();
         });
         return true;
     }
-    
+
     this.setDeactivated = (deactivated) => {
         if (deactivated) {
             this.element.classList.add('deactivated');
@@ -93,9 +91,8 @@ MyButton = function ({elementId, listener}) {
     this.isDeactivated = () => {
         return this.element.classList.contains('deactivated');
     }
-    
+
     this.defaultListener = () => {
-        console.log(MyButtons.activeButtonId)
         if (MyButtons.activeButtonId === MyButtons.input.elementId)
             saveCodeContent();
 
@@ -108,7 +105,7 @@ MyButton = function ({elementId, listener}) {
 
 MyButtons = {
     activeButtonId: "inputButton",
-    
+
     input: new MyButton({
         elementId: "inputButton",
         listener: () => {
@@ -116,7 +113,7 @@ MyButtons = {
             restoreOriginalInputContent();
             restoreCodeContent();
             updateLineNumbers();
-            
+
             // if deactivated, do nothing
             if (MyButtons.input.isDeactivated())
                 return;
@@ -125,7 +122,7 @@ MyButtons = {
             MyButtons.input.setActivePressed(true);
             MyButtons.lightbulb.setActivePressed(false);
             MyButtons.settings.setActivePressed(false);
-            
+
             MyButtons.play.setDeactivated(false);
             document.getElementById('tabs-play').src = "/assets/play.png";
             MyButtons.save.setDeactivated(false);
@@ -138,16 +135,16 @@ MyButtons = {
         elementId: "lightbulbButton",
         listener: function () {
             setTabDynamics(settingsHTML);
-            
+
             // if deactivated, do nothing
             if (MyButtons.lightbulb.isDeactivated())
                 return;
-            
+
             MyButtons.save.setActivePressed(false);
             MyButtons.input.setActivePressed(false);
             MyButtons.lightbulb.setActivePressed(true);
             MyButtons.settings.setActivePressed(false);
-            
+
             MyButtons.play.setDeactivated(true);
             document.getElementById('tabs-play').src = "/assets/play-deactivated.png";
             MyButtons.save.setDeactivated(true);
@@ -160,11 +157,11 @@ MyButtons = {
         elementId: "settingsButton",
         listener: function () {
             setTabDynamics(originalInputContent);
-            
+
             // if deactivated, do nothing
             if (MyButtons.settings.isDeactivated())
                 return;
-            
+
             MyButtons.save.setActivePressed(false);
             MyButtons.input.setActivePressed(false);
             MyButtons.lightbulb.setActivePressed(false);
@@ -187,7 +184,7 @@ MyButtons = {
 
             // loading circle
             document.getElementById('spinner').style.display = 'block';
-            
+
             // Set the action value
             document.getElementById('actionField').value = 'play';
             // Submit the form
@@ -213,11 +210,10 @@ MyButtons = {
             return false;
         }
     }),
-    
+
     back: new MyButton({
         elementId: "backButton",
         listener: function () {
-            console.log("BACK");
             // Restore the original content
             setDynamicContent(originalDynamicContent);
             MyButtons.error.rebind();
@@ -261,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tabsDynamicContent = document.getElementById('tab-dynamics');
     originalInputContent = tabsDynamicContent.innerHTML; // Store the original input content
-    
+
     // Check if a saved scroll position exists and restore it
     const savedScrollTop = localStorage.getItem('textareaScrollTop');
     if (savedScrollTop !== null) {
@@ -279,6 +275,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('beforeunload', function () {
         localStorage.setItem('textareaScrollTop', document.getElementById('codeInput').scrollTop.toString());
     });
-    
+
     updateLineNumbers();
 });
