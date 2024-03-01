@@ -198,7 +198,17 @@ MyButtons = {
 
     save: new MyButton({
         elementId: "saveButton",
-        listener: null
+        listener: function () {
+            // if deactivated, do nothing
+            if (MyButtons.save.isDeactivated())
+                return;
+
+            // Set the action value
+            document.getElementById('actionField').value = 'save';
+            // Submit the form
+            let submitter = document.getElementById('formSubmitSave');
+            document.getElementById('FormGenSc').requestSubmit(submitter);
+        }
     }),
 
     error: new MyButton({

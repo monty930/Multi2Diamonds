@@ -1,11 +1,7 @@
 using BridgeScenarios.Managers;
-using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
-using BridgeScenarios.Redeal;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BridgeScenarios.Controllers;
 
