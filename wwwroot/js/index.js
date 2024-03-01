@@ -176,7 +176,7 @@ MyButtons = {
 
 
     play: new MyButton({
-        elementId: "playButton",
+        elementId: "generateExampleButton",
         listener: function () {
             // if deactivated, do nothing
             if (MyButtons.play.isDeactivated())
@@ -191,21 +191,18 @@ MyButtons = {
 
             var formData = new FormData(document.getElementById('FormGenSc'));
 
-            fetch('/Index/Play', {
+            fetch('/Index/GenerateExample', {
                 method: 'POST',
                 body: formData
             })
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById('right-partial').innerHTML = html;
-                    
-                    // Hide the loading circle
-                    document.getElementById('spinner').style.display = 'none';
                     MyButtons.play.rebind();
                     MyButtons.error.rebind();
                 })
                 .catch(error => console.error('Error:', error));
-            
+
             MyButtons.play.setDeactivated(false);
             MyButtons.save.setDeactivated(false);
         },
@@ -246,8 +243,11 @@ MyButtons = {
     error: new MyButton({
         elementId: "errorButton",
         listener: function () {
+            // Store the original content
+            originalDynamicContent = document.getElementById('dynamic-content').innerHTML;
             // The new content
-            setDynamicContent(errorHTML);
+            let errorContent = document.getElementById('log-hidden-content').innerHTML;
+            setDynamicContent(errorContent);
             MyButtons.back.rebind();
             return false;
         }

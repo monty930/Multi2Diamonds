@@ -1,0 +1,112 @@
+@using BridgeScenarios.Models
+@model BridgeScenarios.Models.ViewModels.IndexViewModel
+
+@* The dynamic-content is utilized when toggling error-back button *@
+<div class="right-panel" id="dynamic-content">
+    @if (Model.RightDisplay == RightViewDisplay.Error)
+    {
+        await Html.RenderPartialAsync("RightSide/ErrorView", Model);
+    }
+    else if (Model.RightDisplay == RightViewDisplay.Example)
+    {
+        await Html.RenderPartialAsync("RightSide/ExampleView", Model);
+    }
+    else if (Model.RightDisplay == RightViewDisplay.Entry)
+    {
+        await Html.RenderPartialAsync("RightSide/EntryView", Model);
+    }
+    else if (Model.RightDisplay == RightViewDisplay.DealSet)
+    {
+        if (Model.DealNumber == 0)
+        {
+            await Html.RenderPartialAsync("RightSide/DealSetEntryView", Model);
+        }
+        else
+        {
+            await Html.RenderPartialAsync("RightSide/DealSetDealView", Model);
+        }
+    }
+    else
+    {
+        Console.WriteLine("ERROR: RightViewDisplay is not recognized");
+    }
+</div>
+@* *@
+@* <div class="right-panel" id="dynamic-content"> *@
+@*     <div class="grid-rows"> *@
+@*         <div class="@("row-n" + (Model.IsCorrectDeal ? " has-handsuits" : " no-handsuits"))"> *@
+@*             <div> *@
+@*                 <button id="generateExampleButton"> *@
+@*                     <img id="tabs-play" class="arrow-img" src="~/assets/play.png"/> *@
+@*                 </button> *@
+@*             </div> *@
+@*             <div class="hands"> *@
+@*                 @if (Model.IsCorrectDeal) *@
+@*                 { *@
+@*                     await Html.RenderPartialAsync("Hand", Model.Deal.North); *@
+@*                 } *@
+@*                 else *@
+@*                 { *@
+@*                     <div></div> *@
+@*                     <div></div> *@
+@*                     <div></div> *@
+@*                     <div> *@
+@*                         Press *@
+@*                         <img id="play-img" src="~/assets/play.png"/> *@
+@*                         to generate an example. *@
+@*                     </div> *@
+@*                 } *@
+@*             </div> *@
+@*             <div> *@
+@*                 @if (Model.IsErrorInput) *@
+@*                 { *@
+@*                     <button class="compile-error-button visible" id="errorButton"> *@
+@*                         <span class="error-font">ERROR</span><br> *@
+@*                         <span class="logs-font">see logs</span> *@
+@*                     </button> *@
+@*                 } *@
+@*                 @if (Model.Tries != string.Empty) *@
+@*                 { *@
+@*                     if (!Model.IsCorrectDeal) *@
+@*                     { *@
+@*                         <div># of tries: @Model.Tries</div> *@
+@*                     } *@
+@*                 } *@
+@*             </div> *@
+@*         </div> *@
+@*         <div> *@
+@*             <div class="row-mid"> *@
+@*                 <div class="aligning-cells"> *@
+@*                     <div></div> *@
+@*                     <div class="hands"> *@
+@*                         @if (Model.IsCorrectDeal) *@
+@*                         { *@
+@*                             await Html.RenderPartialAsync("Hand", Model.Deal.West); *@
+@*                         } *@
+@*                     </div> *@
+@*                 </div> *@
+@* *@
+@*                 @await Html.PartialAsync("Compass") *@
+@* *@
+@*                 <div class="hands"> *@
+@*                     @if (Model.IsCorrectDeal) *@
+@*                     { *@
+@*                         await Html.RenderPartialAsync("Hand", Model.Deal.East); *@
+@*                     } *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div> *@
+@*             <div class="row-s"> *@
+@*                 <div></div> *@
+@*                 <div class="hands"> *@
+@*                     @if (Model.IsCorrectDeal) *@
+@*                     { *@
+@*                         await Html.RenderPartialAsync("Hand", Model.Deal.South); *@
+@*                     } *@
+@*                 </div> *@
+@*                 <div></div> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@

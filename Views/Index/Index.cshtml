@@ -1,13 +1,12 @@
-﻿
-@model BridgeScenarios.Models.ViewModels.IndexViewModel
+﻿@model BridgeScenarios.Models.ViewModels.IndexViewModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/log.css" />
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/css/log.css"/>
 </head>
 
 <div class="page-layout">
@@ -24,7 +23,7 @@
                                 oninput="updateLineNumbers()">
                             </textarea>
                             <input type="hidden" name="action" id="actionField">
-                            <input class="hidden-submit" type="submit" id="formSubmitPlay" asp-action="Play">
+                            <input class="hidden-submit" type="submit" id="formSubmitGenerateExample" asp-action="GenerateExample">
                             <input class="hidden-submit" type="submit" id="formSubmitSave" asp-action="Save">
                         </div>
                     </form>
@@ -33,22 +32,22 @@
                     <div></div>
                     <div class="button-cont">
                         <button id="inputButton" class="button-input button-active-tab">
-                            <img id="tabs-input" class="tabs-img" src="~/assets/input.png" />
+                            <img id="tabs-input" class="tabs-img" src="~/assets/input.png"/>
                         </button>
                     </div>
                     <div class="button-cont">
                         <button id="lightbulbButton" class="button-readme">
-                            <img id="tabs-lightbulb" class="tabs-img" src="~/assets/lightbulb.png" />
+                            <img id="tabs-lightbulb" class="tabs-img" src="~/assets/lightbulb.png"/>
                         </button>
                     </div>
                     <div class="button-cont">
                         <button id="settingsButton" class="button-settings">
-                            <img id="tabs-settings" class="tabs-img" src="~/assets/settings.png" />
+                            <img id="tabs-settings" class="tabs-img" src="~/assets/settings.png"/>
                         </button>
                     </div>
                     <div class="button-cont">
                         <button id="saveButton" class="button-save">
-                            <img id="tabs-save" class="tabs-img" src="~/assets/save.png" />
+                            <img id="tabs-save" class="tabs-img" src="~/assets/save.png"/>
                         </button>
                     </div>
                 </div>
@@ -58,8 +57,8 @@
     </div>
     <div id="right-partial">
         @{
-            await Html.RenderPartialAsync("Play", Model);
-        }    
+            await Html.RenderPartialAsync("RightSideView", Model);
+        }
     </div>
 </div>
 

@@ -1,0 +1,52 @@
+@model BridgeScenarios.Models.ViewModels.IndexViewModel
+
+<div class="grid-rows">
+    <div class="row-n has-handsuits">
+        <div>
+            <button id="generateExampleButton">
+                <img id="tabs-play" class="arrow-img" src="~/assets/play.png"/>
+            </button>
+        </div>
+        <div class="hands">
+            @{
+                await Html.RenderPartialAsync("Hand", Model.Deal.North);
+            }
+        </div>
+        <div>
+            @{
+                <div># of tries: @Model.Tries</div>
+            }
+        </div>
+    </div>
+    <div>
+        <div class="row-mid">
+            <div class="aligning-cells">
+                <div></div>
+                <div class="hands">
+                    @{
+                        await Html.RenderPartialAsync("Hand", Model.Deal.West);
+                    }
+                </div>
+            </div>
+
+            @await Html.PartialAsync("Compass")
+
+            <div class="hands">
+                @{
+                    await Html.RenderPartialAsync("Hand", Model.Deal.East);
+                }
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row-s">
+            <div></div>
+            <div class="hands">
+                @{
+                    await Html.RenderPartialAsync("Hand", Model.Deal.South);
+                }
+            </div>
+            <div></div>
+        </div>
+    </div>
+</div>

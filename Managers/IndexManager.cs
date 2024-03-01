@@ -1,4 +1,5 @@
 using System.Text;
+using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
 using BridgeScenarios.Redeal;
 
@@ -6,7 +7,7 @@ namespace BridgeScenarios.Managers;
 
 public class IndexManager
 {
-    public async Task<IndexViewModel> Play(IndexViewModel model)
+    public async Task<IndexViewModel> GenerateExample(IndexViewModel model)
     {
         var tempFilePath = Path.GetTempFileName();
         await File.WriteAllTextAsync(tempFilePath, model.TextInput);
@@ -22,7 +23,7 @@ public class IndexManager
             return new IndexViewModel
             {
                 ScriptOutput = scriptOut.RawOutput + " ",
-                IsErrorInput = true
+                RightDisplay = RightViewDisplay.Error
             };
         }
 
@@ -30,9 +31,8 @@ public class IndexManager
         return new IndexViewModel
         {
             ScriptOutput = scriptOut.RawOutput,
-            IsErrorInput = false,
+            RightDisplay = RightViewDisplay.Example,
             Deal = scriptResults.Deal,
-            IsCorrectDeal = true,
             Tries = scriptResults.Tries
         };
     }
@@ -53,7 +53,7 @@ public class IndexManager
             return new IndexViewModel
             {
                 ScriptOutput = scriptOut.RawOutput,
-                IsErrorInput = true
+                RightDisplay = RightViewDisplay.Error
             };
         }
 

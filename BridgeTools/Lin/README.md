@@ -36,7 +36,8 @@ $\mathfrak{\color{cyan}{|}}$
 [game record]
 $\mathfrak{\color{cyan}{|}}$
 
-- [player_nick_X]: If player is a robot, the name is preceded by '~~'. Example: ~~M54586. Idk if the robot's 'name' has to have any specific format.
+- [player_nick_X]: If player is a robot, the name is preceded by '~~'. Example: ~~M54586. Idk if the robot's 'name' has
+  to have any specific format.
 
 - [dealer]: 1 = S, 2 = W, 3 = N, 4 = E
 
@@ -47,106 +48,106 @@ $\mathfrak{\color{cyan}{|}}$
 - [vul]: o = none, n = NS, b = both, e = EW
 
 - \[bids\]:
-  
+
   mb
-$\mathfrak{\color{white}{|}}$
-\[bid\]
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-bid
-$\mathfrak{\color{white}{|}}$
-mb...
+  $\mathfrak{\color{white}{|}}$
+  \[bid\]
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  bid
+  $\mathfrak{\color{white}{|}}$
+  mb...
 
   Example:
-  
+
   mb
-$\mathfrak{\color{white}{|}}$
-3H
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-4H
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-d
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-4S
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-d
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
+  $\mathfrak{\color{white}{|}}$
+  3H
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  4H
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  d
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  4S
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  d
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
 
   if bid is alerted:
 
   mb
-$\mathfrak{\color{white}{|}}$
-\[bid!\]
-$\mathfrak{\color{white}{|}}$
-an
-$\mathfrak{\color{white}{|}}$
-[alert message]
+  $\mathfrak{\color{white}{|}}$
+  \[bid!\]
+  $\mathfrak{\color{white}{|}}$
+  an
+  $\mathfrak{\color{white}{|}}$
+  [alert message]
 
   example:
-  
+
   mb
-$\mathfrak{\color{white}{|}}$
-1H
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-2N!
-$\mathfrak{\color{white}{|}}$
-an
-$\mathfrak{\color{white}{|}}$
-inv+fit
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-4H
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
-$\mathfrak{\color{white}{|}}$
-mb
-$\mathfrak{\color{white}{|}}$
-p
+  $\mathfrak{\color{white}{|}}$
+  1H
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  2N!
+  $\mathfrak{\color{white}{|}}$
+  an
+  $\mathfrak{\color{white}{|}}$
+  inv+fit
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  4H
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
+  $\mathfrak{\color{white}{|}}$
+  mb
+  $\mathfrak{\color{white}{|}}$
+  p
 
 - [game record]
 
@@ -155,182 +156,181 @@ p
   Example:
 
   pg
-$\mathfrak{\color{white}{||}}$
-pc
-$\mathfrak{\color{white}{|}}$
-DQ
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-D3
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-D2
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-DA
-$\mathfrak{\color{white}{|}}$
-pg
-$\mathfrak{\color{white}{||}}$
-pc
-$\mathfrak{\color{white}{|}}$
-H2
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-H4
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-HA
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-H8
-$\mathfrak{\color{white}{|}}$
-pg
-$\mathfrak{\color{white}{||}}$
-pc
-$\mathfrak{\color{white}{|}}$
-DK
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-D5
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-S4
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-D4
-$\mathfrak{\color{white}{|}}$
-pg
-$\mathfrak{\color{white}{||}}$
-pc
-$\mathfrak{\color{white}{|}}$
-DT
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-D6
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-HT
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-D7
-$\mathfrak{\color{white}{|}}$
-pg
-$\mathfrak{\color{white}{||}}$
-pc
-$\mathfrak{\color{white}{|}}$
-H3
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-D8
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-HK
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-HQ
-$\mathfrak{\color{white}{|}}$
-pg
-$\mathfrak{\color{white}{||}}$
-pc
-$\mathfrak{\color{white}{|}}$
-S5
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-SA
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-ST
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-S2
-$\mathfrak{\color{white}{|}}$
-pg
-$\mathfrak{\color{white}{||}}$
-pc
-$\mathfrak{\color{white}{|}}$
-S3
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-SK
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-S7
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-S6
-$\mathfrak{\color{white}{|}}$
-pg
-$\mathfrak{\color{white}{||}}$
-pc
-$\mathfrak{\color{white}{|}}$
-H5
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-DJ
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-H9
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-D9
-$\mathfrak{\color{white}{|}}$
-pg
-$\mathfrak{\color{white}{||}}$
-pc
-$\mathfrak{\color{white}{|}}$
-C2
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-C3
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-CK
-$\mathfrak{\color{white}{|}}$
-pc
-$\mathfrak{\color{white}{|}}$
-C4
-$\mathfrak{\color{white}{|}}$
-pg
-$\mathfrak{\color{white}{||}}$
-mc
-$\mathfrak{\color{white}{|}}$
-11
-$\mathfrak{\color{cyan}{|}}$
+  $\mathfrak{\color{white}{||}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  DQ
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  D3
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  D2
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  DA
+  $\mathfrak{\color{white}{|}}$
+  pg
+  $\mathfrak{\color{white}{||}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  H2
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  H4
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  HA
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  H8
+  $\mathfrak{\color{white}{|}}$
+  pg
+  $\mathfrak{\color{white}{||}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  DK
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  D5
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  S4
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  D4
+  $\mathfrak{\color{white}{|}}$
+  pg
+  $\mathfrak{\color{white}{||}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  DT
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  D6
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  HT
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  D7
+  $\mathfrak{\color{white}{|}}$
+  pg
+  $\mathfrak{\color{white}{||}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  H3
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  D8
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  HK
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  HQ
+  $\mathfrak{\color{white}{|}}$
+  pg
+  $\mathfrak{\color{white}{||}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  S5
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  SA
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  ST
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  S2
+  $\mathfrak{\color{white}{|}}$
+  pg
+  $\mathfrak{\color{white}{||}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  S3
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  SK
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  S7
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  S6
+  $\mathfrak{\color{white}{|}}$
+  pg
+  $\mathfrak{\color{white}{||}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  H5
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  DJ
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  H9
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  D9
+  $\mathfrak{\color{white}{|}}$
+  pg
+  $\mathfrak{\color{white}{||}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  C2
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  C3
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  CK
+  $\mathfrak{\color{white}{|}}$
+  pc
+  $\mathfrak{\color{white}{|}}$
+  C4
+  $\mathfrak{\color{white}{|}}$
+  pg
+  $\mathfrak{\color{white}{||}}$
+  mc
+  $\mathfrak{\color{white}{|}}$
+  11
+  $\mathfrak{\color{cyan}{|}}$
 
-
-  note that there are two 
+note that there are two
 $\mathfrak{\color{white}{|}}$
- after each 'pg'.
+after each 'pg'.
 
-  The game can also end by the claim in the middle of the claim:
+The game can also end by the claim in the middle of the claim:
 
-  ...
+...
 $\mathfrak{\color{white}{|}}$
 pg
 $\mathfrak{\color{white}{||}}$
@@ -350,7 +350,6 @@ mc
 $\mathfrak{\color{white}{|}}$
 7
 $\mathfrak{\color{white}{|}}$
-
 
 - What I stil do not know: 'pn', 'st', 'md', 'rh', 'ah', 'sv'. All tables I've seen had those values unchanged.
 
@@ -595,6 +594,7 @@ $\mathfrak{\color{white}{|}}$
 $\mathfrak{\color{cyan}{|}}$
 
 Explanations:
+
 - Players (SWNE): krysieq, uijallen, ElMacaroni, Player1771
 - Dealer: N
 - Players' cards (SWN): S865HAK9DKT3CJ862, SAQ3HQ8D9652CA753, SKT4HJT76532DACKT
