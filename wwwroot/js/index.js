@@ -8,7 +8,7 @@ const buttons =
 
 
 
-let originalInputContent, originalDynamicContent;
+let originalInputContent, originalDynamicContent, codeContent;
 
 let setTabDynamics = (content) => {
     document.getElementById("tab-dynamics").innerHTML = content;
@@ -17,6 +17,14 @@ let setTabDynamics = (content) => {
 let setDynamicContent = (content) => {
     document.getElementById("dynamic-content").innerHTML = content;
 }
+
+let saveCodeContent = () => {
+    codeContent = document.getElementById("codeInput").value;
+}
+
+let restoreOriginalInputContent = () => setTabDynamics(originalInputContent);
+
+let restoreCodeContent = () => document.getElementById("codeInput").innerHTML = codeContent;
 
 let settingsHTML = `
 <h4>Examples</h4>
@@ -87,7 +95,8 @@ MyButton = function ({elementId, listener}) {
     }
     
     this.defaultListener = () => {
-        console.log(this.element.id);
+        if (this !== MyButtons.input)
+            saveCodeContent();
     }
 
     this.rebind();
@@ -99,7 +108,8 @@ MyButtons = {
         elementId: "inputButton",
         listener: () => {
             // Restore the original content
-            setTabDynamics(originalInputContent);
+            restoreOriginalInputContent();
+            restoreCodeContent();
             updateLineNumbers();
             
             // if deactivated, do nothing
@@ -247,10 +257,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const tabsDynamicContent = document.getElementById('tab-dynamics');
     originalInputContent = tabsDynamicContent.innerHTML; // Store the original input content
     
-    Object.values(MyButtons).forEach(button => {
-        button.rebind();
-    });
-
     // Check if a saved scroll position exists and restore it
     const savedScrollTop = localStorage.getItem('textareaScrollTop');
     if (savedScrollTop !== null) {
