@@ -1,25 +1,24 @@
 <div class="right-view-container">
     <div class="right-view-buttons">
-        <div>
-            <button id="generateExampleButton" class="generateButton">
+        <div class="generate-button-container">
+            <button id="generateExampleButton" class="generate-button generate-example-button">
                 GENERATE EXAMPLE
             </button>
         </div>
-        <div>
-            <button id="generateDealSetButton" class="generateButton">
+        <div class="generate-button-container">
+            <button id="generateDealSetButton" class="generate-button generate-dealset-button">
                 GENERATE DEAL SET
             </button>
         </div>
-        <div>
-        </div>
-        <div>
-            <button class="compile-error-button visible" id="errorButton">
-                <span class="error-font">ERROR</span><br>
-                <span class="logs-font">see logs</span>
-            </button>
-        </div>
     </div>
-    <div>
+    <div class="message-and-spinner">
+        <div class="entry-message" id="entry-message">
+            An error occured. See 
+            <div class="error-button-container">
+                <button id="errorButton" class="error-button">logs</button>
+            </div> 
+            for details.
+        </div>
         <div id="spinner" style="display:none;">
             <div class="loader">
                 <img id="loading-img" src="~/assets/loading-simp.png"
@@ -31,17 +30,15 @@
 </div>
 
 <div id="log-hidden-content" style="display: none;">
-    <div class="log-view">
-        <div class="grid-log-columns">
-            <div class="logs-output">
-                @if (Model.ScriptOutput != string.Empty)
-                {
-                    <pre>@Model.ScriptOutput</pre>
-                }
-            </div>
-            <div>
-                <button class="compile-error-button back" id="backButton">BACK</button>
-            </div>
+    <div class="log-view-container">
+        <div class="logs-output">
+            @if (Model.ScriptOutput != string.Empty)
+            {
+                <pre>@Model.ScriptOutput</pre>
+            }
+        </div>
+        <div class="back-button-container">
+            <button id="backButton" class="back-button">BACK</button>
         </div>
     </div>
 </div>

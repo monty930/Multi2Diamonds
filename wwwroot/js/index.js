@@ -101,15 +101,11 @@ MyButtons = {
             if (MyButtons.input.isDeactivated())
                 return;
 
-            MyButtons.save.setActivePressed(false);
             MyButtons.input.setActivePressed(true);
             MyButtons.lightbulb.setActivePressed(false);
             MyButtons.settings.setActivePressed(false);
 
             MyButtons.play.setDeactivated(false);
-            document.getElementById('tabs-play').src = "/assets/play.png";
-            MyButtons.save.setDeactivated(false);
-            document.getElementById('tabs-save').src = "/assets/save.png";
         }
     }),
 
@@ -123,15 +119,11 @@ MyButtons = {
             if (MyButtons.lightbulb.isDeactivated())
                 return;
 
-            MyButtons.save.setActivePressed(false);
             MyButtons.input.setActivePressed(false);
             MyButtons.lightbulb.setActivePressed(true);
             MyButtons.settings.setActivePressed(false);
 
             MyButtons.play.setDeactivated(true);
-            document.getElementById('tabs-play').src = "/assets/play-deactivated.png";
-            MyButtons.save.setDeactivated(true);
-            document.getElementById('tabs-save').src = "/assets/save-deactivated.png";
         }
     }),
 
@@ -145,15 +137,11 @@ MyButtons = {
             if (MyButtons.settings.isDeactivated())
                 return;
 
-            MyButtons.save.setActivePressed(false);
             MyButtons.input.setActivePressed(false);
             MyButtons.lightbulb.setActivePressed(false);
             MyButtons.settings.setActivePressed(true);
 
             MyButtons.play.setDeactivated(true);
-            document.getElementById('tabs-play').src = "/assets/play-deactivated.png";
-            MyButtons.save.setDeactivated(true);
-            document.getElementById('tabs-save').src = "/assets/save-deactivated.png";
         }
     }),
 
@@ -189,13 +177,42 @@ MyButtons = {
                 .then(html => {
                     document.getElementById('right-partial').innerHTML = html;
                     MyButtons.play.rebind();
+                    MyButtons.generateDealSet.rebind();
                     MyButtons.error.rebind();
                 })
                 .catch(error => console.error('Error:', error));
 
             MyButtons.play.setDeactivated(false);
-            MyButtons.save.setDeactivated(false);
         },
+    }),
+
+    generateDealSet: new MyButton({
+        elementId: "generateDealSetButton",
+        listener: function () {
+            // if deactivated, do nothing
+            if (MyButtons.generateDealSet.isDeactivated())
+                return;
+
+            event.preventDefault();
+
+            document.getElementById('actionField').value = 'generateDealSet';
+
+            var formData = new FormData(document.getElementById('FormGenSc'));
+
+            fetch('/Index/GenerateDealSet', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('right-partial').innerHTML = html;
+                    MyButtons.play.rebind();
+                    MyButtons.generateDealSet.rebind();
+                    MyButtons.error.rebind();
+                    MyButtons.save.rebind();
+                })
+                .catch(error => console.error('Error:', error));
+        }
     }),
 
     save: new MyButton({
@@ -205,28 +222,18 @@ MyButtons = {
             if (MyButtons.save.isDeactivated())
                 return;
 
-            event.preventDefault();
+            var dealSetData = document.getElementById('dealSetContent').getAttribute('deal-set-data');
 
-            document.getElementById('actionField').value = 'save';
-
-            var formData = new FormData(document.getElementById('FormGenSc'));
-
-            fetch('/Index/Save', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.blob())
-                .then(blob => {
-                    var url = window.URL.createObjectURL(blob);
-                    var a = document.createElement('a');
-                    a.href = url;
-                    a.download = "scenario.txt";
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    window.URL.revokeObjectURL(url);
-                })
-                .catch(error => console.error('Error:', error));
+            // save the deal set content on the client side
+            var blob = new Blob([dealSetData], { type: 'text/plain' });
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = "dealSetData.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
         }
     }),
 
@@ -250,6 +257,7 @@ MyButtons = {
             setDynamicContent(originalDynamicContent);
             MyButtons.error.rebind();
             MyButtons.play.rebind();
+            MyButtons.generateDealSet.rebind();
             return false;
         }
     }),

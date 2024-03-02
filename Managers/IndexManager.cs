@@ -37,7 +37,7 @@ public class IndexManager
         };
     }
 
-    public async Task<IndexViewModel> Save(IndexViewModel model)
+    public async Task<IndexViewModel> GenerateDealSet(IndexViewModel model)
     {
         var tempFilePath = Path.GetTempFileName();
         await File.WriteAllTextAsync(tempFilePath, model.TextInput);
@@ -59,8 +59,12 @@ public class IndexManager
 
         var byteArray = Encoding.UTF8.GetBytes(scriptOut.RawOutput);
         var stream = new MemoryStream(byteArray);
+        if (stream == null)
+            Console.WriteLine("Manager: stream is null");
         return new IndexViewModel
         {
+            RightDisplay = RightViewDisplay.DealSet,
+            DealNumber = 0,
             ScriptOutput = scriptOut.RawOutput,
             OutputStream = stream
         };

@@ -26,15 +26,15 @@ public class IndexController : Controller
         });
         return PartialView("RightSideView", model);
     }
-
+    
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> Save([FromForm] string textInput)
+    public async Task<IActionResult> GenerateDealSet([FromForm] string textInput)
     {
-        var model = await _indexManager.Save(new IndexViewModel
+        var model = await _indexManager.GenerateDealSet(new IndexViewModel
         {
             TextInput = textInput
         });
-        return File(model.OutputStream, "application/octet-stream", "scenario.txt");
+        return PartialView("RightSideView", model);
     }
 }
