@@ -69,4 +69,25 @@ public class RedealResultChange
 
         return output;
     }
+    
+    public static RedealChangedOutput AddDeal (string rawOutput, string deal)
+    {
+        var dealSplit = Regex.Split(deal, @"\n\nTries");
+        deal = dealSplit[0];
+        
+        Console.WriteLine(deal);
+        
+        var splitOutput = Regex.Split(rawOutput, @"\nTries");
+        var tries = splitOutput[1];
+        
+        // remove last character from splitOutput[0] to remove the last newline
+        splitOutput[0] = splitOutput[0].Substring(0, splitOutput[0].Length - 1);
+        
+        RedealChangedOutput output = new RedealChangedOutput();
+        
+        output.Output = splitOutput[0] + deal + "\n\nTries" + tries;
+        output.NumberOfDeals = output.Output.Split(new string[] { "[Deal \"" }, StringSplitOptions.RemoveEmptyEntries).Length;
+
+        return output;
+    }
 }

@@ -161,4 +161,40 @@ public class IndexManager
             Tries = scriptResults.Tries
         };
     }
+    
+    public async Task<IndexViewModel> AddDeal(IndexViewModel model)
+    {
+        var tempFilePath = Path.GetTempFileName();
+        await File.WriteAllTextAsync(tempFilePath, model.TextInput);
+
+        // Generate one deal, no matter what the compiler settings are.
+        var scriptOut = model.Compiler.Run(tempFilePath, 1);
+
+        File.Delete(tempFilePath);
+
+        if (scriptOut.ExitCode != 0)
+        {
+            scriptOut.RemoveHarmfulChars();
+            return new IndexViewModel
+            {
+                ScriptOutput = scriptOut.RawOutput + " ",
+                RightDisplay = RightViewDisplay.Error
+            };
+        }
+
+        var oneDeal = scriptOut.RawOutput;
+        
+        var regenerated = RedealResultChange.AddDeal(model.ScriptOutputInfo.Output, oneDeal);
+        model.ScriptOutputInfo.Output = regenerated.Output;
+        model.ScriptOutputInfo.NumberOfDeals = regenerated.NumberOfDeals;
+        var scriptResults = RedealResultExtractor.Extract(model.ScriptOutputInfo.Output, model.ScriptOutputInfo.DealNumber + 1);
+        model.ScriptOutputInfo.DealNumber = scriptResults.NumberOfDeals;
+        return new IndexViewModel
+        {
+            RightDisplay = RightViewDisplay.DealSet,
+            ScriptOutputInfo = model.ScriptOutputInfo,
+            Deal = scriptResults.Deal,
+            Tries = scriptResults.Tries
+        };
+    }
 }

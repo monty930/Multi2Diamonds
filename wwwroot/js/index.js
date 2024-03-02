@@ -209,6 +209,7 @@ MyButtons = {
                     MyButtons.previousDeal.rebind();
                     MyButtons.trash.rebind();
                     MyButtons.regenerateOne.rebind();
+                    MyButtons.addDeal.rebind();
                     document.getElementById('spinner').style.display = 'none';
                 })
                 .catch(error => console.error('Error:', error));
@@ -247,6 +248,7 @@ MyButtons = {
                     MyButtons.previousDeal.rebind();
                     MyButtons.trash.rebind();
                     MyButtons.regenerateOne.rebind();
+                    MyButtons.addDeal.rebind();
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -284,6 +286,7 @@ MyButtons = {
                     MyButtons.previousDeal.rebind();
                     MyButtons.trash.rebind();
                     MyButtons.regenerateOne.rebind();
+                    MyButtons.addDeal.rebind();
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -368,6 +371,7 @@ MyButtons = {
                     MyButtons.previousDeal.rebind();
                     MyButtons.trash.rebind();
                     MyButtons.regenerateOne.rebind();
+                    MyButtons.addDeal.rebind();
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -379,6 +383,8 @@ MyButtons = {
             // if deactivated, do nothing
             if (MyButtons.regenerateOne.isDeactivated())
                 return;
+
+            document.getElementById('spinner').style.display = 'block';
 
             event.preventDefault();
 
@@ -405,6 +411,49 @@ MyButtons = {
                     MyButtons.previousDeal.rebind();
                     MyButtons.trash.rebind();
                     MyButtons.regenerateOne.rebind();
+                    MyButtons.addDeal.rebind();
+                    document.getElementById('spinner').style.display = 'none';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }),
+
+    addDeal: new MyButton({
+        elementId: "addDealButton",
+        listener: function () {
+            // if deactivated, do nothing
+            if (MyButtons.addDeal.isDeactivated())
+                return;
+
+            document.getElementById('spinner').style.display = 'block';
+
+            event.preventDefault();
+
+            document.getElementById('actionField').value = 'addDeal';
+            var dealSetData = document.getElementById('dealSetContent').getAttribute('deal-set-data');
+            var whichDeal = document.getElementById('dealSetContent').getAttribute('which-deal');
+
+            var formData = new FormData(document.getElementById('FormGenSc'));
+            formData.append('dealSetData', dealSetData);
+            formData.append('whichDeal', whichDeal);
+
+            fetch('/Index/AddDeal', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('right-partial').innerHTML = html;
+                    MyButtons.play.rebind();
+                    MyButtons.generateDealSet.rebind();
+                    MyButtons.error.rebind();
+                    MyButtons.save.rebind();
+                    MyButtons.nextDeal.rebind();
+                    MyButtons.previousDeal.rebind();
+                    MyButtons.trash.rebind();
+                    MyButtons.regenerateOne.rebind();
+                    MyButtons.addDeal.rebind();
+                    document.getElementById('spinner').style.display = 'none';
                 })
                 .catch(error => console.error('Error:', error));
         }

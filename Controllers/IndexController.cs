@@ -82,4 +82,15 @@ public class IndexController : Controller
         });
         return PartialView("RightSideView", model);
     }
+    
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> AddDeal([FromForm] string _, [FromForm] string dealSetData, [FromForm] int whichDeal)
+    {
+        var model = await _indexManager.AddDeal(new IndexViewModel
+        {
+            ScriptOutputInfo = new ScriptOutputInfo(dealSetData, 0, whichDeal)
+        });
+        return PartialView("RightSideView", model);
+    }
 }
