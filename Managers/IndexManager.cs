@@ -84,4 +84,45 @@ public class IndexManager
             Tries = scriptResults.Tries
         };
     }
+    
+    public async Task<IndexViewModel> Trash(IndexViewModel model)
+    {
+        var dealNum = model.ScriptOutputInfo.DealNumber;
+        var removed = RedealResultChange.Remove(model.ScriptOutputInfo.Output, dealNum);
+        var newNumberOfDeals = removed.NumberOfDeals;
+        var newScriptOutput = removed.Output;
+        if (newNumberOfDeals == 0)
+        {
+            return new IndexViewModel
+            {
+                RightDisplay = RightViewDisplay.Entry
+            };
+        }
+
+        model.ScriptOutputInfo.NumberOfDeals = newNumberOfDeals;
+        model.ScriptOutputInfo.Output = newScriptOutput;
+        if (dealNum == 1)
+        {
+            var scriptResults = RedealResultExtractor.Extract(model.ScriptOutputInfo.Output, model.ScriptOutputInfo.DealNumber);
+            return new IndexViewModel
+            {
+                RightDisplay = RightViewDisplay.DealSet,
+                ScriptOutputInfo = model.ScriptOutputInfo,
+                Deal = scriptResults.Deal,
+                Tries = scriptResults.Tries
+            };
+        }
+        else // display previous deal
+        {
+            model.ScriptOutputInfo.DealNumber--;
+            var scriptResults = RedealResultExtractor.Extract(model.ScriptOutputInfo.Output, model.ScriptOutputInfo.DealNumber);
+            return new IndexViewModel
+            {
+                RightDisplay = RightViewDisplay.DealSet,
+                ScriptOutputInfo = model.ScriptOutputInfo,
+                Deal = scriptResults.Deal,
+                Tries = scriptResults.Tries
+            };
+        }
+    }
 }

@@ -56,8 +56,19 @@ public class IndexController : Controller
     {
         var model = await _indexManager.MoveDeal(new IndexViewModel
         {
-            ScriptOutputInfo = new ScriptOutputInfo(dealSetData, 10, whichDeal)
+            ScriptOutputInfo = new ScriptOutputInfo(dealSetData, 0, whichDeal)
         }, -1);
+        return PartialView("RightSideView", model);
+    }
+    
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> Trash([FromForm] string _, [FromForm] string dealSetData, [FromForm] int whichDeal)
+    {
+        var model = await _indexManager.Trash(new IndexViewModel
+        {
+            ScriptOutputInfo = new ScriptOutputInfo(dealSetData, 0, whichDeal)
+        });
         return PartialView("RightSideView", model);
     }
 }
