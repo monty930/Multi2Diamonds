@@ -1,0 +1,20 @@
+@model BridgeScenarios.Models.ViewModels.IndexViewModel
+<div class="right-view-container">
+    <div class="right-view-buttons">
+        <div class="generate-button-container">
+            <button id="generateExampleButton" class="generate-button generate-example-button">
+                GENERATE EXAMPLE
+            </button>
+        </div>
+        <div class="generate-button-container">
+            <button id="generateDealSetButton" class="generate-button generate-dealset-button">
+                GENERATE DEAL SET
+            </button>
+        </div>
+    </div>
+    <div>
+        @{
+            await Html.RenderPartialAsync("RightSide/DealSetOneDeal", Model);
+        }
+    </div>
+</div>

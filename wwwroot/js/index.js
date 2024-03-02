@@ -24,21 +24,6 @@ let restoreOriginalInputContent = () => setTabDynamics(originalInputContent);
 
 let restoreCodeContent = () => document.getElementById("codeInput").innerHTML = codeContent;
 
-let settingsHTML = `
-<h4>Examples</h4>
-    <div class="editor-container">
-        <div class="line-numbers"></div>
-        <div class="examples-container-inner">
-            Tu jakieś readme<br>
-            <pre>
-final = E.spades > 7
-            </pre>
-        </div>
-        <input type="hidden" name="action" id="actionField" value="save">
-    </div>
-`;
-
-
 MyButton = function ({elementId, listener}) {
     this.elementId = elementId;
     this.listener = listener;
@@ -106,6 +91,7 @@ MyButtons = {
             MyButtons.settings.setActivePressed(false);
 
             MyButtons.play.setDeactivated(false);
+            MyButtons.generateDealSet.setDeactivated(false);
         }
     }),
 
@@ -113,7 +99,8 @@ MyButtons = {
     lightbulb: new MyButton({
         elementId: "lightbulbButton",
         listener: function () {
-            setTabDynamics(settingsHTML);
+            var readmeHTML = document.getElementById('readme-hidden-content').innerHTML;
+            setTabDynamics(readmeHTML);
 
             // if deactivated, do nothing
             if (MyButtons.lightbulb.isDeactivated())
@@ -124,6 +111,7 @@ MyButtons = {
             MyButtons.settings.setActivePressed(false);
 
             MyButtons.play.setDeactivated(true);
+            MyButtons.generateDealSet.setDeactivated(true);
         }
     }),
 
@@ -131,7 +119,8 @@ MyButtons = {
     settings: new MyButton({
         elementId: "settingsButton",
         listener: function () {
-            setTabDynamics(originalInputContent);
+            var settingsHTML = document.getElementById('settings-hidden-content').innerHTML;
+            setTabDynamics(settingsHTML);
 
             // if deactivated, do nothing
             if (MyButtons.settings.isDeactivated())
@@ -142,6 +131,7 @@ MyButtons = {
             MyButtons.settings.setActivePressed(true);
 
             MyButtons.play.setDeactivated(true);
+            MyButtons.generateDealSet.setDeactivated(true);
         }
     }),
 
@@ -158,8 +148,6 @@ MyButtons = {
             // if entry-message is not null, make it display none
             if (document.getElementById('entry-message') != null) {
                 document.getElementById('entry-message').style.display = 'none';
-            } else {
-                console.log('entry-message is null');
             }
             
             // loading circle
@@ -183,6 +171,7 @@ MyButtons = {
                 .catch(error => console.error('Error:', error));
 
             MyButtons.play.setDeactivated(false);
+            MyButtons.generateDealSet.setDeactivated(false);
         },
     }),
 
