@@ -199,6 +199,78 @@ MyButtons = {
                     MyButtons.generateDealSet.rebind();
                     MyButtons.error.rebind();
                     MyButtons.save.rebind();
+                    MyButtons.nextDeal.rebind();
+                    MyButtons.previousDeal.rebind();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }),
+    
+    nextDeal: new MyButton({
+        elementId: "nextDealButton",
+        listener: function () {
+            // if deactivated, do nothing
+            if (MyButtons.nextDeal.isDeactivated())
+                return;
+            
+            event.preventDefault();
+
+            document.getElementById('actionField').value = 'nextDeal';
+            var dealSetData = document.getElementById('dealSetContent').getAttribute('deal-set-data');
+            var whichDeal = document.getElementById('dealSetContent').getAttribute('which-deal');
+            
+            var formData = new FormData(document.getElementById('FormGenSc'));
+            formData.append('dealSetData', dealSetData);
+            formData.append('whichDeal', whichDeal);
+
+            fetch('/Index/NextDeal', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('right-partial').innerHTML = html;
+                    MyButtons.play.rebind();
+                    MyButtons.generateDealSet.rebind();
+                    MyButtons.error.rebind();
+                    MyButtons.save.rebind();
+                    MyButtons.nextDeal.rebind();
+                    MyButtons.previousDeal.rebind();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }),
+
+    previousDeal: new MyButton({
+        elementId: "previousDealButton",
+        listener: function () {
+            // if deactivated, do nothing
+            if (MyButtons.nextDeal.isDeactivated())
+                return;
+
+            event.preventDefault();
+
+            document.getElementById('actionField').value = 'previousDeal';
+            var dealSetData = document.getElementById('dealSetContent').getAttribute('deal-set-data');
+            var whichDeal = document.getElementById('dealSetContent').getAttribute('which-deal');
+
+            var formData = new FormData(document.getElementById('FormGenSc'));
+            formData.append('dealSetData', dealSetData);
+            formData.append('whichDeal', whichDeal);
+
+            fetch('/Index/PreviousDeal', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('right-partial').innerHTML = html;
+                    MyButtons.play.rebind();
+                    MyButtons.generateDealSet.rebind();
+                    MyButtons.error.rebind();
+                    MyButtons.save.rebind();
+                    MyButtons.nextDeal.rebind();
+                    MyButtons.previousDeal.rebind();
                 })
                 .catch(error => console.error('Error:', error));
         }

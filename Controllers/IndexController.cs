@@ -37,4 +37,28 @@ public class IndexController : Controller
         });
         return PartialView("RightSideView", model);
     }
+    
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> NextDeal([FromForm] string _, [FromForm] string dealSetData, [FromForm] int whichDeal)
+    {
+        var model = await _indexManager.MoveDeal(new IndexViewModel
+        {
+            ScriptOutput = dealSetData,
+            DealNumber = whichDeal
+        }, 1);
+        return PartialView("RightSideView", model);
+    }
+    
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> PreviousDeal([FromForm] string _, [FromForm] string dealSetData, [FromForm] int whichDeal)
+    {
+        var model = await _indexManager.MoveDeal(new IndexViewModel
+        {
+            ScriptOutput = dealSetData,
+            DealNumber = whichDeal
+        }, -1);
+        return PartialView("RightSideView", model);
+    }
 }

@@ -19,6 +19,5 @@ public class IndexViewModel : PageModel
 
     // This property is used to display the correct deal from the deal set.
     // If DealNumber is n, the n-th deal from the deal set is displayed.
-    // If DealNumber is 0, the SetDealEntry is displayed.
-    public int DealNumber { get; set; } // Default: 0.
+    public int DealNumber { get; set; } = 1;
 }

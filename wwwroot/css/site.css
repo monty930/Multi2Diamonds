@@ -92,7 +92,7 @@ html, body {
     padding-left: 5%;
 }
 
-.button-save, .button-readme, .button-settings, .button-input {
+.button-readme, .button-settings, .button-input {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,11 +109,11 @@ html, body {
     height: 90%;
 }
 
-.button-save:hover, .button-readme:hover, .button-settings:hover, .button-input:hover {
+.button-readme:hover, .button-settings:hover, .button-input:hover {
     background-color: var(--button-hover);
 }
 
-.button-save:active, .button-readme:active, .button-settings:active, .button-input:active {
+.button-readme:active, .button-settings:active, .button-input:active {
     background-color: var(--button-active);
     box-shadow: 0 2px var(--button-shadow);
     height: 91%;
@@ -274,7 +274,7 @@ textarea, .examples-container-inner {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 37% 40% auto;
+    grid-template-columns: 37% 27% auto;
     grid-template-rows: auto;
 }
 

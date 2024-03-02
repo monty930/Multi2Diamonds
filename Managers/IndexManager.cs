@@ -44,8 +44,6 @@ public class IndexManager
 
         // Generate as many deals, as compiler settings indicates (default: 0).
         var scriptOut = model.Compiler.Run(tempFilePath, 0);
-        
-        Console.WriteLine("Manager: scriptOut.RawOutput: " + scriptOut.RawOutput);
 
         File.Delete(tempFilePath);
 
@@ -62,14 +60,24 @@ public class IndexManager
         var byteArray = Encoding.UTF8.GetBytes(scriptOut.RawOutput);
         var stream = new MemoryStream(byteArray);
         var scriptResults = RedealResultExtractor.Extract(scriptOut);
-        if (stream == null)
-            Console.WriteLine("Manager: stream is null");
         return new IndexViewModel
         {
             RightDisplay = RightViewDisplay.DealSet,
-            DealNumber = 0,
             ScriptOutput = scriptOut.RawOutput,
             OutputStream = stream,
+            Deal = scriptResults.Deal,
+            Tries = scriptResults.Tries
+        };
+    }
+    
+    public async Task<IndexViewModel> MoveDeal(IndexViewModel model, int direction)
+    {
+        var scriptResults = RedealResultExtractor.Extract(model.ScriptOutput, model.DealNumber + direction);
+        return new IndexViewModel
+        {
+            RightDisplay = RightViewDisplay.DealSet,
+            DealNumber = model.DealNumber + direction,
+            ScriptOutput = model.ScriptOutput,
             Deal = scriptResults.Deal,
             Tries = scriptResults.Tries
         };
