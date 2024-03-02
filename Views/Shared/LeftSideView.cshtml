@@ -1,0 +1,86 @@
+@model BridgeScenarios.Models.ViewModels.IndexViewModel
+
+<div class="container-for-input">
+    <div class="left-container">
+        <div class="input-section" id="tab-dynamics">
+            <h4>Enter constraints:</h4>
+            <form id="FormGenSc" method="post">
+                <div class="editor-container">
+                    <div class="line-numbers" id="lineNumbers"></div>
+                    <textarea spellcheck="false" asp-for="TextInput"
+                        placeholder="See README for constraints examples." id="codeInput"
+                        oninput="updateLineNumbers()">
+                    </textarea>
+                    <input type="hidden" name="action" id="actionField">
+                    <input class="hidden-submit" type="submit" id="formSubmitGenerateExample" asp-action="GenerateExample">
+                    <input class="hidden-submit" type="submit" id="formSubmitSave" asp-action="Save">
+                </div>
+            </form>
+        </div>
+        <div class="left-switches">
+            <div></div>
+            <div class="button-cont">
+                <button id="inputButton" class="button-input button-active-tab">
+                    <img id="tabs-input" class="tabs-img" src="~/assets/input.png"/>
+                </button>
+            </div>
+            <div class="button-cont">
+                <button id="lightbulbButton" class="button-readme">
+                    <img id="tabs-lightbulb" class="tabs-img" src="~/assets/lightbulb.png"/>
+                </button>
+            </div>
+            <div class="button-cont">
+                <button id="settingsButton" class="button-settings">
+                    <img id="tabs-settings" class="tabs-img" src="~/assets/settings.png"/>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div></div>
+</div>
+
+<div id="readme-hidden-content" style="display: none;">
+    <h4>Examples</h4>
+    <div class="editor-container">
+        <div class="line-numbers"></div>
+        <div class="left-side-container-inner">
+            Tu jakieś readme<br>
+            <pre>
+    final = E.spades > 7
+                </pre>
+        </div>
+    </div>
+</div>
+
+<div id="settings-hidden-content" style="display: none;">
+    <h4>Settings</h4>
+    <div class="editor-container">
+        <div class="line-numbers"></div>
+        <div class="left-side-container-inner">
+            Number of deals in set: 
+            <input type="number" id="dealsInSet" value="1" min="1" max="24">
+            <br/>
+            Compiler: 
+            <select id="compiler-choice">
+                <option value="Chai">Chai</option>
+                <option value="Latte">Latte</option>
+            </select>
+            <br/>
+            Vulnerability: 
+            <select id="vulnerability-choice">
+                <option value="Random">Random</option>
+                <option value="None">None</option>
+                <option value="NS">NS</option>
+                <option value="EW">EW</option>
+                <option value="All">All</option>
+            </select>
+            <br/>
+            Randomly flip deal: 
+            <select id="flip-choice">
+                <option value="no-flip">--</option>
+                <option value="90st">90&deg;</option>
+                <option value="180st">180&deg;</option>
+            </select>
+        </div>
+    </div>
+</div>

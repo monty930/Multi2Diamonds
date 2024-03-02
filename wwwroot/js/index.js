@@ -59,6 +59,10 @@ MyButton = function ({elementId, listener}) {
     this.isDeactivated = () => {
         return this.element.classList.contains('deactivated');
     }
+    
+    this.isActivePressed = () => {
+        return this.element.classList.contains('button-active-tab');
+    }
 
     this.defaultListener = () => {
         if (MyButtons.activeButtonId === MyButtons.input.elementId)
@@ -99,12 +103,20 @@ MyButtons = {
     lightbulb: new MyButton({
         elementId: "lightbulbButton",
         listener: function () {
-            var readmeHTML = document.getElementById('readme-hidden-content').innerHTML;
-            setTabDynamics(readmeHTML);
-
             // if deactivated, do nothing
             if (MyButtons.lightbulb.isDeactivated())
                 return;
+            
+            // check if we are switching from settings tab. If so, save the settings in settings-hidden-content
+            if (MyButtons.settings.isActivePressed()) {
+                console.log('settings tab is active');
+                var dealsInSet = document.getElementById('dealsInSet').value;
+                console.log(dealsInSet);
+                document.getElementById('settings-hidden-content').innerHTML = document.getElementById('tab-dynamics').innerHTML;
+            }
+
+            var readmeHTML = document.getElementById('readme-hidden-content').innerHTML;
+            setTabDynamics(readmeHTML);
 
             MyButtons.input.setActivePressed(false);
             MyButtons.lightbulb.setActivePressed(true);
@@ -119,12 +131,12 @@ MyButtons = {
     settings: new MyButton({
         elementId: "settingsButton",
         listener: function () {
-            var settingsHTML = document.getElementById('settings-hidden-content').innerHTML;
-            setTabDynamics(settingsHTML);
-
             // if deactivated, do nothing
             if (MyButtons.settings.isDeactivated())
                 return;
+
+            var settingsHTML = document.getElementById('settings-hidden-content').innerHTML;
+            setTabDynamics(settingsHTML);
 
             MyButtons.input.setActivePressed(false);
             MyButtons.lightbulb.setActivePressed(false);
