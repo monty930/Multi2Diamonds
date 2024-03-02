@@ -12,7 +12,6 @@ builder.Services.AddCors(options =>
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
-
         });
 });
 
@@ -35,8 +34,8 @@ app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Index}/{action=Index}");
+    "default",
+    "{controller=Index}/{action=Index}");
 
 
 app.Run();

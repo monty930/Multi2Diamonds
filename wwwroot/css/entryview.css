@@ -1,0 +1,13 @@
+.entry-message {
+    color : var(--main-font-color);
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-bottom: 10%;
+}
+
+.message-and-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

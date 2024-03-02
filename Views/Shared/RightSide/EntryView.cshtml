@@ -1,0 +1,46 @@
+<div class="right-view-container">
+    <div class="right-view-buttons">
+        <div>
+            <button id="generateExampleButton" class="generateButton">
+                GENERATE EXAMPLE
+            </button>
+        </div>
+        <div>
+            <button id="generateDealSetButton" class="generateButton">
+                GENERATE DEAL SET
+            </button>
+        </div>
+        <div>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="message-and-spinner">
+        <div class="entry-message" id="entry-message">
+            Generate an example deal!
+        </div>
+        <div id="spinner" style="display:none;">
+            <div class="loader">
+                <img id="loading-img" src="~/assets/loading-simp.png"
+                     alt="Randomly Oriented Image"/>
+                <script type="text/javascript" src="/js/spinner.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="log-hidden-content" style="display: none;">
+    <div class="log-view">
+        <div class="grid-log-columns">
+            <div class="logs-output">
+                @if (Model.ScriptOutput != string.Empty)
+                {
+                    <pre>@Model.ScriptOutput</pre>
+                }
+            </div>
+            <div>
+                <button class="compile-error-button back" id="backButton">BACK</button>
+            </div>
+        </div>
+    </div>
+</div>

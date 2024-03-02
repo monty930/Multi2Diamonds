@@ -6,7 +6,6 @@ namespace BridgeScenarios.Redeal;
 
 public class RedealScriptRunner
 {
-    private readonly string _scriptPath = Path.Combine("BridgeTools", "Chai", "get_scenarios.sh");
     private readonly string _parserPath;
 
     private readonly ProcessStartInfo _processStartInfo = new()
@@ -16,6 +15,8 @@ public class RedealScriptRunner
         UseShellExecute = false,
         CreateNoWindow = true
     };
+
+    private readonly string _scriptPath = Path.Combine("BridgeTools", "Chai", "get_scenarios.sh");
 
     public RedealScriptRunner()
     {
@@ -31,11 +32,11 @@ public class RedealScriptRunner
     public RedealScriptOutput RunScript(string filePath, int nDeals)
     {
         _processStartInfo.Arguments = $"{_scriptPath} {_parserPath} {filePath} {nDeals}";
-        
+
         using var process = Process.Start(_processStartInfo) ?? throw new NullReferenceException();
-        string output = process.StandardOutput.ReadToEnd();
+        var output = process.StandardOutput.ReadToEnd();
         process.WaitForExit();
-        
+
         return new RedealScriptOutput
         {
             RawOutput = output,

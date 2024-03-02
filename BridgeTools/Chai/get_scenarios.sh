@@ -22,7 +22,7 @@ fi
 echo "$CHAI_OUTPUT" > "$TEMPFILE"
 
 
-REDEAL_OUTPUT=$(python -mredeal --max 100000 -n "$N_DEALS" --format=pbn "$TEMPFILE" 2>&1)
+REDEAL_OUTPUT=$(python3 -mredeal --max 100000 -n "$N_DEALS" --format=pbn "$TEMPFILE" 2>&1)
 if [ $? -ne 0 ]; then
     echo "Execution of redeal failed."
     echo "$REDEAL_OUTPUT"
