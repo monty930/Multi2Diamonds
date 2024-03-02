@@ -64,8 +64,16 @@
                             <button id="nextDealButton"
                                     class="deal-set-button 
                                     @if (Model.ScriptOutputInfo.DealNumber == Model.ScriptOutputInfo.NumberOfDeals) 
-                                    { <text>deactivated</text> }" >
+                                    { <text>hidden deactivated</text> }" >
                                 <img class="dealset-img" src="~/assets/arrow.png"/>
+                            </button>
+                            
+                            <button id="addDealButton" 
+                                    class="deal-set-button
+                                    @if (Model.ScriptOutputInfo.DealNumber < Model.ScriptOutputInfo.NumberOfDeals) 
+                                    { <text>hidden</text> }"                                    
+                                    >
+                                <img class="dealset-img" src="~/assets/plus.png"/>
                             </button>
                         </div>
                     </div>
@@ -81,19 +89,9 @@
                             </button>
                         </div>
                         <div class="deaslset-button-container">
-                            <button id="addDealButton" 
-                                    class="deal-set-button
-                                    @if (Model.ScriptOutputInfo.DealNumber < Model.ScriptOutputInfo.NumberOfDeals) 
-                                    { <text>hidden</text> }"                                    
-                                    >
-                                <img class="dealset-img" src="~/assets/plus.png"/>
-                            </button>
+                            
                             <button id="trashButton"
-                                    class="deal-set-button
-                                    red-button
-                                    @if (Model.ScriptOutputInfo.DealNumber == Model.ScriptOutputInfo.NumberOfDeals) 
-                                    { <text>hidden</text> }"                                    
-                                    >
+                                    class="deal-set-button red-button">
                                 <img class="dealset-img" src="~/assets/trash.png"/>
                             </button>
                         </div>
