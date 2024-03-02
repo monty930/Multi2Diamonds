@@ -74,11 +74,12 @@ public class IndexController : Controller
     
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> RegenerateOne([FromForm] string _, [FromForm] string dealSetData, [FromForm] int whichDeal)
+    public async Task<IActionResult> RegenerateOne([FromForm] string textInput, [FromForm] string dealSetData, [FromForm] int whichDeal)
     {
         var model = await _indexManager.RegenerateOne(new IndexViewModel
         {
-            ScriptOutputInfo = new ScriptOutputInfo(dealSetData, 0, whichDeal)
+            ScriptOutputInfo = new ScriptOutputInfo(dealSetData, 0, whichDeal),
+            TextInput = textInput
         });
         return PartialView("RightSideView", model);
     }
