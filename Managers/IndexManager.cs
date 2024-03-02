@@ -66,18 +66,20 @@ public class IndexManager
             ScriptOutput = scriptOut.RawOutput,
             OutputStream = stream,
             Deal = scriptResults.Deal,
-            Tries = scriptResults.Tries
+            Tries = scriptResults.Tries,
+            ScriptOutputInfo = new ScriptOutputInfo(scriptOut.RawOutput, 10, 1)
         };
     }
     
     public async Task<IndexViewModel> MoveDeal(IndexViewModel model, int direction)
     {
-        var scriptResults = RedealResultExtractor.Extract(model.ScriptOutput, model.DealNumber + direction);
+        model.ScriptOutputInfo.DealNumber += direction;
+        var scriptResults = RedealResultExtractor.Extract(model.ScriptOutputInfo.Output, model.ScriptOutputInfo.DealNumber);
+        model.ScriptOutputInfo.NumberOfDeals = scriptResults.NumberOfDeals;
         return new IndexViewModel
         {
             RightDisplay = RightViewDisplay.DealSet,
-            DealNumber = model.DealNumber + direction,
-            ScriptOutput = model.ScriptOutput,
+            ScriptOutputInfo = model.ScriptOutputInfo,
             Deal = scriptResults.Deal,
             Tries = scriptResults.Tries
         };

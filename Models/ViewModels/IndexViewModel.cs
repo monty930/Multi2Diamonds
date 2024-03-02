@@ -16,8 +16,6 @@ public class IndexViewModel : PageModel
     // Indicated what should be displayed in the right view.
     // May be: Example, Error, DealSet or Entry.
     public RightViewDisplay RightDisplay { get; set; } = RightViewDisplay.Entry;
-
-    // This property is used to display the correct deal from the deal set.
-    // If DealNumber is n, the n-th deal from the deal set is displayed.
-    public int DealNumber { get; set; } = 1;
+    
+    public ScriptOutputInfo ScriptOutputInfo { get; set; } = new("", 1, 1);
 }

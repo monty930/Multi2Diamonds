@@ -1,5 +1,6 @@
 using BridgeScenarios.Managers;
 using BridgeScenarios.Models.ViewModels;
+using BridgeScenarios.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,8 +45,7 @@ public class IndexController : Controller
     {
         var model = await _indexManager.MoveDeal(new IndexViewModel
         {
-            ScriptOutput = dealSetData,
-            DealNumber = whichDeal
+            ScriptOutputInfo = new ScriptOutputInfo(dealSetData, 0, whichDeal)
         }, 1);
         return PartialView("RightSideView", model);
     }
@@ -56,8 +56,7 @@ public class IndexController : Controller
     {
         var model = await _indexManager.MoveDeal(new IndexViewModel
         {
-            ScriptOutput = dealSetData,
-            DealNumber = whichDeal
+            ScriptOutputInfo = new ScriptOutputInfo(dealSetData, 10, whichDeal)
         }, -1);
         return PartialView("RightSideView", model);
     }

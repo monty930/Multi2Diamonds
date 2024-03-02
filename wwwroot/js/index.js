@@ -150,7 +150,6 @@ MyButtons = {
                 document.getElementById('entry-message').style.display = 'none';
             }
             
-            // loading circle
             document.getElementById('spinner').style.display = 'block';
 
             document.getElementById('actionField').value = 'play';
@@ -182,6 +181,13 @@ MyButtons = {
             if (MyButtons.generateDealSet.isDeactivated())
                 return;
 
+            // if entry-message is not null, make it display none
+            if (document.getElementById('entry-message') != null) {
+                document.getElementById('entry-message').style.display = 'none';
+            }
+
+            document.getElementById('spinner').style.display = 'block';
+
             event.preventDefault();
 
             document.getElementById('actionField').value = 'generateDealSet';
@@ -201,6 +207,7 @@ MyButtons = {
                     MyButtons.save.rebind();
                     MyButtons.nextDeal.rebind();
                     MyButtons.previousDeal.rebind();
+                    document.getElementById('spinner').style.display = 'none';
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -245,7 +252,7 @@ MyButtons = {
         elementId: "previousDealButton",
         listener: function () {
             // if deactivated, do nothing
-            if (MyButtons.nextDeal.isDeactivated())
+            if (MyButtons.previousDeal.isDeactivated())
                 return;
 
             event.preventDefault();

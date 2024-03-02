@@ -2,6 +2,11 @@
 <div class="grid-rows">
     <div class="row-n has-handsuits">
         <div>
+            <div class="deal-number-info">
+                @{
+                    <div>Deal @Model.ScriptOutputInfo.DealNumber / @Model.ScriptOutputInfo.NumberOfDeals</div>
+                }
+            </div>
         </div>
         <div class="hands">
             @{
@@ -45,20 +50,41 @@
             </div>
             <div>
                 <div class="deal-in-set-buttons-container">
-                    <div>
-                        <button id="previousDealButton" class="deal-set-button">
-                            <img class="dealset-img" src="~/assets/arrow-back.png"/>
-                        </button>
+                    <div class="dealset-upper-row">
+                        <div class="deaslset-button-container">
+                            @* If Model.DealSetInfo.DealNumber == NumberOfDeals, set class to deactivated *@
+                            <button id="previousDealButton"
+                                    class="deal-set-button 
+                                    @if (Model.ScriptOutputInfo.DealNumber == 1) 
+                                    { <text>deactivated</text> }" >
+                                <img class="dealset-img" src="~/assets/arrow-back.png"/>
+                            </button>
+                        </div>
+                        <div class="deaslset-button-container">
+                            <button id="nextDealButton"
+                                    class="deal-set-button 
+                                    @if (Model.ScriptOutputInfo.DealNumber == Model.ScriptOutputInfo.NumberOfDeals) 
+                                    { <text>deactivated</text> }" >
+                                <img class="dealset-img" src="~/assets/arrow.png"/>
+                            </button>
+                        </div>
                     </div>
-                    <div>
-                        <button id="nextDealButton" class="deal-set-button">
-                            <img class="dealset-img" src="~/assets/arrow.png"/>
-                        </button>
-                    </div>
-                    <div>
-                        <button id="saveButton" class="deal-set-button">
-                            <img class="dealset-img" src="~/assets/save.png"/>
-                        </button>
+                    <div class="dealset-lower-row">
+                        <div class="deaslset-button-container">
+                            <button id="saveButton" class="deal-set-button">
+                                <img class="dealset-img" src="~/assets/save.png"/>
+                            </button>
+                        </div>
+                        <div class="deaslset-button-container">
+                            <button id="retryButton" class="deal-set-button">
+                                <img class="dealset-img" src="~/assets/retry.png"/>
+                            </button>
+                        </div>
+                        <div class="deaslset-button-container">
+                            <button id="trashButton" class="deal-set-button red-button">
+                                <img class="dealset-img" src="~/assets/trash.png"/>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,8 @@ public static class RedealResultExtractor
         {
             return new RedealScriptResult
             {
-                Tries = tries
+                Tries = tries,
+                NumberOfDeals = 0,
             };
         }
 
@@ -51,7 +52,8 @@ public static class RedealResultExtractor
         return new RedealScriptResult
         {
             Tries = tries,
-            Deal = deal
+            Deal = deal,
+            NumberOfDeals = dealMatches.Count
         };
     }
     

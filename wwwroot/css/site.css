@@ -230,13 +230,6 @@ textarea, .examples-container-inner {
     font-size: var(--suit-cards-font-size);
 }
 
-.row-n > div:nth-child(1) {
-    padding: 10pt 10pt 10pt 20pt;
-    display: flex;
-    place-items: start;
-    font-size: large;
-}
-
 .row-n > div:nth-child(2) {
     padding: 5%;
     display: flex;
