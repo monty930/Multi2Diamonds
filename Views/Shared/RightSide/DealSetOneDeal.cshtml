@@ -18,9 +18,9 @@
     </div>
     <div>
         <div class="row-mid">
-            <div class="aligning-cells">
+            <div class="align-hand-west">
                 <div></div>
-                <div class="hands">
+                <div class="hands hand-west">
                     @{
                         await Html.RenderPartialAsync("Hand", Model.Deal.West);
                     }
@@ -54,7 +54,7 @@
                         <div class="deaslset-button-container">
                             @* If Model.DealSetInfo.DealNumber == NumberOfDeals, set class to deactivated *@
                             <button id="previousDealButton"
-                                    class="deal-set-button 
+                                    class="button-all deal-set-button 
                                     @if (Model.ScriptOutputInfo.DealNumber == 1) 
                                     { <text>deactivated</text> }" >
                                 <img class="dealset-img" src="~/assets/arrow-back.png"/>
@@ -62,14 +62,14 @@
                         </div>
                         <div class="deaslset-button-container">
                             <button id="nextDealButton"
-                                    class="deal-set-button 
+                                    class="button-all deal-set-button 
                                     @if (Model.ScriptOutputInfo.DealNumber == Model.ScriptOutputInfo.NumberOfDeals) 
                                     { <text>hidden deactivated</text> }" >
                                 <img class="dealset-img" src="~/assets/arrow.png"/>
                             </button>
                             
                             <button id="addDealButton" 
-                                    class="deal-set-button
+                                    class="button-all deal-set-button
                                     @if (Model.ScriptOutputInfo.DealNumber < Model.ScriptOutputInfo.NumberOfDeals) 
                                     { <text>hidden</text> }"                                    
                                     >
@@ -79,19 +79,19 @@
                     </div>
                     <div class="dealset-lower-row">
                         <div class="deaslset-button-container">
-                            <button id="saveButton" class="deal-set-button">
+                            <button id="saveButton" class="button-all deal-set-button">
                                 <img class="dealset-img" src="~/assets/save.png"/>
                             </button>
                         </div>
                         <div class="deaslset-button-container">
-                            <button id="retryButton" class="deal-set-button">
+                            <button id="retryButton" class="button-all deal-set-button">
                                 <img class="dealset-img" src="~/assets/retry.png"/>
                             </button>
                         </div>
                         <div class="deaslset-button-container">
                             
                             <button id="trashButton"
-                                    class="deal-set-button red-button">
+                                    class="button-all deal-set-button red-button">
                                 <img class="dealset-img" src="~/assets/trash.png"/>
                             </button>
                         </div>
