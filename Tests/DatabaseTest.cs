@@ -26,6 +26,6 @@ public class DatabaseTest
         var context = new MyDbContext();
 
         var user = context.Users.FirstOrDefault();
-        Console.WriteLine(user?.Username);
+        Console.WriteLine(user?.Username + "  " + Encoding.UTF8.GetString(user?.Password ?? throw new InvalidOperationException()));
     }
 }

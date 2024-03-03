@@ -1,0 +1,30 @@
+@model BridgeScenarios.Models.ViewModels.LoginData
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>login</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login" asp-controller="Account">
+            <div class="form-group">
+                <input asp-for="Username" class="form-control" placeholder="Name" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Password" class="form-control" placeholder="Password" />
+            </div>    
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
