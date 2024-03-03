@@ -18,7 +18,12 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(o => o.LoginPath = new PathString("/account/login"));
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.SlidingExpiration = true;
+        options.AccessDeniedPath = "/Forbidden/";
+    });
 
 var app = builder.Build();
 
@@ -36,8 +41,14 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict
+});
+
 
 app.MapControllerRoute(
     "default",

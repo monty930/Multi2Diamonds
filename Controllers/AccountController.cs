@@ -19,27 +19,38 @@ public class AccountController : Controller
     }
     
     [HttpPost]
-    public ActionResult Login(LoginData loginData)
+    public async Task<ActionResult> Login(LoginData loginData)
     {
         Console.WriteLine(loginData.Username + "   " + string.Join("", loginData.Password));
         var authenticatedUser = _userRepository.GetByUsernameAndPassword(loginData.Username, Encoding.UTF8.GetBytes(loginData.Password));
-        if (authenticatedUser != null)
+        if (authenticatedUser == null)
         {
-            var claims = new[] { new Claim(ClaimTypes.Name, loginData.Username),
-                new Claim(ClaimTypes.Role, "SomeRoleName") };
-
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme, 
-                new ClaimsPrincipal(identity));
-            
-            Console.WriteLine("ok");
-            return RedirectToAction("Index", "Index");
+            return View();
         }
 
-        ModelState.AddModelError("","Login failed. Please check Username and/or password");
-        return View();
+        var claims = new List<Claim>
+        {
+            new (ClaimTypes.Name, loginData.Username),
+        };
+
+        var claimsIdentity = new ClaimsIdentity(
+            claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        var authProperties = new AuthenticationProperties
+        {
+            AllowRefresh = true,
+            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+            IsPersistent = true,
+        };
+
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity),
+            authProperties
+        );
+            
+        Console.WriteLine("ok");
+        return RedirectToAction("Index", "Index", new { area = "" });
     }
 
     // public ActionResult Logout()
