@@ -170,3 +170,12 @@
         line-height: var(--input-line-height);
         overflow: auto;
 }
+
+.inner-container {
+    background-color: var(--text-area-background-color);
+    height: 100%;
+    width: 100%;
+    padding: 3pt 3pt 3pt 5pt;
+    color: var(--main-font-color);
+    font-size: var(--code-font-size);
+}

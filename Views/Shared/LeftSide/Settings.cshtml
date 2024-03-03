@@ -1,34 +1,50 @@
-<div id="settings-content">
+<link rel="stylesheet" href="~/css/leftside/settings.css"/>
+
+<div class="align">
     <div class="left-side-title">
         Settings
     </div>
-    <div class="editor-container">
+    <div class="left-side-content">
         <div class="line-numbers"></div>
-        <div class="left-side-container-inner">
-            Number of deals in set: 
-            <input type="number" id="dealsInSet" value="1" min="1" max="24">
-            <br/>
-            Compiler: 
-            <select id="compiler-choice">
-                <option value="Chai">Chai</option>
-                <option value="Latte">Latte</option>
-            </select>
-            <br/>
-            Vulnerability: 
-            <select id="vulnerability-choice">
-                <option value="Random">Random</option>
-                <option value="None">None</option>
-                <option value="NS">NS</option>
-                <option value="EW">EW</option>
-                <option value="All">All</option>
-            </select>
-            <br/>
-            Randomly flip deal: 
-            <select id="flip-choice">
-                <option value="no-flip">--</option>
-                <option value="90st">90&deg;</option>
-                <option value="180st">180&deg;</option>
-            </select>
+        <div class="form-container">
+            <div class="inner-container settings-container">
+                <div class="settings-names">
+                    Number of deals in set:<br/>
+                    Compiler:<br/>
+                    Vulnerability:<br/>
+                    Randomly flip deal:<br/>
+                    Dealer: <br/>
+                </div>
+                <div class="settings-option-column">
+                    <input type="number" id="dealsInSet" value="1" min="1" max="24"><br/>
+                    
+                    <div class="settings-options">
+                        <select id="compiler-choice">
+                            <option value="Chai">Chai</option>
+                            <option value="Latte">Latte</option>
+                        </select><br/>
+                    </div>
+                    <select id="vulnerability-choice">
+                        <option value="Random">Random</option>
+                        <option value="None">None</option>
+                        <option value="NS">NS</option>
+                        <option value="EW">EW</option>
+                        <option value="All">All</option>
+                    </select><br/>
+                    <select id="flip-choice">
+                        <option value="no-flip">--</option>
+                        <option value="90st">90&deg;</option>
+                        <option value="180st">180&deg;</option>
+                    </select><br/>
+                    <select id="dealer-choice">
+                        <option value="Random">Random</option>
+                        <option value="N">N</option>
+                        <option value="E">E</option>
+                        <option value="S">S</option>
+                        <option value="W">W</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 </div>

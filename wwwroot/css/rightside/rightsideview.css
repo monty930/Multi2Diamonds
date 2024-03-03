@@ -92,6 +92,25 @@
     place-items: flex-end;
 }
 
+.deal-number-info {
+    color: var(--main-font-color);
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    display: flex;
+    padding: 5%
+}
+
+.num-of-tries {
+    color: var(--main-font-color);
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    display: flex;
+    align-items: flex-end;
+    padding: 5%
+}
+
 /* ------------------ n-row ------------------ */
 
 .row-n {
