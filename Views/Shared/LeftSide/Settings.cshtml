@@ -1,0 +1,34 @@
+<div id="settings-content">
+    <div class="left-side-title">
+        Settings
+    </div>
+    <div class="editor-container">
+        <div class="line-numbers"></div>
+        <div class="left-side-container-inner">
+            Number of deals in set: 
+            <input type="number" id="dealsInSet" value="1" min="1" max="24">
+            <br/>
+            Compiler: 
+            <select id="compiler-choice">
+                <option value="Chai">Chai</option>
+                <option value="Latte">Latte</option>
+            </select>
+            <br/>
+            Vulnerability: 
+            <select id="vulnerability-choice">
+                <option value="Random">Random</option>
+                <option value="None">None</option>
+                <option value="NS">NS</option>
+                <option value="EW">EW</option>
+                <option value="All">All</option>
+            </select>
+            <br/>
+            Randomly flip deal: 
+            <select id="flip-choice">
+                <option value="no-flip">--</option>
+                <option value="90st">90&deg;</option>
+                <option value="180st">180&deg;</option>
+            </select>
+        </div>
+    </div>
+</div>

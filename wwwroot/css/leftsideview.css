@@ -1,0 +1,5 @@
+.left-side-title {
+    color : var(--main-font-color);
+    font: 1.8em var(--bs-font-sans-serif);
+    font-weight: 550;
+}

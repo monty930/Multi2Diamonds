@@ -5,24 +5,15 @@ const buttons =
         '.button-settings, ' +
         '.button-input');
 
-
-let originalInputContent, originalDynamicContent, codeContent;
-
-let setTabDynamics = (content) => {
-    document.getElementById("tab-dynamics").innerHTML = content;
-}
-
 let setDynamicContent = (content) => {
     document.getElementById("dynamic-content").innerHTML = content;
 }
 
-let saveCodeContent = () => {
-    codeContent = document.getElementById("codeInput").value;
+let hide_left_elems = () => {
+    document.getElementById('input-dynamic').classList.add('hidden');
+    document.getElementById('lightbulb-dynamic').classList.add('hidden');
+    document.getElementById('settings-dynamic').classList.add('hidden');
 }
-
-let restoreOriginalInputContent = () => setTabDynamics(originalInputContent);
-
-let restoreCodeContent = () => document.getElementById("codeInput").innerHTML = codeContent;
 
 MyButton = function ({elementId, listener}) {
     this.elementId = elementId;
@@ -65,9 +56,6 @@ MyButton = function ({elementId, listener}) {
     }
 
     this.defaultListener = () => {
-        if (MyButtons.activeButtonId === MyButtons.input.elementId)
-            saveCodeContent();
-
         MyButtons.activeButtonId = this.elementId;
     }
 
@@ -81,21 +69,18 @@ MyButtons = {
     input: new MyButton({
         elementId: "inputButton",
         listener: () => {
-            // Restore the original content
-            restoreOriginalInputContent();
-            restoreCodeContent();
-            updateLineNumbers();
-
             // if deactivated, do nothing
             if (MyButtons.input.isDeactivated())
                 return;
+            
+            hide_left_elems();
+            document.getElementById('input-dynamic').classList.remove('hidden');
+            
+            updateLineNumbers();
 
             MyButtons.input.setActivePressed(true);
             MyButtons.lightbulb.setActivePressed(false);
             MyButtons.settings.setActivePressed(false);
-
-            MyButtons.play.setDeactivated(false);
-            MyButtons.generateDealSet.setDeactivated(false);
         }
     }),
 
@@ -106,24 +91,13 @@ MyButtons = {
             // if deactivated, do nothing
             if (MyButtons.lightbulb.isDeactivated())
                 return;
-            
-            // check if we are switching from settings tab. If so, save the settings in settings-hidden-content
-            if (MyButtons.settings.isActivePressed()) {
-                console.log('settings tab is active');
-                var dealsInSet = document.getElementById('dealsInSet').value;
-                console.log(dealsInSet);
-                document.getElementById('settings-hidden-content').innerHTML = document.getElementById('tab-dynamics').innerHTML;
-            }
 
-            var readmeHTML = document.getElementById('readme-hidden-content').innerHTML;
-            setTabDynamics(readmeHTML);
+            hide_left_elems();
+            document.getElementById('lightbulb-dynamic').classList.remove('hidden');
 
             MyButtons.input.setActivePressed(false);
             MyButtons.lightbulb.setActivePressed(true);
             MyButtons.settings.setActivePressed(false);
-
-            MyButtons.play.setDeactivated(true);
-            MyButtons.generateDealSet.setDeactivated(true);
         }
     }),
 
@@ -135,15 +109,12 @@ MyButtons = {
             if (MyButtons.settings.isDeactivated())
                 return;
 
-            var settingsHTML = document.getElementById('settings-hidden-content').innerHTML;
-            setTabDynamics(settingsHTML);
+            hide_left_elems();
+            document.getElementById('settings-dynamic').classList.remove('hidden');
 
             MyButtons.input.setActivePressed(false);
             MyButtons.lightbulb.setActivePressed(false);
             MyButtons.settings.setActivePressed(true);
-
-            MyButtons.play.setDeactivated(true);
-            MyButtons.generateDealSet.setDeactivated(true);
         }
     }),
 
@@ -180,9 +151,6 @@ MyButtons = {
                     MyButtons.error.rebind();
                 })
                 .catch(error => console.error('Error:', error));
-
-            MyButtons.play.setDeactivated(false);
-            MyButtons.generateDealSet.setDeactivated(false);
         },
     }),
 
@@ -501,12 +469,6 @@ let updateLineNumbers = function () {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    const dynamicContent = document.getElementById('dynamic-content');
-    originalDynamicContent = dynamicContent.innerHTML; // Store the original content
-
-    const tabsDynamicContent = document.getElementById('tab-dynamics');
-    originalInputContent = tabsDynamicContent.innerHTML; // Store the original input content
-
     // Check if a saved scroll position exists and restore it
     const savedScrollTop = localStorage.getItem('textareaScrollTop');
     if (savedScrollTop !== null) {
