@@ -23,6 +23,17 @@ public class Hand
     public string Clubs { get; set; } = string.Empty;
 
     public IEnumerable<string> Suits => new List<string> { Spades, Hearts, Diamonds, Clubs };
+
+    public static Hand FromString(string s)
+    {
+        string[] suits = s.Split(".");
+        return new Hand(suits);
+    }
+    
+    public override string ToString()
+    {
+        return $"{Spades}.{Hearts}.{Diamonds}.{Clubs}";
+    }
 }
 
 public static class HandExtensions
