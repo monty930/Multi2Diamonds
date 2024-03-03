@@ -5,8 +5,9 @@
     --button-w: calc(0.3em + 7vw);
     --button-h: calc(0.3em + 8vh);
     --code-font-size: calc(0.1em + min(3.5vh, 1.5vw));
-    --input-line-height: calc(0.3em + 3vh);
-    --input-box-height: calc(20 * (0.29em + 3vh));
+    --input-line-height: calc(1.2em);
+    --max-box-height: calc(77vh);
+    --input-box-height: calc(16 * (var(--input-line-height) + 0.77em));
     --button-face-color: rgb(116, 116, 116);
     --button-shadow: rgb(68, 68, 68);
     --button-hover: rgb(138, 138, 138);

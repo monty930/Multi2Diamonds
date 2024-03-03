@@ -447,26 +447,20 @@ let updateLineNumbers = function () {
         const lineNumbers = document.getElementById('lineNumbers');
         const lineCount = textarea.value.split('\n').length;
 
-        // Get the computed line height of the textarea for accurate calculations
         const computedStyle = window.getComputedStyle(textarea);
-        const lineHeight = parseInt(computedStyle.lineHeight, 10); // Convert the line-height value to an integer
-
-        // Calculate visible lines based on textarea height and the computed line height
+        const lineHeight = parseInt(computedStyle.lineHeight, 10);
         const visibleLines = Math.floor(textarea.clientHeight / lineHeight);
 
-        // Ensure we cover all lines that have content or are within the initial visible area
         const totalLines = Math.max(lineCount, visibleLines);
 
         let numbers = '';
         for (let i = 1; i <= totalLines; i++) {
-            // Apply "used-line" class to lines with content, and "unused-line" to empty but visible lines
             numbers += i <= lineCount ? `<span class="used-line">${i}</span>\n` : `<span class="unused-line">${i}</span>\n`;
         }
 
         lineNumbers.innerHTML = numbers;
     }
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
     // Check if a saved scroll position exists and restore it
