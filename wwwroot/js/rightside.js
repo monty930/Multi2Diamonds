@@ -119,8 +119,7 @@ let add_deal_in_pbn = (pbnString, newDealPbnString) => {
     let newDeal = newDealPbnString.split('\n')[0];
     deals.push(newDeal);
     deals.push(numOfTries);
-    let pbn_with_added = deals.join('\n');
-    return pbn_with_added;
+    return deals.join('\n');
 }
 
 let remove_deal_in_pbn = (pbnString, dealNum) => {

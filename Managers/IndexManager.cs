@@ -1,7 +1,5 @@
-using System.Text;
 using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
-using BridgeScenarios.Redeal;
 
 namespace BridgeScenarios.Managers;
 
