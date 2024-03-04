@@ -6,14 +6,25 @@ namespace BridgeScenarios.Repositories;
 public class UserRepository
 {
     private readonly MyDbContext _context = new();
-    
-    public User? GetByUsernameAndPassword(string username, string password)
-    {
-        return _context.Users.FirstOrDefault(u => u.Username==username & u.Password==password);
-    }
 
+    public bool AddUser(User user)
+    {
+        _context.Users.Add(user);
+        return _context.SaveChanges() == 1;
+    }
+    
     public string? GetPassword(string username)
     {
         return _context.Users.Where(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
+    }
+
+    public bool IsEmailRegistered(string email)
+    {
+        return _context.Users.Any(u => u.Email == email);
+    }
+
+    public bool IsUsernameRegistered(string username)
+    {
+        return _context.Users.Any(u => u.Username == username);
     }
 }

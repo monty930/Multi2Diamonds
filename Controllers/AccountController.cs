@@ -17,19 +17,32 @@ public class AccountController : Controller
 
     public async Task<IActionResult> Login()
     {
-        return View();
+        return View(new LoginViewModel());
     }
     
     [HttpPost]
-    public async Task<ActionResult> Login(User user)
+    public async Task<ActionResult> Login(LoginViewModel model)
     {
+        var user = model.User;
         string? storedPassword = _userRepository.GetPassword(user.Username);
-        if (storedPassword is null) 
-            return View();
+        if (storedPassword is null)
+        {
+            
+            return View(new LoginViewModel
+            {
+                LoginError = "Invalid username or password."
+            });
+        }
+            
         
         var result = _hasher.VerifyHashedPassword(user, storedPassword, user.Password);
         if (result == PasswordVerificationResult.Failed)
-            return View();
+        {
+            return View(new LoginViewModel
+            {
+                LoginError = "Invalid username or password"
+            });
+        }
         
         var claims = new List<Claim>
         {
@@ -53,6 +66,43 @@ public class AccountController : Controller
         );
         
         return RedirectToAction("Index", "Index", new { area = "" });
+    }
+
+
+    public async Task<ActionResult> Signup(LoginViewModel model)
+    {
+        var user = model.User;
+        if (_userRepository.IsEmailRegistered(user.Email))
+        {
+            return View("Login", new LoginViewModel
+            {
+                SignupError = "Email already in use."
+            });
+        }
+
+        if (_userRepository.IsUsernameRegistered(user.Username))
+        {
+            return View("Login", new LoginViewModel
+            {
+                SignupError = "Username already in use."
+            });
+        }
+
+        user.Password = _hasher.HashPassword(user, user.Password);
+        
+        if (!_userRepository.AddUser(user))
+        {
+            return View("Login", new LoginViewModel
+            {
+                SignupError = "Internal server error, please try again."
+            });
+        }
+
+        return View("Login", new LoginViewModel
+        {
+            LoginError = "Registration successful."
+        });
+
     }
 
     // public ActionResult Logout()

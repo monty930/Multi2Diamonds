@@ -31,7 +31,7 @@
         background-image: url('../assets/login2d4c.jpg');
     }
 
-    .signup {
+    .login {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -92,12 +92,12 @@
                 outline: none;
                 box-shadow: none;
                 display: block;
-                height: 30px;
-                line-height: 30px;
+                height: 40px;
+                line-height: 40px;
                 padding: 8px 15px;
                 border-bottom: 1px solid #eee;
                 width: 100%;
-                font-size: 12px;
+                font-size: 14px;
 
                 &:last-child {
                     border-bottom: 0;
@@ -109,15 +109,15 @@
         }
 
         .submit-btn {
-            background-color: rgba(0,0,0,0.4);
-            color: rgba(256,256,256,0.7);
-            border:0;
+            background-color: #000a;
+            color: rgba(256,256,256,0.85);
+            border: 0;
             border-radius: 15px;
             display: block;
             margin: 15px auto;
             padding: 15px 45px;
             width: 100%;
-            font-size: 13px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             opacity: 1;
@@ -126,12 +126,18 @@
 
             &:hover {
                 transition: all .3s ease;
-                background-color: rgba(0,0,0,0.8);
+                background-color: rgba(0,0,0,0.4);
             }
+        }
+
+        .error {
+            color: #fff;
+            width: 100%;
+            font-size: 12px;
         }
     }
 
-    .login {
+    .signup {
         position: absolute;
         top: 20%;
         left: 0;
@@ -192,8 +198,8 @@
                     outline: none;
                     box-shadow: none;
                     display: block;
-                    height: 30px;
-                    line-height: 30px;
+                    height: 40px;
+                    line-height: 40px;
                     padding: 8px 15px;
                     border-bottom: 1px solid #eee;
                     width: 100%;
@@ -209,8 +215,8 @@
             }
 
             .submit-btn {
-                background-color: #6B92A4;
-                color: rgba(256,256,256,0.7);
+                background-color: #b77f1c;
+                color: rgba(256,256,256,0.85);
                 border:0;
                 border-radius: 15px;
                 display: block;
@@ -263,6 +269,15 @@
             visibility: visible;
             -webkit-transition: all .3s ease;
         }
+
+        .error {
+            opacity: 0.9;
+            color: #8f2211;
+            width: 100%;
+            font-size: 12px;
+        }
     }
+    
+    
 }
 

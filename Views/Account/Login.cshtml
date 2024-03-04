@@ -1,4 +1,4 @@
-@model BridgeScenarios.Models.DbModels.User
+@model BridgeScenarios.Models.ViewModels.LoginViewModel
 
 @{
     Layout = "_Layout";
@@ -15,27 +15,46 @@
 
 <div class="site-container">
 	<div class="form-container">
-    	<div class="signup">
-    		<h2 class="form-title" id="signup"><span>or</span>Log in</h2>
-    		<div class="form-holder">
-			    <input type="text" class="input" placeholder="Username" asp-for="Username" id="login-username"/>
-			    <input type="password" class="input" placeholder="Password" asp-for="Password" id="login-password"/>
-    		</div>
-    		<button class="submit-btn">Log in</button>
-    	</div>
-    	<div class="login slide-up">
-    		<div class="center">
-    			<h2 class="form-title" id="login"><span>or</span>Sign up</h2>
-    			<div class="form-holder">
-    				
-				    <input type="text" class="input" placeholder="Username" asp-for="Username" id="signup-username"/>
-				    <input type="password" class="input" placeholder="Password" asp-for="Password" id="signup-password"/>
-				    <input type="email" class="input" placeholder="Email" asp-for="Email" id="signup-email"/>
-    			</div>
-    			<button class="submit-btn">Sign up</button>
-    		</div>
-    	</div>
-    </div>
+		<form asp-controller="Account" method="post" id="login-form">
+		
+			<div class="login">
+				<h2 class="form-title" id="login"><span>or</span>Log in</h2>
+				<div class="form-holder">
+					<input type="text" class="input" placeholder="Username" asp-for="User.Username" id="login-username"/>
+					<input type="password" class="input" placeholder="Password" asp-for="User.Password" id="login-password"/>
+				</div>
+				<button class="submit-btn" asp-action="Login">Log in</button>
+				@if (Model.LoginError.Length > 0)
+				{
+					<div class="error">
+						@Model.LoginError
+					</div>
+				}
+			</div>
+		</form>
+		
+		<form asp-controller="Account" method="post" id="signup-form">
+		<div class="signup slide-up">
+			<div class="center">
+				<h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+				<div class="form-holder">
+
+					<input type="text" class="input" placeholder="Username" asp-for="User.Username" id="signup-username"/>
+					<input type="password" class="input" placeholder="Password" asp-for="User.Password" id="signup-password"/>
+					<input type="email" class="input" placeholder="Email" asp-for="User.Email" id="signup-email"/>
+				</div>
+				<button class="submit-btn" asp-action="Signup">Sign up</button>
+				@if (Model.LoginError.Length > 0)
+				{
+					<div class="error">
+						@Model.SignupError
+					</div>
+				}
+			</div>
+		</div>
+			
+		</form>
+	</div>
 </div>
 
 

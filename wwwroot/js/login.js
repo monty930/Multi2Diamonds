@@ -1,28 +1,28 @@
 console.clear();
 
-const loginBtn = document.getElementById('login');
-const signupBtn = document.getElementById('signup');
+const signupButton = document.getElementById('signup');
+const loginButton = document.getElementById('login');
 
-loginBtn.addEventListener('click', (e) => {
+signupButton.addEventListener('click', (e) => {
     let parent = e.target.parentNode.parentNode;
     Array.from(e.target.parentNode.parentNode.classList).find((element) => {
         if(element !== "slide-up") {
             parent.classList.add('slide-up')
         }else{
-            signupBtn.parentNode.classList.add('slide-up')
+            loginButton.parentNode.classList.add('slide-up')
             parent.classList.remove('slide-up')
         }
     });
 });
 
-signupBtn.addEventListener('click', (e) => {
+loginButton.addEventListener('click', (e) => {
     console.log("aadw")
     let parent = e.target.parentNode;
     Array.from(e.target.parentNode.classList).find((element) => {
         if(element !== "slide-up") {
             parent.classList.add('slide-up')
         }else{
-            loginBtn.parentNode.parentNode.classList.add('slide-up')
+            signupButton.parentNode.parentNode.classList.add('slide-up')
             parent.classList.remove('slide-up')
         }
     });
