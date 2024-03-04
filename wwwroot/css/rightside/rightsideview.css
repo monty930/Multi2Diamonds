@@ -67,7 +67,7 @@
     color: var(--main-font-color);
 }
 
-#suit-img {
+.suit-img {
     width: 30px;
     display: block;
     clear: both;

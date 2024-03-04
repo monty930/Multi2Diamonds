@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="~/css/rightside/dealset.css"/>
 
-@model BridgeScenarios.Models.ViewModels.IndexViewModel
 <div class="right-view-container">
     <div class="right-view-buttons">
         <div class="generate-button-container">
@@ -14,9 +13,9 @@
             </button>
         </div>
     </div>
-    <div>
+    <div class="dealsetonedeal">
         @{
-            await Html.RenderPartialAsync("RightSide/DealSetOneDeal", Model);
+            await Html.RenderPartialAsync("RightSide/DealSetOneDeal");
         }
     </div>
 </div>

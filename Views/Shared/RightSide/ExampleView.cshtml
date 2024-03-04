@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="~/css/rightside/exampleview.css"/>
-
-@model BridgeScenarios.Models.ViewModels.IndexViewModel
 <div class="right-view-container">
     <div class="right-view-buttons">
         <div class="generate-button-container">
@@ -18,9 +15,9 @@
         <div class="row-n has-handsuits">
             <div>
             </div>
-            <div class="hands">
+            <div class="hands hand-north">
                 @{
-                    await Html.RenderPartialAsync("Hand", Model.Deal.North);
+                    await Html.RenderPartialAsync("Hand");
                 }
             </div>
             <div>
@@ -32,30 +29,27 @@
                     <div></div>
                     <div class="hands hand-west">
                         @{
-                            await Html.RenderPartialAsync("Hand", Model.Deal.West);
+                            await Html.RenderPartialAsync("Hand");
                         }
                     </div>
                 </div>
 
                 @await Html.PartialAsync("Compass")
 
-                <div class="hands">
+                <div class="hands hand-east">
                     @{
-                        await Html.RenderPartialAsync("Hand", Model.Deal.East);
+                        await Html.RenderPartialAsync("Hand");
                     }
                 </div>
             </div>
         </div>
         <div>
             <div class="row-s">
-                <div class="num-of-tries">
-                    @{
-                        <div># of tries: @Model.Tries</div>
-                    }
+                <div id="num-of-tries" class="num-of-tries">
                 </div>
-                <div class="hands">
+                <div class="hands hand-south">
                     @{
-                        await Html.RenderPartialAsync("Hand", Model.Deal.South);
+                        await Html.RenderPartialAsync("Hand");
                     }
                 </div>
                 <div></div>

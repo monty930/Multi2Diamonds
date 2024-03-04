@@ -3,6 +3,9 @@ using BridgeScenarios.Models.ViewModels;
 using BridgeScenarios.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BridgeScenarios.Controllers;
 
@@ -16,17 +19,6 @@ public class IndexController : Controller
     {
         return View("Index", new IndexViewModel());
     }
-
-    [EnableCors]
-    [HttpPost]
-    public async Task<IActionResult> GenerateExample([FromForm] string textInput)
-    {
-        var model = await _indexManager.GenerateExample(new IndexViewModel
-        {
-            TextInput = textInput
-        });
-        return PartialView("RightSideView", model);
-    }
     
     [EnableCors]
     [HttpPost]
@@ -36,7 +28,58 @@ public class IndexController : Controller
         {
             TextInput = textInput
         });
-        return PartialView("RightSideView", model);
+        
+        var pbnString = model.ScriptOutput;
+        var htmlContent = await this.RenderViewAsync("RightSideView", model, true);
+        return Json(new { htmlContent = htmlContent, pbnString = pbnString });
+    }
+    
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> GenerateExample([FromForm] string textInput)
+    {
+        var model = await _indexManager.GenerateExample(new IndexViewModel
+        {
+            TextInput = textInput
+        });
+        
+        var pbnString = model.ScriptOutput;
+        var htmlContent = await this.RenderViewAsync("RightSideView", model, true);
+        return Json(new { htmlContent = htmlContent, pbnString = pbnString });
+    }
+
+// This method is to render a view to string
+    public async Task<string> RenderViewAsync<TModel>(string viewName, TModel model, bool partial = false)
+    {
+        if (string.IsNullOrEmpty(viewName))
+        {
+            viewName = this.ControllerContext.ActionDescriptor.ActionName;
+        }
+
+        this.ViewData.Model = model;
+
+        using (var writer = new StringWriter())
+        {
+            IViewEngine viewEngine = HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
+            ViewEngineResult viewResult = viewEngine.FindView(this.ControllerContext, viewName, !partial);
+
+            if (viewResult.Success == false)
+            {
+                return $"A view with the name {viewName} could not be found";
+            }
+
+            ViewContext viewContext = new ViewContext(
+                this.ControllerContext,
+                viewResult.View,
+                this.ViewData,
+                this.TempData,
+                writer,
+                new HtmlHelperOptions()
+            );
+
+            await viewResult.View.RenderAsync(viewContext);
+            return writer.GetStringBuilder().ToString();
+        }
     }
     
     [EnableCors]
