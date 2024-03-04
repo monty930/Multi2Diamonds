@@ -1,18 +1,19 @@
-const buttons =
-    document.querySelectorAll('' +
-        '.button-save, ' +
-        '.button-readme, ' +
-        '.button-settings, ' +
-        '.button-input');
-
 let setDynamicContent = (content) => {
     document.getElementById("dynamic-content").innerHTML = content;
 }
 
-let hide_left_elems = () => {
+let show_one_left_elem = (visible_id) => {
     document.getElementById('input-dynamic').classList.add('hidden');
     document.getElementById('lightbulb-dynamic').classList.add('hidden');
     document.getElementById('settings-dynamic').classList.add('hidden');
+    document.getElementById(visible_id).classList.remove('hidden');
+}
+
+let set_one_tab_active = (button) => {
+    MyButtons.input.setActivePressed(false);
+    MyButtons.lightbulb.setActivePressed(false);
+    MyButtons.settings.setActivePressed(false);
+    button.setActivePressed(true);
 }
 
 MyButton = function ({elementId, listener}) {
@@ -69,18 +70,12 @@ MyButtons = {
     input: new MyButton({
         elementId: "inputButton",
         listener: () => {
-            // if deactivated, do nothing
             if (MyButtons.input.isDeactivated())
                 return;
 
-            hide_left_elems();
-            document.getElementById('input-dynamic').classList.remove('hidden');
-
+            show_one_left_elem('input-dynamic');
+            set_one_tab_active(MyButtons.input);
             updateLineNumbers();
-
-            MyButtons.input.setActivePressed(true);
-            MyButtons.lightbulb.setActivePressed(false);
-            MyButtons.settings.setActivePressed(false);
         }
     }),
 
@@ -88,16 +83,11 @@ MyButtons = {
     lightbulb: new MyButton({
         elementId: "lightbulbButton",
         listener: function () {
-            // if deactivated, do nothing
             if (MyButtons.lightbulb.isDeactivated())
                 return;
 
-            hide_left_elems();
-            document.getElementById('lightbulb-dynamic').classList.remove('hidden');
-
-            MyButtons.input.setActivePressed(false);
-            MyButtons.lightbulb.setActivePressed(true);
-            MyButtons.settings.setActivePressed(false);
+            show_one_left_elem('lightbulb-dynamic');
+            set_one_tab_active(MyButtons.lightbulb);
         }
     }),
 
@@ -105,16 +95,11 @@ MyButtons = {
     settings: new MyButton({
         elementId: "settingsButton",
         listener: function () {
-            // if deactivated, do nothing
             if (MyButtons.settings.isDeactivated())
                 return;
 
-            hide_left_elems();
-            document.getElementById('settings-dynamic').classList.remove('hidden');
-
-            MyButtons.input.setActivePressed(false);
-            MyButtons.lightbulb.setActivePressed(false);
-            MyButtons.settings.setActivePressed(true);
+            show_one_left_elem('settings-dynamic');
+            set_one_tab_active(MyButtons.settings);
         }
     }),
 
