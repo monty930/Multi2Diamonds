@@ -5,6 +5,7 @@ using BridgeScenarios.Models.ViewModels;
 using BridgeScenarios.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BridgeScenarios.Controllers;
@@ -12,6 +13,7 @@ namespace BridgeScenarios.Controllers;
 public class AccountController : Controller
 {
     private readonly UserRepository _userRepository = new();
+    private readonly PasswordHasher<User> _hasher = new ();
 
     public async Task<IActionResult> Login()
     {
@@ -19,18 +21,19 @@ public class AccountController : Controller
     }
     
     [HttpPost]
-    public async Task<ActionResult> Login(LoginData loginData)
+    public async Task<ActionResult> Login(User user)
     {
-        Console.WriteLine(loginData.Username + "   " + string.Join("", loginData.Password));
-        var authenticatedUser = _userRepository.GetByUsernameAndPassword(loginData.Username, Encoding.UTF8.GetBytes(loginData.Password));
-        if (authenticatedUser == null)
-        {
+        string? storedPassword = _userRepository.GetPassword(user.Username);
+        if (storedPassword is null) 
             return View();
-        }
-
+        
+        var result = _hasher.VerifyHashedPassword(user, storedPassword, user.Password);
+        if (result == PasswordVerificationResult.Failed)
+            return View();
+        
         var claims = new List<Claim>
         {
-            new (ClaimTypes.Name, loginData.Username),
+            new (ClaimTypes.Name, user.Username),
         };
 
         var claimsIdentity = new ClaimsIdentity(
@@ -48,8 +51,7 @@ public class AccountController : Controller
             new ClaimsPrincipal(claimsIdentity),
             authProperties
         );
-            
-        Console.WriteLine("ok");
+        
         return RedirectToAction("Index", "Index", new { area = "" });
     }
 
