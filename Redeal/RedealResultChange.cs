@@ -75,8 +75,6 @@ public class RedealResultChange
         var dealSplit = Regex.Split(deal, @"\n\nTries");
         deal = dealSplit[0];
         
-        Console.WriteLine(deal);
-        
         var splitOutput = Regex.Split(rawOutput, @"\nTries");
         var tries = splitOutput[1];
         

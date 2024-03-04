@@ -71,8 +71,12 @@ let init_deal_generation = () => {
 }
 
 let updateNumOfTries = (pbnString) => {
-    let numOfTries = "1";
-    document.getElementById('num-of-tries').textContent = numOfTries;
+    let numOfTries = pbnString.split('Tries')[1];
+    document.getElementById('num-of-tries').textContent = "Tries" + numOfTries;
+    let currentDealNum = window.localStorage.getItem('CurrentDealNum');
+    let numOfDeals = getNumOfDeals(pbnString);
+    if (document.getElementById('deal-number-info') != null)
+        document.getElementById('deal-number-info').textContent = "Deal: " + currentDealNum + "/" + numOfDeals;
 }
 
 let getNumOfDeals = (pbnString) => {
@@ -106,4 +110,42 @@ let disable_right_buttons = () => {
         MyButtons.addDeal.setDeactivated(true);
         MyButtons.addDeal.element.classList.add('hidden');
     }
+}
+
+let add_deal_in_pbn = (pbnString, newDealPbnString) => {
+    let deals = pbnString.split('\n\nTries');
+    let numOfTries = "\nTries" + deals[deals.length - 1];
+    deals.pop();
+    let newDeal = newDealPbnString.split('\n')[0];
+    deals.push(newDeal);
+    deals.push(numOfTries);
+    let pbn_with_added = deals.join('\n');
+    return pbn_with_added;
+}
+
+let remove_deal_in_pbn = (pbnString, dealNum) => {
+    let deals = pbnString.split('\n\nTries');
+    let numOfTries = "\n\nTries" + deals[deals.length - 1];
+    deals.pop();
+    deals = deals[0].split('\n');
+    let dealsNew = [];
+    for (let i = 0; i < deals.length; i++) {
+        if (i !== dealNum - 1) {
+            dealsNew.push(deals[i]);
+        }
+    }
+    let pbn_with_removed = dealsNew.join('\n');
+    pbn_with_removed += numOfTries;
+    return pbn_with_removed;
+}
+
+let replace_deal_in_pbn = (pbnString, dealNum, newDealPbnString) => {
+    let deals = pbnString.split('\n\nTries');
+    let numOfTries = "\n\nTries" + deals[deals.length - 1];
+    deals.pop();
+    deals = deals[0].split('\n');
+    deals[dealNum - 1] = newDealPbnString.split('\n')[0];
+    let pbn_with_replaced = deals.join('\n');
+    pbn_with_replaced += numOfTries;
+    return pbn_with_replaced;
 }
