@@ -175,12 +175,13 @@ trash = new MyButton({
         event.preventDefault();
         document.getElementById('actionField').value = 'defaultPage';
         let formData = new FormData(document.getElementById('FormGenSc'));
-        fetch('/Index/DeafultPage', {
+        fetch('/Index/DefaultPage', {
             method: 'POST',
             body: formData
         })
         .then(response => response.text())
         .then(html => {
+            console.log("TU " + html);
             document.getElementById('right-partial').innerHTML = html;
             rebind_right_buttons();
         })

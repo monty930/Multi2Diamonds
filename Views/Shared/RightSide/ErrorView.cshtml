@@ -34,9 +34,9 @@
 <div id="log-hidden-content" style="display: none;">
     <div class="log-view-container">
         <div class="logs-output">
-            @if (Model.ScriptOutput != string.Empty)
+            @if (Model.ScriptOutputRaw != string.Empty)
             {
-                <pre>@Model.ScriptOutput</pre>
+                <pre>@Model.ScriptOutputRaw</pre>
             }
         </div>
         <div class="back-button-container">

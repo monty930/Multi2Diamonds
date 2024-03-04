@@ -20,8 +20,6 @@
     else if (Model.RightDisplay == RightViewDisplay.DealSet)
     {
         await Html.RenderPartialAsync("RightSide/DealSetView", Model);
-        // hidden deal set content
-        <div id="dealSetContent" class="hidden" deal-set-data="@Model.ScriptOutputInfo.Output" which-deal=@Model.ScriptOutputInfo.DealNumber></div>
     }
     else
     {

@@ -31,9 +31,9 @@
     <div class="log-view">
         <div class="grid-log-columns">
             <div class="logs-output">
-                @if (Model.ScriptOutput != string.Empty)
+                @if (Model.ScriptOutputRaw != string.Empty)
                 {
-                    <pre>@Model.ScriptOutput</pre>
+                    <pre>@Model.ScriptOutputRaw</pre>
                 }
             </div>
             <div>

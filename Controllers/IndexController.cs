@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using BridgeScenarios.Redeal;
 
 namespace BridgeScenarios.Controllers;
 
@@ -24,12 +25,14 @@ public class IndexController : Controller
     [HttpPost]
     public async Task<IActionResult> GenerateDealSet([FromForm] string textInput)
     {
-        var model = await _indexManager.GenerateDealSet(new IndexViewModel
+        var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput
+            TextInput = textInput,
+            Compiler = new ChaiCompilerSettings(10),
+            RightDisplay = RightViewDisplay.DealSet
         });
 
-        var pbnString = model.ScriptOutput;
+        var pbnString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
         return Json(new { htmlContent, pbnString });
     }
@@ -38,12 +41,14 @@ public class IndexController : Controller
     [HttpPost]
     public async Task<IActionResult> GenerateExample([FromForm] string textInput)
     {
-        var model = await _indexManager.GenerateExample(new IndexViewModel
+        var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput
+            TextInput = textInput,
+            Compiler = new ChaiCompilerSettings(1),
+            RightDisplay = RightViewDisplay.Example
         });
 
-        var pbnString = model.ScriptOutput;
+        var pbnString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
         return Json(new { htmlContent, pbnString });
     }
@@ -52,12 +57,14 @@ public class IndexController : Controller
     [HttpPost]
     public async Task<IActionResult> AddDeal([FromForm] string textInput)
     {
-        var model = await _indexManager.AddDeal(new IndexViewModel
+        var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput
+            TextInput = textInput,
+            Compiler = new ChaiCompilerSettings(1),
+            RightDisplay = RightViewDisplay.DealSet
         });
 
-        var newDealPbnString = model.ScriptOutput;
+        var newDealPbnString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
         return Json(new { htmlContent, newDealPbnString });
     }
@@ -66,16 +73,27 @@ public class IndexController : Controller
     [HttpPost]
     public async Task<IActionResult> RegenerateOne([FromForm] string textInput)
     {
-        var model = await _indexManager.AddDeal(new IndexViewModel
+        var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput
+            TextInput = textInput,
+            Compiler = new ChaiCompilerSettings(1),
+            RightDisplay = RightViewDisplay.DealSet
         });
 
-        var newDealPbnString = model.ScriptOutput;
+        var newDealPbnString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
         return Json(new { htmlContent, newDealPbnString });
     }
-
+    
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> DefaultPage([FromForm] string textInput)
+    {
+        var model = new IndexViewModel();
+        model.RightDisplay = RightViewDisplay.Entry;
+        return PartialView("RightSideView", model);
+    }
+    
     public async Task<string> RenderViewAsync<TModel>(string viewName, TModel model, bool partial = false)
     {
         if (string.IsNullOrEmpty(viewName)) viewName = ControllerContext.ActionDescriptor.ActionName;
@@ -102,14 +120,5 @@ public class IndexController : Controller
             await viewResult.View.RenderAsync(viewContext);
             return writer.GetStringBuilder().ToString();
         }
-    }
-    
-    [EnableCors]
-    [HttpPost]
-    public async Task<IActionResult> DefaultPage([FromForm] string textInput)
-    {
-        var model = new IndexViewModel();
-        model.RightDisplay = RightViewDisplay.Entry;
-        return PartialView("RightSideView", model);
     }
 }
