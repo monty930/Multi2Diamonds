@@ -9,5 +9,5 @@ public class DealSet
     
     public string Name { get; set; } = string.Empty;
     
-    public List<DbDeal> Deals { get; set; } = [];
+    public List<Deal> Deals { get; set; } = [];
 }

@@ -1,19 +1,23 @@
 @* Single hand *@
-@model BridgeScenarios.Models.Hand
+@model string
+@{
+    string[] suits = Model.Split(".");
+}
+
 <div class="suit">
     <img id="suit-img" src="~/assets/spade.png"/>
-    @Html.Raw(Model.Spades)<br>
+    @Html.Raw(suits[0])<br>
 </div>
 <div class="suit">
     <img id="suit-img" src="~/assets/heart.png"/>
-    @Html.Raw(Model.Hearts)<br>
+    @Html.Raw(suits[1])<br>
 </div>
 <div class="suit">
     <img id="suit-img" src="~/assets/diamond.png"/>
     <div> </div>
-    @Html.Raw(Model.Diamonds)<br>
+    @Html.Raw(suits[2])<br>
 </div>
 <div class="suit">
     <img id="suit-img" src="~/assets/club.png"/>
-    @Html.Raw(Model.Clubs)<br>
+    @Html.Raw(suits[3])<br>
 </div>
