@@ -14,6 +14,7 @@ public class DealSet
     
     [StringLength(40)]
     public string Name { get; set; } = string.Empty;
+    public DateTime CreationDate { get; set; } = DateTime.UtcNow;
     
     public List<Deal> Deals { get; set; } = [];
 }

@@ -24,11 +24,11 @@ namespace BridgeScenarios.Migrations
 
             modelBuilder.Entity("BridgeScenarios.Models.DbModels.Deal", b =>
                 {
-                    b.Property<int>("DbDealId")
+                    b.Property<int>("DealId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DbDealId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DealId"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
@@ -65,7 +65,7 @@ namespace BridgeScenarios.Migrations
                         .HasMaxLength(17)
                         .HasColumnType("character varying(17)");
 
-                    b.HasKey("DbDealId");
+                    b.HasKey("DealId");
 
                     b.HasIndex("DealSetId");
 
@@ -79,6 +79,9 @@ namespace BridgeScenarios.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DealSetId"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()

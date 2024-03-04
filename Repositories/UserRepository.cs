@@ -3,26 +3,41 @@ using BridgeScenarios.Models.DbModels;
 
 namespace BridgeScenarios.Repositories;
 
-public class UserRepository : Repository
+public class UserRepository
 {
-    public bool AddUser(User user)
+    private readonly MyDbContext _context = new();
+    
+    public int AddUser(User user)
     {
-        DbContext.Users.Add(user);
-        return DbContext.SaveChanges() == 1;
+        _context.Users.Add(user);
+        _context.SaveChanges();
+        return user.UserId;
     }
+    
+    public void RemoveUser(User user)
+    {
+        _context.Users.Remove(user);
+        _context.SaveChanges();
+    }
+
+    public User? GetByName(string name)
+    {
+        return _context.Users.FirstOrDefault(u => u.Username == name);
+    }
+
     
     public string? GetPassword(string username)
     {
-        return DbContext.Users.Where(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
+        return _context.Users.Where(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
     }
 
     public bool IsEmailRegistered(string email)
     {
-        return DbContext.Users.Any(u => u.Email == email);
+        return _context.Users.Any(u => u.Email == email);
     }
 
     public bool IsUsernameRegistered(string username)
     {
-        return DbContext.Users.Any(u => u.Username == username);
+        return _context.Users.Any(u => u.Username == username);
     }
 }

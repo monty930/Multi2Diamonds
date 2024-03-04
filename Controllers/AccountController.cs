@@ -90,7 +90,7 @@ public class AccountController : Controller
 
         user.Password = _hasher.HashPassword(user, user.Password);
         
-        if (!_userRepository.AddUser(user))
+        if (_userRepository.AddUser(user) == 0)
         {
             return View("Login", new LoginViewModel
             {
