@@ -5,7 +5,7 @@ namespace BridgeScenarios.Database;
 
 public class MyDbContext : DbContext
 {
-    public DbSet<User?> Users { get; set; }
+    public DbSet<User> Users { get; set; }
     public DbSet<DealSet> DealSets { get; set; }
     public DbSet<Deal> Deals { get; set; }
 
