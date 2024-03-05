@@ -14,6 +14,7 @@
     --button-active: var(--button-hover);
     --tabs-img-size: calc(0.3em + min(3.5vh, 1.5vw));
     --line-numbers-width: calc(2.0em + 0.07vw);
+    --root-background-color: rgb(94, 94, 94);
 }
 
 html, body {
