@@ -26,6 +26,7 @@
     <ItemGroup>
         <Folder Include="BridgeTools\"/>
         <Folder Include="Crypto\" />
+        <Folder Include="Migrations\" />
     </ItemGroup>
 
 </Project>

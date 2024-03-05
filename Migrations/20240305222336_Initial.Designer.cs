@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BridgeScenarios.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240304162700_UtcDate")]
-    partial class UtcDate
+    [Migration("20240305222336_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

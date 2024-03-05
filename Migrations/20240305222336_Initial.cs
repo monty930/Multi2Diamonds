@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -17,9 +18,9 @@ namespace BridgeScenarios.Migrations
                 {
                     UserId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Username = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<byte[]>(type: "bytea", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
+                    Username = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Password = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     IsAdmin = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -34,7 +35,8 @@ namespace BridgeScenarios.Migrations
                     DealSetId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,20 +53,21 @@ namespace BridgeScenarios.Migrations
                 name: "Deals",
                 columns: table => new
                 {
-                    DbDealId = table.Column<int>(type: "integer", nullable: false)
+                    DealId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DealSetId = table.Column<int>(type: "integer", nullable: false),
                     Dealer = table.Column<int>(type: "integer", nullable: false),
                     Number = table.Column<int>(type: "integer", nullable: false),
                     Vul = table.Column<int>(type: "integer", nullable: false),
-                    West = table.Column<string>(type: "text", nullable: false),
-                    North = table.Column<string>(type: "text", nullable: false),
-                    East = table.Column<string>(type: "text", nullable: false),
-                    South = table.Column<string>(type: "text", nullable: false)
+                    West = table.Column<string>(type: "character varying(17)", maxLength: 17, nullable: false),
+                    North = table.Column<string>(type: "character varying(17)", maxLength: 17, nullable: false),
+                    East = table.Column<string>(type: "character varying(17)", maxLength: 17, nullable: false),
+                    South = table.Column<string>(type: "character varying(17)", maxLength: 17, nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Deals", x => x.DbDealId);
+                    table.PrimaryKey("PK_Deals", x => x.DealId);
                     table.ForeignKey(
                         name: "FK_Deals_DealSets_DealSetId",
                         column: x => x.DealSetId,
