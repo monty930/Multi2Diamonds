@@ -17,10 +17,9 @@ public class IndexManager
 
         if (scriptOut.ExitCode != 0)
         {
-            scriptOut.RawOutput = "An error occured. Try to generate example deal.\n";
             return new IndexViewModel
             {
-                ScriptOutputRaw = scriptOut.RawOutput,
+                ScriptOutputRaw = scriptOut.RawOutput + "\n",
                 RightDisplay = RightViewDisplay.Error
             };
         }

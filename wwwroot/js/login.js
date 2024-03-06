@@ -16,7 +16,6 @@ signupButton.addEventListener('click', (e) => {
 });
 
 loginButton.addEventListener('click', (e) => {
-    console.log("aadw")
     let parent = e.target.parentNode;
     Array.from(e.target.parentNode.classList).find((element) => {
         if(element !== "slide-up") {

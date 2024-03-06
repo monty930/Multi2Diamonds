@@ -23,20 +23,28 @@ public class IndexController : Controller
         return View("Index", new IndexViewModel());
     }
 
-    [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> GenerateDealSet([FromForm] string textInput)
+    [Route("Index/GenerateDealSet")]
+    public async Task<IActionResult> GenerateDealSet([FromBody] SettingsArgs compilerSettings)
     {
+        CompilerSettings? compiler = compilerSettings.Compiler switch
+        {
+            CompilerChoice.Chai => new ChaiCompilerSettings(compilerSettings),
+            CompilerChoice.Latte => new LatteCompilerSettings(compilerSettings),
+            _ => null
+        };
+        if (compiler == null) throw new ArgumentNullException(nameof(compiler));
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput,
-            Compiler = new ChaiCompilerSettings(10),
-            RightDisplay = RightViewDisplay.DealSet
+            TextInput = compilerSettings.InputText,
+            RightDisplay = RightViewDisplay.DealSet,
+            Compiler = compiler
         });
 
         var pbnString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
-        return Json(new { htmlContent, pbnString });
+        var correctDeal = (model.RightDisplay == RightViewDisplay.DealSet).ToString();
+        return Json(new { htmlContent, pbnString, correctDeal });
     }
 
     [EnableCors]

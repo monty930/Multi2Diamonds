@@ -8,11 +8,14 @@ generateExample = new MyButton({
 
         event.preventDefault();
         document.getElementById('actionField').value = 'generateExample';
-        let formData = new FormData(document.getElementById('FormGenSc'));
+        let compilerSettings = get_compiler_settings();
 
         fetch('/Index/GenerateExample', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: compilerSettings
         })
             .then(response => response.json())
             .then(data => {
@@ -34,18 +37,25 @@ generateDealSet = new MyButton({
 
         event.preventDefault();
         document.getElementById('actionField').value = 'generateDealSet';
-        let formData = new FormData(document.getElementById('FormGenSc'));
+        let compilerSettings = get_compiler_settings();
 
+        console.log(compilerSettings);
+        
         fetch('/Index/GenerateDealSet', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(compilerSettings),
         })
             .then(response => response.json())
             .then(data => {
                 document.getElementById('right-partial').innerHTML = data.htmlContent;
                 rebind_right_buttons();
-                init_new_deal(data.pbnString);
-                disable_right_buttons();
+                if (data.correctDeal === "True") {
+                    init_new_deal(data.pbnString);
+                    disable_right_buttons();
+                }
                 document.getElementById('spinner').style.display = 'none';
             })
             .catch(error => console.error('Error:', error));
@@ -94,11 +104,14 @@ addDeal = new MyButton({
 
         event.preventDefault();
         document.getElementById('actionField').value = 'addDeal';
-        let formData = new FormData(document.getElementById('FormGenSc'));
+        let compilerSettings = get_compiler_settings();
 
         fetch('/Index/AddDeal', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: compilerSettings
         })
             .then(response => response.json())
             .then(data => {
@@ -181,7 +194,6 @@ trash = new MyButton({
         })
         .then(response => response.text())
         .then(html => {
-            console.log("TU " + html);
             document.getElementById('right-partial').innerHTML = html;
             rebind_right_buttons();
         })
@@ -200,11 +212,14 @@ regenerateOne = new MyButton({
 
         event.preventDefault();
         document.getElementById('actionField').value = 'regenerateOne';
-        let formData = new FormData(document.getElementById('FormGenSc'));
+        let compilerSettings = get_compiler_settings();
 
         fetch('/Index/RegenerateOne', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: compilerSettings
         })
         .then(response => response.json())
         .then(data => {
@@ -236,3 +251,15 @@ MyButtons.addDeal = addDeal;
 MyButtons.save = save;
 MyButtons.trash = trash;
 MyButtons.regenerateOne = regenerateOne;
+
+get_compiler_settings = function () {
+    let compilerSettings = {
+        InputText: document.getElementById('codeInput').value,
+        Compiler: document.getElementById('compiler-choice').value,
+        NumberOfDeals: parseInt(document.getElementById('deals-in-set').value),
+        Vul: document.getElementById('vulnerability-choice').value,
+        Dealer: document.getElementById('dealer-choice').value,
+        Flip: document.getElementById('flip-choice').value,
+    };
+    return  compilerSettings
+}
