@@ -100,25 +100,24 @@ public class IndexController : Controller
 
         ViewData.Model = model;
 
-        using (var writer = new StringWriter())
-        {
-            IViewEngine viewEngine =
-                HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
-            var viewResult = viewEngine.FindView(ControllerContext, viewName, !partial);
+        await using var writer = new StringWriter();
+        
+        IViewEngine viewEngine =
+            HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
+        var viewResult = viewEngine.FindView(ControllerContext, viewName, !partial);
 
-            if (viewResult.Success == false) return $"A view with the name {viewName} could not be found";
+        if (viewResult.Success == false) return $"A view with the name {viewName} could not be found";
 
-            var viewContext = new ViewContext(
-                ControllerContext,
-                viewResult.View,
-                ViewData,
-                TempData,
-                writer,
-                new HtmlHelperOptions()
-            );
+        var viewContext = new ViewContext(
+            ControllerContext,
+            viewResult.View,
+            ViewData,
+            TempData,
+            writer,
+            new HtmlHelperOptions()
+        );
 
-            await viewResult.View.RenderAsync(viewContext);
-            return writer.GetStringBuilder().ToString();
-        }
+        await viewResult.View.RenderAsync(viewContext);
+        return writer.GetStringBuilder().ToString();
     }
 }

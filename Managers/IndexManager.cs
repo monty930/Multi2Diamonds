@@ -11,7 +11,7 @@ public class IndexManager
         await File.WriteAllTextAsync(tempFilePath, model.TextInput);
 
         // Generate as many deals, as compiler settings indicates (default: 0).
-        var scriptOut = model.Compiler.Run(tempFilePath, 0);
+        var scriptOut = model.Compiler.Run(tempFilePath);
 
         File.Delete(tempFilePath);
 
