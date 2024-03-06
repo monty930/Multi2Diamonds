@@ -57,7 +57,7 @@ main =
     args <- getArgs
     case args of
       [filePath] -> processFile filePath
-      _          -> putStrLn "Usage: latte_py <input-file>"
+      _          -> putStrLn "Usage: chai_py <input-file>"
 
 -- Get the directory containing the currently running executable.
 getExecutableDir :: IO FilePath

@@ -7,7 +7,6 @@ generateExample = new MyButton({
         init_deal_generation();
 
         event.preventDefault();
-        document.getElementById('actionField').value = 'generateExample';
         let compilerSettings = get_compiler_settings();
 
         fetch('/Index/GenerateExample', {
@@ -15,13 +14,15 @@ generateExample = new MyButton({
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: compilerSettings
+            body: JSON.stringify(compilerSettings),
         })
             .then(response => response.json())
             .then(data => {
                 document.getElementById('right-partial').innerHTML = data.htmlContent;
                 rebind_right_buttons();
-                init_new_deal(data.pbnString);
+                if (data.correctDeal === "True") {
+                    init_new_deal(data.pbnString);
+                }
                 document.getElementById('spinner').style.display = 'none';
             }).catch(error => console.error('Error:', error));
     },
@@ -36,10 +37,7 @@ generateDealSet = new MyButton({
         init_deal_generation();
 
         event.preventDefault();
-        document.getElementById('actionField').value = 'generateDealSet';
         let compilerSettings = get_compiler_settings();
-
-        console.log(compilerSettings);
         
         fetch('/Index/GenerateDealSet', {
             method: 'POST',
@@ -103,7 +101,6 @@ addDeal = new MyButton({
         init_deal_generation();
 
         event.preventDefault();
-        document.getElementById('actionField').value = 'addDeal';
         let compilerSettings = get_compiler_settings();
 
         fetch('/Index/AddDeal', {
@@ -111,24 +108,26 @@ addDeal = new MyButton({
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: compilerSettings
+            body: JSON.stringify(compilerSettings),
         })
             .then(response => response.json())
             .then(data => {
                 document.getElementById('right-partial').innerHTML = data.htmlContent;
-
-                let pbnString = window.localStorage.getItem('PBNstring');
-                let newPbnString = add_deal_in_pbn(pbnString, data.newDealPbnString);
-                let whichDeal = window.localStorage.getItem('CurrentDealNum');
-                let active_deal_num = parseInt(whichDeal) + 1;
-                updateHandSuitContent(newPbnString, active_deal_num);
-                window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
-                window.localStorage.setItem('NumOfDeals', active_deal_num.toString());
-                window.localStorage.setItem('PBNstring', newPbnString);
-                
-                updateNumOfTries(newPbnString);
                 rebind_right_buttons();
-                disable_right_buttons();
+
+                if (data.correctDeal === "True") {
+                    let pbnString = window.localStorage.getItem('PBNstring');
+                    let newPbnString = add_deal_in_pbn(pbnString, data.newDealPbnString);
+                    let whichDeal = window.localStorage.getItem('CurrentDealNum');
+                    let active_deal_num = parseInt(whichDeal) + 1;
+                    updateHandSuitContent(newPbnString, active_deal_num);
+                    window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
+                    window.localStorage.setItem('NumOfDeals', active_deal_num.toString());
+                    window.localStorage.setItem('PBNstring', newPbnString);
+
+                    updateNumOfTries(newPbnString);
+                    disable_right_buttons();
+                }
                 
                 document.getElementById('spinner').style.display = 'none';
             })
@@ -186,7 +185,6 @@ trash = new MyButton({
         }
         // If deleting last deal go to main page
         event.preventDefault();
-        document.getElementById('actionField').value = 'defaultPage';
         let formData = new FormData(document.getElementById('FormGenSc'));
         fetch('/Index/DefaultPage', {
             method: 'POST',
@@ -211,7 +209,6 @@ regenerateOne = new MyButton({
         init_deal_generation();
 
         event.preventDefault();
-        document.getElementById('actionField').value = 'regenerateOne';
         let compilerSettings = get_compiler_settings();
 
         fetch('/Index/RegenerateOne', {
@@ -219,24 +216,26 @@ regenerateOne = new MyButton({
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: compilerSettings
+            body: JSON.stringify(compilerSettings),
         })
         .then(response => response.json())
         .then(data => {
             document.getElementById('right-partial').innerHTML = data.htmlContent;
-
-            let pbnString = window.localStorage.getItem('PBNstring');
-            let whichDeal = window.localStorage.getItem('CurrentDealNum');
-            let active_deal_num = parseInt(whichDeal);
-            let newPbnString = replace_deal_in_pbn(pbnString, active_deal_num, data.newDealPbnString);
-            updateHandSuitContent(newPbnString, active_deal_num);
-            
-            window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
-            window.localStorage.setItem('PBNstring', newPbnString);
-
-            updateNumOfTries(newPbnString);
             rebind_right_buttons();
-            disable_right_buttons();
+            
+            if (data.correctDeal === "True") {
+                let pbnString = window.localStorage.getItem('PBNstring');
+                let whichDeal = window.localStorage.getItem('CurrentDealNum');
+                let active_deal_num = parseInt(whichDeal);
+                let newPbnString = replace_deal_in_pbn(pbnString, active_deal_num, data.newDealPbnString);
+                updateHandSuitContent(newPbnString, active_deal_num);
+
+                window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
+                window.localStorage.setItem('PBNstring', newPbnString);
+
+                updateNumOfTries(newPbnString);
+                disable_right_buttons();
+            }
 
             document.getElementById('spinner').style.display = 'none';
         }).catch(error => console.error('Error:', error));
@@ -253,13 +252,12 @@ MyButtons.trash = trash;
 MyButtons.regenerateOne = regenerateOne;
 
 get_compiler_settings = function () {
-    let compilerSettings = {
+    return  {
         InputText: document.getElementById('codeInput').value,
         Compiler: document.getElementById('compiler-choice').value,
         NumberOfDeals: parseInt(document.getElementById('deals-in-set').value),
         Vul: document.getElementById('vulnerability-choice').value,
         Dealer: document.getElementById('dealer-choice').value,
         Flip: document.getElementById('flip-choice').value,
-    };
-    return  compilerSettings
+    }
 }

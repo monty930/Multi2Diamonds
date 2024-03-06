@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using BridgeScenarios.Redeal;
+using BridgeScenarios.Redeal.Models;
 
 namespace BridgeScenarios.Controllers;
 
@@ -27,72 +28,66 @@ public class IndexController : Controller
     [Route("Index/GenerateDealSet")]
     public async Task<IActionResult> GenerateDealSet([FromBody] SettingsArgs compilerSettings)
     {
-        CompilerSettings? compiler = compilerSettings.Compiler switch
-        {
-            CompilerChoice.Chai => new ChaiCompilerSettings(compilerSettings),
-            CompilerChoice.Latte => new LatteCompilerSettings(compilerSettings),
-            _ => null
-        };
-        if (compiler == null) throw new ArgumentNullException(nameof(compiler));
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = compilerSettings.InputText,
             RightDisplay = RightViewDisplay.DealSet,
-            Compiler = compiler
+            RedealRunner = new RedealRunner(compilerSettings)
         });
 
         var pbnString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
-        var correctDeal = (model.RightDisplay == RightViewDisplay.DealSet).ToString();
+        var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
         return Json(new { htmlContent, pbnString, correctDeal });
     }
 
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> GenerateExample([FromForm] string textInput)
+    [Route("Index/GenerateExample")]
+    public async Task<IActionResult> GenerateExample([FromBody] SettingsArgs compilerSettings)
     {
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput,
-            Compiler = new ChaiCompilerSettings(1),
-            RightDisplay = RightViewDisplay.Example
+            RightDisplay = RightViewDisplay.Example,
+            RedealRunner = new RedealRunner(compilerSettings)
         });
 
         var pbnString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
-        return Json(new { htmlContent, pbnString });
+        var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
+        return Json(new { htmlContent, pbnString, correctDeal });
     }
 
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> AddDeal([FromForm] string textInput)
+    [Route("Index/AddDeal")]
+    public async Task<IActionResult> AddDeal([FromBody] SettingsArgs compilerSettings)
     {
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput,
-            Compiler = new ChaiCompilerSettings(1),
-            RightDisplay = RightViewDisplay.DealSet
+            RightDisplay = RightViewDisplay.DealSet,
+            RedealRunner = new RedealRunner(compilerSettings)
         });
 
         var newDealPbnString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
-        return Json(new { htmlContent, newDealPbnString });
+        var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
+        return Json(new { htmlContent, newDealPbnString, correctDeal });
     }
     
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> RegenerateOne([FromForm] string textInput)
+    public async Task<IActionResult> RegenerateOne([FromBody] SettingsArgs compilerSettings)
     {
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput,
-            Compiler = new ChaiCompilerSettings(1),
-            RightDisplay = RightViewDisplay.DealSet
+            RightDisplay = RightViewDisplay.DealSet,
+            RedealRunner = new RedealRunner(compilerSettings)
         });
 
         var newDealPbnString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
-        return Json(new { htmlContent, newDealPbnString });
+        var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
+        return Json(new { htmlContent, newDealPbnString, correctDeal });
     }
     
     [EnableCors]
