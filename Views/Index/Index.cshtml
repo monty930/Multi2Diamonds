@@ -6,58 +6,15 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/site.css"/>
-    <link rel="stylesheet" href="~/css/log.css"/>
-    <link rel="stylesheet" href="~/css/errorview.css"/>
-    <link rel="stylesheet" href="~/css/entryview.css"/>
-    <link rel="stylesheet" href="~/css/exampleview.css"/>
-    <link rel="stylesheet" href="~/css/rightsideview.css"/>
+    <link rel="stylesheet" href="~/css/buttons.css"/>
+    <link rel="stylesheet" href="~/css/highpriority.css"/>
 </head>
 
 <div class="page-layout">
     <div class="left-panel">
-        <div class="container-for-input">
-            <div class="left-container">
-                <div class="input-section" id="tab-dynamics">
-                    <h4>Enter constraints:</h4>
-                    <form id="FormGenSc" method="post">
-                        <div class="editor-container">
-                            <div class="line-numbers" id="lineNumbers"></div>
-                            <textarea spellcheck="false" asp-for="TextInput"
-                                placeholder="See README for constraints examples." id="codeInput"
-                                oninput="updateLineNumbers()">
-                            </textarea>
-                            <input type="hidden" name="action" id="actionField">
-                            <input class="hidden-submit" type="submit" id="formSubmitGenerateExample" asp-action="GenerateExample">
-                            <input class="hidden-submit" type="submit" id="formSubmitSave" asp-action="Save">
-                        </div>
-                    </form>
-                </div>
-                <div class="left-switches">
-                    <div></div>
-                    <div class="button-cont">
-                        <button id="inputButton" class="button-input button-active-tab">
-                            <img id="tabs-input" class="tabs-img" src="~/assets/input.png"/>
-                        </button>
-                    </div>
-                    <div class="button-cont">
-                        <button id="lightbulbButton" class="button-readme">
-                            <img id="tabs-lightbulb" class="tabs-img" src="~/assets/lightbulb.png"/>
-                        </button>
-                    </div>
-                    <div class="button-cont">
-                        <button id="settingsButton" class="button-settings">
-                            <img id="tabs-settings" class="tabs-img" src="~/assets/settings.png"/>
-                        </button>
-                    </div>
-                    <div class="button-cont">
-                        <button id="saveButton" class="button-save">
-                            <img id="tabs-save" class="tabs-img" src="~/assets/save.png"/>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div></div>
-        </div>
+        @{
+            await Html.RenderPartialAsync("LeftSideView", Model);
+        }
     </div>
     <div id="right-partial">
         @{
@@ -67,3 +24,9 @@
 </div>
 
 <script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/rightside.js"></script>
+<script type="text/javascript" src="/js/leftside.js"></script>
+<script type="text/javascript" src="/js/buttons/buttons.js"></script>
+<script type="text/javascript" src="/js/buttons/dealbuttons.js"></script>
+<script type="text/javascript" src="/js/buttons/tabbuttons.js"></script>
+<script type="text/javascript" src="/js/buttons/errorbuttons.js"></script>

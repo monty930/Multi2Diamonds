@@ -1,0 +1,181 @@
+.left-panel {
+    background: linear-gradient(
+            90deg, rgba(88, 88, 88, 1) 0%, 
+            rgba(88, 88, 88, 1) 99%, 
+            rgb(114, 114, 114) 100%);
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+
+.left-side-title {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: var(--main-font-color);
+    font-weight: 600;
+    height: 100%;
+    width: 100%;
+}
+
+/* --------------- line numbers --------------- */
+
+.line-numbers {
+    background-color: rgb(49, 49, 49);
+    color: var(--main-font-color);
+    padding: 3pt 5pt;
+    overflow: hidden;
+    white-space: pre;
+    font-size: var(--code-font-size);
+    line-height: var(--input-line-height);
+    width: var(--line-numbers-width);
+    height: 100%;
+}
+
+.used-line {
+    color: var(--main-font-color);
+}
+
+.unused-line {
+    color: #888;
+}
+
+/* -------------- left switches --------------- */
+
+.left-switches {
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 15% 15% 15%;
+    grid-template-rows: auto;
+    padding: 0 0 20pt;
+}
+
+.button-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0 0 0 5pt;
+}
+
+.button-tab {
+    border-radius: 0 0 10px 10px;
+}
+
+.button-tab:hover {
+    top: 0;
+}
+
+.button-tab:active {
+    background-color: var(--button-active);
+    box-shadow: 0 2px var(--button-shadow);
+    cursor: default;
+    transform: translateY(0);
+}
+
+.button-active-tab {
+    background-color: var(--button-active);
+    box-shadow: 0 2px var(--button-shadow);
+    cursor: default;
+}
+
+.button-active-tab:hover {
+    top: 0;
+    cursor: default;
+}
+
+.tabs-img {
+    padding-bottom: 2pt;
+    width: var(--tabs-img-size);
+}
+
+/* -------------------------------------------- */
+
+.container-for-input {
+    padding: 2% 5% 2% 2%;
+    width: 100%;
+    height: 100%;
+}
+
+.left-container {
+    display: grid;
+    row-gap: 0;
+    grid-template-rows: 90% auto;
+    height: var(--input-box-height);
+    width: 100%;
+    margin: 0;
+    column-gap: 0;
+}
+
+.left-container-content {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.left-container-switches {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.left-container-inner-content {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.left-side-content {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.align {
+    display: grid;
+    grid-template-rows: 10% 90%;
+    grid-template-columns: 100%;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.form-container {
+    height: 100%;
+    width: 100%;
+}
+
+.input-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.input-textarea {
+        flex: 1;
+        resize: none;
+        background-color: var(--text-area-background-color);
+        color: var(--main-font-color);
+        font-size: var(--code-font-size);
+        padding: 3pt 3pt 3pt 5pt;
+        outline: none;
+        border: none;
+        height: 100%;
+        width: 100%;
+        line-height: var(--input-line-height);
+        overflow: auto;
+}
+
+.inner-container {
+    background-color: var(--text-area-background-color);
+    height: 100%;
+    width: 100%;
+    padding: 3pt 3pt 3pt 5pt;
+    color: var(--main-font-color);
+    font-size: var(--code-font-size);
+}

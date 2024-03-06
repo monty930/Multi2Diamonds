@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="~/css/rightside/dealset.css"/>
+
+<div class="right-view-container">
+    <div class="right-view-buttons">
+        <div class="generate-button-container">
+            <button id="generateExampleButton" class="button-all generate-button generate-example-button">
+                GENERATE EXAMPLE
+            </button>
+        </div>
+        <div class="generate-button-container">
+            <button id="generateDealSetButton" class="button-all generate-button generate-dealset-button">
+                GENERATE DEAL SET
+            </button>
+        </div>
+    </div>
+    <div class="dealsetonedeal">
+        @{
+            await Html.RenderPartialAsync("RightSide/DealSetOneDeal");
+        }
+    </div>
+</div>

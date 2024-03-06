@@ -1,33 +1,46 @@
 using BridgeScenarios.Models;
 using BridgeScenarios.Models.DbModels;
 using BridgeScenarios.Redeal.Models;
+using System.Text.RegularExpressions;
 
 namespace BridgeScenarios.Redeal;
 
 public static class RedealResultExtractor
 {
-    public static RedealScriptResult Extract(RedealScriptOutput output)
+    public static RedealScriptResult Extract(string rawOutput, int whichDeal = 1)
     {
-        string rawOutput = output.RawOutput;
-
         // Extracting the tries part
-        int start = rawOutput.IndexOf("Tries:", StringComparison.Ordinal) + "Tries:".Length;
-        string tries = rawOutput[start..].Trim();
+        var triesStart = rawOutput.IndexOf("Tries:", StringComparison.Ordinal) + "Tries:".Length;
+        var tries = rawOutput[triesStart..].Trim();
 
-        if (rawOutput.Length < 20)
+
+        // Split the input into individual deals
+        var dealMatches = Regex.Matches(rawOutput, @"\[Deal ""[^""]+""\]")
+            .Cast<Match>()
+            .Select(m => m.Value)
+            .ToList();
+
+        if (!dealMatches.Any() || dealMatches.Count < whichDeal)
+        {
             return new RedealScriptResult
             {
-                Tries = tries
+                Tries = tries,
+                NumberOfDeals = 0,
             };
+        }
 
+        // Adjust for 1-indexed input
+        var selectedDealRaw = dealMatches[whichDeal - 1];
 
-        start = rawOutput.IndexOf('"') + 1;
-        int end = rawOutput.IndexOf('"', start);
-        string handsPart = rawOutput.Substring(start, end - start);
+        // Extract the hands part from the selected deal
+        var start = selectedDealRaw.IndexOf('"') + 1;
+        var end = selectedDealRaw.LastIndexOf('"');
+        var handsPart = selectedDealRaw.Substring(start, end - start);
 
         // Split the hands for N, E, S, W
-        string[] hands = handsPart.Split(' ');
-        hands[0] = hands[0].Remove(0, 2);
+        var hands = handsPart.Split(' ');
+        hands[0] = hands[0].Remove(0, 2); // Remove the leading "N:"
+
 
         var deal = new Deal
         {
@@ -40,8 +53,15 @@ public static class RedealResultExtractor
         return new RedealScriptResult
         {
             Tries = tries,
-            Deal = deal
+            Deal = deal,
+            NumberOfDeals = dealMatches.Count
         };
+    }
+    
+    public static RedealScriptResult Extract(RedealScriptOutput output, int whichDeal = 1)
+    {
+        var rawOutput = output.RawOutput;
+        return Extract(rawOutput, whichDeal);
     }
 
     public static void RemoveHarmfulChars(this RedealScriptOutput output)

@@ -7,4 +7,5 @@ public class RedealScriptResult
 {
     public string Tries { get; set; } = string.Empty;
     public Deal Deal { get; set; } = new();
+    public int NumberOfDeals { get; set; } = 1;
 }

@@ -10,11 +10,11 @@ public abstract class CompilerSettings
     public abstract string CompilerPath { get; set; }
     public abstract int NumberOfDeals { get; set; }
 
-    public RedealScriptOutput Run(string tempFilePath, int numberOfDeals)
+    public RedealScriptOutput Run(string tempFilePath, int? numberOfDeals = null)
     {
         var scriptRunner = new RedealScriptRunner();
-        numberOfDeals = numberOfDeals == 0 ? NumberOfDeals : numberOfDeals;
-        var scriptOut = scriptRunner.RunScript(tempFilePath, numberOfDeals);
+        var numberOfDealsToRun = numberOfDeals ?? NumberOfDeals;
+        var scriptOut = scriptRunner.RunScript(tempFilePath, numberOfDealsToRun);
         return scriptOut;
     }
 }

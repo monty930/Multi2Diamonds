@@ -1,0 +1,87 @@
+<div class="grid-rows">
+    <div class="row-n has-handsuits">
+        <div>
+            <div id="deal-number-info" class="deal-number-info">
+            </div>
+        </div>
+        <div class="hands hand-north">
+            @{
+                await Html.RenderPartialAsync("Hand");
+            }
+        </div>
+        <div>
+        </div>
+    </div>
+    <div>
+        <div class="row-mid">
+            <div class="align-hand-west">
+                <div></div>
+                <div class="hands hand-west">
+                    @{
+                        await Html.RenderPartialAsync("Hand");
+                    }
+                </div>
+            </div>
+
+            @await Html.PartialAsync("Compass")
+
+            <div class="hands hand-east">
+                @{
+                    await Html.RenderPartialAsync("Hand");
+                }
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row-s">
+            <div id="num-of-tries" class="num-of-tries">
+            </div>
+            <div class="hands hand-south">
+                @{
+                    await Html.RenderPartialAsync("Hand");
+                }
+            </div>
+            <div>
+                <div class="deal-in-set-buttons-container">
+                    <div class="dealset-upper-row">
+                        <div class="deaslset-button-container">
+                            <button id="previousDealButton"
+                                    class="button-all deal-set-button">
+                                <img class="dealset-img" src="~/assets/arrow-back.png"/>
+                            </button>
+                        </div>
+                        <div class="deaslset-button-container">
+                            <button id="nextDealButton"
+                                    class="button-all deal-set-button">
+                                <img class="dealset-img" src="~/assets/arrow.png"/>
+                            </button>
+                            
+                            <button id="addDealButton" 
+                                    class="button-all deal-set-button">
+                                <img class="dealset-img" src="~/assets/plus.png"/>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dealset-lower-row">
+                        <div class="deaslset-button-container">
+                            <button id="saveButton" class="button-all deal-set-button">
+                                <img class="dealset-img" src="~/assets/save.png"/>
+                            </button>
+                        </div>
+                        <div class="deaslset-button-container">
+                            <button id="retryButton" class="button-all deal-set-button">
+                                <img class="dealset-img" src="~/assets/retry.png"/>
+                            </button>
+                        </div>
+                        <div class="deaslset-button-container">
+                            <button id="trashButton"
+                                    class="button-all deal-set-button red-button">
+                                <img class="dealset-img" src="~/assets/trash.png"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

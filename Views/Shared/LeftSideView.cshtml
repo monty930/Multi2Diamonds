@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="~/css/leftside/leftsideview.css"/>
+
+@model BridgeScenarios.Models.ViewModels.IndexViewModel
+
+<div class="container-for-input">
+    <div class="left-container">
+        <div class="left-container-content">
+            <div id="input-dynamic" class="left-container-inner-content">
+                @{
+                    await Html.RenderPartialAsync("LeftSide/InputView", Model);
+                }
+            </div>
+            <div id="lightbulb-dynamic" class="left-container-inner-content hidden">
+                @{
+                    await Html.RenderPartialAsync("LeftSide/Lightbulb", Model);
+                }
+            </div>
+            <div id="settings-dynamic" class="left-container-inner-content hidden">
+                @{
+                    await Html.RenderPartialAsync("LeftSide/Settings", Model);
+                }
+            </div>
+        </div>
+        <div class="left-container-switches">
+            @{
+                await Html.RenderPartialAsync("LeftSide/TabSwitches", Model);
+            }
+        </div>
+    </div>
+</div>
