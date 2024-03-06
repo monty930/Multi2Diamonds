@@ -1,0 +1,66 @@
+@model BridgeScenarios.Models.ViewModels.LoginViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Login | Multi 2 Diamonds</title>
+    <link rel="stylesheet" href="~/css/login.css"/>
+</head>
+<body>
+
+<div class="site-container">
+	<div class="form-container">
+		<form asp-controller="Account" method="post" id="login-form">
+		
+			<div class="login">
+				<h2 class="form-title" id="login"><span>or</span>Log in</h2>
+				<div class="form-holder">
+					<input type="text" class="input" placeholder="Username" asp-for="User.Username" id="login-username"/>
+					<input type="password" class="input" placeholder="Password" asp-for="User.Password" id="login-password"/>
+				</div>
+				<button class="submit-btn" asp-action="Login">Log in</button>
+				@if (Model.LoginError.Length > 0)
+				{
+					<div class="error">
+						@Model.LoginError
+					</div>
+				}
+			</div>
+		</form>
+		
+		<form asp-controller="Account" method="post" id="signup-form">
+		<div class="signup slide-up">
+			<div class="center">
+				<h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+				<div class="form-holder">
+
+					<input type="text" class="input" placeholder="Username" asp-for="User.Username" id="signup-username"/>
+					<input type="password" class="input" placeholder="Password" asp-for="User.Password" id="signup-password"/>
+					<input type="email" class="input" placeholder="Email" asp-for="User.Email" id="signup-email"/>
+				</div>
+				<button class="submit-btn" asp-action="Signup">Sign up</button>
+				@if (Model.LoginError.Length > 0)
+				{
+					<div class="error">
+						@Model.SignupError
+					</div>
+				}
+			</div>
+		</div>
+			
+		</form>
+	</div>
+</div>
+
+
+
+
+</body>
+
+<script type="text/ecmascript" src="~/js/login.js"></script>
+</html>

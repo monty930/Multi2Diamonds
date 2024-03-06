@@ -1,4 +1,5 @@
 using BridgeScenarios.Models;
+using BridgeScenarios.Models.DbModels;
 using BridgeScenarios.Redeal.Models;
 using System.Text.RegularExpressions;
 
@@ -11,6 +12,7 @@ public static class RedealResultExtractor
         // Extracting the tries part
         var triesStart = rawOutput.IndexOf("Tries:", StringComparison.Ordinal) + "Tries:".Length;
         var tries = rawOutput[triesStart..].Trim();
+
 
         // Split the input into individual deals
         var dealMatches = Regex.Matches(rawOutput, @"\[Deal ""[^""]+""\]")
@@ -39,14 +41,13 @@ public static class RedealResultExtractor
         var hands = handsPart.Split(' ');
         hands[0] = hands[0].Remove(0, 2); // Remove the leading "N:"
 
-        var splitHands = hands.Select(h => h.Split('.')).ToArray();
 
         var deal = new Deal
         {
-            North = new Hand(splitHands[0]),
-            East = new Hand(splitHands[1]),
-            South = new Hand(splitHands[2]),
-            West = new Hand(splitHands[3])
+            North = hands[0],
+            East = hands[1],
+            South = hands[2],
+            West = hands[3]
         };
 
         return new RedealScriptResult

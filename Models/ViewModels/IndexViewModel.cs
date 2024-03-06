@@ -1,3 +1,4 @@
+using BridgeScenarios.Models.DbModels;
 using BridgeScenarios.Redeal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

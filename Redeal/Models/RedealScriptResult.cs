@@ -1,4 +1,5 @@
 using BridgeScenarios.Models;
+using BridgeScenarios.Models.DbModels;
 
 namespace BridgeScenarios.Redeal.Models;
 

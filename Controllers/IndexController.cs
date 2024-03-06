@@ -1,6 +1,7 @@
 using BridgeScenarios.Managers;
 using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using BridgeScenarios.Redeal;
 
 namespace BridgeScenarios.Controllers;
 
+[Authorize]
 public class IndexController : Controller
 {
     private readonly IndexManager _indexManager = new();
