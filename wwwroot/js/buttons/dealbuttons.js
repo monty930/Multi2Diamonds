@@ -277,7 +277,7 @@ submitSaveForm = new MyButton({
 closeForm = new MyButton({
     elementId: "closeButton",
     listener: function () {
-        document.getElementById("myModal").style.display = "none";
+        document.getElementById("dialogSaveWindow").style.display = "none";
     }
 });
 

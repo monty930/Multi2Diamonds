@@ -113,12 +113,12 @@ let disable_right_buttons = () => {
 }
 
 display_form = () => {
-    document.getElementById("myModal").style.display = "block";
+    document.getElementById("dialogSaveWindow").style.display = "block";
     // TODO: enable buttons
 }
 
 hide_form = () => {
-    document.getElementById("myModal").style.display = "none";
+    document.getElementById("dialogSaveWindow").style.display = "none";
 }
 
 disable_form_buttons = () => {
