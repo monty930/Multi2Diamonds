@@ -1,6 +1,5 @@
 ﻿* {
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
@@ -32,12 +31,6 @@
 
 .githubhref:hover {
     text-decoration: underline;
-}
-
-.header {
-    padding: 3pt;
-    padding-left: 1%;
-    background: rgb(77, 77, 77);
 }
 
 .body-div {
