@@ -21,6 +21,7 @@
     --generate-button-border: rgb(158, 157, 157);
     --root-background-color: rgb(94, 94, 94);
     --diamond-color: darkgoldenrod;
+    --color-error: rgb(107, 12, 12);
 }
 
 html, body {
