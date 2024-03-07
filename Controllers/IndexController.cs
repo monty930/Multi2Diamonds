@@ -92,6 +92,16 @@ public class IndexController : Controller
     
     [EnableCors]
     [HttpPost]
+    public async Task<IActionResult> ConvertToLin([FromBody] PbnContent pbnString)
+    {
+        var data = "lin will be here!\n";
+        // wait 1 second
+        await Task.Delay(1000);
+        return Json(new { data });
+    }
+    
+    [EnableCors]
+    [HttpPost]
     public async Task<IActionResult> DefaultPage([FromForm] string textInput)
     {
         var model = new IndexViewModel();
