@@ -79,7 +79,6 @@
 
         .form-holder {
             border-radius: 15px;
-            background-color: var(--main-font-color);
             overflow: hidden;
             margin-top: 20px;
             opacity: 1;
@@ -94,7 +93,8 @@
                 height: 40px;
                 line-height: 40px;
                 padding: 8px 15px;
-                border-bottom: 1px solid var(--main-font-color);
+                border-bottom: 1px solid #c5c5c5;
+                background-color: rgb(255, 245, 245);
                 width: 100%;
                 font-size: 14px;
 
@@ -152,7 +152,6 @@
             left: 50%;
             top: -20px;
             -webkit-transform: translate(-50%, 0);
-            /*background-color: var(--main-font-color);*/
             background-color: var(--diamond-color);
             width: 200%;
             height: 250px;
@@ -163,7 +162,7 @@
 
         .center {
             position: absolute;
-            top: calc(60% - 10%);
+            top: calc(55% - 10%);
             left: 50%;
             -webkit-transform: translate(-50%, -50%);
             width: 65%;
@@ -203,7 +202,8 @@
                     height: 40px;
                     line-height: 40px;
                     padding: 8px 15px;
-                    border-bottom: 1px solid #eee;
+                    border-bottom: 1px solid #c5c5c5;
+                    background-color: rgb(255, 245, 245);
                     width: 100%;
                     font-size: 12px;
 
@@ -282,3 +282,9 @@
     
 }
 
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgb(255, 245, 245) inset !important;
+}
