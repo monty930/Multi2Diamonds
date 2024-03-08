@@ -21,7 +21,9 @@
     --generate-button-border: rgb(158, 157, 157);
     --root-background-color: rgb(94, 94, 94);
     --diamond-color: darkgoldenrod;
-    --color-error: rgb(107, 12, 12);
+    --red-color: rgb(205, 32, 31);
+    --red-hover: rgb(143, 21, 21);
+    --red-shadow: rgb(107, 12, 12);
 }
 
 html, body {
@@ -62,18 +64,5 @@ html, body {
     display: block;
     width: 25px;
     transform-origin: center;
-}
-
-.spinner-container {
-    width: 25px;
-    height: 25px;
-}
-
-.save-spinner-container {
-    width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 

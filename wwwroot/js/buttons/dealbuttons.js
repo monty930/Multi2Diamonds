@@ -235,7 +235,7 @@ submitSaveForm = new MyButton({
     elementId: "submitButton",
     listener: async function () {
         disable_form_buttons();
-        const selectedChoice = document.getElementById("choices").value;
+        const selectedChoice = document.getElementById("saveChoices").value;
         const filename = document.getElementById("filenameArea").value;
         let pbnString = window.localStorage.getItem('PBNstring');
         let contentToSave = pbnString;

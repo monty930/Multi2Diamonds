@@ -37,11 +37,6 @@
     top: 1px;
 }
 
-.red-button:active {
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: translateY(3px);
-}
-
 .deactivated {
     color: var(--font-deactiv);
 }
