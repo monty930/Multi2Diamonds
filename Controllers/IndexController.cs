@@ -1,3 +1,5 @@
+using BridgeScenarios.DealSetTools;
+using BridgeScenarios.DealSetTools.Models;
 using BridgeScenarios.Managers;
 using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
@@ -7,8 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using BridgeScenarios.Redeal;
-using BridgeScenarios.Redeal.Models;
 
 namespace BridgeScenarios.Controllers;
 
@@ -31,7 +31,7 @@ public class IndexController : Controller
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
             RightDisplay = RightViewDisplay.DealSet,
-            RedealRunner = new RedealRunner(compilerSettings)
+            CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
         var pbnString = model.ScriptOutputRaw;
@@ -48,7 +48,7 @@ public class IndexController : Controller
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
             RightDisplay = RightViewDisplay.Example,
-            RedealRunner = new RedealRunner(compilerSettings)
+            CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
         var pbnString = model.ScriptOutputRaw;
@@ -65,7 +65,7 @@ public class IndexController : Controller
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
             RightDisplay = RightViewDisplay.DealSet,
-            RedealRunner = new RedealRunner(compilerSettings)
+            CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
         var newDealPbnString = model.ScriptOutputRaw;
@@ -81,7 +81,7 @@ public class IndexController : Controller
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
             RightDisplay = RightViewDisplay.DealSet,
-            RedealRunner = new RedealRunner(compilerSettings)
+            CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
         var newDealPbnString = model.ScriptOutputRaw;
@@ -89,17 +89,15 @@ public class IndexController : Controller
         var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
         return Json(new { htmlContent, newDealPbnString, correctDeal });
     }
-    
+
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> ConvertToLin([FromBody] PbnContent pbnString)
+    public async Task<IActionResult> ConvertToLin([FromBody] RawScriptOutput pbnString)
     {
-        var data = "lin will be here!\n";
-        // wait 1 second
-        await Task.Delay(1000);
-        return Json(new { data });
+        var output = await _indexManager.ConvertToLin(new ConverterRunner(pbnString));
+        return Json(new { data = output.ScriptOutputRaw });
     }
-    
+
     [EnableCors]
     [HttpPost]
     public async Task<IActionResult> DefaultPage([FromForm] string textInput)

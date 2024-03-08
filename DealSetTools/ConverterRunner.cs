@@ -1,15 +1,14 @@
 using System.Diagnostics;
-using BridgeScenarios.Redeal.Models;
+using BridgeScenarios.DealSetTools.Models;
 
-namespace BridgeScenarios.Redeal;
+namespace BridgeScenarios.DealSetTools;
 
-public class RedealRunner
+public class ConverterRunner
 {
-    private readonly string _basePath = Path.Combine("BridgeTools");
-    private readonly string _defaultScriptName = Path.Combine("get_scenarios.sh");
+    private readonly string _basePath = Path.Combine("BridgeTools", "Lin");
+    private readonly string _defaultScriptName = Path.Combine("convert_pbn_to_lin.sh");
     private string CompilerPath { get; }
-    
-    SettingsArgs CompilerSettings { get; }
+    private string PbnString { get; }
     
     private readonly ProcessStartInfo _processStartInfo = new()
     {
@@ -22,9 +21,9 @@ public class RedealRunner
     public async Task<string> Run()
     {
         var tempFilePath = Path.GetTempFileName();
-        await File.WriteAllTextAsync(tempFilePath, CompilerSettings.InputText);
+        await File.WriteAllTextAsync(tempFilePath, PbnString);
         
-        _processStartInfo.Arguments = $"{CompilerPath} {CompilerSettings.Compiler} {tempFilePath} {CompilerSettings.NumberOfDeals}";
+        _processStartInfo.Arguments = $"{CompilerPath} {tempFilePath}";
         
         using var process = Process.Start(_processStartInfo) ?? throw new NullReferenceException();
         
@@ -34,14 +33,14 @@ public class RedealRunner
         // cehck if the process exited with an error
         if (process.ExitCode != 0)
         {
-            throw new RedealException(output);
+            throw new ConverterException(output);
         }
         return output;
     }
     
-    public RedealRunner(SettingsArgs args)
+    public ConverterRunner(RawScriptOutput pbnScriptOutput)
     {
         CompilerPath = Path.Combine("./", _basePath, _defaultScriptName);
-        CompilerSettings = args;
+        PbnString = pbnScriptOutput.ScriptOutputRaw;
     }
 }

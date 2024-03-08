@@ -1,6 +1,6 @@
 using BridgeScenarios.Models;
 
-namespace BridgeScenarios.Redeal.Models;
+namespace BridgeScenarios.DealSetTools.Models;
 
 public class SettingsArgs
 {
