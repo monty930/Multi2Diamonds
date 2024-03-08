@@ -117,3 +117,11 @@
     justify-content: center;
     align-items: center;
 }
+
+
+/* --------------- close button -------------- */
+
+#cross-img {
+    width: 15px;
+    height: 15px;
+}
