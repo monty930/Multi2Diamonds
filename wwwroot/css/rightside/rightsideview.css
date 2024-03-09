@@ -47,7 +47,7 @@
 
 .entry-message {
     color : var(--main-font-color);
-    font-size: var(--main-font);
+    font-size: min(max(calc(1.2 * var(--main-font)), 2vh), 2vw);
     font-weight: bold;
     padding-bottom: 10%;
 }

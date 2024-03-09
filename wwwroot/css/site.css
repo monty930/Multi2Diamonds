@@ -57,7 +57,7 @@ html, body {
 
 .header-title {
     color: var(--main-font-color);
-    font-size: calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 34px);
+    font-size: calc(max(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 37px, 47px));
     text-decoration: none;
     font-weight: 900;
     align-items: center;
@@ -71,7 +71,7 @@ html, body {
 
 .m2d-title-img {
     display: inline-block;
-    height: calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 34px);
+    height: calc(max(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 37px, 47px));
     padding: 
             5px 
             calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) / 7)
@@ -93,13 +93,20 @@ html, body {
 
 .githubhref {
     text-decoration: none;
-    font-size: calc(min((max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 34px) * 4 / 7, 40px));
+    font-size: calc(min((max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 34px) * 4 / 8, 37px));
     color: var(--main-font-color);
 }
 
 .githubhref:hover {
     color: var(--main-font-color);
     text-decoration: underline;
+}
+
+.gitlog-img {
+    display: inline-block;
+    height: calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) * 2 / 4);
+    padding-left: calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) / 5);
+    padding-bottom: calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) / 15);
 }
 
 /* -------------- loading circle ------------- */
