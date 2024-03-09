@@ -305,6 +305,7 @@ get_new_compiler_settings = function () {
         Vul: document.getElementById('vulnerability-choice').value,
         Dealer: document.getElementById('dealer-choice').value,
         Flip: document.getElementById('flip-choice').value,
+        Scoring: document.getElementById('scoring-choice').value,
     }
 }
 
@@ -318,5 +319,6 @@ get_compiler_settings = function () {
         Vul: dsiString.split('Vulnerability: ')[1].split('\n')[0],
         Dealer: dsiString.split('Dealer: ')[1].split('\n')[0],
         Flip: dsiString.split('Flip: ')[1].split('\n')[0],
+        Scoring: dsiString.split('Scoring: ')[1].split('\n')[0],
     }
 }

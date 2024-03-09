@@ -146,6 +146,12 @@
     width: 100%;
 }
 
+.form-container-settings {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
 .input-form {
     flex: 1;
     display: flex;
@@ -168,7 +174,7 @@
         height: 100%;
         width: 100%;
         line-height: var(--input-line-height);
-        overflow: auto;
+        overflow: hidden;
 }
 
 .inner-container {

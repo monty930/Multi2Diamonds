@@ -7,6 +7,31 @@ function update_hand_suit_content(dsiString, dealNum) {
             suitDiv.querySelector('div').textContent = extract_suit(deal, handType, suitType)
         });
     });
+    let vul = extract_vul(deal); // (bool bool)
+    if (vul[0]) {
+        document.getElementById('N-vul').classList.add('vul');
+        document.getElementById('S-vul').classList.add('vul');
+    } else {
+        document.getElementById('N-vul').classList.remove('vul');
+        document.getElementById('S-vul').classList.remove('vul');
+    }
+    
+    if (vul[1]) {
+        document.getElementById('E-vul').classList.add('vul');
+        document.getElementById('W-vul').classList.add('vul');
+    }
+    else {
+        document.getElementById('E-vul').classList.remove('vul');
+        document.getElementById('W-vul').classList.remove('vul');
+    }
+    
+    let dealer = extract_dealer(deal); // N / E / S / W
+    document.getElementById('N-vul').classList.remove('dealer');
+    document.getElementById('E-vul').classList.remove('dealer');
+    document.getElementById('S-vul').classList.remove('dealer');
+    document.getElementById('W-vul').classList.remove('dealer');
+    let dealerDiv = document.getElementById(dealer + '-vul');
+    dealerDiv.classList.add('dealer')
 }
 
 let rebind_button = (button) => {

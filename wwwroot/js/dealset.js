@@ -127,3 +127,15 @@ get_lin_from_dsi = (dsiString) => {
     let output = "Lin will be here.\n" + dsiString;
     return output;
 }
+
+extract_vul = (deal) => {
+    let vul = deal.split('Vulnerable \"')[1].split('\"')[0];
+    let north_south = vul === 'NS' || vul === 'All';
+    let east_west = vul === 'EW' || vul === 'All';
+    return [north_south, east_west];
+}
+
+extract_dealer = (deal) => {
+    let dealer = deal.split('Dealer \"')[1].split('\"')[0];
+    return dealer;
+}

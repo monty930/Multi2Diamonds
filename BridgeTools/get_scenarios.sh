@@ -4,6 +4,7 @@ SCRIPT_DIR=$(dirname "$0")
 dealer="Random"
 vul="Random"
 flip="no"
+scoring="IMP"
 
 # Parse arguments
 while [[ "$#" -gt 0 ]]; do
@@ -14,10 +15,13 @@ while [[ "$#" -gt 0 ]]; do
         -d) dealer="$2"; shift ;;
         -v) vul="$2"; shift ;;
         -i) flip="$2"; shift ;;
+        -s) scoring="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
 done
+
+scoring=${scoring^^}
 
 # The required arguments: compiler, filepath, number_of_deals
 if [ -z "$compiler" ] || [ -z "$filepath" ] || [ -z "$number_of_deals" ]; then
@@ -177,7 +181,7 @@ for deal in "${deals[@]}"; do
     echo "[Dealer \"$current_dealer\"]"
     echo "[Vulnerable \"$current_vulnerability\"]"
     echo "[Deal \"$deal_string\"]"
-    echo "[Scoring \"IMP\"]"
+    echo "[Scoring \"$scoring\"]"
     echo ""
     ((board++))
   fi
@@ -188,6 +192,7 @@ echo "Compiler: $compiler"
 echo "Vulnerability: $vul"
 echo "Dealer: $dealer"
 echo "Flip: $flip"
+echo "Scoring: $scoring"
 
 IFS=$'\n' read -d '' -r -a lines <<< "$REDEAL_OUTPUT"
 board=1

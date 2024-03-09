@@ -62,19 +62,6 @@
     grid-template-rows: 35% 30% auto;
 }
 
-.grid-snwe {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: auto 40% auto;
-    grid-template-rows: auto 40% auto;
-    border: 5px solid rgb(126, 126, 126);
-    place-items: center;
-    font-size: calc(0.1em + min(4vh, 2vw));
-    font-weight: 800;
-    color: var(--main-font-color);
-}
-
 .suit-img {
     width: 30px;
     display: block;

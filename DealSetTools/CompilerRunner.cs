@@ -31,7 +31,8 @@ public class CompilerRunner
             $"-n {CompilerSettings.NumberOfDeals} " +
             $"-v {CompilerSettings.Vul} " +
             $"-d {CompilerSettings.Dealer} " +
-            $"-i {CompilerSettings.Flip}";
+            $"-i {CompilerSettings.Flip} " +
+            $"-s {CompilerSettings.Scoring}";
         
         using var process = Process.Start(_processStartInfo) ?? throw new NullReferenceException();
         
