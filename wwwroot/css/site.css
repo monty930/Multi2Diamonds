@@ -50,7 +50,7 @@ html, body {
 /* ----------------- header ------------------ */
 
 .header {
-    height: max(min(10vh, 120px), max(70px, calc(3 * var(--main-font))));
+    height: max(min(10vh, 130px), max(70px, calc(3 * var(--main-font))));
     padding: 0 0 0 1vw;
     background: var(--background-header-color);
     align-items: center;
@@ -59,7 +59,7 @@ html, body {
 
 .header-title {
     color: var(--main-font-color);
-    font-size: calc(max(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 37px, 47px));
+    font-size: calc(max(max(min(10vh, 130px), max(70px, calc(3 * var(--main-font)))) - 37px, 47px));
     text-decoration: none;
     font-weight: 900;
     align-items: center;
@@ -128,7 +128,8 @@ html, body {
 
 #loading-img {
     display: block;
-    width: 25px;
+    width: calc(max(1.5 * var(--main-font), 4vh));
+    height: calc(max(1.5 * var(--main-font), 4vh));
     transform-origin: center;
 }
 

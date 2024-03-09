@@ -24,37 +24,30 @@
 }
 
 .snwe-lu {
-    background-color: #ffca2c; /* TO-BE-DELETED */
 }
 
 .snwe-mu {
-    background-color: #0a53be; /* TO-BE-DELETED */
 }
 
 .snwe-ru {
-    background-color: #20c997; /* TO-BE-DELETED */
 }
 
 .snwe-lm {
-    background-color: #6f42c1; /* TO-BE-DELETED */
 }
 
 .snwe-mm {
-    background-color: white; /* TO-BE-DELETED */
+    width: calc(max(1.5 * var(--main-font), 4vh));
+    height: calc(max(1.5 * var(--main-font), 4vh));
 }
 
 .snwe-rm {
-    background-color: green; /* TO-BE-DELETED */
 }
 
 .snwe-ld {
-    background-color: #842029; /* TO-BE-DELETED */
 }
 
 .snwe-md {
-    background-color: coral; /* TO-BE-DELETED */
 }
 
 .snwe-rd {
-    background-color: #d63384; /* TO-BE-DELETED */
 }
