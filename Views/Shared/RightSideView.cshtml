@@ -21,6 +21,10 @@
     {
         await Html.RenderPartialAsync("RightSide/DealSetView", Model);
     }
+    else if (Model.RightDisplay == RightViewDisplay.DealSetEntry)
+    {
+        await Html.RenderPartialAsync("RightSide/DealSetEntryView", Model);
+    }
     else
     {
         Console.WriteLine("ERROR: RightViewDisplay is not recognized");

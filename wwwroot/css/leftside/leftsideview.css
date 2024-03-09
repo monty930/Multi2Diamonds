@@ -9,12 +9,12 @@
 }
 
 .left-side-title {
-    margin-bottom: 10px;
-    font-size: 1.5em;
+    /*margin-bottom: 10px;*/
     color: var(--main-font-color);
     font-weight: 600;
     height: 100%;
     width: 100%;
+    font-size: calc(1.3 * var(--main-font));
 }
 
 /* --------------- line numbers --------------- */
@@ -134,7 +134,7 @@
 
 .align {
     display: grid;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: calc(min(12%, 20vw/4)) auto;
     grid-template-columns: 100%;
     height: 100%;
     width: 100%;

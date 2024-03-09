@@ -12,9 +12,20 @@
     width: calc(0.4em + min(4vh, 2vw));
 }
 
+.dealset-img-entry {
+    padding-bottom: 2pt;
+    width: calc(min(4vh, 2vw));
+}
+
 .dealset-upper-row {
     display: grid;
     grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+}
+
+.dealset-upper-row-entry {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
     grid-template-rows: 100%;
 }
 

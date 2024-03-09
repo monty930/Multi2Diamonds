@@ -1,3 +1,5 @@
+using BridgeScenarios.DealSetTools;
+using BridgeScenarios.DealSetTools.Models;
 using BridgeScenarios.Managers;
 using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
@@ -7,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using BridgeScenarios.Redeal;
 
 namespace BridgeScenarios.Controllers;
 
@@ -18,97 +19,134 @@ public class IndexController : Controller
 
     [HttpGet]
     [EnableCors]
-    public async Task<IActionResult> Index()
+    public Task<IActionResult> Index()
     {
-        return View("Index", new IndexViewModel());
+        return Task.FromResult<IActionResult>(View("Index", new IndexViewModel()));
+    }
+
+    [HttpPost]
+    [Route("Index/GenerateDealSet")]
+    public async Task<IActionResult> GenerateDealSet([FromBody] SettingsArgs compilerSettings)
+    {
+        var model = await _indexManager.GenerateDeals(new IndexViewModel
+        {
+            RightDisplay = RightViewDisplay.DealSetEntry,
+            CompilerRunner = new CompilerRunner(compilerSettings)
+        });
+
+        var dsiString = model.ScriptOutputRaw;
+        var htmlContent = await RenderViewAsync("RightSideView", model, true);
+        var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
+        return Json(new { htmlContent, dsiString, correctDeal });
     }
 
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> GenerateDealSet([FromForm] string textInput)
+    [Route("Index/GenerateExample")]
+    public async Task<IActionResult> GenerateExample([FromBody] SettingsArgs compilerSettings)
     {
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput,
-            Compiler = new ChaiCompilerSettings(10),
-            RightDisplay = RightViewDisplay.DealSet
+            RightDisplay = RightViewDisplay.Example,
+            CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
-        var pbnString = model.ScriptOutputRaw;
+        var dsiString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
-        return Json(new { htmlContent, pbnString });
+        var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
+        return Json(new { htmlContent, dsiString, correctDeal });
     }
 
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> GenerateExample([FromForm] string textInput)
+    [Route("Index/AddDeal")]
+    public async Task<IActionResult> AddDeal([FromBody] SettingsArgs compilerSettings)
     {
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput,
-            Compiler = new ChaiCompilerSettings(1),
-            RightDisplay = RightViewDisplay.Example
+            RightDisplay = RightViewDisplay.DealSet,
+            CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
-        var pbnString = model.ScriptOutputRaw;
+        var newDealDsiString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
-        return Json(new { htmlContent, pbnString });
-    }
-
-    [EnableCors]
-    [HttpPost]
-    public async Task<IActionResult> AddDeal([FromForm] string textInput)
-    {
-        var model = await _indexManager.GenerateDeals(new IndexViewModel
-        {
-            TextInput = textInput,
-            Compiler = new ChaiCompilerSettings(1),
-            RightDisplay = RightViewDisplay.DealSet
-        });
-
-        var newDealPbnString = model.ScriptOutputRaw;
-        var htmlContent = await RenderViewAsync("RightSideView", model, true);
-        return Json(new { htmlContent, newDealPbnString });
+        var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
+        return Json(new { htmlContent, newDealDsiString, correctDeal });
     }
     
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> RegenerateOne([FromForm] string textInput)
+    public async Task<IActionResult> RegenerateOne([FromBody] SettingsArgs compilerSettings)
     {
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            TextInput = textInput,
-            Compiler = new ChaiCompilerSettings(1),
-            RightDisplay = RightViewDisplay.DealSet
+            RightDisplay = RightViewDisplay.DealSet,
+            CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
-        var newDealPbnString = model.ScriptOutputRaw;
+        var newDealDsiString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
-        return Json(new { htmlContent, newDealPbnString });
+        var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
+        return Json(new { htmlContent, newDealDsiString, correctDeal });
+    }
+
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> ConvertToLin([FromBody] RawScriptOutput dsiString)
+    {
+        var output = await _indexManager.ConvertDsi(
+            new ConverterRunner(dsiString, Extension.Lin));
+        return Json(new { data = output.ScriptOutputRaw });
     }
     
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> DefaultPage([FromForm] string textInput)
+    public async Task<IActionResult> ConvertToPbn([FromBody] RawScriptOutput dsiString)
     {
-        var model = new IndexViewModel();
-        model.RightDisplay = RightViewDisplay.Entry;
-        return PartialView("RightSideView", model);
+        var output = await _indexManager.ConvertDsi(
+            new ConverterRunner(dsiString, Extension.Pbn));
+        return Json(new { data = output.ScriptOutputRaw });
+    }
+
+    [EnableCors]
+    [HttpGet]
+    public Task<IActionResult> DefaultPage()
+    {
+        var model = new IndexViewModel
+        {
+            RightDisplay = RightViewDisplay.Entry
+        };
+        return Task.FromResult<IActionResult>(PartialView("RightSideView", model));
     }
     
-    public async Task<string> RenderViewAsync<TModel>(string viewName, TModel model, bool partial = false)
+    [EnableCors]
+    [HttpGet]
+    public Task<IActionResult> DealSetGetView()
     {
-        if (string.IsNullOrEmpty(viewName)) viewName = ControllerContext.ActionDescriptor.ActionName;
+        var model = new IndexViewModel
+        {
+            RightDisplay = RightViewDisplay.DealSet
+        };
+        return Task.FromResult<IActionResult>(PartialView("RightSideView", model));
+    }
+
+    private async Task<string> RenderViewAsync<TModel>
+        (string viewName, TModel model, bool partial = false)
+    {
+        if (string.IsNullOrEmpty(viewName)) viewName =
+            ControllerContext.ActionDescriptor.ActionName;
 
         ViewData.Model = model;
 
         await using var writer = new StringWriter();
         
         IViewEngine viewEngine =
-            HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
+            HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine))
+                as ICompositeViewEngine ?? throw new InvalidOperationException();
         var viewResult = viewEngine.FindView(ControllerContext, viewName, !partial);
 
-        if (viewResult.Success == false) return $"A view with the name {viewName} could not be found";
+        if (viewResult.Success == false) return 
+            $"A view with the name {viewName} could not be found";
 
         var viewContext = new ViewContext(
             ControllerContext,

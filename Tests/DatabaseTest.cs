@@ -47,8 +47,6 @@ public class DatabaseTest
             Password = "test123"
         }; 
         userRepo.AddUser(user);
-
-        Console.WriteLine("aaa");
         
         var dealSet1 = new DealSet
         {

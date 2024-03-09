@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="~/css/site.css"/>
     <link rel="stylesheet" href="~/css/buttons.css"/>
+    <link rel="stylesheet" href="~/css/dialog.css"/>
     <link rel="stylesheet" href="~/css/highpriority.css"/>
 </head>
 
@@ -23,10 +24,15 @@
     </div>
 </div>
 
+@{
+    await Html.RenderPartialAsync("RightSide/DialogWindowView", Model);
+}
+
 <script type="text/javascript" src="/js/index.js"></script>
 <script type="text/javascript" src="/js/rightside.js"></script>
 <script type="text/javascript" src="/js/leftside.js"></script>
 <script type="text/javascript" src="/js/buttons/buttons.js"></script>
 <script type="text/javascript" src="/js/buttons/dealbuttons.js"></script>
 <script type="text/javascript" src="/js/buttons/tabbuttons.js"></script>
+<script type="text/javascript" src="/js/buttons/dialog.js"></script>
 <script type="text/javascript" src="/js/buttons/errorbuttons.js"></script>

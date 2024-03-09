@@ -5,5 +5,6 @@ public enum RightViewDisplay
     Example,
     Error,
     DealSet,
-    Entry
+    Entry,
+    DealSetEntry
 }

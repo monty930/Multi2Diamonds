@@ -17,7 +17,7 @@
             </div>
             <div class="hands hand-north">
                 @{
-                    await Html.RenderPartialAsync("Hand");
+                    await Html.RenderPartialAsync("RightSide/Hand");
                 }
             </div>
             <div>
@@ -29,16 +29,16 @@
                     <div></div>
                     <div class="hands hand-west">
                         @{
-                            await Html.RenderPartialAsync("Hand");
+                            await Html.RenderPartialAsync("RightSide/Hand");
                         }
                     </div>
                 </div>
 
-                @await Html.PartialAsync("Compass")
+                @await Html.PartialAsync("RightSide/Compass")
 
                 <div class="hands hand-east">
                     @{
-                        await Html.RenderPartialAsync("Hand");
+                        await Html.RenderPartialAsync("RightSide/Hand");
                     }
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="hands hand-south">
                     @{
-                        await Html.RenderPartialAsync("Hand");
+                        await Html.RenderPartialAsync("RightSide/Hand");
                     }
                 </div>
                 <div></div>

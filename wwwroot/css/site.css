@@ -1,10 +1,11 @@
 :root {
+    /*--main-font: calc(1.6vmax);*/
+    --main-font: calc(min(1.7rem, calc(1.6vmax)));
     --main-background-color: rgb(88, 88, 88);
     --main-font-color: rgb(255, 235, 235);
-    --suit-cards-font-size: calc(0.3em + min(2.5vh, 1.5vw));
-    --button-w: calc(0.3em + 7vw);
-    --button-h: calc(0.3em + 8vh);
-    --code-font-size: calc(0.1em + min(3.5vh, 1.5vw));
+    /*--suit-cards-font-size: calc(0.3em + min(2.5vh, 1.5vw));*/
+    /*--code-font-size: calc(0.1em + min(3.5vh, 1.5vw));*/
+    --code-font-size: calc(min(3rem, calc(1.6vmax)));
     --input-line-height: calc(1.2em);
     --max-box-height: calc(77vh);
     --input-box-height: calc(16 * (var(--input-line-height) + 0.77em));
@@ -19,6 +20,10 @@
     --font-deactiv: rgb(88, 88, 88);
     --generate-button-border: rgb(158, 157, 157);
     --root-background-color: rgb(94, 94, 94);
+    --diamond-color: darkgoldenrod;
+    --red-color: rgb(205, 32, 31);
+    --red-hover: rgb(143, 21, 21);
+    --red-shadow: rgb(107, 12, 12);
 }
 
 html, body {
@@ -33,6 +38,11 @@ html, body {
     grid-template-rows: auto;
     height: 100%;
     width: 100%;
+}
+
+.header {
+    padding: 3pt 3pt 3pt 1.5%;
+    background: rgb(77, 77, 77);
 }
 
 /* -------------- loading circle ------------- */
@@ -55,5 +65,4 @@ html, body {
     width: 25px;
     transform-origin: center;
 }
-
 

@@ -1,3 +1,5 @@
+using BridgeScenarios.DealSetTools;
+using BridgeScenarios.DealSetTools.Models;
 using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
 
@@ -7,28 +9,37 @@ public class IndexManager
 { 
     public async Task<IndexViewModel> GenerateDeals(IndexViewModel model)
     {
-        var tempFilePath = Path.GetTempFileName();
-        await File.WriteAllTextAsync(tempFilePath, model.TextInput);
-
-        // Generate as many deals, as compiler settings indicates (default: 0).
-        var scriptOut = model.Compiler.Run(tempFilePath);
-
-        File.Delete(tempFilePath);
-
-        if (scriptOut.ExitCode != 0)
+        // The compiler settings (and compiler itself)
+        // are defined in the CompilerSettings.
+        try
         {
-            scriptOut.RawOutput = "An error occured. Try to generate example deal.\n";
+            var scriptOut = await model.CompilerRunner.Run();
             return new IndexViewModel
             {
-                ScriptOutputRaw = scriptOut.RawOutput,
+                RightDisplay = model.RightDisplay,
+                ScriptOutputRaw = scriptOut,
+            };
+        } 
+        catch (CompilerException e)
+        {
+            return new IndexViewModel
+            {
+                ScriptOutputRaw = e.Message + "\n",
                 RightDisplay = RightViewDisplay.Error
             };
         }
-        
-        return new IndexViewModel
+    }
+
+    public async Task<RawScriptOutput> ConvertDsi(ConverterRunner converterRunner)
+    {
+        try
         {
-            RightDisplay = model.RightDisplay,
-            ScriptOutputRaw = scriptOut.RawOutput,
-        };
+            var scriptOut = await converterRunner.Run();
+            return new RawScriptOutput { ScriptOutputRaw = scriptOut };
+        } 
+        catch (CompilerException e)
+        {
+            return new RawScriptOutput { ScriptOutputRaw = e.Message + "\n"};
+        }
     }
 }
