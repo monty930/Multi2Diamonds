@@ -11,28 +11,6 @@
     overflow: hidden;
 }
 
-.footer {
-    width: 100%;
-    line-height: 50px;
-    background-color: rgb(77, 77, 77);
-    color: rgb(255, 235, 235);
-    padding-left: 2%;
-    padding-right: 2%;
-    text-align: right;
-    height: 50px;
-}
-
-.githubhref {
-    color: rgb(255, 235, 235);
-    font-weight: 400;
-    font-size: 11pt;
-    text-decoration: none;
-}
-
-.githubhref:hover {
-    text-decoration: underline;
-}
-
 .body-div {
     border: 2pt solid rgb(105, 105, 105);
 }
