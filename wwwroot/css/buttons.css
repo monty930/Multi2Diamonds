@@ -2,7 +2,7 @@
     color: var(--main-font-color);
     background: var(--button-face-color);
     border: var(--generate-button-border);
-    box-shadow: 0 5px var(--button-shadow);
+    box-shadow: 0 calc(1.5 * max(var(--main-font) / 5, 0.4vh)) var(--button-shadow);
     padding: 5px 5px;
     font-weight: bold;
     cursor: pointer;
@@ -11,7 +11,7 @@
     outline: none;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: calc(max((var(--main-font) / 2), 1vh));
 }
 
 .button-all:hover {

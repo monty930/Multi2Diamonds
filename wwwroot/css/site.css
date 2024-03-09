@@ -1,6 +1,8 @@
 :root {
     /* main unit size */
     --main-font: calc(5px + min(1.5rem, calc(1vmax)));
+    --right-side-font-main: calc(max(var(--main-font), 2.5vh));
+    --right-side-font-bold: 600;
     
     --input-line-height: calc(1.2em);
     --input-box-height: calc(16 * (var(--input-line-height) + 0.77em));
@@ -28,7 +30,7 @@
     --red-hover: rgb(143, 21, 21);
     --red-shadow: rgb(107, 12, 12);
 
-    --tabs-img-size: calc(0.3em + min(3.5vh, 1.5vw));
+    --tabs-img-size: min(max(calc(var(--main-font) * 1.5), 4vh), 4vw);
 }
 
 html, body {

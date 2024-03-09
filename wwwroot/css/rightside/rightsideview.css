@@ -91,19 +91,21 @@
     color: var(--main-font-color);
     width: 100%;
     height: 100%;
-    font-weight: bold;
+    font-weight: var(--right-side-font-bold);
     display: flex;
-    padding: 5%
+    padding: 5%;
+    font-size: var(--right-side-font-main);
 }
 
 .num-of-tries {
     color: var(--main-font-color);
     width: 100%;
     height: 100%;
-    font-weight: bold;
+    font-weight: var(--right-side-font-bold);
     display: flex;
     align-items: flex-end;
-    padding: 5%
+    padding: calc(max(var(--main-font), 3vh) / 2);
+    font-size: var(--right-side-font-main);
 }
 
 /* ------------------ n-row ------------------ */
