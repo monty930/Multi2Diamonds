@@ -147,3 +147,17 @@
     justify-content: center;
     align-items: center;
 }
+
+/* ------------------------------------------- */
+
+#saveChoices {
+    background-color: var(--main-background-color);
+    color: var(--main-font-color);
+    border: none;
+}
+
+#filenameArea {
+    background-color: var(--main-background-color);
+    color: var(--main-font-color);
+    border: none;
+}
