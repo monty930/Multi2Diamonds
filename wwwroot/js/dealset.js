@@ -116,3 +116,14 @@ let renumerate_deals = (dsiString) => {
     let renumerated_deals = deals.join('[Board \"');
     return renumerated_deals;
 }
+
+get_pbn_from_dsi = (dsiString) => {
+    let output = dsiString.split('Number of')[0];
+    return output;
+}
+
+// TODO
+get_lin_from_dsi = (dsiString) => {
+    let output = "Lin will be here.\n" + dsiString;
+    return output;
+}

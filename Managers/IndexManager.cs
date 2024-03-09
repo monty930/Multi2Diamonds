@@ -29,17 +29,4 @@ public class IndexManager
             };
         }
     }
-
-    public async Task<RawScriptOutput> ConvertDsi(ConverterRunner converterRunner)
-    {
-        try
-        {
-            var scriptOut = await converterRunner.Run();
-            return new RawScriptOutput { ScriptOutputRaw = scriptOut };
-        } 
-        catch (CompilerException e)
-        {
-            return new RawScriptOutput { ScriptOutputRaw = e.Message + "\n"};
-        }
-    }
 }

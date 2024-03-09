@@ -255,37 +255,9 @@ submitSaveForm = new MyButton({
         let contentToSave = dsiString;
 
         if (selectedChoice === "lin-chosen") {
-            event.preventDefault();
-            document.getElementById('save-spinner').style.display = 'block';
-            try {
-                const response = await fetch('/Index/ConvertToLin', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ DSIstring: dsiString }),
-                });
-                const data = await response.json();
-                contentToSave = data.data;
-            } catch (error) {
-                console.error('Error:', error);
-            }
+            contentToSave = get_lin_from_dsi(dsiString);
         } else if (selectedChoice === "pbn-chosen") {
-            event.preventDefault();
-            document.getElementById('save-spinner').style.display = 'block';
-            try {
-                const response = await fetch('/Index/ConvertToPbn', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ DSIstring: dsiString }),
-                });
-                const data = await response.json();
-                contentToSave = data.data;
-            } catch (error) {
-                console.error('Error:', error);
-            }
+            contentToSave = get_pbn_from_dsi(dsiString);
         } // otherwise the dsi format is chosen
 
         // save the deal set content on the client side

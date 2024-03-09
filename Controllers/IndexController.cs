@@ -91,24 +91,6 @@ public class IndexController : Controller
     }
 
     [EnableCors]
-    [HttpPost]
-    public async Task<IActionResult> ConvertToLin([FromBody] RawScriptOutput dsiString)
-    {
-        var output = await _indexManager.ConvertDsi(
-            new ConverterRunner(dsiString, Extension.Lin));
-        return Json(new { data = output.ScriptOutputRaw });
-    }
-    
-    [EnableCors]
-    [HttpPost]
-    public async Task<IActionResult> ConvertToPbn([FromBody] RawScriptOutput dsiString)
-    {
-        var output = await _indexManager.ConvertDsi(
-            new ConverterRunner(dsiString, Extension.Pbn));
-        return Json(new { data = output.ScriptOutputRaw });
-    }
-
-    [EnableCors]
     [HttpGet]
     public Task<IActionResult> DefaultPage()
     {
