@@ -3,7 +3,7 @@
     width: 100%;
     height: 100%;
     grid-template-columns: 100%;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: calc(100% - calc(min(calc(min(100%, 20vw)), 500px))) calc(calc(min(calc(min(100%, 20vw)), 500px) / 2)) calc(calc(min(calc(min(100%, 20vw)), 500px) / 2));
     padding: 10pt 0 3pt 0;
 }
 

@@ -5,6 +5,7 @@
             </div>
         </div>
         <div class="hands hand-north">
+            <div class="hand-north-align"></div>
             @{
                 await Html.RenderPartialAsync("RightSide/Hand");
             }
@@ -43,6 +44,7 @@
             </div>
             <div>
                 <div class="deal-in-set-buttons-container">
+                    <div></div>
                     <div class="dealset-upper-row">
                         <div class="deaslset-button-container">
                             <button id="previousDealButton"
@@ -55,8 +57,8 @@
                                     class="button-all deal-set-button">
                                 <img class="dealset-img" src="~/assets/arrow.png"/>
                             </button>
-                            
-                            <button id="addDealButton" 
+
+                            <button id="addDealButton"
                                     class="button-all deal-set-button">
                                 <img class="dealset-img" src="~/assets/plus.png"/>
                             </button>

@@ -13,7 +13,7 @@
     font-weight: 500;
     height: 100%;
     width: 100%;
-    font-size: calc(2 * var(--main-font));
+    font-size: max(calc(2 * var(--main-font)), 2.1vh);
 }
 
 .div-test { /* TO-BE-DELETED */
@@ -139,7 +139,7 @@
 
 .align {
     display: grid;
-    grid-template-rows: calc(3.5 * var(--main-font)) auto;
+    grid-template-rows: calc(max(calc(3.5 * var(--main-font)), 3.7vh)) auto;
     grid-template-columns: 100%;
     height: 100%;
     width: 100%;

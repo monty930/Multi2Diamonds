@@ -12,7 +12,7 @@
 .right-view-container {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: max(5vh, calc(3 * var(--main-font))) auto; /* TO-BE-CHECKED */
+    grid-template-rows: max(5vh, calc(3 * var(--main-font))) auto;
     width: 100%;
     height: 100%;
     padding: 2%;
@@ -59,7 +59,11 @@
     height: 100%;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 35% 30% auto;
+    grid-template-rows: 35% calc(min(30%,
+    calc(4.5 * min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px))
+    )) calc(65% - calc(min(30%,
+    calc(4.5 * min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px))
+    )));
 }
 
 .hands {
@@ -80,22 +84,6 @@
     height: calc(min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px));
     font-size: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px));
     font-weight: 530;
-}
-
-.suit-clubs {
-    background-color: #6f42c1;
-}
-
-.suit-diamonds {
-    background-color: #ffca2c;
-}
-
-.suit-hearts {
-    background-color: #ff5733;
-}
-
-.suit-spades {
-    background-color: #6f42c1;
 }
 
 .suit-img {
@@ -154,11 +142,20 @@
 }
 
 .row-n > div:nth-child(2) {
-    padding: 5%;
+    padding: calc(max(calc(var(--main-font) / 2), 1.5vh));
     display: flex;
     align-items: center;
     text-align: center;
     font-size: calc(0.3em + min(3vh, 1vw));
+}
+
+.hand-north-align {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .row-n > div:nth-child(3) {
@@ -238,8 +235,8 @@
     grid-template-rows: auto;
 }
 
-.row-s > div:nth-child(2) {
-    padding: 5%;
+.hand-south {
+    padding: calc(max(calc(var(--main-font) / 2), 1vh));
     display: flex;
     text-align: left;
 }
