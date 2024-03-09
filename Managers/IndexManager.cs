@@ -30,7 +30,7 @@ public class IndexManager
         }
     }
 
-    public async Task<RawScriptOutput> ConvertToLin(ConverterRunner converterRunner)
+    public async Task<RawScriptOutput> ConvertDsi(ConverterRunner converterRunner)
     {
         try
         {

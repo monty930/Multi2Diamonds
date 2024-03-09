@@ -1,5 +1,5 @@
-function extractDeal(pbnString, dealNum) {
-    const deals = pbnString.trim().split('\n');
+function extractDeal(dsiString, dealNum) {
+    const deals = dsiString.trim().split('\n');
     const index = dealNum - 1;
 
     if (index >= 0 && index < deals.length) {
@@ -34,8 +34,8 @@ function extractSuit(deal, handType, suitType) {
     return suit;
 }
 
-function updateHandSuitContent(pbnString, dealNum) {
-    let deal = extractDeal(pbnString, dealNum);
+function updateHandSuitContent(dsiString, dealNum) {
+    let deal = extractDeal(dsiString, dealNum);
     document.querySelectorAll('.hands').forEach(handDiv => {
         const handType = handDiv.classList[1];
         handDiv.querySelectorAll('.suit').forEach(suitDiv => {
@@ -70,25 +70,30 @@ let init_deal_generation = () => {
     document.getElementById('spinner').style.display = 'block';
 }
 
-let updateNumOfTries = (pbnString) => {
-    let numOfTries = pbnString.split('Tries')[1];
+let updateNumOfTries = (dsiString) => {
+    let numOfTries = dsiString.split('Tries')[1];
+    numOfTries = numOfTries.split('\n')[0];
     document.getElementById('num-of-tries').textContent = "Tries" + numOfTries;
     let currentDealNum = window.localStorage.getItem('CurrentDealNum');
-    let numOfDeals = getNumOfDeals(pbnString);
+    let numOfDeals = getNumOfDeals(dsiString);
     if (document.getElementById('deal-number-info') != null)
         document.getElementById('deal-number-info').textContent = "Deal: " + currentDealNum + "/" + numOfDeals;
 }
 
-let getNumOfDeals = (pbnString) => {
-    return pbnString.split('[').length - 1;
+let getNumOfDeals = (dsiString) => {
+    return (dsiString.split('[').length - 1);
 }
 
-let init_new_deal = (pbnString) => {
-    window.localStorage.setItem('PBNstring', pbnString);
-    window.localStorage.setItem('CurrentDealNum', "1");
-    window.localStorage.setItem('NumOfDeals', getNumOfDeals(pbnString).toString());
-    updateHandSuitContent(pbnString, 1);
-    updateNumOfTries(pbnString);
+let init_new_deal = (dsiString, currentDealNum) => {
+    window.localStorage.setItem('DSIstring', dsiString);
+    window.localStorage.setItem('CurrentDealNum', currentDealNum);
+    window.localStorage.setItem('NumOfDeals', getNumOfDeals(dsiString).toString());
+    if (currentDealNum > 0) {
+        updateHandSuitContent(dsiString, 1);
+        updateNumOfTries(dsiString);
+    } else {
+        document.getElementById('entryNumOfDeals').innerHTML = getNumOfDeals(dsiString);
+    }
 }
 
 let disable_right_buttons = () => {
@@ -114,7 +119,10 @@ let disable_right_buttons = () => {
 
 display_form = () => {
     document.getElementById("dialogSaveWindow").style.display = "block";
-    // TODO: enable buttons
+    document.getElementById("filenameArea").disabled = false;
+    document.getElementById("saveChoices").disabled = false;
+    document.getElementById("submitButton").disabled = false;
+    document.getElementById("closeButton").disabled = false;
 }
 
 hide_form = () => {
@@ -122,21 +130,24 @@ hide_form = () => {
 }
 
 disable_form_buttons = () => {
-    // TODO
+    document.getElementById("filenameArea").disabled = true;
+    document.getElementById("saveChoices").disabled = true;
+    document.getElementById("submitButton").disabled = true;
+    document.getElementById("closeButton").disabled = true;
 }
 
-let add_deal_in_pbn = (pbnString, newDealPbnString) => {
-    let deals = pbnString.split('\n\nTries');
+let add_deal_in_dsi = (dsiString, newDealDsiString) => {
+    let deals = dsiString.split('\n\nTries');
     let numOfTries = "\nTries" + deals[deals.length - 1];
     deals.pop();
-    let newDeal = newDealPbnString.split('\n')[0];
+    let newDeal = newDealDsiString.split('\n')[0];
     deals.push(newDeal);
     deals.push(numOfTries);
     return deals.join('\n');
 }
 
-let remove_deal_in_pbn = (pbnString, dealNum) => {
-    let deals = pbnString.split('\n\nTries');
+let remove_deal_in_dsi = (dsiString, dealNum) => {
+    let deals = dsiString.split('\n\nTries');
     let numOfTries = "\n\nTries" + deals[deals.length - 1];
     deals.pop();
     deals = deals[0].split('\n');
@@ -146,18 +157,18 @@ let remove_deal_in_pbn = (pbnString, dealNum) => {
             dealsNew.push(deals[i]);
         }
     }
-    let pbn_with_removed = dealsNew.join('\n');
-    pbn_with_removed += numOfTries;
-    return pbn_with_removed;
+    let dsi_with_removed = dealsNew.join('\n');
+    dsi_with_removed += numOfTries;
+    return dsi_with_removed;
 }
 
-let replace_deal_in_pbn = (pbnString, dealNum, newDealPbnString) => {
-    let deals = pbnString.split('\n\nTries');
+let replace_deal_in_dsi = (dsiString, dealNum, newDealDsiString) => {
+    let deals = dsiString.split('\n\nTries');
     let numOfTries = "\n\nTries" + deals[deals.length - 1];
     deals.pop();
     deals = deals[0].split('\n');
-    deals[dealNum - 1] = newDealPbnString.split('\n')[0];
-    let pbn_with_replaced = deals.join('\n');
-    pbn_with_replaced += numOfTries;
-    return pbn_with_replaced;
+    deals[dealNum - 1] = newDealDsiString.split('\n')[0];
+    let dsi_with_replaced = deals.join('\n');
+    dsi_with_replaced += numOfTries;
+    return dsi_with_replaced;
 }

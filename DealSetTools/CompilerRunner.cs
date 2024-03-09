@@ -24,7 +24,14 @@ public class CompilerRunner
         var tempFilePath = Path.GetTempFileName();
         await File.WriteAllTextAsync(tempFilePath, CompilerSettings.InputText);
         
-        _processStartInfo.Arguments = $"{CompilerPath} {CompilerSettings.Compiler} {tempFilePath} {CompilerSettings.NumberOfDeals}";
+        _processStartInfo.Arguments = 
+            $"{CompilerPath} " +
+            $"-c {CompilerSettings.Compiler} " +
+            $"-f {tempFilePath} " +
+            $"-n {CompilerSettings.NumberOfDeals} " +
+            $"-v {CompilerSettings.Vul} " +
+            $"-d {CompilerSettings.Dealer} " +
+            $"-i {CompilerSettings.Flip}";
         
         using var process = Process.Start(_processStartInfo) ?? throw new NullReferenceException();
         

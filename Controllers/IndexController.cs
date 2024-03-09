@@ -19,9 +19,9 @@ public class IndexController : Controller
 
     [HttpGet]
     [EnableCors]
-    public async Task<IActionResult> Index()
+    public Task<IActionResult> Index()
     {
-        return View("Index", new IndexViewModel());
+        return Task.FromResult<IActionResult>(View("Index", new IndexViewModel()));
     }
 
     [HttpPost]
@@ -30,14 +30,14 @@ public class IndexController : Controller
     {
         var model = await _indexManager.GenerateDeals(new IndexViewModel
         {
-            RightDisplay = RightViewDisplay.DealSet,
+            RightDisplay = RightViewDisplay.DealSetEntry,
             CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
-        var pbnString = model.ScriptOutputRaw;
+        var dsiString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
         var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
-        return Json(new { htmlContent, pbnString, correctDeal });
+        return Json(new { htmlContent, dsiString, correctDeal });
     }
 
     [EnableCors]
@@ -51,10 +51,10 @@ public class IndexController : Controller
             CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
-        var pbnString = model.ScriptOutputRaw;
+        var dsiString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
         var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
-        return Json(new { htmlContent, pbnString, correctDeal });
+        return Json(new { htmlContent, dsiString, correctDeal });
     }
 
     [EnableCors]
@@ -68,10 +68,10 @@ public class IndexController : Controller
             CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
-        var newDealPbnString = model.ScriptOutputRaw;
+        var newDealDsiString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
         var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
-        return Json(new { htmlContent, newDealPbnString, correctDeal });
+        return Json(new { htmlContent, newDealDsiString, correctDeal });
     }
     
     [EnableCors]
@@ -84,42 +84,69 @@ public class IndexController : Controller
             CompilerRunner = new CompilerRunner(compilerSettings)
         });
 
-        var newDealPbnString = model.ScriptOutputRaw;
+        var newDealDsiString = model.ScriptOutputRaw;
         var htmlContent = await RenderViewAsync("RightSideView", model, true);
         var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
-        return Json(new { htmlContent, newDealPbnString, correctDeal });
+        return Json(new { htmlContent, newDealDsiString, correctDeal });
     }
 
     [EnableCors]
     [HttpPost]
-    public async Task<IActionResult> ConvertToLin([FromBody] RawScriptOutput pbnString)
+    public async Task<IActionResult> ConvertToLin([FromBody] RawScriptOutput dsiString)
     {
-        var output = await _indexManager.ConvertToLin(new ConverterRunner(pbnString));
+        var output = await _indexManager.ConvertDsi(
+            new ConverterRunner(dsiString, Extension.Lin));
+        return Json(new { data = output.ScriptOutputRaw });
+    }
+    
+    [EnableCors]
+    [HttpPost]
+    public async Task<IActionResult> ConvertToPbn([FromBody] RawScriptOutput dsiString)
+    {
+        var output = await _indexManager.ConvertDsi(
+            new ConverterRunner(dsiString, Extension.Pbn));
         return Json(new { data = output.ScriptOutputRaw });
     }
 
     [EnableCors]
-    [HttpPost]
-    public async Task<IActionResult> DefaultPage([FromForm] string textInput)
+    [HttpGet]
+    public Task<IActionResult> DefaultPage()
     {
-        var model = new IndexViewModel();
-        model.RightDisplay = RightViewDisplay.Entry;
-        return PartialView("RightSideView", model);
+        var model = new IndexViewModel
+        {
+            RightDisplay = RightViewDisplay.Entry
+        };
+        return Task.FromResult<IActionResult>(PartialView("RightSideView", model));
     }
     
-    public async Task<string> RenderViewAsync<TModel>(string viewName, TModel model, bool partial = false)
+    [EnableCors]
+    [HttpGet]
+    public Task<IActionResult> DealSetGetView()
     {
-        if (string.IsNullOrEmpty(viewName)) viewName = ControllerContext.ActionDescriptor.ActionName;
+        var model = new IndexViewModel
+        {
+            RightDisplay = RightViewDisplay.DealSet
+        };
+        return Task.FromResult<IActionResult>(PartialView("RightSideView", model));
+    }
+
+    private async Task<string> RenderViewAsync<TModel>
+        (string viewName, TModel model, bool partial = false)
+    {
+        if (string.IsNullOrEmpty(viewName)) viewName =
+            ControllerContext.ActionDescriptor.ActionName;
 
         ViewData.Model = model;
 
         await using var writer = new StringWriter();
         
         IViewEngine viewEngine =
-            HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
+            HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine))
+                as ICompositeViewEngine ?? throw new InvalidOperationException();
         var viewResult = viewEngine.FindView(ControllerContext, viewName, !partial);
 
-        if (viewResult.Success == false) return $"A view with the name {viewName} could not be found";
+        if (viewResult.Success == false) return 
+            $"A view with the name {viewName} could not be found";
 
         var viewContext = new ViewContext(
             ControllerContext,
