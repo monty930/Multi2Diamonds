@@ -9,12 +9,18 @@
 }
 
 .left-side-title {
-    /*margin-bottom: 10px;*/
     color: var(--main-font-color);
     font-weight: 600;
     height: 100%;
     width: 100%;
-    font-size: calc(1.3 * var(--main-font));
+    font-size: calc(2 * var(--main-font));
+}
+
+.div-test { /* TO-BE-DELETED */
+    height: var(--main-font);
+    width: var(--main-font);
+    background-color: #d63384;
+    display: inline-block;
 }
 
 /* --------------- line numbers --------------- */
@@ -134,7 +140,7 @@
 
 .align {
     display: grid;
-    grid-template-rows: calc(min(12%, 20vw/4)) auto;
+    grid-template-rows: calc(3 * var(--main-font)) auto;
     grid-template-columns: 100%;
     height: 100%;
     width: 100%;

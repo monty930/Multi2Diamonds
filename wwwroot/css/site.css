@@ -1,6 +1,6 @@
 :root {
     /*--main-font: calc(1.6vmax);*/
-    --main-font: calc(min(1.7rem, calc(1.6vmax)));
+    --main-font: calc(5px + min(1.5rem, calc(1vmax)));
     --main-background-color: rgb(88, 88, 88);
     --main-font-color: rgb(255, 235, 235);
     /*--suit-cards-font-size: calc(0.3em + min(2.5vh, 1.5vw));*/
@@ -41,8 +41,31 @@ html, body {
 }
 
 .header {
-    padding: 3pt 3pt 3pt 1.5%;
+    height: max(min(10vh, 120px), max(70px, calc(3 * var(--main-font))));
+    padding: 0 0 0 1vw;
     background: rgb(77, 77, 77);
+    align-items: center;
+    display: flex;
+}
+
+.header-title {
+    color: rgb(255, 235, 235);
+    font-size: calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 34px);
+    text-decoration: none;
+    font-weight: 900;
+    align-items: center;
+    display: flex;
+}
+
+.m2d-title-img {
+    /*width: calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 38px);*/
+    display: inline-block;
+    height: calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) - 34px);
+    padding: 
+            5px 
+            calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) / 7)
+            calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) / 13)
+            calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) / 7);
 }
 
 /* -------------- loading circle ------------- */
