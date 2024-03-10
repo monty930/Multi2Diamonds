@@ -1,68 +1,125 @@
 <link rel="stylesheet" href="~/css/leftside/settings.css"/>
 
-<div class="align">
-    <div class="left-side-title">
-        Settings
+<div class="settings-container">
+    <div class="settings-names">
+        Number of deals in set:<br/>
+        Compiler:<br/>
+        Vulnerability:<br/>
+        Randomly flip deal:<br/>
+        Dealer: <br/>
+        Scoring:<br/>
     </div>
-    <div class="left-side-content">
-        <div class="line-numbers"></div>
-        <div class="form-container-settings">
-            <div class="inner-container settings-container">
-                <div class="settings-names">
-                    Number of deals in set:<br/>
-                    Compiler:<br/>
-                    Vulnerability:<br/>
-                    Randomly flip deal:<br/>
-                    Dealer: <br/>
-                    Scoring:<br/>
-                </div>
-                <div class="settings-option-column">
-                    <div class="number-spinner">
-                        <input type="number" id="deals-in-set" value="12" min="1" max="24">
-                        <div class="input-number-arrows">
-                            <button type="button" class="number-spinner-btn number-spinner-increment">
-                                <div class="up-button-container">
-                                    <img class="input-arrow-up-img" src="~/assets/arrow-up.png" alt="Decrease"/>
-                                </div>
-                            </button>
-                            <button type="button" class="number-spinner-btn number-spinner-decrement">
-                                <div class="down-button-container">
-                                    <img class="input-arrow-down-img" src="~/assets/arrow-down.png" alt="Decrease"/>
-                                </div>
-                            </button>
-                        </div>
+    <div class="settings-option-column">
+        <div class="number-spinner">
+            <input type="number" id="deals-in-set" value="12" min="1" max="24">
+            <div class="input-number-arrows">
+                <button type="button" class="number-spinner-btn number-spinner-increment">
+                    <div class="up-button-container">
+                        <img class="input-arrow-up-img" src="~/assets/arrow-up.png" alt="Decrease"/>
                     </div>
-
-                    
-                    <select id="compiler-choice">
-                        <option value="Chai">Chai</option>
-                        <option value="Latte">Latte</option>
-                    </select>
-                    <select id="vulnerability-choice">
-                        <option value="Random">Random</option>
-                        <option value="None">None</option>
-                        <option value="NS">NS</option>
-                        <option value="EW">EW</option>
-                        <option value="All">All</option>
-                    </select>
-                    <select id="flip-choice">
-                        <option value="NoFlip">--</option>
-                        <option value="Flip90st">90&deg;</option>
-                        <option value="Flip180st">180&deg;</option>
-                    </select>
-                    <select id="dealer-choice">
-                        <option value="Random">Random</option>
-                        <option value="North">N</option>
-                        <option value="East">E</option>
-                        <option value="South">S</option>
-                        <option value="West">W</option>
-                    </select>
-                    <select id="scoring-choice">
-                        <option value="Imp">IMP</option>
-                        <option value="Mp">MP</option>
-                    </select>
-                </div>
+                </button>
+                <button type="button" class="number-spinner-btn number-spinner-decrement">
+                    <div class="down-button-container">
+                        <img class="input-arrow-down-img" src="~/assets/arrow-down.png" alt="Decrease"/>
+                    </div>
+                </button>
             </div>
         </div>
+
+
+        <select id="compiler-choice">
+            <option value="Chai">Chai</option>
+            <option value="Latte">Latte</option>
+        </select>
+        <select id="vulnerability-choice">
+            <option value="Random">Random</option>
+            <option value="None">None</option>
+            <option value="NS">NS</option>
+            <option value="EW">EW</option>
+            <option value="All">All</option>
+        </select>
+        <select id="flip-choice">
+            <option value="NoFlip">--</option>
+            <option value="Flip90st">90&deg;</option>
+            <option value="Flip180st">180&deg;</option>
+        </select>
+        <select id="dealer-choice">
+            <option value="Random">Random</option>
+            <option value="North">N</option>
+            <option value="East">E</option>
+            <option value="South">S</option>
+            <option value="West">W</option>
+        </select>
+        <select id="scoring-choice">
+            <option value="Imp">IMP</option>
+            <option value="Mp">MP</option>
+        </select>
     </div>
 </div>
+
+@* <div class="align"> *@
+@*     <div class="left-side-title"> *@
+@*         Settings *@
+@*     </div> *@
+@*     <div class="left-side-content"> *@
+@*         <div class="line-numbers"></div> *@
+@*         <div class="form-container-settings"> *@
+@*             <div class="inner-container settings-container"> *@
+@*                 <div class="settings-names"> *@
+@*                     Number of deals in set:<br/> *@
+@*                     Compiler:<br/> *@
+@*                     Vulnerability:<br/> *@
+@*                     Randomly flip deal:<br/> *@
+@*                     Dealer: <br/> *@
+@*                     Scoring:<br/> *@
+@*                 </div> *@
+@*                 <div class="settings-option-column"> *@
+@*                     <div class="number-spinner"> *@
+@*                         <input type="number" id="deals-in-set" value="12" min="1" max="24"> *@
+@*                         <div class="input-number-arrows"> *@
+@*                             <button type="button" class="number-spinner-btn number-spinner-increment"> *@
+@*                                 <div class="up-button-container"> *@
+@*                                     <img class="input-arrow-up-img" src="~/assets/arrow-up.png" alt="Decrease"/> *@
+@*                                 </div> *@
+@*                             </button> *@
+@*                             <button type="button" class="number-spinner-btn number-spinner-decrement"> *@
+@*                                 <div class="down-button-container"> *@
+@*                                     <img class="input-arrow-down-img" src="~/assets/arrow-down.png" alt="Decrease"/> *@
+@*                                 </div> *@
+@*                             </button> *@
+@*                         </div> *@
+@*                     </div> *@
+@* *@
+@*                      *@
+@*                     <select id="compiler-choice"> *@
+@*                         <option value="Chai">Chai</option> *@
+@*                         <option value="Latte">Latte</option> *@
+@*                     </select> *@
+@*                     <select id="vulnerability-choice"> *@
+@*                         <option value="Random">Random</option> *@
+@*                         <option value="None">None</option> *@
+@*                         <option value="NS">NS</option> *@
+@*                         <option value="EW">EW</option> *@
+@*                         <option value="All">All</option> *@
+@*                     </select> *@
+@*                     <select id="flip-choice"> *@
+@*                         <option value="NoFlip">--</option> *@
+@*                         <option value="Flip90st">90&deg;</option> *@
+@*                         <option value="Flip180st">180&deg;</option> *@
+@*                     </select> *@
+@*                     <select id="dealer-choice"> *@
+@*                         <option value="Random">Random</option> *@
+@*                         <option value="North">N</option> *@
+@*                         <option value="East">E</option> *@
+@*                         <option value="South">S</option> *@
+@*                         <option value="West">W</option> *@
+@*                     </select> *@
+@*                     <select id="scoring-choice"> *@
+@*                         <option value="Imp">IMP</option> *@
+@*                         <option value="Mp">MP</option> *@
+@*                     </select> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
