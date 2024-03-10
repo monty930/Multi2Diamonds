@@ -3,18 +3,17 @@
     width: 100%;
     height: 100%;
     grid-template-columns: 100%;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: calc(100% - calc(min(calc(min(100%, 20vw)), 500px))) calc(calc(min(calc(min(100%, 20vw)), 500px) / 2)) calc(calc(min(calc(min(100%, 20vw)), 500px) / 2));
     padding: 10pt 0 3pt 0;
 }
 
 .dealset-img {
-    padding-bottom: 2pt;
-    width: calc(0.4em + min(4vh, 2vw));
+    width: calc(min(calc(max((var(--main-font) * 2), 5vh)), 3vw));
 }
 
 .dealset-img-entry {
     padding-bottom: 2pt;
-    width: calc(min(4vh, 2vw));
+    width: calc(1.1 * var(--main-font));
 }
 
 .dealset-upper-row {
@@ -36,5 +35,5 @@
 }
 
 .deaslset-button-container {
-    padding: 5pt 2pt 2pt 2pt;
+    padding: calc(max((var(--main-font) / 5), 1vh)) 2pt 0 2pt;
 }

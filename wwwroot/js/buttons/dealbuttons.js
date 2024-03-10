@@ -67,7 +67,6 @@ nextDeal = new MyButton({
 
         let dsiString = window.localStorage.getItem('DSIstring');
         let whichDeal = window.localStorage.getItem('CurrentDealNum');
-        console.log(whichDeal);
         if (0 === parseInt(whichDeal)) {
             event.preventDefault();
             fetch('/Index/DealSetGetView', {
@@ -78,17 +77,17 @@ nextDeal = new MyButton({
                     document.getElementById('right-partial').innerHTML = html;
                     rebind_right_buttons();
                     let active_deal_num = parseInt(whichDeal) + 1;
-                    updateHandSuitContent(dsiString, active_deal_num);
+                    update_hand_suit_content(dsiString, active_deal_num);
                     window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
-                    updateNumOfTries(dsiString);
+                    update_num_of_tries(dsiString);
                     disable_right_buttons();
                 })
                 .catch(error => console.error('Error:', error));
         } else {
             let active_deal_num = parseInt(whichDeal) + 1;
-            updateHandSuitContent(dsiString, active_deal_num);
+            update_hand_suit_content(dsiString, active_deal_num);
             window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
-            updateNumOfTries(dsiString);
+            update_num_of_tries(dsiString);
             disable_right_buttons();
         }
     }
@@ -103,9 +102,9 @@ previousDeal = new MyButton({
         let dsiString = window.localStorage.getItem('DSIstring');
         let whichDeal = window.localStorage.getItem('CurrentDealNum');
         let active_deal_num = parseInt(whichDeal) - 1;
-        updateHandSuitContent(dsiString, active_deal_num);
+        update_hand_suit_content(dsiString, active_deal_num);
         window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
-        updateNumOfTries(dsiString);
+        update_num_of_tries(dsiString);
         disable_right_buttons();
     }
 });
@@ -138,12 +137,12 @@ addDeal = new MyButton({
                     let newDsiString = add_deal_in_dsi(dsiString, data.newDealDsiString);
                     let whichDeal = window.localStorage.getItem('CurrentDealNum');
                     let active_deal_num = parseInt(whichDeal) + 1;
-                    updateHandSuitContent(newDsiString, active_deal_num);
+                    update_hand_suit_content(newDsiString, active_deal_num);
                     window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
                     window.localStorage.setItem('NumOfDeals', active_deal_num.toString());
                     window.localStorage.setItem('DSIstring', newDsiString);
 
-                    updateNumOfTries(newDsiString);
+                    update_num_of_tries(newDsiString);
                     disable_right_buttons();
                 }
 
@@ -169,13 +168,13 @@ trash = new MyButton({
             if (active_deal_num > 1) {
                 active_deal_num -= 1;
             }
-            updateHandSuitContent(newDsiString, active_deal_num);
+            update_hand_suit_content(newDsiString, active_deal_num);
             window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
             window.localStorage.setItem('DSIstring', newDsiString);
             let oldNumOfDeals = parseInt(window.localStorage.getItem('NumOfDeals'));
             window.localStorage.setItem('NumOfDeals', (oldNumOfDeals - 1).toString());
 
-            updateNumOfTries(newDsiString);
+            update_num_of_tries(newDsiString);
             disable_right_buttons();
             return;
         }
@@ -221,12 +220,12 @@ regenerateOne = new MyButton({
                     let whichDeal = window.localStorage.getItem('CurrentDealNum');
                     let active_deal_num = parseInt(whichDeal);
                     let newDsiString = replace_deal_in_dsi(dsiString, active_deal_num, data.newDealDsiString);
-                    updateHandSuitContent(newDsiString, active_deal_num);
+                    update_hand_suit_content(newDsiString, active_deal_num);
 
                     window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
                     window.localStorage.setItem('DSIstring', newDsiString);
 
-                    updateNumOfTries(newDsiString);
+                    update_num_of_tries(newDsiString);
                     disable_right_buttons();
                 }
 
@@ -256,37 +255,9 @@ submitSaveForm = new MyButton({
         let contentToSave = dsiString;
 
         if (selectedChoice === "lin-chosen") {
-            event.preventDefault();
-            document.getElementById('save-spinner').style.display = 'block';
-            try {
-                const response = await fetch('/Index/ConvertToLin', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ DSIstring: dsiString }),
-                });
-                const data = await response.json();
-                contentToSave = data.data;
-            } catch (error) {
-                console.error('Error:', error);
-            }
+            contentToSave = get_lin_from_dsi(dsiString);
         } else if (selectedChoice === "pbn-chosen") {
-            event.preventDefault();
-            document.getElementById('save-spinner').style.display = 'block';
-            try {
-                const response = await fetch('/Index/ConvertToPbn', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ DSIstring: dsiString }),
-                });
-                const data = await response.json();
-                contentToSave = data.data;
-            } catch (error) {
-                console.error('Error:', error);
-            }
+            contentToSave = get_pbn_from_dsi(dsiString);
         } // otherwise the dsi format is chosen
 
         // save the deal set content on the client side
@@ -334,6 +305,7 @@ get_new_compiler_settings = function () {
         Vul: document.getElementById('vulnerability-choice').value,
         Dealer: document.getElementById('dealer-choice').value,
         Flip: document.getElementById('flip-choice').value,
+        Scoring: document.getElementById('scoring-choice').value,
     }
 }
 
@@ -347,5 +319,6 @@ get_compiler_settings = function () {
         Vul: dsiString.split('Vulnerability: ')[1].split('\n')[0],
         Dealer: dsiString.split('Dealer: ')[1].split('\n')[0],
         Flip: dsiString.split('Flip: ')[1].split('\n')[0],
+        Scoring: dsiString.split('Scoring: ')[1].split('\n')[0],
     }
 }

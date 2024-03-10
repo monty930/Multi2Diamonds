@@ -15,4 +15,6 @@ public class SettingsArgs
     public DealerChoice Dealer { get; set; }
     
     public FlipChoice Flip { get; set; }
+    
+    public ScoringChoice Scoring { get; set; }
 }

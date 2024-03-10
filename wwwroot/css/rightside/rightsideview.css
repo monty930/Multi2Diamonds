@@ -12,7 +12,7 @@
 .right-view-container {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: calc(min(12%, 20vw/4)) auto;
+    grid-template-rows: max(5vh, calc(3 * var(--main-font))) auto;
     width: 100%;
     height: 100%;
     padding: 2%;
@@ -35,7 +35,7 @@
     width: 50%;
     height: 100%;
     display: flex;
-    font-size: calc(var(--main-font));
+    font-size: min(max(calc(1.2 * var(--main-font)), 2vh), 1.5vw);
 }
 
 .message-and-spinner {
@@ -47,7 +47,7 @@
 
 .entry-message {
     color : var(--main-font-color);
-    font-size: 1.5em;
+    font-size: min(max(calc(1.2 * var(--main-font)), 2vh), 2vw);
     font-weight: bold;
     padding-bottom: 10%;
 }
@@ -59,28 +59,11 @@
     height: 100%;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 35% 30% auto;
-}
-
-.grid-snwe {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: auto 40% auto;
-    grid-template-rows: auto 40% auto;
-    border: 5px solid rgb(126, 126, 126);
-    place-items: center;
-    font-size: calc(0.1em + min(4vh, 2vw));
-    font-weight: 800;
-    color: var(--main-font-color);
-}
-
-.suit-img {
-    width: 30px;
-    display: block;
-    clear: both;
-    padding-right: 5px;
-    padding-bottom: 3px;
+    grid-template-rows: 35% calc(min(30%,
+    calc(4.5 * min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px))
+    )) calc(65% - calc(min(30%,
+    calc(4.5 * min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px))
+    )));
 }
 
 .hands {
@@ -97,26 +80,39 @@
     width: 100%;
     text-align: left;
     display: flex;
-    place-items: flex-end;
+    place-items: center;
+    height: calc(min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px));
+    font-size: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px));
+    font-weight: 530;
+}
+
+.suit-img {
+    width: calc(min(calc(max(calc(1.5 * var(--main-font)), 4.2vh)), 90px));
+    display: block;
+    clear: both;
+    padding-right: 5px;
+    padding-bottom: calc(max(calc(0.1 * var(--main-font)), 0.4vh));
 }
 
 .deal-number-info {
     color: var(--main-font-color);
     width: 100%;
     height: 100%;
-    font-weight: bold;
+    font-weight: var(--right-side-font-bold);
     display: flex;
-    padding: 5%
+    padding: 5%;
+    font-size: var(--right-side-font-main);
 }
 
 .num-of-tries {
     color: var(--main-font-color);
     width: 100%;
     height: 100%;
-    font-weight: bold;
+    font-weight: var(--right-side-font-bold);
     display: flex;
     align-items: flex-end;
-    padding: 5%
+    padding: calc(max(var(--main-font), 3vh) / 2);
+    font-size: var(--right-side-font-main);
 }
 
 /* ------------------ n-row ------------------ */
@@ -138,7 +134,7 @@
 }
 
 .row-n.has-handsuits > div:nth-child(2) {
-    padding: 5%;
+    padding: calc(var(--main-font) / 2);
     display: flex;
     align-items: flex-end;
     text-align: left;
@@ -146,11 +142,20 @@
 }
 
 .row-n > div:nth-child(2) {
-    padding: 5%;
+    padding: calc(max(calc(var(--main-font) / 2), 1.5vh));
     display: flex;
     align-items: center;
     text-align: center;
     font-size: calc(0.3em + min(3vh, 1vw));
+}
+
+.hand-north-align {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .row-n > div:nth-child(3) {
@@ -189,20 +194,19 @@
 
 .hand-west {
     display: flex;
-    padding-right: 15pt;
+    padding-right: calc(max(calc(var(--main-font) / 2), 1.5vh));
     text-align: left;
     place-items: center;
 }
 
-.row-mid > div:nth-child(3) {
+.hand-east {
     width: 100%;
     height: 100%;
-    padding-left: 10pt;
     display: flex;
-    padding-right: 7pt;
     text-align: left;
     place-items: center;
-    padding-top: 3pt;
+    padding: calc(max(calc(var(--main-font) / 2), 1vh));
+    padding-top: calc(var(--main-font) / 10);
 }
 
 .row-mid > div:nth-child(1) {
@@ -231,8 +235,8 @@
     grid-template-rows: auto;
 }
 
-.row-s > div:nth-child(2) {
-    padding: 5%;
+.hand-south {
+    padding: calc(min(calc(max(calc(var(--main-font) / 2), 1vh)), 50px));
     display: flex;
     text-align: left;
 }

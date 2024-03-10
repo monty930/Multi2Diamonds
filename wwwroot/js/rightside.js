@@ -1,99 +1,63 @@
-function extractDeal(dsiString, dealNum) {
-    const deals = dsiString.trim().split('\n');
-    const index = dealNum - 1;
-
-    if (index >= 0 && index < deals.length) {
-        return deals[index];
-    } else {
-        return 'Deal number is out of range.';
-    }
-}
-
-function extractSuit(deal, handType, suitType) {
-    deal = deal.substring(9, deal.length - 2);
-    const hands = deal.split(" ");
-
-    const handIndex = {
-        "hand-north": 0,
-        "hand-east": 1,
-        "hand-south": 2,
-        "hand-west": 3
-    };
-
-    const suitIndex = {
-        "suit-spades": 0,
-        "suit-hearts": 1,
-        "suit-diamonds": 2,
-        "suit-clubs": 3
-    };
-
-    const hand = hands[handIndex[handType]];
-    const suits = hand.split(".");
-    const suit = suits[suitIndex[suitType]];
-
-    return suit;
-}
-
-function updateHandSuitContent(dsiString, dealNum) {
-    let deal = extractDeal(dsiString, dealNum);
+function update_hand_suit_content(dsiString, dealNum) {
+    let deal = extract_deal(dsiString, dealNum);
     document.querySelectorAll('.hands').forEach(handDiv => {
         const handType = handDiv.classList[1];
         handDiv.querySelectorAll('.suit').forEach(suitDiv => {
             const suitType = suitDiv.querySelector('div').classList[0];
-            suitDiv.querySelector('div').textContent = extractSuit(deal, handType, suitType)
+            suitDiv.querySelector('div').textContent = extract_suit(deal, handType, suitType)
         });
     });
+    let vul = extract_vul(deal); // (bool bool)
+    if (vul[0]) {
+        document.getElementById('N-vul').classList.add('vul');
+        document.getElementById('S-vul').classList.add('vul');
+    } else {
+        document.getElementById('N-vul').classList.remove('vul');
+        document.getElementById('S-vul').classList.remove('vul');
+    }
+    
+    if (vul[1]) {
+        document.getElementById('E-vul').classList.add('vul');
+        document.getElementById('W-vul').classList.add('vul');
+    }
+    else {
+        document.getElementById('E-vul').classList.remove('vul');
+        document.getElementById('W-vul').classList.remove('vul');
+    }
+    
+    let dealer = extract_dealer(deal); // N / E / S / W
+    document.getElementById('N-vul').classList.remove('dealer');
+    document.getElementById('E-vul').classList.remove('dealer');
+    document.getElementById('S-vul').classList.remove('dealer');
+    document.getElementById('W-vul').classList.remove('dealer');
+    let dealerDiv = document.getElementById(dealer + '-vul');
+    dealerDiv.classList.add('dealer')
 }
 
-let rebindButton = (button) => {
+let rebind_button = (button) => {
     if (button != null)
         button.rebind();
 }
 
 let rebind_right_buttons = () => {
-    rebindButton(MyButtons.generateExample);
-    rebindButton(MyButtons.generateDealSet);
-    rebindButton(MyButtons.error);
-    rebindButton(MyButtons.save);
-    rebindButton(MyButtons.nextDeal);
-    rebindButton(MyButtons.previousDeal);
-    rebindButton(MyButtons.trash);
-    rebindButton(MyButtons.regenerateOne);
-    rebindButton(MyButtons.addDeal);
+    rebind_button(MyButtons.generateExample);
+    rebind_button(MyButtons.generateDealSet);
+    rebind_button(MyButtons.error);
+    rebind_button(MyButtons.save);
+    rebind_button(MyButtons.nextDeal);
+    rebind_button(MyButtons.previousDeal);
+    rebind_button(MyButtons.trash);
+    rebind_button(MyButtons.regenerateOne);
+    rebind_button(MyButtons.addDeal);
 }
 
+// The function hides the entry message and shows the spinner
 let init_deal_generation = () => {
     if (document.getElementById('entry-message') != null) {
         document.getElementById('entry-message').style.display = 'none';
     }
 
     document.getElementById('spinner').style.display = 'block';
-}
-
-let updateNumOfTries = (dsiString) => {
-    let numOfTries = dsiString.split('Tries')[1];
-    numOfTries = numOfTries.split('\n')[0];
-    document.getElementById('num-of-tries').textContent = "Tries" + numOfTries;
-    let currentDealNum = window.localStorage.getItem('CurrentDealNum');
-    let numOfDeals = getNumOfDeals(dsiString);
-    if (document.getElementById('deal-number-info') != null)
-        document.getElementById('deal-number-info').textContent = "Deal: " + currentDealNum + "/" + numOfDeals;
-}
-
-let getNumOfDeals = (dsiString) => {
-    return (dsiString.split('[').length - 1);
-}
-
-let init_new_deal = (dsiString, currentDealNum) => {
-    window.localStorage.setItem('DSIstring', dsiString);
-    window.localStorage.setItem('CurrentDealNum', currentDealNum);
-    window.localStorage.setItem('NumOfDeals', getNumOfDeals(dsiString).toString());
-    if (currentDealNum > 0) {
-        updateHandSuitContent(dsiString, 1);
-        updateNumOfTries(dsiString);
-    } else {
-        document.getElementById('entryNumOfDeals').innerHTML = getNumOfDeals(dsiString);
-    }
 }
 
 let disable_right_buttons = () => {
@@ -134,41 +98,4 @@ disable_form_buttons = () => {
     document.getElementById("saveChoices").disabled = true;
     document.getElementById("submitButton").disabled = true;
     document.getElementById("closeButton").disabled = true;
-}
-
-let add_deal_in_dsi = (dsiString, newDealDsiString) => {
-    let deals = dsiString.split('\n\nTries');
-    let numOfTries = "\nTries" + deals[deals.length - 1];
-    deals.pop();
-    let newDeal = newDealDsiString.split('\n')[0];
-    deals.push(newDeal);
-    deals.push(numOfTries);
-    return deals.join('\n');
-}
-
-let remove_deal_in_dsi = (dsiString, dealNum) => {
-    let deals = dsiString.split('\n\nTries');
-    let numOfTries = "\n\nTries" + deals[deals.length - 1];
-    deals.pop();
-    deals = deals[0].split('\n');
-    let dealsNew = [];
-    for (let i = 0; i < deals.length; i++) {
-        if (i !== dealNum - 1) {
-            dealsNew.push(deals[i]);
-        }
-    }
-    let dsi_with_removed = dealsNew.join('\n');
-    dsi_with_removed += numOfTries;
-    return dsi_with_removed;
-}
-
-let replace_deal_in_dsi = (dsiString, dealNum, newDealDsiString) => {
-    let deals = dsiString.split('\n\nTries');
-    let numOfTries = "\n\nTries" + deals[deals.length - 1];
-    deals.pop();
-    deals = deals[0].split('\n');
-    deals[dealNum - 1] = newDealDsiString.split('\n')[0];
-    let dsi_with_replaced = deals.join('\n');
-    dsi_with_replaced += numOfTries;
-    return dsi_with_replaced;
 }
