@@ -20,23 +20,23 @@ let updateLineNumbers = function () {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Check if a saved scroll position exists and restore it
-    const savedScrollTop = localStorage.getItem('textareaScrollTop');
-    if (savedScrollTop !== null) {
-        document.getElementById('codeInput').scrollTop = parseInt(savedScrollTop, 10);
-    }
-
-    document.getElementById('codeInput').addEventListener('input', updateLineNumbers);
-    document.getElementById('codeInput').addEventListener('scroll', function () {
-        document.getElementById('lineNumbers').scrollTop = this.scrollTop;
-    });
-
-    window.addEventListener('resize', updateLineNumbers);
-
-    // Save the current scroll position of the textarea to localStorage
-    window.addEventListener('beforeunload', function () {
-        localStorage.setItem('textareaScrollTop', document.getElementById('codeInput').scrollTop.toString());
-    });
-
-    updateLineNumbers();
+    // // Check if a saved scroll position exists and restore it
+    // const savedScrollTop = localStorage.getItem('textareaScrollTop');
+    // if (savedScrollTop !== null) {
+    //     document.getElementById('codeInput').scrollTop = parseInt(savedScrollTop, 10);
+    // }
+    //
+    // document.getElementById('codeInput').addEventListener('input', updateLineNumbers);
+    // document.getElementById('codeInput').addEventListener('scroll', function () {
+    //     document.getElementById('lineNumbers').scrollTop = this.scrollTop;
+    // });
+    //
+    // window.addEventListener('resize', updateLineNumbers);
+    //
+    // // Save the current scroll position of the textarea to localStorage
+    // window.addEventListener('beforeunload', function () {
+    //     localStorage.setItem('textareaScrollTop', document.getElementById('codeInput').scrollTop.toString());
+    // });
+    //
+    // updateLineNumbers();
 });
