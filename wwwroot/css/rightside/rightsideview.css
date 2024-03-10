@@ -236,7 +236,7 @@
 }
 
 .hand-south {
-    padding: calc(max(calc(var(--main-font) / 2), 1vh));
+    padding: calc(min(calc(max(calc(var(--main-font) / 2), 1vh)), 50px));
     display: flex;
     text-align: left;
 }
