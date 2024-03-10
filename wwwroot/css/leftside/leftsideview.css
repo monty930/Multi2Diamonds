@@ -218,6 +218,12 @@
 
 /*----------------------------------------------*/
 
+.left-side-container {
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+}
+
 .editor-container {
     width: 620px;
     height: 400px;
