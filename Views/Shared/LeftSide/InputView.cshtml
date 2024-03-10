@@ -1,18 +1,18 @@
 @model BridgeScenarios.Models.ViewModels.IndexViewModel
 
-<div class="align">
-    <div class="left-side-title">
-        Enter constraints: <div class="div-test"></div> @* TO-BE-DELETED *@
-    </div>
-    <div class="left-side-content">
-        <div class="line-numbers" id="lineNumbers"></div>
-        <div class="form-container">
-            <textarea
-                spellcheck="false"
-                placeholder="See README for constraints examples."
-                id="codeInput"
-                oninput="updateLineNumbers()"
-                class="input-textarea"></textarea>
+<div class="editor-container">
+    <div class="editor">
+        @* <div class="lines" id="lines"></div> *@
+        <div class="lines-to-do">
+            I<br/>W<br/>I<br/>L<br/>D<br/>O<br/>I<br/>T<br/>
+            O<br/>N<br/>E<br/>D<br/>A<br/>Y
         </div>
+        <textarea 
+            id="codeInput" 
+            spellcheck="false"
+            placeholder="See README for constraints examples."
+            @* oninput="updateLineNumbers()" *@
+            class="input-textarea"
+        ></textarea>
     </div>
 </div>

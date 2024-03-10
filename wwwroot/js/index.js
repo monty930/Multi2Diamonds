@@ -1,42 +1,38 @@
-let updateLineNumbers = function () {
-    const textarea = document.getElementById('codeInput');
-    if (textarea != null) {
-        const lineNumbers = document.getElementById('lineNumbers');
-        const lineCount = textarea.value.split('\n').length;
+function updateLines() {
+    const code = document.getElementById('code');
+    const lines = document.getElementById('lines');
+    const editorContainer = document.querySelector('.editor-container');
+    const lineHeight = 20; // The line height in pixels
+    const editorContainerHeight = editorContainer.offsetHeight;
+    
+    const activeLineCount = code.value.split('\n').length;
+    const visibleLines = Math.floor(editorContainerHeight / lineHeight);
+    lines.innerHTML = ''; // Reset line numbers
+    console.log("visible: " + visibleLines);
 
-        const computedStyle = window.getComputedStyle(textarea);
-        const lineHeight = parseInt(computedStyle.lineHeight, 10);
-        const visibleLines = Math.floor(textarea.clientHeight / lineHeight);
-
-        const totalLines = Math.max(lineCount, visibleLines);
-
-        let numbers = '';
-        for (let i = 1; i <= totalLines; i++) {
-            numbers += i <= lineCount ? `<span class="used-line">${i}</span>\n` : `<span class="unused-line">${i}</span>\n`;
-        }
-
-        lineNumbers.innerHTML = numbers;
+    // Generate active line numbers
+    for (let i = 1; i <= activeLineCount; i++) {
+        const lineSpan = document.createElement('span');
+        lineSpan.textContent = i;
+        lineSpan.className = 'active-line'; // Use active line style
+        lines.appendChild(lineSpan);
+        lines.appendChild(document.createElement('br'));
     }
+
+    // Fill in inactive line numbers up to the visible limit
+    for (let i = activeLineCount + 1; i <= visibleLines; i++) {
+        const lineSpan = document.createElement('span');
+        lineSpan.textContent = i;
+        lineSpan.className = 'inactive-line'; // Use inactive line style
+        lines.appendChild(lineSpan);
+        lines.appendChild(document.createElement('br'));
+    }
+
+    // Adjust scrolling behavior based on content
+    editorContainer.style.overflowY = activeLineCount > visibleLines ? 'scroll' : 'hidden';
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Check if a saved scroll position exists and restore it
-    const savedScrollTop = localStorage.getItem('textareaScrollTop');
-    if (savedScrollTop !== null) {
-        document.getElementById('codeInput').scrollTop = parseInt(savedScrollTop, 10);
-    }
-
-    document.getElementById('codeInput').addEventListener('input', updateLineNumbers);
-    document.getElementById('codeInput').addEventListener('scroll', function () {
-        document.getElementById('lineNumbers').scrollTop = this.scrollTop;
-    });
-
-    window.addEventListener('resize', updateLineNumbers);
-
-    // Save the current scroll position of the textarea to localStorage
-    window.addEventListener('beforeunload', function () {
-        localStorage.setItem('textareaScrollTop', document.getElementById('codeInput').scrollTop.toString());
-    });
-
-    updateLineNumbers();
+document.addEventListener('DOMContentLoaded', function() {
+    code.addEventListener('input', updateLines);
+    updateLines(); // Initial call to fill the lines and set overflow
 });

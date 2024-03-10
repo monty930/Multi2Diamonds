@@ -2,26 +2,28 @@
 
 @model BridgeScenarios.Models.ViewModels.IndexViewModel
 
-<div class="container-for-input">
-    <div class="left-container">
-        <div class="left-container-content">
-            <div id="input-dynamic" class="left-container-inner-content">
-                @{
-                    await Html.RenderPartialAsync("LeftSide/InputView", Model);
-                }
-            </div>
-            <div id="lightbulb-dynamic" class="left-container-inner-content hidden">
-                @{
-                    await Html.RenderPartialAsync("LeftSide/Lightbulb", Model);
-                }
-            </div>
-            <div id="settings-dynamic" class="left-container-inner-content hidden">
-                @{
-                    await Html.RenderPartialAsync("LeftSide/Settings", Model);
-                }
-            </div>
+<div id="left-side-height" class="left-side-padding">
+    <div id="left-side-container" class="left-side-container">
+        <div id="left-side-title" class="left-side-title">
+            Enter contraints: (or sth)
+            <div class="div-test"></div> @* TO-BE-DELETED *@
         </div>
-        <div class="left-container-switches">
+        <div id="input-dynamic" class="left-container-inner-content">
+            @{
+                await Html.RenderPartialAsync("LeftSide/InputView", Model);
+            }
+        </div>
+        <div id="lightbulb-dynamic" class="left-container-inner-content hidden">
+            @{
+                await Html.RenderPartialAsync("LeftSide/Lightbulb", Model);
+            }
+        </div>
+        <div id="settings-dynamic" class="left-container-inner-content hidden">
+            @{
+                await Html.RenderPartialAsync("LeftSide/Settings", Model);
+            }
+        </div>
+        <div id="left-container-switches" class="left-container-switches">
             @{
                 await Html.RenderPartialAsync("LeftSide/TabSwitches", Model);
             }

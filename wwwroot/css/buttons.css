@@ -11,7 +11,7 @@
     outline: none;
     width: 100%;
     height: 100%;
-    border-radius: calc(max((var(--main-font) / 2), 2vh));
+    border-radius: calc(min(calc(max((var(--main-font) / 2), 2vh)), 40px));
 }
 
 .button-all:hover {

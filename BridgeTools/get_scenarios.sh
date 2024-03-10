@@ -172,6 +172,14 @@ for deal in "${deals[@]}"; do
       rotation=$(( RANDOM % 4 ))
       deal=$(rotate_deal "$deal" $rotation)
       current_dealer=$(adjust_dealer "$current_dealer" "$rotation")
+
+      if [[ $rotation == 1 ]] || [[ $rotation == 3 ]]; then
+        if [[ $current_vulnerability == "NS" ]]; then
+          current_vulnerability="EW"
+        elif [[ $current_vulnerability == "EW" ]]; then
+          current_vulnerability="NS"
+        fi
+      fi
     fi
 
     # Extract deal string without [Deal and ] to keep consistent format
