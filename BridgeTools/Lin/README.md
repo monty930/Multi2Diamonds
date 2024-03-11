@@ -25,7 +25,7 @@ rh
 $\mathfrak{\color{red}{||}}$
 ah
 $\mathfrak{\color{cyan}{|}}$
-[nazwa boarda]
+[board's name]
 $\mathfrak{\color{cyan}{|}}$
 sv
 $\mathfrak{\color{cyan}{|}}$
