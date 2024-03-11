@@ -43,14 +43,11 @@
 
 .vul {
     background-image: url("../../assets/red.png");
-    -webkit-background-clip: text;
-    background-clip: text;
     color: transparent;
-    display: inline-block;
 }
 
 .dealer {
-    text-decoration: underline;
+    
 }
 
 .snwe-lu {
