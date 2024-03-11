@@ -73,14 +73,14 @@
     display: grid;
     grid-template-rows: 
             min(max(calc(var(--main-font) * 3), 5vh), 5vw) 
-            75%;
-            calc(max((var(--main-font) * 4), 8vh))
+            calc(min(calc(100% - 7.5 * var(--main-font)), 2600px));
+            calc(max((var(--main-font) * 4), 8vh));
 }
 
 .left-side-padding {
     padding: min(max(calc(var(--main-font)), 4vh), 4vw);
     padding-top: calc( min(max(calc(var(--main-font)), 4vh), 4vw) / 2);
-    height: 80vh;
+    height: 100%;
     width: 100%;
     overflow: auto;
 }

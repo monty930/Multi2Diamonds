@@ -16,7 +16,11 @@
 }
 
 .vul {
-    color: #FF0000;
+    background-image: url("../../assets/red.png");
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
 }
 
 .dealer {
