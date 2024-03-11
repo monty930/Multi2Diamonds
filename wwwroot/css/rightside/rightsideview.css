@@ -75,6 +75,30 @@
     padding-bottom: calc(max(calc(0.1 * var(--main-font)), 0.4vh));
 }
 
+.suit-char {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    background-size: cover;
+}
+
+.spades-char {
+    background-image: url("../../assets/blue.png");
+}
+
+.hearts-char {
+    background-image: url("../../assets/red.png");
+}
+
+.diams-char {
+    background-image: url("../../assets/orange.png");
+}
+
+.clubs-char {
+    background-image: url("../../assets/green.png");
+}
+
 .deal-number-info {
     color: var(--main-font-color);
     width: 100%;

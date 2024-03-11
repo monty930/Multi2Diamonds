@@ -4,27 +4,25 @@ function update_hand_suit_content(dsiString, dealNum) {
     let deal = extract_deal(dsiString, dealNum);
     let longest_suit = 0;
     document.querySelectorAll('.hands').forEach(handDiv => {
-        if (handDiv.classList.contains('hand-west')) {
-            console.log('west hand');
-        }
         const handType = handDiv.classList[1];
         handDiv.querySelectorAll('.suit').forEach(suitDiv => {
             const suitType = suitDiv.querySelector('div').classList[0];
-            let suit_string = extract_suit(deal, handType, suitType);
+            let suit_char = suitType.split('-')[1];
+            if (suit_char === 'diamonds') {
+                suit_char = 'diams';
+            }
+            let suit_string = "<div class='suit-char " + suit_char + "-char'> &" + suit_char + "; </div>"
+                + extract_suit(deal, handType, suitType);
+            console.log("HERE " + suit_string);
             if (handDiv.classList.contains('hand-west') && suit_string.length > longest_suit) {
                 longest_suit = suit_string.length;
             }
-            if (suit_string === "") {
-                suit_string = " ";
-            }
-            suitDiv.querySelector('div').textContent = suit_string;
+            suitDiv.querySelector('div').innerHTML = suit_string;
         });
         if (longest_suit === 4) {
             handDiv.classList.add('west-balanced');
-            console.log('west balanced');
         } else {
             handDiv.classList.remove('west-balanced');
-            console.log('west not balanced');
         }
     });
     let vul = extract_vul(deal); // (bool bool)

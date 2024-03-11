@@ -33,7 +33,6 @@
     overflow: hidden;
 }
 
-/* uncomment this for green non-vul effect */
 .nvul {
     background-image: url("../../assets/green.png");
     -webkit-background-clip: text;
