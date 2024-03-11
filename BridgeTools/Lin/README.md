@@ -351,7 +351,28 @@ $\mathfrak{\color{white}{|}}$
 7
 $\mathfrak{\color{white}{|}}$
 
-- What I stil do not know: 'pn', 'st', 'md', 'rh', 'ah', 'sv'. All tables I've seen had those values unchanged.
+- What I still do not know: 'st', 'rh', 'ah'. All tables I've seen had those values unchanged.
+  
+- sv stands for 'set vulnerability'. the vulnerability is given next.
+
+- pn stands for player names. The player names are given next. It is not mandatory to put it in lin.
+
+- md stands for 'make deal'. The deal details are given next.
+
+- pg is a page break (don't exactly know what that means).
+
+- qx
+  $\mathfrak{\color{white}{|}}$
+  $\mathfrak{\color{white}{|}}$
+  can be added at the beginning of lin string - it allows to put multiple lin strings in one file. Each of them should begin with qx.
+
+  Example:
+  qx
+  $\mathfrak{\color{white}{|}}$
+  $\mathfrak{\color{white}{|}}$
+  pn
+  $\mathfrak{\color{white}{|}}$
+  [player_nick_S]...
 
   ---
 
