@@ -11,7 +11,7 @@ function update_hand_suit_content(dsiString, dealNum) {
             if (suit_char === 'diamonds') {
                 suit_char = 'diams';
             }
-            let suit_string = "<div class='suit-char " + suit_char + "-char'> &" + suit_char + "; </div>"
+            let suit_string = "<div class='suit-char " + suit_char + "-char'> &" + suit_char + "; </div> "
                 + extract_suit(deal, handType, suitType);
             console.log("HERE " + suit_string);
             if (handDiv.classList.contains('hand-west') && suit_string.length > longest_suit) {

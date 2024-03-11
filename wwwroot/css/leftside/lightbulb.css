@@ -6,4 +6,5 @@
     font-size: var(--code-font-size);
     padding-top: calc(max(calc(var(--main-font) * 0.2), 0.4vh));
     padding-left: min(max(calc(var(--main-font) * 1.7), 4.4vh), 120px);
+    overflow: auto;
 }

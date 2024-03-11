@@ -81,6 +81,8 @@
     color: transparent;
     display: inline-block;
     background-size: cover;
+    font-family: "MS Gothic", sans-serif;
+    font-size: calc(0.83 * calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px)));
 }
 
 .spades-char {
