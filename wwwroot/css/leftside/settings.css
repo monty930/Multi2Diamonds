@@ -2,11 +2,11 @@
     background-color: var(--line-numbers-background-color);
     color: var(--main-font-color);
     font-family: var(--bs-body-font-family);
-    height: 100%;
     overflow: auto;
 }
 
 .settings-inner-container {
+    height: calc(min(calc(70vh - 5 * var(--main-font)), 2600px));
     padding: 3% 5% 5%;
 }
 
