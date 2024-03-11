@@ -189,7 +189,6 @@ for deal in "${deals[@]}"; do
     echo "[Dealer \"$current_dealer\"]"
     echo "[Vulnerable \"$current_vulnerability\"]"
     echo "[Deal \"$deal_string\"]"
-    echo "[Scoring \"$scoring\"]"
     echo ""
     ((board++))
   fi

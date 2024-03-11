@@ -118,13 +118,53 @@ let renumerate_deals = (dsiString) => {
 }
 
 get_pbn_from_dsi = (dsiString) => {
-    let output = dsiString.split('Number of')[0];
-    return output;
+    let scoring = dsiString.split('Scoring: ')[1].split('\n')[0];
+    let deals = dsiString.split('\n\n');
+    let data_info = deals[0];
+    deals.shift(); // removing data info
+    deals.pop(); // removing final info lines (Tries, etc.)
+    deals = data_info + "\n\n" + deals.join('\n[Scoring \"' + scoring + '\"]\n\n') + '\n[Scoring \"' + scoring + '\"]\n';
+    return deals;
 }
 
 // TODO
 get_lin_from_dsi = (dsiString) => {
-    let output = "Lin will be here.\n" + dsiString;
+    let current_time = new Date().toISOString().slice(0, 10);
+    let output = "% lin file created at " + current_time + "\n%\n";
+    let deals = dsiString.split('\n\n');
+    let data_info = deals[0];
+    deals.shift(); // removing data info
+    deals.pop(); // removing final info lines (Tries, etc.)
+    for (let i = 0; i < deals.length; i++) {
+        let deal = deals[i];
+        let dealer = lin_dealer(extract_dealer(deal))
+        let vul = lin_vul(extract_vul(deal));
+        let board_num = i + 1;
+        let board_name = 'Board ' + board_num;
+        let lin_hand_south = "S" + 
+            extract_suit(deal, 'hand-south', 'suit-spades') + "H" +
+            extract_suit(deal, 'hand-south', 'suit-hearts') + "D" +
+            extract_suit(deal, 'hand-south', 'suit-diamonds') + "C" +
+            extract_suit(deal, 'hand-south', 'suit-clubs');
+        let lin_hand_west = "S" +
+            extract_suit(deal, 'hand-west', 'suit-spades') + "H" +
+            extract_suit(deal, 'hand-west', 'suit-hearts') + "D" +
+            extract_suit(deal, 'hand-west', 'suit-diamonds') + "C" +
+            extract_suit(deal, 'hand-west', 'suit-clubs');
+        let lin_hand_north = "S" +
+            extract_suit(deal, 'hand-north', 'suit-spades') + "H" +
+            extract_suit(deal, 'hand-north', 'suit-hearts') + "D" +
+            extract_suit(deal, 'hand-north', 'suit-diamonds') + "C" +
+            extract_suit(deal, 'hand-north', 'suit-clubs');
+        let lin = 
+            "qx|o" + board_num + "|md|" +
+            dealer + lin_hand_south + "," +
+            lin_hand_west + "," +
+            lin_hand_north + "," +
+            "|rh||ah|" +
+            board_name + "|sv|" + vul + "|pg||\n";
+        output += lin;
+    }
     return output;
 }
 
@@ -138,4 +178,32 @@ extract_vul = (deal) => {
 extract_dealer = (deal) => {
     let dealer = deal.split('Dealer \"')[1].split('\"')[0];
     return dealer;
+}
+
+lin_vul = (vul) => {
+    let lin_vul = '';
+    if (vul[0] && vul[1]) {
+        lin_vul = 'b';
+    } else if (vul[0]) {
+        lin_vul = 'n';
+    } else if (vul[1]) {
+        lin_vul = 'e';
+    } else {
+        lin_vul = 'o';
+    }
+    return lin_vul;
+}
+
+lin_dealer = (dealer) => {
+    let lin_dealer = '';
+    if (dealer === 'N') {
+        lin_dealer = '3';
+    } else if (dealer === 'E') {
+        lin_dealer = '4';
+    } else if (dealer === 'S') {
+        lin_dealer = '1';
+    } else {
+        lin_dealer = '2';
+    }
+    return lin_dealer;
 }
