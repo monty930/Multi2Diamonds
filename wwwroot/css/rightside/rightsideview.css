@@ -54,6 +54,7 @@
     font-size: calc(var(--main-font));
     color: var(--main-font-color);
     font-weight: 800;
+    letter-spacing: 0.08em;
 }
 
 .suit {
@@ -177,6 +178,10 @@
     padding-right: calc(max(calc(var(--main-font) / 2), 1.5vh));
     text-align: left;
     place-items: center;
+}
+
+.west-balanced {
+    padding-right: calc(max(calc(var(--main-font) / 1), 2vh));
 }
 
 .hand-east {
