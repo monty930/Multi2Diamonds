@@ -66,7 +66,7 @@ html, body {
     color: var(--main-font-color);
     font-size: calc(max(calc(2.3 * var(--main-font)), 5.3vh));
     text-decoration: none;
-    font-weight: 900;
+    font-weight: 700;
     align-items: center;
     display: flex;
 }

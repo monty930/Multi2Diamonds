@@ -7,7 +7,7 @@
     /*border: 5px solid var(--table-border-color);*/
     place-items: center;
     font-size: calc(0.1em + min(4vh, 2vw));
-    font-weight: 800;
+    font-weight: 700;
     color: var(--main-font-color);
     background-color: var(--table-background-color);
     border-radius: calc(min(calc(max((var(--main-font) / 2), 2vh)), 40px));
