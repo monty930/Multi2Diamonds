@@ -14,9 +14,9 @@
     position: absolute;
     background-color: #222;
     margin: auto;
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid #888;
+    padding: calc(var(--select-box-height) / 2);
+    border-radius: calc(3 * var(--select-box-height) / 8);
+    border: min(calc(var(--select-box-height) / 40), 5px) solid #888;
     height: 60vh;
     width: 60vh;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -39,12 +39,12 @@
     background-color: rgba(88, 88, 88, 0.7);
     color: var(--main-font-color);
     border: 0;
-    border-radius: 15px;
-    height: 45px;
+    border-radius: calc(3 * var(--select-box-height) / 8);
+    height: calc(9 * var(--select-box-height) / 8);
     display: block;
-    margin: 15px auto;
+    margin: calc(3 * var(--select-box-height) / 8) auto;
     width: 80%;
-    font-size: 15px;
+    font-size: calc(3 * var(--select-box-height) / 8);
     font-weight: bold;
     cursor: pointer;
     opacity: 1;
@@ -72,14 +72,14 @@
     outline: none;
     box-shadow: none;
     display: block;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 15px;
+    height: calc(var(--select-box-height));
+    line-height: calc(var(--select-box-height));
+    padding: 0 calc(3 * var(--select-box-height) / 8);
     border-bottom: 1px solid #c5c5c5;
     background-color: rgb(255, 245, 245);
     width: 90%;
-    font-size: 14px;
-    margin-bottom: 15px;
+    font-size: calc(1 * var(--select-box-height) / 3);
+    margin-bottom: calc(3 * var(--select-box-height) / 8);
 }
 
 .dialog-window-content textarea {
@@ -90,26 +90,25 @@
 
 .close-button {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: calc((-1) * var(--select-box-height) / 4);
+    right: calc((-1) * var(--select-box-height) / 4);
     border: var(--generate-button-border);
     background-color: var(--red-color);
-    box-shadow: 0 2px 4px var(--red-shadow);
+    box-shadow: 0 calc(var(--select-box-height) / 20) calc(var(--select-box-height) / 10) var(--red-shadow);
     color: var(--main-font-color);
     cursor: pointer;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: calc(6 * var(--select-box-height) / 8);
+    height: calc(6 * var(--select-box-height) / 8);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 14px;
 }
 
 .close-button:hover {
     background-color: var(--red-hover);
-    top: -9px;
+    top: calc((-1) * var(--select-box-height) / 4);
 }
 
 .close-button:active {
@@ -119,8 +118,8 @@
 
 .close-button:disabled:hover, .close-button[disabled]:hover {
     cursor: default;
-    top: -10px;
-    right: -10px;
+    top: calc((-1) * var(--select-box-height) / 4);
+    right: calc((-1) * var(--select-box-height) / 4);
     transform: none;
     border: var(--generate-button-border);
     background-color: var(--red-color);
@@ -129,15 +128,15 @@
 }
 
 #cross-img {
-    width: 15px;
-    height: 15px;
+    width: calc(3 * var(--select-box-height) / 8);
+    height: calc(3 * var(--select-box-height) / 8);
 }
 
 /* -------------- loading circle ------------- */
 
 .save-spinner-container {
     width: 25px;
-    height: 75px;
+    height: calc(2 * var(--select-box-height));
     display: flex;
     justify-content: center;
     align-items: center;

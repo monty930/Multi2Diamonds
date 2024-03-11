@@ -5,8 +5,8 @@ input = new MyButton({
             return;
 
         show_one_left_elem('input-dynamic');
+        document.getElementById('left-side-title').innerHTML = "Enter constraints:";
         set_one_tab_active(MyButtons.input);
-        updateLineNumbers();
     }
 });
 
@@ -17,6 +17,7 @@ lightbulb = new MyButton({
             return;
 
         show_one_left_elem('lightbulb-dynamic');
+        document.getElementById('left-side-title').innerHTML = "Readme";
         set_one_tab_active(MyButtons.lightbulb);
     }
 });
@@ -28,6 +29,7 @@ settings = new MyButton({
             return;
 
         show_one_left_elem('settings-dynamic');
+        document.getElementById('left-side-title').innerHTML = "Settings";
         set_one_tab_active(MyButtons.settings);
     }
 });

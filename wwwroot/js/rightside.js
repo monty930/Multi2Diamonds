@@ -4,7 +4,11 @@ function update_hand_suit_content(dsiString, dealNum) {
         const handType = handDiv.classList[1];
         handDiv.querySelectorAll('.suit').forEach(suitDiv => {
             const suitType = suitDiv.querySelector('div').classList[0];
-            suitDiv.querySelector('div').textContent = extract_suit(deal, handType, suitType)
+            let suit_string = extract_suit(deal, handType, suitType);
+            if (suit_string === "") {
+                suit_string = " ";
+            }
+            suitDiv.querySelector('div').textContent = suit_string;
         });
     });
     let vul = extract_vul(deal); // (bool bool)

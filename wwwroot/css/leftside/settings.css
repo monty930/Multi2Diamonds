@@ -1,71 +1,57 @@
 .settings-container {
     background-color: var(--line-numbers-background-color);
-    line-height: calc(3 * var(--input-line-height));
-    display: grid;
-    grid-template-columns: 50.61% auto;
-    grid-template-rows: auto;
-    gap: 15px;
     color: var(--main-font-color);
     font-family: var(--bs-body-font-family);
     height: 100%;
     overflow: auto;
 }
 
-.settings-names, .settings-option-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+.settings-inner-container {
+    padding: 3% 5% 5%;
 }
 
-.settings-names {
-    color: var(--main-font-color);
-    padding-right: 10px;
+.one-setting {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    height: calc(4 * var(--select-box-height) / 3);
+    font-size: var(--code-font-size);
 }
 
-.settings-option-column input[type="number"],
-.settings-option-column select {
-    background-color: rgb(255, 245, 245);
+.input-number,
+.settings-select {
+    background-color: var(--main-background-color);
+    border-radius: calc(var(--select-box-height) / 10);
+    padding: calc(var(--select-box-height) / 5);
     border: none;
-    border-radius: 5px;
-    padding: 10px;
     width: 100%;
     box-sizing: border-box;
-    font-size: 14px;
+    font-size: calc(2 * var(--select-box-height) / 5);
     color: var(--main-font-color);
+    height: var(--select-box-height);
     display: inline-block;
 }
 
-.settings-option-column input[type="number"],
-.settings-option-column select {
-    background-color: var(--main-background-color);
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 14px;
-    color: var(--main-font-color);
-    height: 40px;
+.input-number {
+    border-radius: 0;
+    -moz-appearance: textfield;
 }
 
-.settings-option-column input[type="number"]:focus,
-.settings-option-column select:focus {
+.input-number:focus,
+.settings-select:focus {
     background-color: var(--main-background-color);
     outline: none;
 }
 
-.settings-option-column input[type="number"]:hover,
-.settings-option-column select:hover {
+.input-number:hover,
+.settings-select:hover {
     background-color: var(--main-background-color);
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+.input-number::-webkit-inner-spin-button,
+.input-number::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-input[type="number"] {
-    -moz-appearance: textfield;
 }
 
 .number-spinner {
@@ -77,43 +63,45 @@ input[type="number"] {
     background-color: var(--main-background-color);
     color: var(--main-font-color);
     border: none;
-    font-size: 14px;
+    /*font-size: calc(3 * var(--select-box-height) / 8);*/
     cursor: pointer;
-    height: 20px;
+    height: calc(var(--select-box-height) / 2);
     display: flex;
     padding: 0;
-    width: 20px;
+    width: calc(var(--select-box-height) / 2);
 }
 
-.settings-option-column input[type="number"] {
-    border-radius: 0;
+.settings-break {
+    height: calc(var(--select-box-height) / 2);
 }
+
+/* -- decreasing and increasing the number input -- */
 
 .input-number-arrows {
     display: grid;
     grid-template-rows: 1fr 1fr;
-    height: 40px;
+    height: var(--select-box-height);
     padding: 0;
 }
 
 .input-arrow-up-img, .input-arrow-down-img {
-    height: 12px;
+    height: calc(3 * var(--select-box-height) / 10);
 }
 
 .up-button-container, .down-button-container {
     display: flex;
     align-items: center;
-    height: 20px;
-    width: 15px;
+    height: calc(var(--select-box-height) / 2);
+    width: calc(3 * var(--select-box-height) / 8);
     overflow: hidden;
     padding: 0;
     margin: 0;
 }
 
 .up-button-container {
-    padding: 2px 0 0 0;
+    padding: calc(var(--select-box-height) / 20) 0 0 0;
 }
 
 .down-button-container {
-    padding: 0 0 2px 0;
+    padding: 0 0 calc(var(--select-box-height) / 20) 0;
 }

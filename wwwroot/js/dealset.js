@@ -130,7 +130,10 @@ get_pbn_from_dsi = (dsiString) => {
 // TODO
 get_lin_from_dsi = (dsiString) => {
     let current_time = new Date().toISOString().slice(0, 10);
-    let output = "% lin file created at " + current_time + "\n%\n";
+    let current_hour = new Date().getHours();
+    let current_minute = new Date().getMinutes();
+    let current_second = new Date().getSeconds();
+    let output = "% lin file created at " + current_time + " " + current_hour + ":" + current_minute + ":" + current_second + "\n%\n";
     let deals = dsiString.split('\n\n');
     let data_info = deals[0];
     deals.shift(); // removing data info
