@@ -32,8 +32,14 @@
     display: inline-block;
 }
 
+.settings-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
 .input-number {
-    border-radius: 0;
+    border-radius: calc(var(--select-box-height) / 10) 0 0 calc(var(--select-box-height) / 10);
     -moz-appearance: textfield;
 }
 
@@ -63,7 +69,6 @@
     background-color: var(--main-background-color);
     color: var(--main-font-color);
     border: none;
-    /*font-size: calc(3 * var(--select-box-height) / 8);*/
     cursor: pointer;
     height: calc(var(--select-box-height) / 2);
     display: flex;
@@ -85,7 +90,7 @@
 }
 
 .input-arrow-up-img, .input-arrow-down-img {
-    height: calc(3 * var(--select-box-height) / 10);
+    height: calc(1.5 * var(--select-box-height) / 10);
 }
 
 .up-button-container, .down-button-container {
@@ -104,4 +109,35 @@
 
 .down-button-container {
     padding: 0 0 calc(var(--select-box-height) / 20) 0;
+}
+
+.number-spinner-decrement {
+    border-radius: 0 0 calc(var(--select-box-height) / 10) 0;
+}
+
+.number-spinner-increment {
+    border-radius: 0 calc(var(--select-box-height) / 10) 0 0;
+}
+
+/* ---- select drop-down list custom arrow ---- */
+
+.custom-select-container {
+    position: relative;
+}
+
+.custom-select-arrow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    padding: 0 0 calc(var(--select-box-height) / 20) 0;
+    width: calc(var(--select-box-height) / 2);
+    height: var(--select-box-height);
+    justify-content: left;
+    display: flex;
+    align-items: center;
+}
+
+.custom-select-arrow img {
+    height: calc(1.5 * var(--select-box-height) / 10);
 }
