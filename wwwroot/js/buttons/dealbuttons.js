@@ -189,6 +189,18 @@ trash = new MyButton({
             })
             .catch(error => console.error('Error:', error));
         rebind_right_buttons();
+    },
+    rebind: () => {
+        console.log("trash rebind called");
+        this.element = document.getElementById(this.elementId);
+        if (this.element == null)
+            return false;
+
+        this.element.addEventListener('click', () => {
+            this.defaultListener();
+            this.listener();
+        });
+        return true;
     }
 });
 

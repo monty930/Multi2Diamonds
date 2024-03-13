@@ -67,6 +67,8 @@ let rebind_right_buttons = () => {
     rebind_button(MyButtons.trash);
     rebind_button(MyButtons.regenerateOne);
     rebind_button(MyButtons.addDeal);
+
+    update_buttons_animations();
 }
 
 let show_spinner = () => {
@@ -87,22 +89,27 @@ let init_deal_generation = () => {
 
 let disable_right_buttons = () => {
     MyButtons.nextDeal.setDeactivated(false);
-    MyButtons.previousDeal.setDeactivated(false);
     MyButtons.addDeal.setDeactivated(false);
-    MyButtons.nextDeal.element.classList.remove('hidden');
-    MyButtons.previousDeal.element.classList.remove('hidden');
     MyButtons.addDeal.element.classList.remove('hidden');
     if (window.localStorage.getItem('CurrentDealNum') === "1") {
         MyButtons.previousDeal.setDeactivated(true);
-        MyButtons.previousDeal.element.classList.add('hidden');
+        let previousImage = document.querySelector('#previousDealButton .dealset-img');
+        previousImage.src = './assets/arrow-back-deactiv.png';
+    } else {
+        MyButtons.previousDeal.setDeactivated(false);
+        let previousImage = document.querySelector('#previousDealButton .dealset-img');
+        previousImage.src = './assets/arrow-back.png';
     }
     if (window.localStorage.getItem('CurrentDealNum') === window.localStorage.getItem('NumOfDeals')) {
         MyButtons.nextDeal.setDeactivated(true);
-        MyButtons.nextDeal.element.classList.add('hidden');
+        let nextImage = document.querySelector('#nextDealButton .dealset-img');
+        nextImage.src = './assets/arrow-deactiv.png';
     }
     else {
         MyButtons.addDeal.setDeactivated(true);
         MyButtons.addDeal.element.classList.add('hidden');
+        let nextImage = document.querySelector('#nextDealButton .dealset-img');
+        nextImage.src = './assets/arrow.png';
     }
 }
 
@@ -123,4 +130,45 @@ disable_form_buttons = () => {
     document.getElementById("saveChoices").disabled = true;
     document.getElementById("submitButton").disabled = true;
     document.getElementById("closeButton").disabled = true;
+}
+
+let update_buttons_animations = () => {
+    let trashButton = document.getElementById('trashButton');
+    let trashImage = document.querySelector('#trashButton .dealset-img');
+
+    if (trashButton) {
+        trashButton.addEventListener('mouseover', function () {
+            trashImage.src = './assets/trash_open.png';
+        });
+
+        trashButton.addEventListener('mouseleave', function () {
+            trashImage.src = './assets/trash.png';
+        });
+    }
+
+    let saveButton = document.getElementById('saveButton');
+    let saveImage = document.querySelector('#saveButton .dealset-img');
+
+    if (saveButton) {
+        saveButton.addEventListener('mouseover', function () {
+            saveImage.src = './assets/download-2.png';
+        });
+
+        saveButton.addEventListener('mouseleave', function () {
+            saveImage.src = './assets/download-1.png';
+        });
+    }
+
+    let retryButton = document.getElementById('retryButton');
+    let retryImage = document.querySelector('#retryButton .dealset-img');
+
+    if (retryButton) {
+        retryButton.addEventListener('mouseover', function () {
+            retryImage.classList.add('rotate-image');
+        });
+
+        retryButton.addEventListener('mouseleave', function () {
+            retryImage.classList.remove('rotate-image');
+        });
+    }
 }

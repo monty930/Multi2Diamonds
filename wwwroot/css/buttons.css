@@ -25,6 +25,7 @@
     box-shadow: 0 2px var(--button-shadow);
 }
 
+
 .red-button {
     border: var(--generate-button-border);
     background-color: rgb(205, 32, 31);
@@ -49,4 +50,18 @@
 .deactivated:active {
     color: var(--font-deactiv);
     cursor: default;
+}
+
+.button-all.deactivated:hover {
+    background: var(--button-face-color);
+    cursor: default;
+    top: 0;
+}
+
+.button-all.deactivated:active {
+    background: var(--button-face-color);
+    cursor: default;
+    top: 0;
+    transform: none;
+    box-shadow: 0 calc(1.5 * max(var(--main-font) / 5, 0.4vh)) var(--button-shadow);
 }
