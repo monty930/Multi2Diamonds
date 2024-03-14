@@ -1,8 +1,5 @@
 .left-panel {
-    background: linear-gradient(
-            90deg, rgba(88, 88, 88, 1) 0%, 
-            rgba(88, 88, 88, 1) 99%, 
-            rgb(114, 114, 114) 100%);
+    background-color: var(--main-background-color);
     display: flex;
     flex-direction: column;
     border: none;
@@ -67,7 +64,6 @@
 /*--------- left side layout ------------*/
 
 .left-side-container {
-    padding: 0;
     height: 100%;
     width: 100%;
     display: grid;
@@ -75,14 +71,18 @@
             min(max(calc(var(--main-font) * 3), 5vh), 5vw) 
             calc(min(calc(70vh - 5 * var(--main-font)), 2600px));
             calc(max((var(--main-font) * 4), 8vh));
+    padding: 0 min(max(calc(var(--main-font)), 4vh), 4vw) 0 0;
 }
 
 .left-side-padding {
-    padding: min(max(calc(var(--main-font)), 4vh), 4vw);
+    padding-left: min(max(calc(var(--main-font)), 4vh), 4vw);
     padding-top: calc( min(max(calc(var(--main-font)), 4vh), 4vw) / 2);
+    padding-bottom: calc(var(--main-font));
     height: 100%;
     width: 100%;
     overflow: auto;
+    display: grid;
+    grid-template-rows: 100%;
 }
 
 .left-side-title {

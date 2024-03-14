@@ -114,7 +114,42 @@ let renumerate_deals = (dsiString) => {
         deals[i] = deal_div.join('\"');
     }
     let renumerated_deals = deals.join('[Board \"');
-    return renumerated_deals;
+    return update_vul(renumerated_deals);
+}
+
+let update_vul = (dsiString) => {
+    // check if vul is "Matching". If so, set the vulnerability of consecutive deals to:
+    // NS is vulnerable in boards 2, 4, 5, 7, 10, 12, 13, 15 and
+    // repeats for each 16 boards. EW is vulnerable in boards
+    // 3, 4, 6, 7, 9, 10, 13, 16 and repeats for each 16 boards.
+    
+    let vul = dsiString.split('Vulnerability: ')[1].split('\n')[0];
+    if (vul !== "Matching") {
+        return dsiString;
+    }
+    let deals = dsiString.split('[Vulnerable \"');
+    for (let i = 1; i < deals.length; i++) {
+        let deal = deals[i];
+        let deal_div = deal.split('\"');
+        let new_vul = "None";
+        if (i % 16 === 2 || i % 16 === 4 || i % 16 === 5 || i % 16 === 7 || 
+            i % 16 === 10 || i % 16 === 12 || i % 16 === 13 || i % 16 === 15) {
+            new_vul = "NS";
+        }
+        if (i % 16 === 3 || i % 16 === 4 || i % 16 === 6 || i % 16 === 7 || 
+            i % 16 === 9 || i % 16 === 10 || i % 16 === 13 || i % 16 === 16) {
+            if (new_vul === "NS") {
+                new_vul = "All";
+            } else {
+                new_vul = "EW";
+            }
+        }
+        deal_div[0] = new_vul;
+        deals[i] = deal_div.join('\"');
+    }
+    let updated_vul = deals.join('[Vulnerable \"');
+    console.log(updated_vul);
+    return updated_vul;
 }
 
 get_pbn_from_dsi = (dsiString) => {
@@ -127,7 +162,6 @@ get_pbn_from_dsi = (dsiString) => {
     return deals;
 }
 
-// TODO
 get_lin_from_dsi = (dsiString) => {
     let current_time = new Date().toISOString().slice(0, 10);
     let current_hour = new Date().getHours();

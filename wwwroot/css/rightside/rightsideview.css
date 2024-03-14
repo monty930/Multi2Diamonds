@@ -15,7 +15,8 @@
     grid-template-rows: max(5vh, calc(3 * var(--main-font))) auto;
     width: 100%;
     height: 100%;
-    padding: 2%;
+    padding: var(--main-font);
+    padding-left: 0;
 }
 
 .message-and-spinner {
@@ -27,7 +28,7 @@
 
 .entry-message {
     color : var(--main-font-color);
-    font-size: min(max(calc(1.2 * var(--main-font)), 2vh), 2vw);
+    font-size: min(max(calc(1.2 * var(--main-font)), 2vh), var(--right-side-dependend));
     font-weight: bold;
     padding-bottom: 10%;
 }
@@ -63,7 +64,7 @@
     display: flex;
     place-items: center;
     height: calc(min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px));
-    font-size: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px));
+    font-size: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 1.2 * var(--right-side-dependend)));
     font-weight: 530;
 }
 
@@ -82,7 +83,8 @@
     display: inline-block;
     background-size: cover;
     font-family: "MS Gothic", sans-serif;
-    font-size: calc(0.83 * calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px)));
+    font-size: calc(0.9 * min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px));
+    padding-right: calc(0.2 * min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px));
 }
 
 .spades-char {
@@ -129,6 +131,7 @@
     display: grid;
     grid-template-columns: 23% auto 23%;
     grid-template-rows: auto;
+    padding-left: var(--main-font);
 }
 
 .row-n.has-handsuits {
@@ -141,6 +144,7 @@
 
 .row-n.has-handsuits > div:nth-child(2) {
     padding: calc(var(--main-font) / 2);
+    padding-left: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px) / 2);
     display: flex;
     align-items: flex-end;
     text-align: left;
@@ -188,6 +192,7 @@
     grid-template-rows: auto;
     place-items: start;
     align-items: flex-start;
+    padding-left: var(--main-font);
 }
 
 .align-hand-west {
@@ -247,6 +252,7 @@
 
 .hand-south {
     padding: calc(min(calc(max(calc(var(--main-font) / 2), 1vh)), 50px));
+    padding-left: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px) / 2);
     display: flex;
     text-align: left;
 }
