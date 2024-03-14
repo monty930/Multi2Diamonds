@@ -63,7 +63,7 @@
     display: flex;
     place-items: center;
     height: calc(min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px));
-    font-size: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px));
+    font-size: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 1.5 * var(--right-side-dependend)));
     font-weight: 530;
 }
 
@@ -82,7 +82,8 @@
     display: inline-block;
     background-size: cover;
     font-family: "MS Gothic", sans-serif;
-    font-size: calc(0.83 * calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px)));
+    font-size: calc(0.9 * min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px));
+    padding-right: calc(0.2 * min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px));
 }
 
 .spades-char {
@@ -141,6 +142,7 @@
 
 .row-n.has-handsuits > div:nth-child(2) {
     padding: calc(var(--main-font) / 2);
+    padding-left: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px) / 2);
     display: flex;
     align-items: flex-end;
     text-align: left;
@@ -247,6 +249,7 @@
 
 .hand-south {
     padding: calc(min(calc(max(calc(var(--main-font) / 2), 1vh)), 50px));
+    padding-left: calc(min(calc(max(calc(1 * var(--main-font)), 3.5vh)), 90px) / 2);
     display: flex;
     text-align: left;
 }

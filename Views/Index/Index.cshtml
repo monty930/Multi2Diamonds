@@ -12,10 +12,13 @@
 </head>
 
 <div id="page-layout" class="page-layout">
-    <div class="left-panel">
+    <div id="left-partial" class="left-panel">
         @{
             await Html.RenderPartialAsync("LeftSideView", Model);
         }
+    </div>
+    <div class="divider">
+        
     </div>
     <div id="right-partial">
         @{

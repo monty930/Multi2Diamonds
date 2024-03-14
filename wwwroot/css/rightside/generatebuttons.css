@@ -14,7 +14,7 @@
     width: 50%;
     height: 100%;
     display: flex;
-    font-size: min(max(calc(1.2 * var(--main-font)), 2vh), 1.5vw);
+    font-size: min(max(calc(1.2 * var(--main-font)), 2vh), var(--right-side-dependend));
 }
 
 .generate-add-button-cont {

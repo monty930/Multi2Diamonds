@@ -11,7 +11,7 @@ function update_hand_suit_content(dsiString, dealNum) {
             if (suit_char === 'diamonds') {
                 suit_char = 'diams';
             }
-            let suit_string = "<div class='suit-char " + suit_char + "-char'> &" + suit_char + "; </div> "
+            let suit_string = "<div class='suit-char " + suit_char + "-char'> &" + suit_char + ";</div>"
                 + extract_suit(deal, handType, suitType);
             if (handDiv.classList.contains('hand-west') && suit_string.length > longest_suit) {
                 longest_suit = suit_string.length;
@@ -25,7 +25,6 @@ function update_hand_suit_content(dsiString, dealNum) {
         }
     });
     let vul = extract_vul(deal); // (bool bool)
-    console.log(vul);
     if (vul[0]) {
         document.getElementById('N-vul').classList.add('vul');
         document.getElementById('S-vul').classList.add('vul');

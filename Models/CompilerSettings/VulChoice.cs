@@ -6,5 +6,6 @@ public enum VulChoice
     NS,
     EW,
     All,
-    Random
+    Random,
+    Matching
 }

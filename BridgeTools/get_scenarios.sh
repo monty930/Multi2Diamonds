@@ -2,7 +2,7 @@
 
 SCRIPT_DIR=$(dirname "$0")
 dealer="Random"
-vul="Random"
+vul="Matching"
 flip="no"
 scoring="IMP"
 
@@ -26,7 +26,7 @@ scoring=${scoring^^}
 # The required arguments: compiler, filepath, number_of_deals
 if [ -z "$compiler" ] || [ -z "$filepath" ] || [ -z "$number_of_deals" ]; then
     echo "Missing required arguments. Usage:"
-    echo "-c <chai/latte> -f <filepath> -n <number of deals> [-d <N/S/W/E/Random>] [-v <NS/EW/None/All/Random>] [-i <90/180/no>]"
+    echo "-c <chai/latte> -f <filepath> -n <number of deals> [-d <Matching/N/S/W/E/Random>] [-v <Matching/NS/EW/None/All/Random>] [-i <90/180/no>]"
     exit 2
 fi
 
@@ -142,18 +142,51 @@ echo ""
 IFS=$'\n' read -d '' -r -a deals <<< "$REDEAL_OUTPUT"
 board=1
 
+# Vulnerability: Matching
+# The vulnerability of each pair is pre-determined by the board number.
+# NS is vulnerable in boards 2, 4, 5, 7, 10, 12, 13, 15 and
+# repeats for each 16 boards. EW is vulnerable in boards
+# 3, 4, 6, 7, 9, 10, 13, 16 and repeats for each 16 boards. 
+
 for deal in "${deals[@]}"; do
   if [[ $deal == \[Deal* ]]; then
     # Set dealer for each deal if random, else use provided dealer
     if [[ $dealer == "Random" ]]; then
       current_dealer=$(random_dealer)
+    elif [[ $dealer == "Matching" ]]; then
+      if (( $board % 4 == 1 )); then
+        current_dealer="N"
+      elif (( $board % 4 == 2 )); then
+        current_dealer="E"
+      elif (( $board % 4 == 3 )); then
+        current_dealer="S"
+      elif (( $board % 4 == 0 )); then
+        current_dealer="W"
+      fi
     else
       current_dealer=${dealer:0:1}
     fi
 
-    # Set vulnerability for each deal if random, else use provided vulnerability
+    # Set vulnerability for each deal if random, pre-determined if matching,
+    # else use provided vulnerability
     if [[ $vul == "Random" ]]; then
       current_vulnerability=$(random_vulnerability)
+    elif [[ $vul == "Matching" ]]; then
+      current_vulnerability="None"
+      if  (( $board % 16 == 2 )) || (( $board % 16 == 4 )) || (( $board % 16 == 5 )) || 
+          (( $board % 16 == 7 )) || (( $board % 16 == 10 )) || (( $board % 16 == 12 )) || 
+          (( $board % 16 == 13 )) || (( $board % 16 == 15 )); then
+        current_vulnerability="NS"
+      fi
+      if  (( $board % 16 == 3 )) || (( $board % 16 == 4 )) || (( $board % 16 == 6 )) || 
+          (( $board % 16 == 7 )) || (( $board % 16 == 9 )) || (( $board % 16 == 10 )) || 
+          (( $board % 16 == 13 )) || (( $board % 16 == 16 )); then
+        if [[ $current_vulnerability == "None" ]]; then
+          current_vulnerability="EW"
+        else
+          current_vulnerability="All"
+        fi
+      fi
     else
       current_vulnerability=$vul
     fi

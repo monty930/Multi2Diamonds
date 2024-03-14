@@ -1,8 +1,5 @@
 .left-panel {
-    background: linear-gradient(
-            90deg, rgba(88, 88, 88, 1) 0%, 
-            rgba(88, 88, 88, 1) 99%, 
-            rgb(114, 114, 114) 100%);
+    background-color: var(--main-background-color);
     display: flex;
     flex-direction: column;
     border: none;
