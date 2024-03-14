@@ -152,12 +152,32 @@ html, body {
     cursor: ew-resize;
 }
 
-#toggle-view {
+.toggle-view-container {
     display: none;
+    height: 100%;
+    width: 100%;
+}
+
+.toggle-view-container-left {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.toggle-view-container-right {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
 }
 
 @media (max-width: 800px) {
-    #toggle-view {
+    .toggle-view-container {
         display: block;
     }
 }

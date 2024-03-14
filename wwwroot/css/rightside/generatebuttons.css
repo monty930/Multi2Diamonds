@@ -2,6 +2,7 @@
     width: 100%;
     height: 100%;
     display: flex;
+    padding-left: var(--main-font);
 }
 
 .right-view-buttons > div {
@@ -19,6 +20,7 @@
 
 .generate-add-button-cont {
     width: 100%;
+    padding-left: var(--main-font);
 }
 
 .generate-example-button-cont {
@@ -37,3 +39,10 @@
     grid-template-rows: auto max(5vh, calc(3 * var(--main-font)));
     padding-right: 20px;
 }
+
+@media (max-width: 800px) {
+    .add-deal-button-align {
+        grid-template-rows: auto max(5vh, calc(3 * var(--main-font))) 7vh;
+    }
+}
+

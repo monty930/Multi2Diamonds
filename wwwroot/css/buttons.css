@@ -65,3 +65,34 @@
     transform: none;
     box-shadow: 0 calc(1.5 * max(var(--main-font) / 5, 0.4vh)) var(--button-shadow);
 }
+
+/* toggle view buttons */
+
+.toggle-button {
+    font-size: calc(1.2 * var(--main-font));
+    background-color: rgba(116, 116, 116, 0.5);
+    border: none;
+    color: var(--main-font-color);
+    font-weight: 500;
+    padding: 5px 8px 5px 8px;
+}
+
+.toggle-button:hover {
+    background-color: rgba(116, 116, 116, 1);
+    top: 1px;
+}
+
+.toggle-button-left {
+    border-radius: 10px 0 0 10px;
+}
+
+.toggle-button-right {
+    border-radius: 0 10px 10px 0;
+}
+
+
+
+
+
+
+
