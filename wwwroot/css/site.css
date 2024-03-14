@@ -52,40 +52,6 @@ html, body {
     width: 100vw;
 }
 
-/* ----------------- header ------------------ */
-
-.header {
-    height: calc(max(calc(3.5 * var(--main-font)), 8vh));
-    padding: 0 0 0 min(max(calc(var(--main-font)), 4vh), 4vw);
-    background: var(--background-header-color);
-    align-items: center;
-    display: flex;
-}
-
-.header-title {
-    color: var(--main-font-color);
-    font-size: calc(max(calc(2.3 * var(--main-font)), 5.3vh));
-    text-decoration: none;
-    font-weight: 700;
-    align-items: center;
-    display: flex;
-}
-
-.header-title:hover {
-    color: var(--main-font-color);
-    text-decoration: none;
-}
-
-.m2d-title-img {
-    display: inline-block;
-    height: calc(max(calc(2.3 * var(--main-font)), 4.6vh));
-    padding: 
-            5px
-            calc(max(calc(2.3 * var(--main-font)), 4.6vh) / 5)
-            calc(max(min(10vh, 120px), max(70px, calc(3 * var(--main-font)))) / 13)
-            calc(max(calc(2.3 * var(--main-font)), 4.6vh) / 5);
-}
-
 /* ----------------- footer ------------------ */
 
 .footer {

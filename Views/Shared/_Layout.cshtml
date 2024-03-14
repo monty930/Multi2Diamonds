@@ -10,14 +10,10 @@
 </head>
 <body>
 <div class="page-container">
-    <header class="header">
-        <a asp-page="/Index" class="header-title">
-            Multi <img
-                id="2d-title-img"
-                src="~/assets/2diams.png"
-                class="m2d-title-img"/> Bids
-        </a>
-    </header>
+    @* render  header    *@
+    @{
+        await Html.RenderPartialAsync("Header");
+    }
 
     <div class="body-div">
         @RenderBody()

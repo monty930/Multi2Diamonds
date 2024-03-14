@@ -33,6 +33,15 @@
     padding-bottom: 10%;
 }
 
+.entry-message-shifted {
+    padding-bottom: 0;
+    padding-top: 20%;
+}
+
+.spinner-container-shifted {
+    padding-top: 20%;
+}
+
 @media (max-width: 800px) {
     .entry-message-shifted {
         padding-bottom: 0;

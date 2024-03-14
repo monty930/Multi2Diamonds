@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // this function is called only if the window is big enough to show both panels
         smallView = false;
         leftSidePaddingLayout.style.gridTemplateRows = `auto`;
-        console.log('updateSidesForWindowSize');
         
         const pageLayoutRect = pageLayout.getBoundingClientRect();
         const totalWidth = pageLayoutRect.width; // total width of the page layout
@@ -90,20 +89,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!smallView) {
                 smallView = true;
                 leftSidePaddingLayout.style.gridTemplateRows = `auto 7vh`;
-                console.log('updatePanelVisibility1');
             }
             if (isLeftPanelVisible) {
                 pageLayout.style.gridTemplateColumns = `100%`;
                 rightPanel.style.display = 'none';
                 leftPanel.style.display = 'block';
                 divider.style.display = 'none';
-                console.log('updatePanelVisibility2');
             } else {
                 pageLayout.style.gridTemplateColumns = `100%`;
                 rightPanel.style.display = 'block';
                 leftPanel.style.display = 'none';
                 divider.style.display = 'none';
-                console.log('updatePanelVisibility3');
             }
             document.documentElement.style.setProperty('--right-side-dependend', `${totalWidth * rightDependentRatio}px`);
         } else {
