@@ -33,6 +33,17 @@
     padding-bottom: 10%;
 }
 
+@media (max-width: 800px) {
+    .entry-message-shifted {
+        padding-bottom: 0;
+        padding-top: 30%;
+    }
+    
+    .spinner-container-shifted {
+        padding-top: 30%;
+    }
+}
+
 /* ---------------- grid rows ---------------- */
 
 .grid-rows {
@@ -40,11 +51,10 @@
     height: 100%;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 35% calc(min(30%,
-    calc(4.5 * min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px))
-    )) calc(65% - calc(min(30%,
-    calc(4.5 * min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px))
-    )));
+    grid-template-rows: 
+            35% 
+            calc(min(30%, calc(4.5 * min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px)))) 
+            calc(65% - calc(min(30%, calc(4.5 * min(calc(max(calc(1.6 * var(--main-font)), 5vh)), 130px)))));
 }
 
 .hands {
