@@ -25,6 +25,13 @@
 
     <ItemGroup>
         <Folder Include="Migrations\" />
+        <Folder Include="wwwroot\css\scenarios\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\css\leftside\leftsideview.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\leftside\lightbulb.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\leftside\settings.css" />
     </ItemGroup>
 
 </Project>

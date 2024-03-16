@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BridgeScenarios.Models.DbModels;
 
-public class DealSet
+public class UsersSavedContent
 {
     [Key]
-    public int DealSetId { get; set; }
+    public int SavedContentId { get; set; }
     
     [ForeignKey("User")]
     public int UserId { get; set; }
@@ -17,5 +17,8 @@ public class DealSet
     
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;
     
-    public List<Deal> Deals { get; set; } = [];
+    public string Content { get; set; } = string.Empty;
+    
+    public SavedContentType? SavedContentType { get; set; }
 }
+

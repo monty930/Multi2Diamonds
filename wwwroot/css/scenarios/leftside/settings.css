@@ -1,14 +1,14 @@
-.settings-container {
-    background-color: var(--line-numbers-background-color);
-    color: var(--main-font-color);
-    font-family: var(--bs-body-font-family);
-    overflow: auto;
-}
+/*.settings-container {*/
+/*    background-color: var(--line-numbers-background-color);*/
+/*    color: var(--main-font-color);*/
+/*    font-family: var(--bs-body-font-family);*/
+/*    overflow: auto;*/
+/*}*/
 
-.settings-inner-container {
-    height: calc(min(calc(70vh - 5 * var(--main-font)), 2600px));
-    padding: 3% 5% 5%;
-}
+/*.settings-inner-container {*/
+/*    height: calc(min(calc(70vh - 5 * var(--main-font)), 2600px));*/
+/*    padding: 3% 5% 5%;*/
+/*}*/
 
 .one-setting {
     display: grid;

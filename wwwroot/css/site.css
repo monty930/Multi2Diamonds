@@ -16,6 +16,7 @@
     --line-numbers-background-color: rgb(56, 56, 56);
     --table-background-color: var(--text-area-background-color);
     --table-border-color: rgb(126, 126, 126);
+    --outer-background: rgb(105, 105, 105);
     
     --main-font-color: rgb(255, 235, 235);
     
@@ -36,6 +37,9 @@
     --tabs-img-size: min(max(calc(var(--main-font) * 1.5), 4vh), 4vw);
     --select-box-height: calc(min(max(calc(var(--main-font) * 2.3), 4vh), 4vw));
     --right-side-dependend: 1.5vw;
+    
+    --main-padding-left: min(max(calc(var(--main-font)), 4vh), 4vw);
+    --main-padding-top: calc( min(max(calc(var(--main-font)), 4vh), 4vw) / 2);
 }
 
 html, body {

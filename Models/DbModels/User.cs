@@ -17,7 +17,8 @@ public class User
     public string Email { get; set; } = string.Empty;
     
     public bool IsAdmin { get; set; }
+    
     public DateTime CreationDate = DateTime.UtcNow;
 
-    public List<DealSet> DealSets { get; set; } = [];
+    public List<UsersSavedContent> SavedContents { get; set; } = [];
 }

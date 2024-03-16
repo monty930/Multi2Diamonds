@@ -3,6 +3,7 @@ using System;
 using BridgeScenarios.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BridgeScenarios.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240315231420_DealSetDsiStringUserConstraints")]
+    partial class DealSetDsiStringUserConstraints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,6 +83,10 @@ namespace BridgeScenarios.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DealSetId"));
 
+                    b.Property<string>("Constraints")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -90,6 +97,10 @@ namespace BridgeScenarios.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("dsiString")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("DealSetId");
 
@@ -129,39 +140,6 @@ namespace BridgeScenarios.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BridgeScenarios.Models.DbModels.UsersSavedContent", b =>
-                {
-                    b.Property<int>("SavedContentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SavedContentId"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("character varying(40)");
-
-                    b.Property<int?>("SavedContentType")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("SavedContentId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SavedContents");
-                });
-
             modelBuilder.Entity("BridgeScenarios.Models.DbModels.Deal", b =>
                 {
                     b.HasOne("BridgeScenarios.Models.DbModels.DealSet", null)
@@ -174,18 +152,7 @@ namespace BridgeScenarios.Migrations
             modelBuilder.Entity("BridgeScenarios.Models.DbModels.DealSet", b =>
                 {
                     b.HasOne("BridgeScenarios.Models.DbModels.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("BridgeScenarios.Models.DbModels.UsersSavedContent", b =>
-                {
-                    b.HasOne("BridgeScenarios.Models.DbModels.User", "User")
-                        .WithMany("SavedContents")
+                        .WithMany("DealSets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -200,7 +167,7 @@ namespace BridgeScenarios.Migrations
 
             modelBuilder.Entity("BridgeScenarios.Models.DbModels.User", b =>
                 {
-                    b.Navigation("SavedContents");
+                    b.Navigation("DealSets");
                 });
 #pragma warning restore 612, 618
         }

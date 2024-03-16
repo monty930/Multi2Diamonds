@@ -107,19 +107,19 @@
 }
 
 .spades-char {
-    background-image: url("../../assets/blue.png");
+    background-image: url("../../../assets/blue.png");
 }
 
 .hearts-char {
-    background-image: url("../../assets/red.png");
+    background-image: url("../../../assets/red.png");
 }
 
 .diams-char {
-    background-image: url("../../assets/orange.png");
+    background-image: url("../../../assets/orange.png");
 }
 
 .clubs-char {
-    background-image: url("../../assets/green.png");
+    background-image: url("../../../assets/green.png");
 }
 
 .deal-number-info {

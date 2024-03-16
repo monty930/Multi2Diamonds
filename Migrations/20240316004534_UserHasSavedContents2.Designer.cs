@@ -3,6 +3,7 @@ using System;
 using BridgeScenarios.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BridgeScenarios.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240316004534_UserHasSavedContents2")]
+    partial class UserHasSavedContents2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,10 +140,6 @@ namespace BridgeScenarios.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SavedContentId"));
 
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -149,17 +148,21 @@ namespace BridgeScenarios.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)");
 
-                    b.Property<int?>("SavedContentType")
-                        .HasColumnType("integer");
+                    b.Property<string>("SavedContentType")
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("dsiString")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("SavedContentId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SavedContents");
+                    b.ToTable("UsersSavedContent");
                 });
 
             modelBuilder.Entity("BridgeScenarios.Models.DbModels.Deal", b =>

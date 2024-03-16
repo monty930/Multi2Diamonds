@@ -1,0 +1,34 @@
+@model BridgeScenarios.Models.ViewModels.SavedContentViewModel;
+
+@{
+    Layout = "_Layout";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/savedcontent/main.css"/>
+</head>
+
+<div class="saved-content-container">
+    @if (Model.SavedContents.Any())
+        {
+            <div>Saved constraints:</div>
+            foreach (var dealSet in Model.SavedContents)
+            {
+                <div style="background-color: #0a53be; width: 100px; height: 5px;"></div>
+                <div class="deal-set">
+                    <h4>@dealSet.Name</h4>
+                    <p>(@dealSet.Content)</p>
+                    @* <form asp-controller="Profile" asp-action="DeleteDealSet" method="post"> *@
+                    @*     <input type="hidden" name="dealSetId" value="@dealSet.DealSetId" /> *@
+                    @*     <button type="submit">Delete</button> *@
+                    @* </form> *@
+                </div>
+            }
+        }
+    else
+    {
+        <p>Saved constraints will appear here!</p>
+    }
+</div>
+

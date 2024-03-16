@@ -40,4 +40,15 @@ public class UserRepository
     {
         return _context.Users.Any(u => u.Username == username);
     }
+    
+    public void AddSavedContent(UsersSavedContent savedContent)
+    {
+        _context.SavedContents.Add(savedContent);
+        _context.SaveChanges();
+    }
+    
+    public List<UsersSavedContent> GetSavedContents(User user)
+    {
+        return _context.SavedContents.Where(d => d.User.UserId == user.UserId).ToList();
+    }
 }

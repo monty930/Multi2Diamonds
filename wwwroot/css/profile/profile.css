@@ -1,0 +1,47 @@
+.profile-view-container{
+    background-color: var(--main-background-color);
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    flex-direction: row;
+}
+
+.left-border {
+    height: 100%;
+    width: 8px;
+    background: linear-gradient(90deg, 
+                rgba(88, 88, 88, 1) 0%, 
+                rgba(105, 105, 105, 1) 48%, 
+                rgba(105, 105, 105, 1) 100%);
+}
+
+.right-border {
+    height: 100%;
+    width: 8px;
+    background: linear-gradient(90deg,
+                rgba(105, 105, 105, 1) 0%,
+                rgba(105, 105, 105, 1) 52%,
+                rgba(88, 88, 88) 100%);
+}
+
+.profile-view {
+    height: 100%;
+    width: 70vh;
+    padding-left: var(--main-padding-left);
+    padding-top: var(--main-padding-top);
+    background-color: var(--outer-background);
+    color: var(--main-font-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: none;
+    align-items: flex-start;
+    text-align: left;
+}

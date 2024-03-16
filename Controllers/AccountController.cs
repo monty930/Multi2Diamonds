@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using System.Text;
 using BridgeScenarios.Models.DbModels;
 using BridgeScenarios.Models.ViewModels;
 using BridgeScenarios.Repositories;
@@ -27,7 +26,6 @@ public class AccountController : Controller
         string? storedPassword = _userRepository.GetPassword(user.Username);
         if (storedPassword is null)
         {
-            
             return View(new LoginViewModel
             {
                 LoginError = "Invalid username or password."
@@ -104,10 +102,11 @@ public class AccountController : Controller
         });
 
     }
-
-    // public ActionResult Logout()
-    // {
-    //     FormsAuthentication.SignOut();
-    //     return RedirectToAction("Index", "Home");
-    // }
+    
+    public async Task<IActionResult> Logout()
+    {
+        Console.WriteLine("Logging out");
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Login", "Account");
+    }
 }

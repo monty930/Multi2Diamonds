@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="~/css/leftside/leftsideview.css"/>
+<link rel="stylesheet" href="~/css/scenarios/leftside/leftsideview.css"/>
 
 @model BridgeScenarios.Models.ViewModels.IndexViewModel
 
@@ -20,6 +20,11 @@
         <div id="settings-dynamic" class="left-container-inner-content hidden">
             @{
                 await Html.RenderPartialAsync("LeftSide/Settings", Model);
+            }
+        </div> 
+        <div id="saveconstraints-dynamic" class="left-container-inner-content hidden">
+            @{
+                await Html.RenderPartialAsync("LeftSide/SaveConstraints", Model);
             }
         </div>
         <div id="left-container-switches" class="left-container-switches">

@@ -13,8 +13,8 @@
 .form-container {
     background-color: #222;
     border-radius: 15px;
-    height: 60vh;
-    width: 60vh;
+    height: min(70vh, 700px);
+    width: min(60vh, 500px);
     position: relative;
     overflow: hidden;
 
