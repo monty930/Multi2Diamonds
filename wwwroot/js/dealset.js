@@ -148,7 +148,6 @@ let update_vul = (dsiString) => {
         deals[i] = deal_div.join('\"');
     }
     let updated_vul = deals.join('[Vulnerable \"');
-    console.log(updated_vul);
     return updated_vul;
 }
 

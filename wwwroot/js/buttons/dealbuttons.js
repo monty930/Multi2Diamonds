@@ -22,6 +22,9 @@ generateExample = new MyButton({
                 rebind_right_buttons();
                 if (data.correctDeal === "True") {
                     init_new_deal(data.dsiString, 1);
+                    window.localStorage.setItem('currentView', 'example');
+                } else {
+                    window.localStorage.setItem('currentView', 'error');
                 }
                 document.getElementById('spinner').style.display = 'none';
             }).catch(error => console.error('Error:', error));
@@ -52,6 +55,9 @@ generateDealSet = new MyButton({
                 rebind_right_buttons();
                 if (data.correctDeal === "True") {
                     init_new_deal(data.dsiString, 0);
+                    window.localStorage.setItem('currentView', 'dealset');
+                } else {
+                    window.localStorage.setItem('currentView', 'error');
                 }
                 document.getElementById('spinner').style.display = 'none';
             })
@@ -178,6 +184,7 @@ trash = new MyButton({
             disable_right_buttons();
             return;
         }
+        window.localStorage.setItem('currentView', 'entry');
         event.preventDefault();
         fetch('/Index/DefaultPage', {
             method: 'GET'
@@ -322,3 +329,7 @@ get_compiler_settings = function () {
         Scoring: dsiString.split('Scoring: ')[1].split('\n')[0],
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    window.localStorage.setItem('currentView', 'entry');
+});

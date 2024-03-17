@@ -1,4 +1,6 @@
-@model BridgeScenarios.Models.ViewModels.SavedContentViewModel;
+@using BridgeScenarios.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BridgeScenarios.Models.ViewModels.SavedContentViewModel
 
 @{
     Layout = "_Layout";
@@ -6,29 +8,89 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/savedcontent/main.css"/>
+    <link rel="stylesheet" href="~/css/buttons.css"/>
+    <link rel="stylesheet" href="~/css/profile/main.css"/>
+    <link rel="stylesheet" href="~/css/profile/savedcontent.css"/>
 </head>
-
-<div class="saved-content-container">
-    @if (Model.SavedContents.Any())
-        {
-            <div>Saved constraints:</div>
-            foreach (var dealSet in Model.SavedContents)
-            {
-                <div style="background-color: #0a53be; width: 100px; height: 5px;"></div>
-                <div class="deal-set">
-                    <h4>@dealSet.Name</h4>
-                    <p>(@dealSet.Content)</p>
-                    @* <form asp-controller="Profile" asp-action="DeleteDealSet" method="post"> *@
-                    @*     <input type="hidden" name="dealSetId" value="@dealSet.DealSetId" /> *@
-                    @*     <button type="submit">Delete</button> *@
-                    @* </form> *@
+<div class="profile-view-container">
+    <div class="left-border"></div>
+    <div class="profile-view">
+        <div class="saved-content-outer-container">
+            <div class="profile-saved-tabs">
+                <div class="profile-saved-tab-cont">
+                    <button
+                        id="constraints-tab-button"
+                        class="constraints-tab-button saved-tab-button saved-tab-button-active">
+                        CONSTRAINTS
+                    </button>
                 </div>
-            }
-        }
-    else
-    {
-        <p>Saved constraints will appear here!</p>
-    }
+                <div class="profile-saved-tab-cont">
+                    <button 
+                        id="deal-sets-tab-button" 
+                        class="deal-sets-tab-button saved-tab-button">
+                        DEAL SETS
+                    </button>
+                </div>
+            </div>
+            <div class="saved-content-container">
+                <div id="saved-dealsets-dynamic" class="saved-dynamic saved-dealsets-dynamic" style="display: none;">
+                    @if (Model.SavedContents.Any(sc => sc.SavedContentType == SavedContentType.Constraint))
+                    {
+                        <div class="scrollable-list">
+                            @foreach (var savedContent in Model.SavedContents.Where(sc => sc.SavedContentType == SavedContentType.Constraint))
+                            {
+                                <div class="saved-item saved-constraint">
+                                    <button id="saved-constraint" class="saved-item-button">
+                                        <div>@savedContent.Name</div>
+                                        <p style="display: none">(@savedContent.Content)</p>
+                                    </button>
+                                    <form asp-controller="Profile" asp-action="DeleteSavedContent" method="post">
+                                        <input type="hidden" name="savedContentId" value="@savedContent.SavedContentId"/>
+                                        <button type="submit" class="button-all red-button saved-item-delete-button">
+                                            <img class="save-item-trash-img" src="../assets/trash.png">
+                                        </button>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p>No saved constraints found.</p>
+                    }
+                </div>
+
+                <div id="saved-constraints-dynamic" class="saved-dynamic saved-constraints-dynamic">
+                    @if (Model.SavedContents.Any(sc => sc.SavedContentType == SavedContentType.DealSet))
+                    {
+                        <div class="scrollable-list">
+                            @foreach (var savedContent in Model.SavedContents.Where(sc => sc.SavedContentType == SavedContentType.DealSet))
+                            {
+                                <div class="saved-item saved-dealset">
+                                    <button id="saved-dealset" class="saved-item-button">
+                                        <div>@savedContent.Name</div>
+                                        <p style="display: none">(@savedContent.Content)</p>
+                                    </button>
+                                    <form asp-controller="Profile" asp-action="DeleteSavedContent" method="post">
+                                        <input type="hidden" name="savedContentId" value="@savedContent.SavedContentId"/>
+                                        <button type="submit" class="button-all red-button saved-item-delete-button">
+                                            <img class="save-item-trash-img" src="../assets/trash.png">
+                                        </button>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p>No saved deal sets found.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-border"></div>
 </div>
 
+<script type="text/javascript" src="/js/profile/main.js"></script>
+<script type="text/javascript" src="/js/profile/buttons.js"></script>

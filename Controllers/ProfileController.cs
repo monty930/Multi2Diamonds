@@ -23,8 +23,6 @@ public class ProfileController : Controller
         
         var savedContents = _userRepository.GetSavedContents(user);
     
-        Console.WriteLine("HERE" + savedContents.Count);
-    
         var viewModel = new SavedContentViewModel
         {
             SavedContents = savedContents
@@ -63,12 +61,13 @@ public class ProfileController : Controller
         var newSavedContent = new UsersSavedContent
         {
             UserId = user.UserId,
+            User = user,
             SavedContentType = SavedContentType.DealSet,
             Name = input.Name,
             Content = input.Content
         };
     
-        _userRepository.AddSavedContent(input);
+        _userRepository.AddSavedContent(newSavedContent);
         
         return Json(new { success = true, message = "Deal set added successfully" });
     }
@@ -85,28 +84,36 @@ public class ProfileController : Controller
         var newSavedContent = new UsersSavedContent
         {
             UserId = user.UserId,
+            User = user,
             SavedContentType = SavedContentType.Constraint,
             Name = input.Name,
             Content = input.Content
         };
     
-        _userRepository.AddSavedContent(input);
+        _userRepository.AddSavedContent(newSavedContent);
         
         return Json(new { success = true, message = "Constraint added successfully" });
     }
     
-    // [HttpPost]
-    // public async Task<IActionResult> DeleteDealSet(int dealSetId)
-    // {
-    //     var dealSet = _context.DealSets.Find(dealSetId);
-    //     if (dealSet == null)
-    //     {
-    //         return NotFound();
-    //     }
-    //
-    //     _context.DealSets.Remove(dealSet);
-    //     await _context.SaveChangesAsync();
-    //
-    //     return RedirectToAction("SavedContent"); // Or return JSON if using AJAX
-    // }
+    [HttpPost]
+    public async Task<IActionResult> DeleteSavedContent(int savedContentId)
+    {
+        var user = _userRepository.GetByName(User.Identity.Name);
+        if (user == null)
+        {
+            return NotFound();
+        }
+    
+        var savedContent = 
+            _userRepository.GetSavedContents(user).FirstOrDefault
+                (c => c.SavedContentId == savedContentId);
+        if (savedContent == null)
+        {
+            return NotFound();
+        }
+    
+        _userRepository.RemoveSavedContent(savedContent);
+    
+        return RedirectToAction("SavedContent");
+    }
 }

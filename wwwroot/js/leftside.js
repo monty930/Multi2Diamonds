@@ -10,11 +10,17 @@ let show_one_left_elem = (visible_id) => {
     document.getElementById(visible_id).classList.remove('hidden');
 }
 
+let deactivate_savetab = () => {
+    MyButtons.saveconstraints.setActivePressed(false);
+    const messageElement = document.querySelector('.save-message');
+    messageElement.style.display = 'none';
+}
+
 let set_one_tab_active = (button) => {
     MyButtons.input.setActivePressed(false);
     MyButtons.lightbulb.setActivePressed(false);
     MyButtons.settings.setActivePressed(false);
-    MyButtons.saveconstraints.setActivePressed(false);
+    deactivate_savetab();
     button.setActivePressed(true);
 }
 

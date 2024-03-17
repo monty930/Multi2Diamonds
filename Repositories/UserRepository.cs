@@ -47,6 +47,12 @@ public class UserRepository
         _context.SaveChanges();
     }
     
+    public void RemoveSavedContent(UsersSavedContent savedContent)
+    {
+        _context.SavedContents.Remove(savedContent);
+        _context.SaveChanges();
+    }
+    
     public List<UsersSavedContent> GetSavedContents(User user)
     {
         return _context.SavedContents.Where(d => d.User.UserId == user.UserId).ToList();

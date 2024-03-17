@@ -40,6 +40,10 @@
     
     --main-padding-left: min(max(calc(var(--main-font)), 4vh), 4vw);
     --main-padding-top: calc( min(max(calc(var(--main-font)), 4vh), 4vw) / 2);
+    
+    --footer-height: calc(max(calc(2.8 * var(--main-font)), 5vh));
+    --header-height: calc(max(calc(3.5 * var(--main-font)), 8vh));
+    --body-border: 2px;
 }
 
 html, body {

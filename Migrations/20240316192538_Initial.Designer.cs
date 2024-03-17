@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BridgeScenarios.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240305222336_Initial")]
+    [Migration("20240316192538_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -132,6 +132,39 @@ namespace BridgeScenarios.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("BridgeScenarios.Models.DbModels.UsersSavedContent", b =>
+                {
+                    b.Property<int>("SavedContentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SavedContentId"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
+
+                    b.Property<int?>("SavedContentType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("SavedContentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SavedContents");
+                });
+
             modelBuilder.Entity("BridgeScenarios.Models.DbModels.Deal", b =>
                 {
                     b.HasOne("BridgeScenarios.Models.DbModels.DealSet", null)
@@ -144,7 +177,18 @@ namespace BridgeScenarios.Migrations
             modelBuilder.Entity("BridgeScenarios.Models.DbModels.DealSet", b =>
                 {
                     b.HasOne("BridgeScenarios.Models.DbModels.User", "User")
-                        .WithMany("DealSets")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BridgeScenarios.Models.DbModels.UsersSavedContent", b =>
+                {
+                    b.HasOne("BridgeScenarios.Models.DbModels.User", "User")
+                        .WithMany("SavedContents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -159,7 +203,7 @@ namespace BridgeScenarios.Migrations
 
             modelBuilder.Entity("BridgeScenarios.Models.DbModels.User", b =>
                 {
-                    b.Navigation("DealSets");
+                    b.Navigation("SavedContents");
                 });
 #pragma warning restore 612, 618
         }
