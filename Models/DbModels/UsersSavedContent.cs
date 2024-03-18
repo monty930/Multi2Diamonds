@@ -19,5 +19,5 @@ public class UsersSavedContent
 
     public SavedContentType? SavedContentType { get; set; }
 
-    public bool Exists { get; set; } = false;
+    public bool Exists { get; set; }
 }

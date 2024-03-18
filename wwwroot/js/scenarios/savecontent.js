@@ -98,7 +98,6 @@ let init_constraint_save = (existing = false) => {
 
 let init_dealset_save = (existing = false) => {
     let view = window.localStorage.getItem('currentView');
-    console.log("view " + view);
     if (view !== "dealset" && view !== "entry") {
         displayMessage("Generate deal set first!", true);
         return;
@@ -124,7 +123,6 @@ let save_content = (itemType, itemName, content, existing = false) => {
             displayMessage("Internal error!", true);
             return;
         }
-        console.log("id " + id);
         to_send.SavedContentId = id;
     }
     fetch('/Index/AddItem', {
@@ -182,7 +180,6 @@ let initialize_save_buttons = () => {
             addConstraint.style.display = 'block';
             addConstraint.textContent = 'save as new';
             const textarea = document.getElementById('constraintName');
-            console.log("textarea " + textarea.innerHTML);
             textarea.innerHTML = savedItemName;
             const codeInputElement = document.getElementById('codeInput');
             codeInputElement.value = sessionStorage.getItem('savedContent');
