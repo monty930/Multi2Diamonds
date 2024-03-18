@@ -33,7 +33,7 @@ MyButton = function ({elementId, listener}) {
     this.isDeactivated = () => {
         return this.element.classList.contains('deactivated');
     }
-    
+
     this.defaultListener = () => {
         MyButtons.activeButtonId = this.elementId;
     }

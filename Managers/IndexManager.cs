@@ -1,9 +1,6 @@
 using BridgeScenarios.DealSetTools;
 using BridgeScenarios.Models;
-using BridgeScenarios.Models.DbModels;
 using BridgeScenarios.Models.ViewModels;
-using BridgeScenarios.Repositories;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BridgeScenarios.Managers;
 
@@ -19,9 +16,9 @@ public class IndexManager
             return new IndexViewModel
             {
                 RightDisplay = model.RightDisplay,
-                ScriptOutputRaw = scriptOut,
+                ScriptOutputRaw = scriptOut
             };
-        } 
+        }
         catch (CompilerException e)
         {
             return new IndexViewModel

@@ -1,5 +1,5 @@
-@using BridgeScenarios.Models
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using BridgeScenarios.Models
 @model BridgeScenarios.Models.ViewModels.SavedContentViewModel
 
 @{
@@ -26,8 +26,8 @@
                     </button>
                 </div>
                 <div class="profile-saved-tab-cont">
-                    <button 
-                        id="dealSetTabButton" 
+                    <button
+                        id="dealSetTabButton"
                         class="deal-sets-tab-button saved-tab-button">
                         DEAL SETS
                     </button>
@@ -36,18 +36,18 @@
             <div class="saved-content-container">
                 <div id="saved-constraints-dynamic" class="saved-dynamic saved-constraints-dynamic">
                     @if (Model.SavedContents.Any
-                             (sc => 
-                                 sc.SavedContentType == SavedContentType.Constraint))
+                         (sc =>
+                             sc.SavedContentType == SavedContentType.Constraint))
                     {
                         <div class="scrollable-list">
                             @foreach (var savedContent in Model.SavedContents.Where(
-                                    sc => 
-                                        sc.SavedContentType == SavedContentType.Constraint)
+                                              sc =>
+                                                  sc.SavedContentType == SavedContentType.Constraint)
                                           .OrderByDescending(sc => sc.SavedContentId))
                             {
                                 <div class="saved-item saved-constraint">
-                                    <button 
-                                        id="saved-constraint-@savedContent.SavedContentId" 
+                                    <button
+                                        id="saved-constraint-@savedContent.SavedContentId"
                                         class="saved-item-button save-constraint-button">
                                         <div>@savedContent.Name</div>
                                         <p style="display: none">(@savedContent.Content)</p>
@@ -68,16 +68,16 @@
                         <p>No saved constraints found.</p>
                     }
                 </div>
-                
+
                 <div id="saved-dealsets-dynamic" class="saved-dynamic saved-dealsets-dynamic hidden">
                     @if (Model.SavedContents.Any(
-                             sc => 
+                             sc =>
                                  sc.SavedContentType == SavedContentType.DealSet))
                     {
                         <div class="scrollable-list">
                             @foreach (var savedContent in Model.SavedContents.Where(
-                                          sc => 
-                                              sc.SavedContentType == SavedContentType.DealSet)
+                                              sc =>
+                                                  sc.SavedContentType == SavedContentType.DealSet)
                                           .OrderByDescending(sc => sc.SavedContentId))
                             {
                                 <div class="saved-item saved-dealset">
@@ -88,7 +88,7 @@
                                     <form asp-controller="Profile" asp-action="DeleteSavedContent" method="post">
                                         <input type="hidden" name="savedContentId" value="@savedContent.SavedContentId"/>
                                         <button id="saved-delete-@savedContent.SavedContentId"
-                                            type="submit" class="button-all red-button saved-item-delete-button">
+                                                type="submit" class="button-all red-button saved-item-delete-button">
                                             <img class="save-item-trash-img" src="../assets/trash.png">
                                         </button>
                                     </form>

@@ -122,7 +122,7 @@ let update_vul = (dsiString) => {
     // NS is vulnerable in boards 2, 4, 5, 7, 10, 12, 13, 15 and
     // repeats for each 16 boards. EW is vulnerable in boards
     // 3, 4, 6, 7, 9, 10, 13, 16 and repeats for each 16 boards.
-    
+
     let vul = dsiString.split('Vulnerability: ')[1].split('\n')[0];
     if (vul !== "Matching") {
         return dsiString;
@@ -132,11 +132,11 @@ let update_vul = (dsiString) => {
         let deal = deals[i];
         let deal_div = deal.split('\"');
         let new_vul = "None";
-        if (i % 16 === 2 || i % 16 === 4 || i % 16 === 5 || i % 16 === 7 || 
+        if (i % 16 === 2 || i % 16 === 4 || i % 16 === 5 || i % 16 === 7 ||
             i % 16 === 10 || i % 16 === 12 || i % 16 === 13 || i % 16 === 15) {
             new_vul = "NS";
         }
-        if (i % 16 === 3 || i % 16 === 4 || i % 16 === 6 || i % 16 === 7 || 
+        if (i % 16 === 3 || i % 16 === 4 || i % 16 === 6 || i % 16 === 7 ||
             i % 16 === 9 || i % 16 === 10 || i % 16 === 13 || i % 16 === 16) {
             if (new_vul === "NS") {
                 new_vul = "All";
@@ -177,7 +177,7 @@ get_lin_from_dsi = (dsiString) => {
         let vul = lin_vul(extract_vul(deal));
         let board_num = i + 1;
         let board_name = 'Board ' + board_num;
-        let lin_hand_south = "S" + 
+        let lin_hand_south = "S" +
             extract_suit(deal, 'hand-south', 'suit-spades') + "H" +
             extract_suit(deal, 'hand-south', 'suit-hearts') + "D" +
             extract_suit(deal, 'hand-south', 'suit-diamonds') + "C" +
@@ -192,7 +192,7 @@ get_lin_from_dsi = (dsiString) => {
             extract_suit(deal, 'hand-north', 'suit-hearts') + "D" +
             extract_suit(deal, 'hand-north', 'suit-diamonds') + "C" +
             extract_suit(deal, 'hand-north', 'suit-clubs');
-        let lin = 
+        let lin =
             "qx|o" + board_num + "|md|" +
             dealer + lin_hand_south + "," +
             lin_hand_west + "," +

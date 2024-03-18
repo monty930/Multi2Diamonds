@@ -6,9 +6,9 @@ const loginButton = document.getElementById('login');
 signupButton.addEventListener('click', (e) => {
     let parent = e.target.parentNode.parentNode;
     Array.from(e.target.parentNode.parentNode.classList).find((element) => {
-        if(element !== "slide-up") {
+        if (element !== "slide-up") {
             parent.classList.add('slide-up');
-        }else{
+        } else {
             loginButton.parentNode.classList.add('slide-up');
             parent.classList.remove('slide-up');
         }
@@ -18,9 +18,9 @@ signupButton.addEventListener('click', (e) => {
 loginButton.addEventListener('click', (e) => {
     let parent = e.target.parentNode;
     Array.from(e.target.parentNode.classList).find((element) => {
-        if(element !== "slide-up") {
+        if (element !== "slide-up") {
             parent.classList.add('slide-up')
-        }else{
+        } else {
             signupButton.parentNode.parentNode.classList.add('slide-up')
             parent.classList.remove('slide-up')
         }

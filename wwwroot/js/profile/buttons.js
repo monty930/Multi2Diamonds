@@ -25,7 +25,7 @@ show_one_saved_tab = (tabId, button) => {
     document.getElementById('saved-constraints-dynamic').classList.add('hidden');
     document.getElementById('saved-dealsets-dynamic').classList.add('hidden');
     document.getElementById(tabId).classList.remove('hidden');
-    
+
     MyButtons.constraint_tab.setActivePressed(false);
     MyButtons.dealset_tab.setActivePressed(false);
     button.setActivePressed(true);
@@ -36,7 +36,7 @@ rebind_saved_tabs = () => {
     rebind_button(MyButtons.dealset_tab);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     rebind_saved_tabs();
     add_trash_animation();
     rebind_saved_items_buttons();
@@ -59,13 +59,13 @@ add_trash_animation = () => {
 }
 
 rebind_saved_items_buttons = () => {
-    const savedItemsButtons = 
+    const savedItemsButtons =
         document.querySelectorAll('button.saved-item-button');
 
     savedItemsButtons.forEach(button => {
         button.addEventListener('click', function () {
             const savedContentId = this.id.split('-')[2];
-            
+
             fetch(`/Index/SavedItem?savedContentId=${savedContentId}`)
                 .then(response => response.json())
                 .then(data => {

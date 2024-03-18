@@ -21,7 +21,7 @@
             @{
                 await Html.RenderPartialAsync("LeftSide/Settings", Model);
             }
-        </div> 
+        </div>
         <div id="saveconstraints-dynamic" class="left-container-inner-content hidden">
             @{
                 await Html.RenderPartialAsync("LeftSide/SaveContentView", Model);
@@ -36,8 +36,10 @@
     <div class="toggle-view-container">
         <div class="toggle-view-container-left">
             <button id="toggle-view"
-                    class="toggle-button toggle-button-left" 
-                    onclick="toggleView()">SHOW DEAL SET</button>
+                    class="toggle-button toggle-button-left"
+                    onclick="toggleView()">
+                SHOW DEAL SET
+            </button>
         </div>
     </div>
 </div>

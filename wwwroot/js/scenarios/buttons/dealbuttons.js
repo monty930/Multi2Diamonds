@@ -330,6 +330,6 @@ get_compiler_settings = function () {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     window.localStorage.setItem('currentView', 'entry');
 });

@@ -3,12 +3,12 @@
     --main-font: calc(5px + min(1.5rem, calc(1vmax)));
     --right-side-font-main: calc(max(var(--main-font), 2.5vh));
     --right-side-font-bold: 600;
-    
+
     --input-line-height: calc(1.2em);
     --input-box-height: calc(16 * (var(--input-line-height) + 0.77em));
     --code-font-size: min(max(calc(var(--main-font) * 1.1), 2.2vh), 70px);
     --max-box-height: calc(77vh);
-    
+
     --main-background-color: rgb(88, 88, 88);
     --root-background-color: rgb(94, 94, 94);
     --background-header-color: rgb(77, 77, 77);
@@ -17,16 +17,16 @@
     --table-background-color: var(--text-area-background-color);
     --table-border-color: rgb(126, 126, 126);
     --outer-background: rgb(105, 105, 105);
-    
+
     --main-font-color: rgb(255, 235, 235);
-    
+
     --button-face-color: rgb(116, 116, 116);
     --button-shadow: rgb(68, 68, 68);
     --button-hover: rgb(138, 138, 138);
     --button-face-deactiv: var(--button-face-color);
     --button-active: var(--button-hover);
     --line-numbers-width: calc(2.0em + 0.07vw);
-    
+
     --font-deactiv: rgb(88, 88, 88);
     --generate-button-border: rgb(158, 157, 157);
     --diamond-color: darkgoldenrod;
@@ -37,10 +37,10 @@
     --tabs-img-size: min(max(calc(var(--main-font) * 1.5), 4vh), 4vw);
     --select-box-height: calc(min(max(calc(var(--main-font) * 2.3), 4vh), 4vw));
     --right-side-dependend: 1.5vw;
-    
+
     --main-padding-left: min(max(calc(var(--main-font)), 4vh), 4vw);
-    --main-padding-top: calc( min(max(calc(var(--main-font)), 4vh), 4vw) / 2);
-    
+    --main-padding-top: calc(min(max(calc(var(--main-font)), 4vh), 4vw) / 2);
+
     --footer-height: calc(max(calc(2.8 * var(--main-font)), 5vh));
     --header-height: calc(max(calc(3.5 * var(--main-font)), 8vh));
     --body-border: 2px;
@@ -116,7 +116,7 @@ html, body {
 
 .divider {
     background: linear-gradient(
-            90deg, 
+            90deg,
             rgba(88, 88, 88, 1) 0%,
             rgba(105, 105, 105, 1) 48%,
             rgba(105, 105, 105, 1) 52%,

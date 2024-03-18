@@ -70,7 +70,7 @@
     grid-template-rows: 
             min(max(calc(var(--main-font) * 3), 5vh), 5vw) 
             calc(min(calc(70vh - 5 * var(--main-font)), 2600px));
-            calc(max((var(--main-font) * 4), 8vh));
+calc(max((var(--main-font) * 4), 8 vh));
     padding: 0 min(max(calc(var(--main-font)), 4vh), 4vw) 0 0;
 }
 
@@ -110,10 +110,7 @@
     white-space: pre;
     line-height: min(max(calc(var(--main-font) * 1.5), 4.2vh), 100px);
     font-size: var(--code-font-size);
-    padding:    calc(max(calc(var(--main-font) * 0.2), 0.4vh))
-                calc(max(calc(var(--main-font) * 0.2), 0.4vh))
-                0
-                calc(max(calc(var(--main-font) * 0.2), 0.4vh));
+    padding: calc(max(calc(var(--main-font) * 0.2), 0.4vh)) calc(max(calc(var(--main-font) * 0.2), 0.4vh)) 0 calc(max(calc(var(--main-font) * 0.2), 0.4vh));
     width: min(max(calc(var(--main-font) * 1.7), 4.4vh), 120px);
     text-align: right;
 }

@@ -44,7 +44,7 @@ saveconstraints = new MyButton({
         document.getElementById('left-side-title').innerHTML = "Save";
         set_one_tab_active(MyButtons.saveconstraints);
     }
-}); 
+});
 
 MyButtons.input = input;
 MyButtons.lightbulb = lightbulb;

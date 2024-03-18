@@ -32,16 +32,15 @@ function update_hand_suit_content(dsiString, dealNum) {
         document.getElementById('N-vul').classList.remove('vul');
         document.getElementById('S-vul').classList.remove('vul');
     }
-    
+
     if (vul[1]) {
         document.getElementById('E-vul').classList.add('vul');
         document.getElementById('W-vul').classList.add('vul');
-    }
-    else {
+    } else {
         document.getElementById('E-vul').classList.remove('vul');
         document.getElementById('W-vul').classList.remove('vul');
     }
-    
+
     let dealer = extract_dealer(deal); // N / E / S / W
     document.getElementById('N-vul').classList.remove('dealer');
     document.getElementById('E-vul').classList.remove('dealer');
@@ -98,8 +97,7 @@ let disable_right_buttons = () => {
         MyButtons.nextDeal.setDeactivated(true);
         let nextImage = document.querySelector('#nextDealButton .dealset-img');
         nextImage.src = './assets/arrow-deactiv.png';
-    }
-    else {
+    } else {
         MyButtons.addDeal.setDeactivated(true);
         MyButtons.addDeal.element.classList.add('hidden');
         let nextImage = document.querySelector('#nextDealButton .dealset-img');

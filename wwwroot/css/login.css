@@ -22,7 +22,10 @@
         content: '';
         opacity: .8;
         position: absolute;
-        top: 0;right:0;bottom:0;left:0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
         background-repeat: no-repeat;
         background-position: left top;
         background-size: 60vh;
@@ -101,8 +104,9 @@
                 &:last-child {
                     border-bottom: 0;
                 }
+
                 &::-webkit-input-placeholder {
-                    color: rgba(0,0,0,0.4);
+                    color: rgba(0, 0, 0, 0.4);
                 }
             }
         }
@@ -125,7 +129,7 @@
 
             &:hover {
                 transition: all .3s ease;
-                background-color: rgba(60,60,60,1);
+                background-color: rgba(60, 60, 60, 1);
             }
         }
 
@@ -211,8 +215,9 @@
                     &:last-child {
                         border-bottom: 0;
                     }
+
                     &::-webkit-input-placeholder {
-                        color: rgba(0,0,0,0.4);
+                        color: rgba(0, 0, 0, 0.4);
                     }
                 }
             }
@@ -220,7 +225,7 @@
             .submit-btn {
                 background-color: var(--main-background-color);
                 color: var(--main-font-color);
-                border:0;
+                border: 0;
                 border-radius: 15px;
                 display: block;
                 margin: 15px auto;

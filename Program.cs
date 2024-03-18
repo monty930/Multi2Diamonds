@@ -27,10 +27,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 builder.Services.AddControllers()
-        .AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
+    .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
 var app = builder.Build();
 
@@ -60,7 +57,6 @@ app.UseCookiePolicy(new CookiePolicyOptions
 app.MapControllerRoute(
     "default",
     "{controller=Index}/{action=Index}");
-
 
 
 app.Run();

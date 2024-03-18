@@ -9,7 +9,7 @@ function displayMessage(message, isError = false, timeout = 3000) {
     } else {
         messageElement.style.color = '';
     }
-    
+
     clearTimeout(messageTimeout);
     messageTimeout = setTimeout(() => {
         messageElement.style.display = 'none';
@@ -135,24 +135,24 @@ let save_content = (itemType, itemName, content, existing = false) => {
         },
         body: JSON.stringify(to_send)
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if(data.success) {
-            let message = itemType === 'dealset' ? "Deal set saved!" : "Constraint saved!";
-            displayMessage(message);
-        } else {
-            displayMessage(data.message || "An error occurred", true);
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        displayMessage(error.message || "An error occurred", true);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                let message = itemType === 'dealset' ? "Deal set saved!" : "Constraint saved!";
+                displayMessage(message);
+            } else {
+                displayMessage(data.message || "An error occurred", true);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            displayMessage(error.message || "An error occurred", true);
+        });
 }
 
 let initialize_save_buttons = () => {
@@ -161,7 +161,7 @@ let initialize_save_buttons = () => {
     const savedItemName = sessionStorage.getItem('savedItemName');
     const addExistingDealSet = document.getElementById('addExistingDealSet');
     const addDealSet = document.getElementById('addDealSetButton');
-    
+
     // show only 'save as new' button
     const addConstraint = document.getElementById('addConstraint');
     addConstraint.style.display = 'block';
@@ -172,7 +172,7 @@ let initialize_save_buttons = () => {
     addDealSet.style.display = 'block';
     addDealSet.textContent = 'save';
     addExistingDealSet.style.display = 'none';
-    
+
     if (savedItemStatus !== null) {
         // initialize save constraint buttons
         if (savedItemStatus === 'constraint') {
@@ -194,21 +194,21 @@ let initialize_save_buttons = () => {
             addDealSet.textContent = 'save as new';
             const textarea = document.getElementById('dealSetName');
             textarea.innerHTML = savedItemName;
-    
+
             document.getElementById('right-partial').innerHTML = sessionStorage.getItem('rightpartial');
             init_new_deal(sessionStorage.getItem('savedContent'), 0);
             rebind_right_buttons();
         } else { // error
             document.getElementById('right-partial').innerHTML = sessionStorage.getItem('rightpartial');
         }
-        
+
         if (savedItemStatus !== 'error') {
             console.log("savedItemId " + savedItemId);
             sessionStorage.setItem('itemToSaveId', savedItemId);
             sessionStorage.setItem('itemToSaveName', savedItemName);
         }
     }
-    
+
     sessionStorage.removeItem('rightpartial');
     sessionStorage.removeItem('savedItemStatus');
     sessionStorage.removeItem('savedItemId');
