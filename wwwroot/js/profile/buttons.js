@@ -39,7 +39,7 @@ rebind_saved_tabs = () => {
 document.addEventListener('DOMContentLoaded', function() {
     rebind_saved_tabs();
     add_trash_animation();
-    rebind_constraint_buttons();
+    rebind_saved_items_buttons();
 });
 
 add_trash_animation = () => {
@@ -58,11 +58,11 @@ add_trash_animation = () => {
     });
 }
 
-rebind_constraint_buttons = () => {
-    const savedDealsetButtons = 
+rebind_saved_items_buttons = () => {
+    const savedItemsButtons = 
         document.querySelectorAll('button.saved-item-button');
 
-    savedDealsetButtons.forEach(button => {
+    savedItemsButtons.forEach(button => {
         button.addEventListener('click', function () {
             const savedContentId = this.id.split('-')[2];
             
@@ -75,6 +75,9 @@ rebind_constraint_buttons = () => {
                         sessionStorage.setItem('savedItemId', savedContentId);
                         sessionStorage.setItem('savedItemName', data.name);
                         sessionStorage.setItem('rightpartial', data.partial);
+                        if (data.status === 'dealset') {
+                            sessionStorage.setItem('currentView', 'dealset');
+                        }
                     } else { // error
                         sessionStorage.setItem('rightpartial', data.partial);
                     }

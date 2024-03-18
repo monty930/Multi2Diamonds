@@ -160,14 +160,6 @@ public class IndexController : Controller
     
         input.UserId = user.UserId;
         input.User = user;
-        // var newSavedContent = new UsersSavedContent
-        // {
-        //     UserId = user.UserId,
-        //     User = user,
-        //     SavedContentType = SavedContentType.DealSet,
-        //     Name = input.Name,
-        //     Content = input.Content
-        // };
 
         if (!input.Exists)
         {

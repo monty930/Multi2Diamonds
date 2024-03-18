@@ -98,7 +98,8 @@ let init_constraint_save = (existing = false) => {
 
 let init_dealset_save = (existing = false) => {
     let view = window.localStorage.getItem('currentView');
-    if (view !== "dealset") {
+    console.log("view " + view);
+    if (view !== "dealset" && view !== "entry") {
         displayMessage("Generate deal set first!", true);
         return;
     }
@@ -116,16 +117,17 @@ let init_dealset_save = (existing = false) => {
 }
 
 let save_content = (itemType, itemName, content, existing = false) => {
-    let to_send = {name: itemName, content: content, exists: existing, itemType: itemType};
+    let to_send = {name: itemName, content: content, exists: existing, SavedContentType: itemType};
     if (existing) {
         let id = sessionStorage.getItem('itemToSaveId');
         if (!id) {
             displayMessage("Internal error!", true);
             return;
         }
-        to_send.id = id;
+        console.log("id " + id);
+        to_send.SavedContentId = id;
     }
-    fetch('/Profile/AddItem', {
+    fetch('/Index/AddItem', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -201,6 +203,7 @@ let initialize_save_buttons = () => {
         }
         
         if (savedItemStatus !== 'error') {
+            console.log("savedItemId " + savedItemId);
             sessionStorage.setItem('itemToSaveId', savedItemId);
             sessionStorage.setItem('itemToSaveName', savedItemName);
         }

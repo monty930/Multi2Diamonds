@@ -42,7 +42,8 @@
                         <div class="scrollable-list">
                             @foreach (var savedContent in Model.SavedContents.Where(
                                     sc => 
-                                        sc.SavedContentType == SavedContentType.Constraint))
+                                        sc.SavedContentType == SavedContentType.Constraint)
+                                          .OrderByDescending(sc => sc.SavedContentId))
                             {
                                 <div class="saved-item saved-constraint">
                                     <button 
@@ -76,7 +77,8 @@
                         <div class="scrollable-list">
                             @foreach (var savedContent in Model.SavedContents.Where(
                                           sc => 
-                                              sc.SavedContentType == SavedContentType.DealSet))
+                                              sc.SavedContentType == SavedContentType.DealSet)
+                                          .OrderByDescending(sc => sc.SavedContentId))
                             {
                                 <div class="saved-item saved-dealset">
                                     <button id="saved-dealset-@savedContent.SavedContentId" class="saved-item-button">

@@ -49,7 +49,26 @@ public class UserRepository
     
     public void UpdateSavedContent(UsersSavedContent savedContent)
     {
-        _context.SavedContents.Update(savedContent);
+        Console.WriteLine("---AddSavedContent");
+        Console.WriteLine(savedContent.SavedContentId);
+        Console.WriteLine(savedContent.SavedContentType);
+        Console.WriteLine(savedContent.Name);
+        Console.WriteLine(savedContent.Content);
+        Console.WriteLine(savedContent.Exists);
+        Console.WriteLine(savedContent.UserId);
+        Console.WriteLine(savedContent.User.Username);
+        
+        var existingEntity = _context.SavedContents.Find(savedContent.SavedContentId);
+        if(existingEntity != null)
+        {
+            Console.WriteLine("Updating existing entity");
+            _context.Entry(existingEntity).CurrentValues.SetValues(savedContent);
+        }
+        else
+        {
+            Console.WriteLine("Adding new entity");
+            _context.SavedContents.Update(savedContent);
+        }
         _context.SaveChanges();
     }
     
