@@ -32,6 +32,10 @@
       <_ContentIncludedByDefault Remove="wwwroot\css\leftside\leftsideview.css" />
       <_ContentIncludedByDefault Remove="wwwroot\css\leftside\lightbulb.css" />
       <_ContentIncludedByDefault Remove="wwwroot\css\leftside\settings.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\buttons\buttons.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\buttons\dealbuttons.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\buttons\errorbuttons.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\buttons\tabbuttons.js" />
     </ItemGroup>
 
 </Project>

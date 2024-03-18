@@ -3,6 +3,7 @@ using BridgeScenarios.DealSetTools.Models;
 using BridgeScenarios.Managers;
 using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
+using BridgeScenarios.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ namespace BridgeScenarios.Controllers;
 public class IndexController : Controller
 {
     private readonly IndexManager _indexManager = new();
+    private readonly UserRepository _userRepository = new();
 
     [HttpGet]
     [EnableCors]
@@ -99,6 +101,22 @@ public class IndexController : Controller
             RightDisplay = RightViewDisplay.Entry
         };
         return Task.FromResult<IActionResult>(PartialView("RightSideView", model));
+    }
+    
+    [EnableCors]
+    [HttpGet]
+    public async Task<IActionResult> SavedConstraint(string savedContentId)
+    {
+        var user = _userRepository.GetByName(User.Identity.Name);
+        if (user == null)
+        {
+            return Json(new { success = false, message = "User not found" });
+        }
+        
+        var savedContent = _userRepository.GetSavedContentById(int.Parse(savedContentId));
+        var content = savedContent?.Content ?? "Constraints not found";
+
+        return Json(new { content });
     }
     
     [EnableCors]

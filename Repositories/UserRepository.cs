@@ -57,4 +57,9 @@ public class UserRepository
     {
         return _context.SavedContents.Where(d => d.User.UserId == user.UserId).ToList();
     }
+    
+    public UsersSavedContent? GetSavedContentById(int id)
+    {
+        return _context.SavedContents.FirstOrDefault(d => d.SavedContentId == id);
+    } 
 }

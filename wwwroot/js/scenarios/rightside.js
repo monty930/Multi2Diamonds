@@ -51,11 +51,6 @@ function update_hand_suit_content(dsiString, dealNum) {
     dealerDiv.classList.add('dealer')
 }
 
-let rebind_button = (button) => {
-    if (button != null)
-        button.rebind();
-}
-
 let rebind_right_buttons = () => {
     rebind_button(MyButtons.generateExample);
     rebind_button(MyButtons.generateDealSet);

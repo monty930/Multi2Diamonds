@@ -1,12 +1,14 @@
 using BridgeScenarios.DealSetTools;
-using BridgeScenarios.DealSetTools.Models;
 using BridgeScenarios.Models;
+using BridgeScenarios.Models.DbModels;
 using BridgeScenarios.Models.ViewModels;
+using BridgeScenarios.Repositories;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BridgeScenarios.Managers;
 
 public class IndexManager
-{ 
+{
     public async Task<IndexViewModel> GenerateDeals(IndexViewModel model)
     {
         // The compiler settings (and compiler itself)

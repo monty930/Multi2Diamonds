@@ -48,7 +48,7 @@
     border: 2px solid var(--table-border-color);
 }
 
-.saved-tab-button-active {
+.button-active-tab {
     border: 2px solid var(--table-border-color);
 }
 

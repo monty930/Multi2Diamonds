@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/css/buttons.css"/>
     <link rel="stylesheet" href="~/css/profile/main.css"/>
     <link rel="stylesheet" href="~/css/profile/savedcontent.css"/>
+    <link rel="stylesheet" href="~/css/highpriority.css"/>
 </head>
 <div class="profile-view-container">
     <div class="left-border"></div>
@@ -19,34 +20,41 @@
             <div class="profile-saved-tabs">
                 <div class="profile-saved-tab-cont">
                     <button
-                        id="constraints-tab-button"
-                        class="constraints-tab-button saved-tab-button saved-tab-button-active">
+                        id="constraintTabButton"
+                        class="constraints-tab-button saved-tab-button button-active-tab">
                         CONSTRAINTS
                     </button>
                 </div>
                 <div class="profile-saved-tab-cont">
                     <button 
-                        id="deal-sets-tab-button" 
+                        id="dealSetTabButton" 
                         class="deal-sets-tab-button saved-tab-button">
                         DEAL SETS
                     </button>
                 </div>
             </div>
             <div class="saved-content-container">
-                <div id="saved-dealsets-dynamic" class="saved-dynamic saved-dealsets-dynamic" style="display: none;">
-                    @if (Model.SavedContents.Any(sc => sc.SavedContentType == SavedContentType.Constraint))
+                <div id="saved-constraints-dynamic" class="saved-dynamic saved-constraints-dynamic">
+                    @if (Model.SavedContents.Any
+                             (sc => 
+                                 sc.SavedContentType == SavedContentType.Constraint))
                     {
                         <div class="scrollable-list">
-                            @foreach (var savedContent in Model.SavedContents.Where(sc => sc.SavedContentType == SavedContentType.Constraint))
+                            @foreach (var savedContent in Model.SavedContents.Where(
+                                    sc => 
+                                        sc.SavedContentType == SavedContentType.Constraint))
                             {
                                 <div class="saved-item saved-constraint">
-                                    <button id="saved-constraint" class="saved-item-button">
+                                    <button 
+                                        id="saved-constraint-@savedContent.SavedContentId" 
+                                        class="saved-item-button save-constraint-button">
                                         <div>@savedContent.Name</div>
                                         <p style="display: none">(@savedContent.Content)</p>
                                     </button>
                                     <form asp-controller="Profile" asp-action="DeleteSavedContent" method="post">
                                         <input type="hidden" name="savedContentId" value="@savedContent.SavedContentId"/>
-                                        <button type="submit" class="button-all red-button saved-item-delete-button">
+                                        <button id="saved-delete-@savedContent.SavedContentId"
+                                                type="submit" class="button-all red-button saved-item-delete-button">
                                             <img class="save-item-trash-img" src="../assets/trash.png">
                                         </button>
                                     </form>
@@ -59,21 +67,26 @@
                         <p>No saved constraints found.</p>
                     }
                 </div>
-
-                <div id="saved-constraints-dynamic" class="saved-dynamic saved-constraints-dynamic">
-                    @if (Model.SavedContents.Any(sc => sc.SavedContentType == SavedContentType.DealSet))
+                
+                <div id="saved-dealsets-dynamic" class="saved-dynamic saved-dealsets-dynamic hidden">
+                    @if (Model.SavedContents.Any(
+                             sc => 
+                                 sc.SavedContentType == SavedContentType.DealSet))
                     {
                         <div class="scrollable-list">
-                            @foreach (var savedContent in Model.SavedContents.Where(sc => sc.SavedContentType == SavedContentType.DealSet))
+                            @foreach (var savedContent in Model.SavedContents.Where(
+                                          sc => 
+                                              sc.SavedContentType == SavedContentType.DealSet))
                             {
                                 <div class="saved-item saved-dealset">
-                                    <button id="saved-dealset" class="saved-item-button">
+                                    <button id="saved-dealset-@savedContent.SavedContentId" class="saved-item-button">
                                         <div>@savedContent.Name</div>
                                         <p style="display: none">(@savedContent.Content)</p>
                                     </button>
                                     <form asp-controller="Profile" asp-action="DeleteSavedContent" method="post">
                                         <input type="hidden" name="savedContentId" value="@savedContent.SavedContentId"/>
-                                        <button type="submit" class="button-all red-button saved-item-delete-button">
+                                        <button id="saved-delete-@savedContent.SavedContentId"
+                                            type="submit" class="button-all red-button saved-item-delete-button">
                                             <img class="save-item-trash-img" src="../assets/trash.png">
                                         </button>
                                     </form>
@@ -93,4 +106,5 @@
 </div>
 
 <script type="text/javascript" src="/js/profile/main.js"></script>
+<script type="text/javascript" src="/js/buttons.js"></script>
 <script type="text/javascript" src="/js/profile/buttons.js"></script>

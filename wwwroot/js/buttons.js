@@ -41,6 +41,10 @@ MyButton = function ({elementId, listener}) {
     this.rebind();
 }
 
+let rebind_button = (button) => {
+    if (button != null)
+        button.rebind();
+}
 
 MyButtons = {
     activeButtonId: "inputButton"
