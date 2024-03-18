@@ -20,5 +20,7 @@ public class UsersSavedContent
     public string Content { get; set; } = string.Empty;
     
     public SavedContentType? SavedContentType { get; set; }
+
+    public bool Exists { get; set; } = false;
 }
 

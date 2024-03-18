@@ -2,6 +2,7 @@ using BridgeScenarios.DealSetTools;
 using BridgeScenarios.DealSetTools.Models;
 using BridgeScenarios.Managers;
 using BridgeScenarios.Models;
+using BridgeScenarios.Models.DbModels;
 using BridgeScenarios.Models.ViewModels;
 using BridgeScenarios.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -105,18 +106,79 @@ public class IndexController : Controller
     
     [EnableCors]
     [HttpGet]
-    public async Task<IActionResult> SavedConstraint(string savedContentId)
+    public async Task<IActionResult> SavedItem(string savedContentId)
+    {
+        var user = _userRepository.GetByName(User.Identity.Name);
+        if (user == null) {
+            return Json(new { success = false, message = "User not found" });
+        }
+
+        var status = "";
+        var content = "";
+        var name = "";
+        var partial = "";
+        var savedContent = _userRepository.GetSavedContentById(int.Parse(savedContentId));
+        
+        if (savedContent == null) {
+            status = "error";
+            // generate partial view of error
+            partial = await RenderViewAsync("RightSideView", new IndexViewModel
+            {
+                ScriptOutputRaw = "Saved content not found",
+                RightDisplay = RightViewDisplay.Error
+            }, true);
+        }
+        else
+        {
+            content = savedContent.Content;
+            name = savedContent.Name;
+            var type = savedContent.SavedContentType;
+            if (type == SavedContentType.DealSet) {
+                status = "dealset";
+                var model = new IndexViewModel
+                {
+                    RightDisplay = RightViewDisplay.DealSetEntry,
+                    ScriptOutputRaw = content
+                };
+                partial = await RenderViewAsync("RightSideView", model, true);
+            } else {
+                status = "constraint";
+            }
+        }
+
+        return Json(new { status, name, content, partial });
+    }
+    
+    [HttpPost]
+    public async Task<JsonResult> AddItem([FromBody]UsersSavedContent input)
     {
         var user = _userRepository.GetByName(User.Identity.Name);
         if (user == null)
         {
             return Json(new { success = false, message = "User not found" });
         }
-        
-        var savedContent = _userRepository.GetSavedContentById(int.Parse(savedContentId));
-        var content = savedContent?.Content ?? "Constraints not found";
+    
+        input.UserId = user.UserId;
+        input.User = user;
+        // var newSavedContent = new UsersSavedContent
+        // {
+        //     UserId = user.UserId,
+        //     User = user,
+        //     SavedContentType = SavedContentType.DealSet,
+        //     Name = input.Name,
+        //     Content = input.Content
+        // };
 
-        return Json(new { content });
+        if (!input.Exists)
+        {
+            _userRepository.AddSavedContent(input);
+        }
+        else
+        {
+            _userRepository.UpdateSavedContent(input);
+        }
+
+        return Json(new { success = true, message = "Item added successfully" });
     }
     
     [EnableCors]

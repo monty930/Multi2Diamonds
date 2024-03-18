@@ -10,7 +10,7 @@
     resize: none;
     overflow: hidden;
     height: var(--select-box-height);
-    width: 100%;
+    width: 90%;
     box-sizing: border-box;
     outline: none;
     font-size: calc(2 * var(--select-box-height) / 5);
@@ -22,8 +22,6 @@
     grid-template-columns: 50% 25% 25%;
     grid-template-rows: auto;
     height: var(--select-box-height);
-    padding-right: var(--select-box-height);
-    gap: 5%;
     padding-bottom: calc(1.5 * var(--select-box-height));
 }
 
@@ -33,7 +31,7 @@
     border: 0;
     border-radius: calc(1 * var(--select-box-height) / 8);
     display: block;
-    width: 100%;
+    width: 80%;
     font-size: calc(2 * var(--select-box-height) / 5);
     cursor: pointer;
     opacity: 1;

@@ -1,11 +1,9 @@
 constraint_tab = new MyButton({
     elementId: "constraintTabButton",
     listener: function () {
-        console.log('constraintTabButton');
         if (MyButtons.constraint_tab.isDeactivated())
             return;
 
-        console.log('constraintTabButton2');
         show_one_saved_tab('saved-constraints-dynamic', MyButtons.constraint_tab);
     }
 });
@@ -13,11 +11,8 @@ constraint_tab = new MyButton({
 dealset_tab = new MyButton({
     elementId: "dealSetTabButton",
     listener: function () {
-        console.log('dealSetTabButton');
         if (MyButtons.dealset_tab.isDeactivated())
             return;
-        
-        console.log('dealSetTabButton2');
 
         show_one_saved_tab('saved-dealsets-dynamic', MyButtons.dealset_tab);
     }
@@ -27,7 +22,6 @@ MyButtons.constraint_tab = constraint_tab;
 MyButtons.dealset_tab = dealset_tab;
 
 show_one_saved_tab = (tabId, button) => {
-    console.log('show_one_saved_tab' + tabId);
     document.getElementById('saved-constraints-dynamic').classList.add('hidden');
     document.getElementById('saved-dealsets-dynamic').classList.add('hidden');
     document.getElementById(tabId).classList.remove('hidden');
@@ -66,23 +60,30 @@ add_trash_animation = () => {
 
 rebind_constraint_buttons = () => {
     const savedDealsetButtons = 
-        document.querySelectorAll('button.save-constraint-button');
+        document.querySelectorAll('button.saved-item-button');
 
     savedDealsetButtons.forEach(button => {
         button.addEventListener('click', function () {
             const savedContentId = this.id.split('-')[2];
             
-            console.log('rebinding constraint button: savedContentId: ' + savedContentId);
-
-            fetch(`/Index/SavedConstraint?savedContentId=${savedContentId}`)
+            fetch(`/Index/SavedItem?savedContentId=${savedContentId}`)
                 .then(response => response.json())
                 .then(data => {
+                    sessionStorage.setItem('savedContent', data.content);
+                    sessionStorage.setItem('savedItemStatus', data.status);
+                    if (data.status !== 'error') {
+                        sessionStorage.setItem('savedItemId', savedContentId);
+                        sessionStorage.setItem('savedItemName', data.name);
+                        sessionStorage.setItem('rightpartial', data.partial);
+                    } else { // error
+                        sessionStorage.setItem('rightpartial', data.partial);
+                    }
                     window.location.href = '/Index';
-                    sessionStorage.setItem('fetchedSavedContent', data.content);
                 })
                 .catch(error => console.error('Error fetching data:', error));
         });
     });
 }
+
 
         

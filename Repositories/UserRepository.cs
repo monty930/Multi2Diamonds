@@ -47,6 +47,12 @@ public class UserRepository
         _context.SaveChanges();
     }
     
+    public void UpdateSavedContent(UsersSavedContent savedContent)
+    {
+        _context.SavedContents.Update(savedContent);
+        _context.SaveChanges();
+    }
+    
     public void RemoveSavedContent(UsersSavedContent savedContent)
     {
         _context.SavedContents.Remove(savedContent);
