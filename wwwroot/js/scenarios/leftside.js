@@ -43,3 +43,50 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+restore_input_tab = () => {
+    const activeInputTab = sessionStorage.getItem('activeInputTab');
+    if (activeInputTab === null)
+        return;
+
+    console.log('restore input tab ' + activeInputTab);
+    document.getElementById('codeInput').value = activeInputTab;
+}
+
+save_code_on_input = () => {
+    const codeInput = document.getElementById('codeInput');
+    sessionStorage.setItem('activeInputTab', codeInput.value);
+    console.log('save code on input ' + codeInput.value);
+}
+
+code_area_on_input = () => {
+    console.log('code area on input');
+    save_code_on_input();
+}
+
+vul_changed = () => {
+    let vul_select = document.getElementById('vulnerability-choice');
+    let dealer_select = document.getElementById('dealer-choice');
+    let vul_value = vul_select.value;
+    let dealer_value = dealer_select.value;
+    if (vul_value === "Matching") {
+        dealer_select.value = "Matching";
+    }
+    else if (dealer_value === "Matching") {
+        dealer_select.value = "Random";
+    }
+}
+
+dealer_changed = () => {
+    let vul_select = document.getElementById('vulnerability-choice');
+    let dealer_select = document.getElementById('dealer-choice');
+    let vul_value = vul_select.value;
+    let dealer_value = dealer_select.value;
+    if (dealer_value === "Matching") {
+        vul_select.value = "Matching";
+    }
+    else if (vul_value === "Matching") {
+        vul_select.value = "Random";
+    }
+}
+    

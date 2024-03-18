@@ -22,6 +22,8 @@ MyButtons.constraint_tab = constraint_tab;
 MyButtons.dealset_tab = dealset_tab;
 
 show_one_saved_tab = (tabId, button) => {
+    sessionStorage.setItem('activeSavedTab', tabId);
+    
     document.getElementById('saved-constraints-dynamic').classList.add('hidden');
     document.getElementById('saved-dealsets-dynamic').classList.add('hidden');
     document.getElementById(tabId).classList.remove('hidden');
@@ -31,6 +33,15 @@ show_one_saved_tab = (tabId, button) => {
     button.setActivePressed(true);
 }
 
+restore_saved_tab = () => {
+    const activeSavedTab = sessionStorage.getItem('activeSavedTab');
+    if (activeSavedTab === null)
+        return;
+
+    const button = activeSavedTab.includes('constraint') ? MyButtons.constraint_tab : MyButtons.dealset_tab;
+    show_one_saved_tab(activeSavedTab, button);
+}
+
 rebind_saved_tabs = () => {
     rebind_button(MyButtons.constraint_tab);
     rebind_button(MyButtons.dealset_tab);
@@ -38,6 +49,7 @@ rebind_saved_tabs = () => {
 
 document.addEventListener('DOMContentLoaded', function () {
     rebind_saved_tabs();
+    restore_saved_tab();
     add_trash_animation();
     rebind_saved_items_buttons();
 });

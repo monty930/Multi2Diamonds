@@ -182,7 +182,10 @@ let initialize_save_buttons = () => {
             const textarea = document.getElementById('constraintName');
             textarea.innerHTML = savedItemName;
             const codeInputElement = document.getElementById('codeInput');
-            codeInputElement.value = sessionStorage.getItem('savedContent');
+            let savedContent = sessionStorage.getItem('savedContent');
+            if (savedContent !== "") {
+                codeInputElement.value = sessionStorage.getItem('savedContent');
+            }
         } else if (savedItemStatus === 'dealset') {
             // show both buttons: 'save' and 'save as new'
             addExistingDealSet.style.display = 'block';
