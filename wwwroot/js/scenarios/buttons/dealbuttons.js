@@ -22,9 +22,9 @@ generateExample = new MyButton({
                 rebind_right_buttons();
                 if (data.correctDeal === "True") {
                     init_new_deal(data.dsiString, 1);
-                    window.localStorage.setItem('currentView', 'example');
+                    sessionStorage.setItem('currentView', 'example');
                 } else {
-                    window.localStorage.setItem('currentView', 'error');
+                    sessionStorage.setItem('currentView', 'error');
                 }
                 document.getElementById('spinner').style.display = 'none';
             }).catch(error => console.error('Error:', error));
@@ -55,9 +55,9 @@ generateDealSet = new MyButton({
                 rebind_right_buttons();
                 if (data.correctDeal === "True") {
                     init_new_deal(data.dsiString, 0);
-                    window.localStorage.setItem('currentView', 'dealset');
+                    sessionStorage.setItem('currentView', 'dealset');
                 } else {
-                    window.localStorage.setItem('currentView', 'error');
+                    sessionStorage.setItem('currentView', 'error');
                 }
                 document.getElementById('spinner').style.display = 'none';
             })
@@ -71,8 +71,8 @@ nextDeal = new MyButton({
         if (MyButtons.nextDeal.isDeactivated())
             return;
 
-        let dsiString = window.localStorage.getItem('DSIstring');
-        let whichDeal = window.localStorage.getItem('CurrentDealNum');
+        let dsiString = sessionStorage.getItem('DSIstring');
+        let whichDeal = sessionStorage.getItem('CurrentDealNum');
         if (0 === parseInt(whichDeal)) {
             event.preventDefault();
             fetch('/Index/DealSetGetView', {
@@ -84,7 +84,7 @@ nextDeal = new MyButton({
                     rebind_right_buttons();
                     let active_deal_num = parseInt(whichDeal) + 1;
                     update_hand_suit_content(dsiString, active_deal_num);
-                    window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
+                    sessionStorage.setItem('CurrentDealNum', active_deal_num.toString());
                     update_num_of_tries(dsiString);
                     disable_right_buttons();
                 })
@@ -92,7 +92,7 @@ nextDeal = new MyButton({
         } else {
             let active_deal_num = parseInt(whichDeal) + 1;
             update_hand_suit_content(dsiString, active_deal_num);
-            window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
+            sessionStorage.setItem('CurrentDealNum', active_deal_num.toString());
             update_num_of_tries(dsiString);
             disable_right_buttons();
         }
@@ -105,11 +105,11 @@ previousDeal = new MyButton({
         if (MyButtons.previousDeal.isDeactivated())
             return;
 
-        let dsiString = window.localStorage.getItem('DSIstring');
-        let whichDeal = window.localStorage.getItem('CurrentDealNum');
+        let dsiString = sessionStorage.getItem('DSIstring');
+        let whichDeal = sessionStorage.getItem('CurrentDealNum');
         let active_deal_num = parseInt(whichDeal) - 1;
         update_hand_suit_content(dsiString, active_deal_num);
-        window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
+        sessionStorage.setItem('CurrentDealNum', active_deal_num.toString());
         update_num_of_tries(dsiString);
         disable_right_buttons();
     }
@@ -139,14 +139,14 @@ addDeal = new MyButton({
                 rebind_right_buttons();
 
                 if (data.correctDeal === "True") {
-                    let dsiString = window.localStorage.getItem('DSIstring');
+                    let dsiString = sessionStorage.getItem('DSIstring');
                     let newDsiString = add_deal_in_dsi(dsiString, data.newDealDsiString);
-                    let whichDeal = window.localStorage.getItem('CurrentDealNum');
+                    let whichDeal = sessionStorage.getItem('CurrentDealNum');
                     let active_deal_num = parseInt(whichDeal) + 1;
                     update_hand_suit_content(newDsiString, active_deal_num);
-                    window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
-                    window.localStorage.setItem('NumOfDeals', active_deal_num.toString());
-                    window.localStorage.setItem('DSIstring', newDsiString);
+                    sessionStorage.setItem('CurrentDealNum', active_deal_num.toString());
+                    sessionStorage.setItem('NumOfDeals', active_deal_num.toString());
+                    sessionStorage.setItem('DSIstring', newDsiString);
 
                     update_num_of_tries(newDsiString);
                     disable_right_buttons();
@@ -165,26 +165,26 @@ trash = new MyButton({
         if (MyButtons.trash.isDeactivated())
             return;
 
-        let dsiString = window.localStorage.getItem('DSIstring');
-        let whichDeal = window.localStorage.getItem('CurrentDealNum');
+        let dsiString = sessionStorage.getItem('DSIstring');
+        let whichDeal = sessionStorage.getItem('CurrentDealNum');
         let active_deal_num = parseInt(whichDeal);
-        let howManyDeals = parseInt(window.localStorage.getItem('NumOfDeals'));
+        let howManyDeals = parseInt(sessionStorage.getItem('NumOfDeals'));
         if (howManyDeals > 1) {
             let newDsiString = remove_deal_in_dsi(dsiString, active_deal_num);
             if (active_deal_num > 1) {
                 active_deal_num -= 1;
             }
             update_hand_suit_content(newDsiString, active_deal_num);
-            window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
-            window.localStorage.setItem('DSIstring', newDsiString);
-            let oldNumOfDeals = parseInt(window.localStorage.getItem('NumOfDeals'));
-            window.localStorage.setItem('NumOfDeals', (oldNumOfDeals - 1).toString());
+            sessionStorage.setItem('CurrentDealNum', active_deal_num.toString());
+            sessionStorage.setItem('DSIstring', newDsiString);
+            let oldNumOfDeals = parseInt(sessionStorage.getItem('NumOfDeals'));
+            sessionStorage.setItem('NumOfDeals', (oldNumOfDeals - 1).toString());
 
             update_num_of_tries(newDsiString);
             disable_right_buttons();
             return;
         }
-        window.localStorage.setItem('currentView', 'entry');
+        sessionStorage.setItem('currentView', 'entry');
         event.preventDefault();
         fetch('/Index/DefaultPage', {
             method: 'GET'
@@ -223,14 +223,14 @@ regenerateOne = new MyButton({
                 rebind_right_buttons();
 
                 if (data.correctDeal === "True") {
-                    let dsiString = window.localStorage.getItem('DSIstring');
-                    let whichDeal = window.localStorage.getItem('CurrentDealNum');
+                    let dsiString = sessionStorage.getItem('DSIstring');
+                    let whichDeal = sessionStorage.getItem('CurrentDealNum');
                     let active_deal_num = parseInt(whichDeal);
                     let newDsiString = replace_deal_in_dsi(dsiString, active_deal_num, data.newDealDsiString);
                     update_hand_suit_content(newDsiString, active_deal_num);
 
-                    window.localStorage.setItem('CurrentDealNum', active_deal_num.toString());
-                    window.localStorage.setItem('DSIstring', newDsiString);
+                    sessionStorage.setItem('CurrentDealNum', active_deal_num.toString());
+                    sessionStorage.setItem('DSIstring', newDsiString);
 
                     update_num_of_tries(newDsiString);
                     disable_right_buttons();
@@ -258,7 +258,7 @@ submitSaveForm = new MyButton({
         disable_form_buttons();
         const selectedChoice = document.getElementById("saveChoices").value;
         const filename = document.getElementById("filenameArea").value;
-        let dsiString = window.localStorage.getItem('DSIstring');
+        let dsiString = sessionStorage.getItem('DSIstring');
         let contentToSave = dsiString;
 
         if (selectedChoice === "lin-chosen") {
@@ -318,18 +318,14 @@ get_new_compiler_settings = function () {
 
 // get the compiler settings from the dsi string
 get_compiler_settings = function () {
-    let dsiString = window.localStorage.getItem('DSIstring');
+    let dsiString = sessionStorage.getItem('DSIstring');
     return {
         InputText: dsiString.split('Constraints:\n')[1],
         Compiler: dsiString.split('Compiler: ')[1].split('\n')[0],
-        NumberOfDeals: window.localStorage.getItem('NumOfDeals'),
+        NumberOfDeals: sessionStorage.getItem('NumOfDeals'),
         Vul: dsiString.split('Vulnerability: ')[1].split('\n')[0],
         Dealer: dsiString.split('Dealer: ')[1].split('\n')[0],
         Flip: dsiString.split('Flip: ')[1].split('\n')[0],
         Scoring: dsiString.split('Scoring: ')[1].split('\n')[0],
     }
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    window.localStorage.setItem('currentView', 'entry');
-});

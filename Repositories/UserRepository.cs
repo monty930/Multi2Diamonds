@@ -41,10 +41,11 @@ public class UserRepository
         return _context.Users.Any(u => u.Username == username);
     }
 
-    public void AddSavedContent(UsersSavedContent savedContent)
+    public int AddSavedContent(UsersSavedContent savedContent)
     {
         _context.SavedContents.Add(savedContent);
         _context.SaveChanges();
+        return savedContent.SavedContentId;
     }
 
     public void UpdateSavedContent(UsersSavedContent savedContent)

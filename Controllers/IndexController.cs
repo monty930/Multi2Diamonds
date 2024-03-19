@@ -147,25 +147,37 @@ public class IndexController : Controller
                 status = "constraint";
             }
         }
-
+        
         return Json(new { status, name, content, partial });
     }
 
     [HttpPost]
     public async Task<JsonResult> AddItem([FromBody] UsersSavedContent input)
     {
+        Console.WriteLine("AddItem " + input.Exists);
         var user = _userRepository.GetByName(User.Identity.Name);
         if (user == null) return Json(new { success = false, message = "User not found" });
 
+        Console.WriteLine("User: " + user.UserId);
+        
         input.UserId = user.UserId;
         input.User = user;
+        
+        var id = input.SavedContentId;
 
         if (!input.Exists)
-            _userRepository.AddSavedContent(input);
+        {
+            Console.WriteLine("Adding new item");
+            id = _userRepository.AddSavedContent(input);
+        }
         else
+        {
+            Console.WriteLine("Updating item");
             _userRepository.UpdateSavedContent(input);
+        }
 
-        return Json(new { success = true, message = "Item added successfully" });
+        Console.WriteLine("Item added successfully " + id);
+        return Json(new { success = true, message = "Item added successfully", id });
     }
 
     [EnableCors]

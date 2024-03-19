@@ -9,7 +9,6 @@ function deleteSavedContent(savedContentId) {
     })
         .then(response => {
             if (response.ok) {
-                location.reload(); // Reload the page to reflect changes
             } else {
                 alert('Failed to delete the saved content.');
             }

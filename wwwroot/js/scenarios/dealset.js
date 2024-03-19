@@ -33,7 +33,7 @@ let update_num_of_tries = (dsiString) => {
     let numOfTries = dsiString.split('Tries')[1].split('\n')[0];
     numOfTries = numOfTries.split('\n')[0];
     document.getElementById('num-of-tries').textContent = "Tries" + numOfTries;
-    let currentDealNum = window.localStorage.getItem('CurrentDealNum');
+    let currentDealNum = sessionStorage.getItem('CurrentDealNum');
     let numOfDeals = get_num_of_deals(dsiString);
     if (document.getElementById('deal-number-info') != null)
         document.getElementById('deal-number-info').textContent = "Deal: " + currentDealNum + "/" + numOfDeals;
@@ -47,9 +47,9 @@ let get_num_of_deals = (dsiString) => {
 }
 
 let init_new_deal = (dsiString, currentDealNum) => {
-    window.localStorage.setItem('DSIstring', dsiString);
-    window.localStorage.setItem('CurrentDealNum', currentDealNum);
-    window.localStorage.setItem('NumOfDeals', get_num_of_deals(dsiString).toString());
+    sessionStorage.setItem('DSIstring', dsiString);
+    sessionStorage.setItem('CurrentDealNum', currentDealNum);
+    sessionStorage.setItem('NumOfDeals', get_num_of_deals(dsiString).toString());
     if (currentDealNum > 0) {
         update_hand_suit_content(dsiString, 1);
         update_num_of_tries(dsiString);

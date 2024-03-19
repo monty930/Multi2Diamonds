@@ -18,61 +18,10 @@ function displayMessage(message, isError = false, timeout = 3000) {
 
 document.getElementById("addDealSetButton").addEventListener("click", function () {
     init_dealset_save();
-
-    // fetch('/Profile/AddDealSet', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'RequestVerificationToken': document.getElementsByName("__RequestVerificationToken")[0].value
-    //     },
-    //     body: JSON.stringify({name: dealSetName, content: dealset})
-    // })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok.');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         if(data.success) {
-    //             displayMessage("Deal set saved!");
-    //         } else {
-    //             displayMessage(data.message || "An error occurred", true);
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error:', error);
-    //         displayMessage(error.message || "An error occurred", true);
-    //     });
 });
 
 document.getElementById("addConstraint").addEventListener("click", function () {
     init_constraint_save();
-    // fetch('/Profile/AddConstraint', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'RequestVerificationToken': document.getElementsByName("__RequestVerificationToken")[0].value
-    //     },
-    //     body: JSON.stringify({name: constraintName, content: constraints})
-    // })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok.');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         if(data.success) {
-    //             displayMessage("Constraint saved!");
-    //         } else {
-    //             displayMessage(data.message || "An error occurred", true);
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error:', error);
-    //         displayMessage(error.message || "An error occurred", true);
-    //     });
 });
 
 document.getElementById("addExistingDealSet").addEventListener("click", function () {
@@ -97,26 +46,27 @@ let init_constraint_save = (existing = false) => {
 }
 
 let init_dealset_save = (existing = false) => {
-    let view = window.localStorage.getItem('currentView');
-    if (view !== "dealset" && view !== "entry") {
+    let view = sessionStorage.getItem('currentView');
+    if (view !== "dealset") {
         displayMessage("Generate deal set first!", true);
         return;
     }
 
     let dealSetName = document.getElementById("dealSetName").value;
     if (!dealSetName) {
-        displayMessage("Specify deal det name!", true);
+        displayMessage("Specify deal set name!", true);
         return;
     }
 
     displayMessage("Saving deal set...", false, 20000);
-    let dealset = window.localStorage.getItem('DSIstring');
+    let dealset = sessionStorage.getItem('DSIstring');
 
     save_content('dealset', dealSetName, dealset, existing);
 }
 
 let save_content = (itemType, itemName, content, existing = false) => {
-    let to_send = {name: itemName, content: content, exists: existing, SavedContentType: itemType};
+    console.log("Saving " + itemType + " " + itemName + " existing: " + existing);
+    let to_send = {name: itemName, content: content, Exists: existing, SavedContentType: itemType};
     if (existing) {
         let id = sessionStorage.getItem('itemToSaveId');
         if (!id) {
@@ -125,6 +75,7 @@ let save_content = (itemType, itemName, content, existing = false) => {
         }
         to_send.SavedContentId = id;
     }
+    console.log(to_send);
     fetch('/Index/AddItem', {
         method: 'POST',
         headers: {
@@ -142,6 +93,13 @@ let save_content = (itemType, itemName, content, existing = false) => {
         .then(data => {
             if (data.success) {
                 let message = itemType === 'dealset' ? "Deal set saved!" : "Constraint saved!";
+                let id = data.id;
+                console.log("storing id " + id);
+                sessionStorage.setItem('itemToSaveId', id);
+                sessionStorage.setItem('itemToSaveName', itemName);
+                sessionStorage.setItem('savedItemStatus', itemType);
+                sessionStorage.setItem('savedContent', content);
+                initialize_save_buttons(false);
                 displayMessage(message);
             } else {
                 displayMessage(data.message || "An error occurred", true);
@@ -153,7 +111,7 @@ let save_content = (itemType, itemName, content, existing = false) => {
         });
 }
 
-let initialize_save_buttons = () => {
+let initialize_save_buttons = (update_partial = true) => {
     const savedItemStatus = sessionStorage.getItem('savedItemStatus');
     const savedItemId = sessionStorage.getItem('savedItemId');
     const savedItemName = sessionStorage.getItem('savedItemName');
@@ -195,17 +153,22 @@ let initialize_save_buttons = () => {
             const textarea = document.getElementById('dealSetName');
             textarea.innerHTML = savedItemName;
 
-            document.getElementById('right-partial').innerHTML = sessionStorage.getItem('rightpartial');
+            if (update_partial)
+                document.getElementById('right-partial').innerHTML = sessionStorage.getItem('rightpartial');
             init_new_deal(sessionStorage.getItem('savedContent'), 0);
             rebind_right_buttons();
         } else { // error
-            document.getElementById('right-partial').innerHTML = sessionStorage.getItem('rightpartial');
+            if (update_partial)
+                document.getElementById('right-partial').innerHTML = sessionStorage.getItem('rightpartial');
         }
 
         if (savedItemStatus !== 'error') {
-            console.log("savedItemId " + savedItemId);
-            sessionStorage.setItem('itemToSaveId', savedItemId);
-            sessionStorage.setItem('itemToSaveName', savedItemName);
+            if (savedItemId !== null) {
+                sessionStorage.setItem('itemToSaveId', savedItemId);
+            }
+            if (savedItemName !== null) {
+                sessionStorage.setItem('itemToSaveName', savedItemName);
+            }
         }
     }
 

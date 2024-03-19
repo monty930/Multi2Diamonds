@@ -49,18 +49,15 @@ restore_input_tab = () => {
     if (activeInputTab === null)
         return;
 
-    console.log('restore input tab ' + activeInputTab);
     document.getElementById('codeInput').value = activeInputTab;
 }
 
 save_code_on_input = () => {
     const codeInput = document.getElementById('codeInput');
     sessionStorage.setItem('activeInputTab', codeInput.value);
-    console.log('save code on input ' + codeInput.value);
 }
 
 code_area_on_input = () => {
-    console.log('code area on input');
     save_code_on_input();
 }
 

@@ -84,7 +84,7 @@ let disable_right_buttons = () => {
     MyButtons.nextDeal.setDeactivated(false);
     MyButtons.addDeal.setDeactivated(false);
     MyButtons.addDeal.element.classList.remove('hidden');
-    if (window.localStorage.getItem('CurrentDealNum') === "1") {
+    if (sessionStorage.getItem('CurrentDealNum') === "1") {
         MyButtons.previousDeal.setDeactivated(true);
         let previousImage = document.querySelector('#previousDealButton .dealset-img');
         previousImage.src = './assets/arrow-back-deactiv.png';
@@ -93,7 +93,7 @@ let disable_right_buttons = () => {
         let previousImage = document.querySelector('#previousDealButton .dealset-img');
         previousImage.src = './assets/arrow-back.png';
     }
-    if (window.localStorage.getItem('CurrentDealNum') === window.localStorage.getItem('NumOfDeals')) {
+    if (sessionStorage.getItem('CurrentDealNum') === sessionStorage.getItem('NumOfDeals')) {
         MyButtons.nextDeal.setDeactivated(true);
         let nextImage = document.querySelector('#nextDealButton .dealset-img');
         nextImage.src = './assets/arrow-deactiv.png';
