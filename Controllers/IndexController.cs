@@ -154,11 +154,8 @@ public class IndexController : Controller
     [HttpPost]
     public async Task<JsonResult> AddItem([FromBody] UsersSavedContent input)
     {
-        Console.WriteLine("AddItem " + input.Exists);
         var user = _userRepository.GetByName(User.Identity.Name);
         if (user == null) return Json(new { success = false, message = "User not found" });
-
-        Console.WriteLine("User: " + user.UserId);
         
         input.UserId = user.UserId;
         input.User = user;
@@ -167,16 +164,13 @@ public class IndexController : Controller
 
         if (!input.Exists)
         {
-            Console.WriteLine("Adding new item");
             id = _userRepository.AddSavedContent(input);
         }
         else
         {
-            Console.WriteLine("Updating item");
             _userRepository.UpdateSavedContent(input);
         }
 
-        Console.WriteLine("Item added successfully " + id);
         return Json(new { success = true, message = "Item added successfully", id });
     }
 

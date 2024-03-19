@@ -65,7 +65,6 @@ let init_dealset_save = (existing = false) => {
 }
 
 let save_content = (itemType, itemName, content, existing = false) => {
-    console.log("Saving " + itemType + " " + itemName + " existing: " + existing);
     let to_send = {name: itemName, content: content, Exists: existing, SavedContentType: itemType};
     if (existing) {
         let id = sessionStorage.getItem('itemToSaveId');
@@ -75,7 +74,6 @@ let save_content = (itemType, itemName, content, existing = false) => {
         }
         to_send.SavedContentId = id;
     }
-    console.log(to_send);
     fetch('/Index/AddItem', {
         method: 'POST',
         headers: {
@@ -94,7 +92,6 @@ let save_content = (itemType, itemName, content, existing = false) => {
             if (data.success) {
                 let message = itemType === 'dealset' ? "Deal set saved!" : "Constraint saved!";
                 let id = data.id;
-                console.log("storing id " + id);
                 sessionStorage.setItem('itemToSaveId', id);
                 sessionStorage.setItem('itemToSaveName', itemName);
                 sessionStorage.setItem('savedItemStatus', itemType);
