@@ -50,29 +50,6 @@ namespace BridgeScenarios.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SavedContents",
-                columns: table => new
-                {
-                    SavedContentId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: false),
-                    SavedContentType = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SavedContents", x => x.SavedContentId);
-                    table.ForeignKey(
-                        name: "FK_SavedContents_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Deals",
                 columns: table => new
                 {
@@ -108,11 +85,6 @@ namespace BridgeScenarios.Migrations
                 name: "IX_DealSets_UserId",
                 table: "DealSets",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SavedContents_UserId",
-                table: "SavedContents",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -120,9 +92,6 @@ namespace BridgeScenarios.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Deals");
-
-            migrationBuilder.DropTable(
-                name: "SavedContents");
 
             migrationBuilder.DropTable(
                 name: "DealSets");

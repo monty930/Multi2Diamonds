@@ -5,25 +5,25 @@
 namespace BridgeScenarios.Migrations
 {
     /// <inheritdoc />
-    public partial class SavedContentExisting : Migration
+    public partial class DealSetConstraintColumn : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "Exists",
-                table: "SavedContents",
-                type: "boolean",
+            migrationBuilder.AddColumn<string>(
+                name: "Constraints",
+                table: "DealSets",
+                type: "text",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Exists",
-                table: "SavedContents");
+                name: "Constraints",
+                table: "DealSets");
         }
     }
 }
