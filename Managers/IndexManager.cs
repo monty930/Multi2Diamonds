@@ -1,12 +1,11 @@
 using BridgeScenarios.DealSetTools;
-using BridgeScenarios.DealSetTools.Models;
 using BridgeScenarios.Models;
 using BridgeScenarios.Models.ViewModels;
 
 namespace BridgeScenarios.Managers;
 
 public class IndexManager
-{ 
+{
     public async Task<IndexViewModel> GenerateDeals(IndexViewModel model)
     {
         // The compiler settings (and compiler itself)
@@ -17,9 +16,9 @@ public class IndexManager
             return new IndexViewModel
             {
                 RightDisplay = model.RightDisplay,
-                ScriptOutputRaw = scriptOut,
+                ScriptOutputRaw = scriptOut
             };
-        } 
+        }
         catch (CompilerException e)
         {
             return new IndexViewModel

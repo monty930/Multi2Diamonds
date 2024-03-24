@@ -1,0 +1,23 @@
+@model BridgeScenarios.Models.ViewModels.ProfileViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/profile/main.css"/>
+</head>
+
+<div class="profile-view-container">
+    <div class="left-border"></div>
+    <div class="profile-view">
+        <h2>Profile</h2>
+
+        <div>
+            <p>Username: @Model.Username</p>
+            <p>Email: @Model.Email</p>
+        </div>
+    </div>
+    <div class="right-border"></div>
+</div>

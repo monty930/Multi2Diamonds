@@ -1,13 +1,12 @@
 using BridgeScenarios.Database;
 using BridgeScenarios.Models.DbModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace BridgeScenarios.Repositories;
 
 public class DealRepository
 {
     private readonly MyDbContext _context = new();
-    
+
     public int AddDeal(Deal deal)
     {
         _context.Deals.Add(deal);
@@ -20,11 +19,11 @@ public class DealRepository
         var deal = _context.Deals.Find(dealId);
         if (deal is null)
             return false;
-        
+
         _context.Deals.Remove(deal);
         return _context.SaveChanges() >= 1;
     }
-    
+
     public IEnumerable<Deal> GetByDealsetId(int dealSetId)
     {
         return _context.Deals.Where(d => d.DealSetId == dealSetId);

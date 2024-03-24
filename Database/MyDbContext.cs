@@ -8,6 +8,7 @@ public class MyDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<DealSet> DealSets { get; set; }
     public DbSet<Deal> Deals { get; set; }
+    public DbSet<UsersSavedContent> SavedContents { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

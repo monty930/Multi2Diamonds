@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using System.Text;
 using BridgeScenarios.Models.DbModels;
 using BridgeScenarios.Models.ViewModels;
 using BridgeScenarios.Repositories;
@@ -12,41 +11,36 @@ namespace BridgeScenarios.Controllers;
 
 public class AccountController : Controller
 {
+    private readonly PasswordHasher<User> _hasher = new();
     private readonly UserRepository _userRepository = new();
-    private readonly PasswordHasher<User> _hasher = new ();
 
     public async Task<IActionResult> Login()
     {
         return View(new LoginViewModel());
     }
-    
+
     [HttpPost]
     public async Task<ActionResult> Login(LoginViewModel model)
     {
         var user = model.User;
-        string? storedPassword = _userRepository.GetPassword(user.Username);
+        var storedPassword = _userRepository.GetPassword(user.Username);
         if (storedPassword is null)
-        {
-            
             return View(new LoginViewModel
             {
                 LoginError = "Invalid username or password."
             });
-        }
-            
-        
+
+
         var result = _hasher.VerifyHashedPassword(user, storedPassword, user.Password);
         if (result == PasswordVerificationResult.Failed)
-        {
             return View(new LoginViewModel
             {
                 LoginError = "Invalid username or password"
             });
-        }
-        
+
         var claims = new List<Claim>
         {
-            new (ClaimTypes.Name, user.Username),
+            new(ClaimTypes.Name, user.Username)
         };
 
         var claimsIdentity = new ClaimsIdentity(
@@ -56,7 +50,7 @@ public class AccountController : Controller
         {
             AllowRefresh = true,
             ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-            IsPersistent = true,
+            IsPersistent = true
         };
 
         await HttpContext.SignInAsync(
@@ -64,7 +58,7 @@ public class AccountController : Controller
             new ClaimsPrincipal(claimsIdentity),
             authProperties
         );
-        
+
         return RedirectToAction("Index", "Index", new { area = "" });
     }
 
@@ -73,41 +67,34 @@ public class AccountController : Controller
     {
         var user = model.User;
         if (_userRepository.IsEmailRegistered(user.Email))
-        {
             return View("Login", new LoginViewModel
             {
                 SignupError = "Email already in use."
             });
-        }
 
         if (_userRepository.IsUsernameRegistered(user.Username))
-        {
             return View("Login", new LoginViewModel
             {
                 SignupError = "Username already in use."
             });
-        }
 
         user.Password = _hasher.HashPassword(user, user.Password);
-        
+
         if (_userRepository.AddUser(user) == 0)
-        {
             return View("Login", new LoginViewModel
             {
                 SignupError = "Internal server error, please try again."
             });
-        }
 
         return View("Login", new LoginViewModel
         {
             LoginError = "Registration successful."
         });
-
     }
 
-    // public ActionResult Logout()
-    // {
-    //     FormsAuthentication.SignOut();
-    //     return RedirectToAction("Index", "Home");
-    // }
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Login", "Account");
+    }
 }

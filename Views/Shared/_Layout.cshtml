@@ -10,7 +10,6 @@
 </head>
 <body>
 <div class="page-container">
-    @* render  header    *@
     @{
         await Html.RenderPartialAsync("Header");
     }
@@ -22,7 +21,8 @@
     <footer class="footer">
         <a class="githubhref" href="https://github.com/monty930/BridgeScenarios">
             <div>
-                monty930/BridgeScenarios<img
+                monty930/BridgeScenarios
+                <img
                     id="gitlog-img" class="gitlog-img"
                     src="~/assets/githublogo.png"/>
             </div>
@@ -31,7 +31,6 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", false)
 </div>

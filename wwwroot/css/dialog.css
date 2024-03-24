@@ -7,7 +7,7 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .dialog-window-content {
@@ -19,7 +19,7 @@
     border: min(calc(var(--select-box-height) / 40), 5px) solid #888;
     height: 60vh;
     width: 60vh;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,7 +54,7 @@
 
 .save-submit-button:hover {
     transition: all .3s ease;
-    background-color: rgba(60,60,60,1);
+    background-color: rgba(60, 60, 60, 1);
 }
 
 .save-submit-button:disabled, .save-submit-button[disabled] {

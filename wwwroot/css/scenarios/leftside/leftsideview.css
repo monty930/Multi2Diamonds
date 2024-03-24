@@ -17,7 +17,7 @@
 .left-switches {
     height: 100%;
     display: grid;
-    grid-template-columns: auto 15% 15% 15%;
+    grid-template-columns: auto 12% 12% 12% 12%;
     grid-template-rows: auto;
     padding: 0 0 var(--main-font) 0;
 }
@@ -48,7 +48,7 @@
 
 .button-active-tab {
     background-color: var(--button-active);
-    box-shadow: 0 calc(max(var(--main-font) / 5, 0.1vh)) var(--button-shadow);
+    box-shadow: 0 calc(max(var(--main-font) / 8, 0.1vh)) var(--button-shadow);
     cursor: default;
 }
 
@@ -70,13 +70,13 @@
     grid-template-rows: 
             min(max(calc(var(--main-font) * 3), 5vh), 5vw) 
             calc(min(calc(70vh - 5 * var(--main-font)), 2600px));
-            calc(max((var(--main-font) * 4), 8vh));
+calc(max((var(--main-font) * 4), 8 vh));
     padding: 0 min(max(calc(var(--main-font)), 4vh), 4vw) 0 0;
 }
 
 .left-side-padding {
-    padding-left: min(max(calc(var(--main-font)), 4vh), 4vw);
-    padding-top: calc( min(max(calc(var(--main-font)), 4vh), 4vw) / 2);
+    padding-left: var(--main-padding-left);
+    padding-top: var(--main-padding-top);
     padding-bottom: calc(var(--main-font));
     height: 100%;
     width: 100%;
@@ -110,10 +110,7 @@
     white-space: pre;
     line-height: min(max(calc(var(--main-font) * 1.5), 4.2vh), 100px);
     font-size: var(--code-font-size);
-    padding:    calc(max(calc(var(--main-font) * 0.2), 0.4vh))
-                calc(max(calc(var(--main-font) * 0.2), 0.4vh))
-                0
-                calc(max(calc(var(--main-font) * 0.2), 0.4vh));
+    padding: calc(max(calc(var(--main-font) * 0.2), 0.4vh)) calc(max(calc(var(--main-font) * 0.2), 0.4vh)) 0 calc(max(calc(var(--main-font) * 0.2), 0.4vh));
     width: min(max(calc(var(--main-font) * 1.7), 4.4vh), 120px);
     text-align: right;
 }
@@ -165,4 +162,20 @@
     padding: 0;
     height: 100%;
     width: 100%;
+}
+
+.left-side-black-container {
+    background-color: var(--line-numbers-background-color);
+    color: var(--main-font-color);
+    font-family: var(--bs-body-font-family);
+    overflow: auto;
+}
+
+.left-side-inner-container {
+    font-size: var(--code-font-size);
+    height: calc(min(calc(70vh - 5 * var(--main-font)), 2600px));
+    padding: 3% 5% 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
 }

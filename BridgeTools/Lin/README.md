@@ -352,7 +352,7 @@ $\mathfrak{\color{white}{|}}$
 $\mathfrak{\color{white}{|}}$
 
 - What I still do not know: 'st', 'rh', 'ah'. All tables I've seen had those values unchanged.
-  
+
 - sv stands for 'set vulnerability'. the vulnerability is given next.
 
 - pn stands for player names. The player names are given next. It is not mandatory to put it in lin.
@@ -364,7 +364,8 @@ $\mathfrak{\color{white}{|}}$
 - qx
   $\mathfrak{\color{white}{|}}$
   $\mathfrak{\color{white}{|}}$
-  can be added at the beginning of lin string - it allows to put multiple lin strings in one file. Each of them should begin with qx.
+  can be added at the beginning of lin string - it allows to put multiple lin strings in one file. Each of them should
+  begin with qx.
 
   Example:
   qx

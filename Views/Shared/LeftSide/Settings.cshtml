@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="~/css/leftside/settings.css"/>
+<link rel="stylesheet" href="~/css/scenarios/leftside/settings.css"/>
 
-<div class="settings-container">
-    <div class="settings-inner-container">
+<div class="left-side-black-container">
+    <div class="left-side-inner-container">
         <div class="one-setting">
             <div class="settings-title">
                 Number of deals in set:
@@ -48,7 +48,11 @@
             </div>
             <div class="settings-choice">
                 <div class="custom-select-container">
-                    <select class="settings-select" id="vulnerability-choice">
+                    <select 
+                        class="settings-select" 
+                        id="vulnerability-choice"
+                        onchange="vul_changed()"
+                        >
                         <option value="Matching">Matching numbers</option>
                         <option value="Random">Random</option>
                         <option value="None">None</option>
@@ -69,7 +73,11 @@
             </div>
             <div class="settings-choice">
                 <div class="custom-select-container">
-                    <select class="settings-select" id="dealer-choice">
+                    <select 
+                        class="settings-select"
+                        id="dealer-choice"
+                        onchange="dealer_changed()"
+                        >
                         <option value="Matching">Matching numbers</option>
                         <option value="Random">Random</option>
                         <option value="North">N</option>
@@ -102,7 +110,7 @@
             </div>
         </div>
         <div class="settings-break"></div>
-        <div class="one-setting">
+        <div class="one-setting last-one-setting">
             <div class="settings-title">
                 Scoring:
             </div>

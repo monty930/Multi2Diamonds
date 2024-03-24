@@ -27,7 +27,7 @@
 }
 
 .entry-message {
-    color : var(--main-font-color);
+    color: var(--main-font-color);
     font-size: min(max(calc(1.2 * var(--main-font)), 2vh), var(--right-side-dependend));
     font-weight: bold;
     padding-bottom: 10%;
@@ -47,7 +47,7 @@
         padding-bottom: 0;
         padding-top: 30%;
     }
-    
+
     .spinner-container-shifted {
         padding-top: 30%;
     }
@@ -107,19 +107,19 @@
 }
 
 .spades-char {
-    background-image: url("../../assets/blue.png");
+    background-image: url("../../../assets/blue.png");
 }
 
 .hearts-char {
-    background-image: url("../../assets/red.png");
+    background-image: url("../../../assets/red.png");
 }
 
 .diams-char {
-    background-image: url("../../assets/orange.png");
+    background-image: url("../../../assets/orange.png");
 }
 
 .clubs-char {
-    background-image: url("../../assets/green.png");
+    background-image: url("../../../assets/green.png");
 }
 
 .deal-number-info {

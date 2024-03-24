@@ -1,21 +1,13 @@
-.settings-container {
-    background-color: var(--line-numbers-background-color);
-    color: var(--main-font-color);
-    font-family: var(--bs-body-font-family);
-    overflow: auto;
-}
-
-.settings-inner-container {
-    height: calc(min(calc(70vh - 5 * var(--main-font)), 2600px));
-    padding: 3% 5% 5%;
-}
-
 .one-setting {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     height: calc(4 * var(--select-box-height) / 3);
     font-size: var(--code-font-size);
+}
+
+.last-one-setting {
+    padding-bottom: var(--select-box-height);
 }
 
 .input-number,

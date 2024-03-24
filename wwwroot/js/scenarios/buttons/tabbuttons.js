@@ -34,6 +34,19 @@ settings = new MyButton({
     }
 });
 
+saveconstraints = new MyButton({
+    elementId: "saveConstraintButton",
+    listener: function () {
+        if (MyButtons.saveconstraints.isDeactivated())
+            return;
+
+        show_one_left_elem('saveconstraints-dynamic');
+        document.getElementById('left-side-title').innerHTML = "Save";
+        set_one_tab_active(MyButtons.saveconstraints);
+    }
+});
+
 MyButtons.input = input;
 MyButtons.lightbulb = lightbulb;
 MyButtons.settings = settings;
+MyButtons.saveconstraints = saveconstraints;

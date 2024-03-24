@@ -33,7 +33,7 @@
 }
 
 .nvul {
-    background-image: url("../../assets/green.png");
+    background-image: url("../../../assets/green.png");
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -41,12 +41,12 @@
 }
 
 .vul {
-    background-image: url("../../assets/red.png");
+    background-image: url("../../../assets/red.png");
     color: transparent;
 }
 
 .dealer {
-    
+
 }
 
 .snwe-lu {

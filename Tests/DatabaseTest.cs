@@ -1,4 +1,3 @@
-using System.Text;
 using BridgeScenarios.Database;
 using BridgeScenarios.Models.DbModels;
 using BridgeScenarios.Repositories;
@@ -45,9 +44,9 @@ public class DatabaseTest
         {
             Username = "test",
             Password = "test123"
-        }; 
+        };
         userRepo.AddUser(user);
-        
+
         var dealSet1 = new DealSet
         {
             Name = "DealSet1",
@@ -72,7 +71,7 @@ public class DatabaseTest
         var testuser = userRepo.GetByName("test");
         if (testuser is null)
             return;
-        
+
         userRepo.RemoveUser(testuser);
     }
 }

@@ -8,23 +8,34 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.3.0"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="Npgsql" Version="8.0.2" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="Npgsql" Version="8.0.2"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Migrations\" />
+        <Folder Include="Migrations\"/>
+        <Folder Include="wwwroot\css\scenarios\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="wwwroot\css\leftside\leftsideview.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\leftside\lightbulb.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\leftside\settings.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\js\buttons\buttons.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\js\buttons\dealbuttons.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\js\buttons\errorbuttons.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\js\buttons\tabbuttons.js"/>
     </ItemGroup>
 
 </Project>

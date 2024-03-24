@@ -32,16 +32,15 @@ function update_hand_suit_content(dsiString, dealNum) {
         document.getElementById('N-vul').classList.remove('vul');
         document.getElementById('S-vul').classList.remove('vul');
     }
-    
+
     if (vul[1]) {
         document.getElementById('E-vul').classList.add('vul');
         document.getElementById('W-vul').classList.add('vul');
-    }
-    else {
+    } else {
         document.getElementById('E-vul').classList.remove('vul');
         document.getElementById('W-vul').classList.remove('vul');
     }
-    
+
     let dealer = extract_dealer(deal); // N / E / S / W
     document.getElementById('N-vul').classList.remove('dealer');
     document.getElementById('E-vul').classList.remove('dealer');
@@ -49,11 +48,6 @@ function update_hand_suit_content(dsiString, dealNum) {
     document.getElementById('W-vul').classList.remove('dealer');
     let dealerDiv = document.getElementById(dealer + '-vul');
     dealerDiv.classList.add('dealer')
-}
-
-let rebind_button = (button) => {
-    if (button != null)
-        button.rebind();
 }
 
 let rebind_right_buttons = () => {
@@ -90,7 +84,7 @@ let disable_right_buttons = () => {
     MyButtons.nextDeal.setDeactivated(false);
     MyButtons.addDeal.setDeactivated(false);
     MyButtons.addDeal.element.classList.remove('hidden');
-    if (window.localStorage.getItem('CurrentDealNum') === "1") {
+    if (sessionStorage.getItem('CurrentDealNum') === "1") {
         MyButtons.previousDeal.setDeactivated(true);
         let previousImage = document.querySelector('#previousDealButton .dealset-img');
         previousImage.src = './assets/arrow-back-deactiv.png';
@@ -99,12 +93,11 @@ let disable_right_buttons = () => {
         let previousImage = document.querySelector('#previousDealButton .dealset-img');
         previousImage.src = './assets/arrow-back.png';
     }
-    if (window.localStorage.getItem('CurrentDealNum') === window.localStorage.getItem('NumOfDeals')) {
+    if (sessionStorage.getItem('CurrentDealNum') === sessionStorage.getItem('NumOfDeals')) {
         MyButtons.nextDeal.setDeactivated(true);
         let nextImage = document.querySelector('#nextDealButton .dealset-img');
         nextImage.src = './assets/arrow-deactiv.png';
-    }
-    else {
+    } else {
         MyButtons.addDeal.setDeactivated(true);
         MyButtons.addDeal.element.classList.add('hidden');
         let nextImage = document.querySelector('#nextDealButton .dealset-img');

@@ -33,7 +33,7 @@ MyButton = function ({elementId, listener}) {
     this.isDeactivated = () => {
         return this.element.classList.contains('deactivated');
     }
-    
+
     this.defaultListener = () => {
         MyButtons.activeButtonId = this.elementId;
     }
@@ -41,6 +41,10 @@ MyButton = function ({elementId, listener}) {
     this.rebind();
 }
 
+let rebind_button = (button) => {
+    if (button != null)
+        button.rebind();
+}
 
 MyButtons = {
     activeButtonId: "inputButton"

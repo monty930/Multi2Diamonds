@@ -1,0 +1,96 @@
+.saved-content-outer-container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-rows: max(5vh, calc(3 * var(--main-font))) auto;
+}
+
+.saved-content-container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    color: var(--main-font-color);
+    padding-top: var(--main-padding-top);
+}
+
+.profile-saved-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    width: 100%;
+    height: 100%;
+    gap: var(--main-padding-top);
+}
+
+.saved-tab-button {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--main-font);
+    color: var(--main-font-color);
+    background-color: var(--main-background-color);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.saved-tab-button:hover {
+    border: 2px solid var(--table-border-color);
+}
+
+.saved-tab-button:active {
+    border: 2px solid var(--table-border-color);
+}
+
+.button-active-tab {
+    border: 2px solid var(--table-border-color);
+}
+
+.saved-dynamic {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.saved-item {
+    padding: var(--main-padding-top) 0;
+    display: grid;
+    grid-template-columns: calc(100% - var(--select-box-height) - 0.2 * var(--main-font) - 7px) var(--select-box-height);
+    gap: calc(0.2 * var(--main-font));
+    grid-template-rows: calc(var(--select-box-height));
+}
+
+.saved-item-button {
+    background-color: var(--table-border-color);
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: calc(3 * var(--select-box-height) / 8) 0 0 calc(3 * var(--select-box-height) / 8);
+    text-align: left;
+    padding-left: calc(3 * var(--select-box-height) / 8);
+    display: flex;
+    align-items: center;
+    color: var(--main-font-color);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: var(--main-font);
+    box-shadow: 0 4px var(--main-background-color);
+}
+
+.saved-item-delete-button {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 4px rgb(107, 12, 12);
+    border-radius: 0 calc(3 * var(--select-box-height) / 8) calc(3 * var(--select-box-height) / 8) 0;
+}
+
+.save-item-trash-img {
+    height: calc(0.7 * var(--select-box-height));
+    padding-bottom: calc(0.05 * var(--select-box-height));
+}

@@ -32,5 +32,5 @@ public static class PosDecoder
             Position.South => Position.West,
             _ => throw new ArgumentOutOfRangeException(nameof(pos), pos, null)
         };
-    } 
+    }
 }

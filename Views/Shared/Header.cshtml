@@ -2,37 +2,34 @@
 
 <header class="header">
     <div class="header-align">
-        <a asp-page="/Index" class="header-title">
+        <a asp-controller="Index" asp-action="Index" class="header-title">
             Multi
-            <img
-                id="2d-title-img"
-                src="~/assets/2diams.png"
-                class="m2d-title-img"/>
+            <img id="2d-title-img" src="~/assets/2diams.png" class="m2d-title-img"/>
             Bids
         </a>
-        <div class="header-button-container">
-            <button id="saved-files-button" class="header-button saved-files-button">
-                <img
-                    id="saved-img"
-                    class="header-button-img"
-                    src="~/assets/folder.png"/>
-            </button>
-        </div>
-        <div class="header-button-container">
-            <button id="profile-button" class="header-button profile-button">
-                <img
-                    id="profile-img"
-                    class="header-button-img"
-                    src="~/assets/profile.png"/>
-            </button>
-        </div>
-        <div class="header-button-container">
-            <button id="log-out-button" class="header-button log-out-button">
-                <img
-                    id="log-out-img"
-                    class="header-button-img"
-                    src="~/assets/logout2.png"/>
-            </button>
-        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="header-button-container">
+                <form asp-controller="Profile" asp-action="SavedContent" method="post" style="display: inline;">
+                    <button type="submit" id="saved-files-button" class="header-button saved-files-button">
+                        <img id="saved-img" class="header-button-img" src="~/assets/folder3.png"/>
+                    </button>
+                </form>
+            </div>
+            <div class="header-button-container">
+                <form asp-controller="Profile" asp-action="Profile" method="post" style="display: inline;">
+                    <button type="submit" id="profile-button" class="header-button profile-button">
+                        <img id="profile-img" class="header-button-img" src="~/assets/profile.png"/>
+                    </button>
+                </form>
+            </div>
+            <div class="header-button-container">
+                <form asp-controller="Account" asp-action="Logout" method="post" style="display: inline;">
+                    <button type="submit" id="log-out-button" class="header-button log-out-button">
+                        <img id="log-out-img" class="header-button-img" src="~/assets/logout2.png"/>
+                    </button>
+                </form>
+            </div>
+        }
     </div>
 </header>
