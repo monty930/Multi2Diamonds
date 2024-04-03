@@ -1,4 +1,4 @@
-namespace BridgeScenarios.Models;
+namespace Multi2Diamonds.Models;
 
 public enum Position
 {
@@ -32,5 +32,5 @@ public static class PosDecoder
             Position.South => Position.West,
             _ => throw new ArgumentOutOfRangeException(nameof(pos), pos, null)
         };
-    } 
+    }
 }

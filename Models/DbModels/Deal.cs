@@ -1,40 +1,34 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BridgeScenarios.Models.DbModels;
+namespace Multi2Diamonds.Models.DbModels;
 
 public class Deal
 {
-    [Key]
-    public int DealId { get; set; }
-    
-    [ForeignKey("DealSet")]
-    public int DealSetId { get; set; }
-    
+    [Key] public int DealId { get; set; }
+
+    [ForeignKey("DealSet")] public int DealSetId { get; set; }
+
     public Position Dealer { get; set; }
     public int Number { get; set; }
     public Vul Vul { get; set; }
-    
-    [StringLength(17)]
-    public string West { get; set; } = string.Empty;
-    
-    [StringLength(17)]
-    public string North { get; set; } = string.Empty;
-    
-    [StringLength(17)]
-    public string East { get; set; } = string.Empty;
-    
-    [StringLength(17)]
-    public string South { get; set; } = string.Empty;
-    
+
+    [StringLength(17)] public string West { get; set; } = string.Empty;
+
+    [StringLength(17)] public string North { get; set; } = string.Empty;
+
+    [StringLength(17)] public string East { get; set; } = string.Empty;
+
+    [StringLength(17)] public string South { get; set; } = string.Empty;
+
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
 
     public static Deal FromString(string s)
     {
-        string[] hands = s[2..].Split(' ');
-        Position first = PosDecoder.FromChar(s[0]);
-        int start = 0;
+        var hands = s[2..].Split(' ');
+        var first = PosDecoder.FromChar(s[0]);
+        var start = 0;
         while (first != Position.North)
         {
             start++;
@@ -49,7 +43,7 @@ public class Deal
             West = hands[start % 4]
         };
     }
-    
+
     public override string ToString()
     {
         return $"N:{North} {East} {South} {West}";

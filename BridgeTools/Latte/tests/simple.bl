@@ -1,1 +1,0 @@
-(N.hcp >= 20 and S.clubs == 0) or S.clubs > 7

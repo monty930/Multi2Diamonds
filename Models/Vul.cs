@@ -1,4 +1,4 @@
-namespace BridgeScenarios.Models;
+namespace Multi2Diamonds.Models;
 
 public enum Vul
 {

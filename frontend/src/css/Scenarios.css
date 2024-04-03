@@ -1,0 +1,27 @@
+:root {
+    --divider-width: 8px;
+}
+
+.ScenariosPage {
+    display: grid;
+    grid-template-columns: 1fr var(--divider-width) 1fr;
+    grid-template-rows: auto;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.Divider {
+    background: linear-gradient(
+        90deg, 
+        var(--main-background-color),
+        var(--main-background-color) 10%,
+        var(--header-border-color) 50%,
+        var(--main-background-color) 90%,
+        var(--main-background-color) 
+    );
+    cursor: col-resize;
+    width: var(--divider-width);
+    height: 100%;
+}
+  
