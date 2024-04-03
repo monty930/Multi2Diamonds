@@ -26,4 +26,4 @@ obj
 bin
 .vscode
 .idea
-.sln
+*.sln
