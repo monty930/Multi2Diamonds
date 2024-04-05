@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function MakeScenarios() {
     const [activeTab, setActiveTab] = useState('textarea');
     const [textareaContent, setTextareaContent] = useState('');
+    const navigate = useNavigate();
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -10,7 +12,7 @@ function MakeScenarios() {
 
     const handleSave = async () => {
         try {
-            const response = await fetch('http://localhost:5197/Scenarios/AddItem', {
+            const response = await fetch('http://localhost:5015/Scenarios/AddItem', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,6 +47,7 @@ function MakeScenarios() {
                 <button onClick={handleSave}>Save</button>
             </div>
             <div>{/* Reserved for eventual log messages */}</div>
+            <button onClick={() => navigate('/scenarios/use')}>Go to Use Scenarios</button>
         </div>
     );
 }

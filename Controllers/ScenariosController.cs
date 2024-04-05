@@ -9,16 +9,18 @@ using Multi2Diamonds.Scenarios.Models;
 
 namespace Multi2Diamonds.Controllers;
 
-[Authorize]
+// [Authorize]
 public partial class ScenariosController : Controller
 {
     private readonly ScenariosManager _scenariosManager = new();
     private readonly UserRepository _userRepository = new();
 
+    [EnableCors]
     [HttpPost]
-    [Route("Index/GenerateDealSet")]
+    [Route("Scenarios/GenerateDeals")]
     public async Task<IActionResult> GenerateDeals([FromBody] SettingsArgs compilerSettings)
     {
+        Console.WriteLine("GenerateDeals here!!!\n" + compilerSettings);
         var model = await _scenariosManager.GenerateDeals(new ScenariosModel
             { CompilerRunner = new CompilerRunner(compilerSettings) });
         return Json(new { scriptRawOutput = model.ScriptOutputRaw, correctDeal = model.IsCorrectDeal });

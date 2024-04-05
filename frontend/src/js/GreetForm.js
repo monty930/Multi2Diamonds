@@ -5,7 +5,7 @@ function GreetForm() {
   const [message, setMessage] = useState('');
   
   useEffect(() => {
-    fetch('http://localhost:5197/helloworld')
+    fetch('http://localhost:5015/helloworld')
       .then(response => response.json())
       .then(data => setMessage(data.message || "No data received"));
   }, []);
@@ -15,7 +15,7 @@ function GreetForm() {
     const formData = new FormData(event.target);
     const name = formData.get('name');
     
-    fetch('http://localhost:5197/helloworld/greet', {
+    fetch('http://localhost:5015/helloworld/greet', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
