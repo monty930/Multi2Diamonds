@@ -1,95 +1,29 @@
-// using Scenarios.DealSetTools;
-// using Scenarios.DealSetTools.Models;
-// using Scenarios.Managers;
-// using Scenarios.Models;
-// using Scenarios.Models.DbModels;
-// using Scenarios.Models.ViewModels;
-// using Scenarios.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Multi2Diamonds.Managers;
 using Multi2Diamonds.Models.DbModels;
+using Multi2Diamonds.Repositories;
+using Multi2Diamonds.Scenarios;
+using Multi2Diamonds.Scenarios.Models;
 
-namespace Scenarios.Controllers;
+namespace Multi2Diamonds.Controllers;
 
 [Authorize]
-public partial class IndexController : Controller
+public partial class ScenariosController : Controller
 {
-    // private readonly IndexManager _indexManager = new();
-    // private readonly UserRepository _userRepository = new();
+    private readonly ScenariosManager _scenariosManager = new();
+    private readonly UserRepository _userRepository = new();
 
-    // [HttpGet]
-    // [EnableCors]
-    // public Task<IActionResult> Index()
-    // {
-    //     return Task.FromResult<IActionResult>(View("Index", new IndexViewModel()));
-    // }
-
-    // [HttpPost]
-    // [Route("Index/GenerateDealSet")]
-    // public async Task<IActionResult> GenerateDealSet([FromBody] SettingsArgs compilerSettings)
-    // {
-    //     var model = await _indexManager.GenerateDeals(new IndexViewModel
-    //     {
-    //         RightDisplay = RightViewDisplay.DealSetEntry,
-    //         CompilerRunner = new CompilerRunner(compilerSettings)
-    //     });
-
-    //     var dsiString = model.ScriptOutputRaw;
-    //     var htmlContent = await RenderViewAsync("RightSideView", model, true);
-    //     var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
-    //     return Json(new { htmlContent, dsiString, correctDeal });
-    // }
-
-    // [EnableCors]
-    // [HttpPost]
-    // [Route("Index/GenerateExample")]
-    // public async Task<IActionResult> GenerateExample([FromBody] SettingsArgs compilerSettings)
-    // {
-    //     var model = await _indexManager.GenerateDeals(new IndexViewModel
-    //     {
-    //         RightDisplay = RightViewDisplay.Example,
-    //         CompilerRunner = new CompilerRunner(compilerSettings)
-    //     });
-
-    //     var dsiString = model.ScriptOutputRaw;
-    //     var htmlContent = await RenderViewAsync("RightSideView", model, true);
-    //     var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
-    //     return Json(new { htmlContent, dsiString, correctDeal });
-    // }
-
-    // [EnableCors]
-    // [HttpPost]
-    // [Route("Index/AddDeal")]
-    // public async Task<IActionResult> AddDeal([FromBody] SettingsArgs compilerSettings)
-    // {
-    //     var model = await _indexManager.GenerateDeals(new IndexViewModel
-    //     {
-    //         RightDisplay = RightViewDisplay.DealSet,
-    //         CompilerRunner = new CompilerRunner(compilerSettings)
-    //     });
-
-    //     var newDealDsiString = model.ScriptOutputRaw;
-    //     var htmlContent = await RenderViewAsync("RightSideView", model, true);
-    //     var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
-    //     return Json(new { htmlContent, newDealDsiString, correctDeal });
-    // }
-
-    // [EnableCors]
-    // [HttpPost]
-    // public async Task<IActionResult> RegenerateOne([FromBody] SettingsArgs compilerSettings)
-    // {
-    //     var model = await _indexManager.GenerateDeals(new IndexViewModel
-    //     {
-    //         RightDisplay = RightViewDisplay.DealSet,
-    //         CompilerRunner = new CompilerRunner(compilerSettings)
-    //     });
-
-    //     var newDealDsiString = model.ScriptOutputRaw;
-    //     var htmlContent = await RenderViewAsync("RightSideView", model, true);
-    //     var correctDeal = (model.RightDisplay != RightViewDisplay.Error).ToString();
-    //     return Json(new { htmlContent, newDealDsiString, correctDeal });
-    // }
+    [HttpPost]
+    [Route("Index/GenerateDealSet")]
+    public async Task<IActionResult> GenerateDeals([FromBody] SettingsArgs compilerSettings)
+    {
+        var model = await _scenariosManager.GenerateDeals(new ScenariosModel
+            { CompilerRunner = new CompilerRunner(compilerSettings) });
+        return Json(new { scriptRawOutput = model.ScriptOutputRaw, correctDeal = model.IsCorrectDeal });
+    }
+    
 
     // [EnableCors]
     // [HttpGet]

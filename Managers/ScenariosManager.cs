@@ -14,8 +14,8 @@ public class ScenariosManager
             var scriptOut = await model.CompilerRunner.Run();
             return new ScenariosModel
             {
-                RightDisplay = model.RightDisplay,
-                ScriptOutputRaw = scriptOut
+                ScriptOutputRaw = scriptOut,
+                IsCorrectDeal = true
             };
         }
         catch (CompilerException e)
@@ -23,7 +23,7 @@ public class ScenariosManager
             return new ScenariosModel
             {
                 ScriptOutputRaw = e.Message + "\n",
-                RightDisplay = RightViewDisplay.Error
+                IsCorrectDeal = false
             };
         }
     }
