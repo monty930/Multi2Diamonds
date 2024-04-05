@@ -1,0 +1,185 @@
+-- programs ------------------------------------------------
+
+entrypoints Prog ;
+
+Program.        Prog ::= [TopDef] ;
+
+TopDefPredeal.  TopDef ::= "predeal" "=" "{" [HandPredeal] "}" ;
+
+Final.          TopDef ::= "final" "=" Expr ;
+
+TopDefShape.    TopDef ::= ShapeDef ;
+
+TopDefEval.     TopDef ::= Ident "=" "evaluator" "(" [EvalVal] ")" ;
+
+TopDefHold.     TopDef ::= Ident "=" "holding(" HoldingExpr ")" ;
+
+separator       TopDef ";" ;
+
+separator       HandPredeal "," ;
+
+-- Predeal -------------------------------------------------
+
+HandPredeal.    HandPredeal ::= Hand ":" HandFeature ;
+
+HandLit.        HandFeature ::= String ;
+
+SmartStackShape.     HandFeature ::= "(" Ident ")" ;
+
+SmartStackFunc.      HandFeature ::= "(" Ident "," Ident "," Integer ")" ;
+
+SmartStackFull.      HandFeature ::= "(" Ident "," Ident "," Value ")" ;
+
+ValueRange.     Value ::= "(" Integer "," Integer ")" ;
+
+-- Shapes --------------------------------------------------
+
+ShapeCond.      ShapeDef ::= Ident "=" "(" ShapeExpr ")" ;
+
+ShapeLit.       ShapeDef ::= Ident "=" [Shape] ;
+
+EvalVal.        EvalVal ::= Integer ;
+
+separator       EvalVal "," ;
+
+ShapeOk.        Shape ::= ShapeOk ;
+
+ShapeNeg.       Shape ::= ShapeNeg ;
+
+OneShapeOk.     ShapeOk ::= "[" [SuitCount] "]" ;
+
+OneShapeNeg.    ShapeNeg ::= "!" ShapeOk ;
+
+separator       Shape "+" ;
+
+SuitIntCount.   SuitCount ::= SuitInt ;
+
+SuitInt.        SuitInt ::= Integer ;
+
+SuitChoice.     SuitCount ::= "(" [SuitInt] ")" ;
+
+separator       SuitCount ";" ;
+
+separator       SuitInt ";" ;
+
+-- Types ---------------------------------------------------
+
+Int.       Type ::= "int" ;
+
+-- Expressions ---------------------------------------------
+
+HandAttr.  Expr6 ::= Hand"."Ident ;
+
+ELitInt.   Expr6 ::= Integer ;
+
+ELitTrue.  Expr6 ::= "true" ;
+
+ELitFalse. Expr6 ::= "false" ;
+
+ENot.      Expr5 ::= "not" Expr6 ;
+
+ERel.      Expr2 ::= Expr2 RelOp Expr3 ;
+
+EAnd.      Expr1 ::= Expr2 "and" Expr1 ;
+
+EOr.       Expr ::= Expr1 "or" Expr ;
+
+coercions  Expr 6 ;
+
+HandN.     Hand ::= "N" ;
+
+HandE.     Hand ::= "E" ;
+
+HandW.     Hand ::= "W" ;
+
+HandS.     Hand ::= "S" ;
+
+-- Shape Expressions ---------------------------------------
+
+ESuit.     ShapeExpr6 ::= SuitLit ;
+
+EShapeInt. ShapeExpr6 ::= Integer ;
+
+ENotShape.       ShapeExpr5 ::= "not" ShapeExpr6 ;
+
+ERelShape.       ShapeExpr2 ::= ShapeExpr2 RelOp ShapeExpr3 ;
+
+EAndShape.       ShapeExpr1 ::= ShapeExpr2 "and" ShapeExpr1 ;
+
+EOrShape.        ShapeExpr ::= ShapeExpr1 "or" ShapeExpr ;
+
+coercions  ShapeExpr 6 ;
+
+SuitLitS.  SuitLit ::= "s" ;
+
+SuitLitH.  SuitLit ::= "h" ;
+
+SuitLitD.  SuitLit ::= "d" ;
+
+SuitLitC.  SuitLit ::= "c" ;
+
+-- Holding Expressions -------------------------------------
+
+HExprLen.  HoldingExpr5 ::= "length" ;
+
+HExprInt.  HoldingExpr5 ::= Integer ;
+
+HExprCard. HoldingExpr5 ::= Card ;
+
+HNotExpr.  HoldingExpr4 ::= "not" HoldingExpr5 ;
+
+HRelExpr.  HoldingExpr2 ::= HoldingExpr2 RelOp HoldingExpr3 ;
+
+HAndExpr.  HoldingExpr1 ::= HoldingExpr2 "and" HoldingExpr1 ;
+
+HOrExpr.   HoldingExpr ::= HoldingExpr1 "or" HoldingExpr ;
+
+coercions  HoldingExpr 5 ;
+
+CardA.     Card ::= "[A]" ;
+
+CardK.     Card ::= "[K]" ;
+
+CardQ.     Card ::= "[Q]" ;
+
+CardJ.     Card ::= "[J]" ;
+
+CardT.     Card ::= "[T]" ;
+
+Card9.     Card ::= "[9]" ;
+
+Card8.     Card ::= "[8]" ;
+
+Card7.     Card ::= "[7]" ;
+
+Card6.     Card ::= "[6]" ;
+
+Card5.     Card ::= "[5]" ;
+
+Card4.     Card ::= "[4]" ;
+
+Card3.     Card ::= "[3]" ;
+
+Card2.     Card ::= "[2]" ;
+
+-- operators -----------------------------------------------
+
+LTH.       RelOp ::= "<" ;
+
+LE.        RelOp ::= "<=" ;
+
+GTH.       RelOp ::= ">" ;
+
+GE.        RelOp ::= ">=" ;
+
+EQU.       RelOp ::= "==" ;
+
+NE.        RelOp ::= "!=" ;
+
+-- comments ------------------------------------------------
+
+comment    "#" ;
+
+comment    "//" ;
+
+comment    "/*" "*/" ;
