@@ -1,4 +1,4 @@
-namespace Multi2Diamonds.Models.ViewModels;
+namespace Multi2Diamonds.Models;
 
 public class ProfileModel
 {

@@ -1,6 +1,6 @@
 using Multi2Diamonds.Models.DbModels;
 
-namespace Multi2Diamonds.Models.ViewModels;
+namespace Multi2Diamonds.Models;
 
 public class LoginModel
 {
