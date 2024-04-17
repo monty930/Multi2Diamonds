@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useScenario } from './CompilerSettings';
+import React, {useEffect, useState} from 'react';
+import {useScenario} from './CompilerSettings';
+import {replaceOneDeal} from "./DealHelper";
 
 function GenerateDealSet() {
     const [dealSet, setDealSet] = useState(null);
@@ -68,6 +69,33 @@ function GenerateDealSet() {
     const previousDeal = () => {
         setCurrentDealNo((prev) => Math.max(prev - 1, 0));
     };
+    
+    const regenerate = (dealNo) => async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch('http://localhost:5015/Scenarios/GenerateDeals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ vul, dealer, numberOfDeals, dealNo }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            let currentDealSet = dealSet.scriptRawOutput;
+            console.log('currentDealSet:', currentDealSet);
+            let newDealSet = data.scriptRawOutput;
+            setDealSet({ scriptRawOutput: replaceOneDeal(currentDealSet, newDealSet, dealNo) });
+        } catch (error) {
+            console.error('Failed to fetch:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <div>
@@ -79,7 +107,7 @@ function GenerateDealSet() {
                     <div>
                         <button onClick={() => setDealSet(null)}>Clear</button>
                         <button>SaveDealSet</button>
-                        <button>Regenerate</button>
+                        {currentDealNo >= 1 && <button onClick={regenerate(currentDealNo)}>Regenerate</button>}
                         {currentDealNo > 1 && <button onClick={previousDeal}>Previous</button>}
                         {currentDealNo < parseInt(sessionStorage.getItem('NumOfDeals') || '0')
                             ? <button onClick={nextDeal}>Next</button>

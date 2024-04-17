@@ -75,4 +75,18 @@ public class AccountController : Controller
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return Ok(new { message = "Logout successful" });
     }
+    
+    [HttpGet]
+    [Route("Account/ValidateSession")]
+    public ActionResult ValidateSession()
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            return Ok(new { message = "Session is valid." });
+        }
+        else
+        {
+            return Unauthorized(new { message = "Session is not valid." });
+        }
+    }
 }
