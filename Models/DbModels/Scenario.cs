@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Multi2Diamonds.Models.DbModels;
 
-public class UsersSavedContent
+public class Scenario
 {
-    [Key] public int SavedContentId { get; set; }
+    [Key] public int ScenarioId { get; set; }
 
     [ForeignKey("User")] public int UserId { get; set; }
 
@@ -15,9 +15,5 @@ public class UsersSavedContent
 
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
-    public string Content { get; set; } = string.Empty;
-
-    public SavedContentType? SavedContentType { get; set; }
-
-    public bool Exists { get; set; }
+    public string ScenarioContent { get; set; } = string.Empty;
 }

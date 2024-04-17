@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Multi2Diamonds.Models;
 
 namespace Multi2Diamonds.Models.DbModels;
 

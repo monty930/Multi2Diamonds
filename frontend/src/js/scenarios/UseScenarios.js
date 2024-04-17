@@ -1,17 +1,20 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import UseScenariosChoose from './UseScenariosChoose';
+import GenerateDealSet from './GenerateDealSet';
+import { ScenarioProvider } from './CompilerSettings';
 
-function UseScenarios() {
-    const navigate = useNavigate(); // Initialize useNavigate
-
+function UseScenarios({ setIsDragging }) {
     return (
-        <div>
-            USE SCENARIOS
-            <div>
-                {/* Add a button to navigate to MakeScenarios */}
-                <button onClick={() => navigate('/scenarios/make')}>Go to Make Scenarios</button>
+        <ScenarioProvider>
+            <div className="ScenariosPage">
+                <div className="UseScenariosOuter"><UseScenariosChoose /></div>
+                <div
+                    className="Divider"
+                    onMouseDown={() => setIsDragging(true)}
+                ></div>
+                <div className="GenerateDealSetOuter"><GenerateDealSet /></div>
             </div>
-        </div>
+        </ScenarioProvider>
     );
 }
 

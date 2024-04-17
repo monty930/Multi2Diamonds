@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Multi2Diamonds.Models;
 
 namespace Multi2Diamonds.Controllers;
 
@@ -13,6 +14,48 @@ public class AccountController : Controller
     private readonly PasswordHasher<User> _hasher = new();
     private readonly UserRepository _userRepository = new();
 
+    [HttpPost]
+    [Route("Account/Login")]
+    public async Task<ActionResult> Login(LoginModel model)
+    {
+        var user = model.User;
+        var storedPassword = _userRepository.GetPassword(user.Username);
+        if (storedPassword is null)
+        {
+            return Unauthorized(new { message = "Invalid username or password" });
+        }
+        
+        var result = _hasher.VerifyHashedPassword(user, storedPassword, user.Password);
+        if (result == PasswordVerificationResult.Failed)
+        {
+            return Unauthorized(new { message = "Invalid username or password" });
+        }
+    
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Name, user.Username)
+        };
+    
+        var claimsIdentity = new ClaimsIdentity(
+            claims, CookieAuthenticationDefaults.AuthenticationScheme);
+    
+        var authProperties = new AuthenticationProperties
+        {
+            AllowRefresh = true,
+            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+            IsPersistent = true
+        };
+    
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity),
+            authProperties
+        );
+    
+        HttpContext.Session.SetString("user", user.Username);
+        return Ok(new { message = "Login successful" });
+    }
+    
     // public async Task<IActionResult> Login()
     // {
     //     return View(new LoginViewModel());

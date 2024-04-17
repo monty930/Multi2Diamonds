@@ -2,11 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import MakeScenarios from './MakeScenarios';
 import GenerateExample from './GenerateExample';
-import GenerateDeaSet from './GenerateDealSet';
+import GenerateDealSet from './GenerateDealSet';
 import UseScenarios from './UseScenarios';
 import '../../css/Scenarios.css';
+import UseScenariosChoose from "./UseScenariosChoose";
 
 function Scenarios() {
+    const [dealSettings, setDealSettings] = useState({
+        NumberOfDeals: 1,
+        Vul: 'None',
+        Scoring: 'None',
+        Flip: 'None',
+        Dealer: 'None',
+    });
+    
     const location = useLocation();
     const pageLayoutRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -80,29 +89,22 @@ function Scenarios() {
         };
     }, [isDragging, leftWidthRatio]);
 
-    let contentLeft;
-    let contentRight;
+    let content;
     if (location.pathname === "/scenarios/make") {
-        contentLeft = <div className="MakeScenariosOuter"><MakeScenarios /></div>
-        contentRight = <div className="GenerateExampleOuter"><GenerateExample /></div>
+        content = (
+            <div className="ScenariosPage">
+                <div className="MakeScenariosOuter"><MakeScenarios /></div>
+                <div className="Divider" onMouseDown={() => setIsDragging(true)}></div>
+                <div className="GenerateExampleOuter"><GenerateExample /></div>
+            </div>
+        );
     } else if (location.pathname === "/scenarios/use") {
-        contentLeft = <div className="UseScenariosOuter"><UseScenarios /></div>
-        contentRight = <div className="GenerateDealSetOuter"><GenerateDeaSet /></div>
+        content = <UseScenarios setIsDragging={setIsDragging} />;
     } else {
-        contentLeft = <div>Error!</div>;
-        contentRight = <div>Error!</div>;
+        content = <div>ERROR!</div>
     }
 
-    return (
-        <div ref={pageLayoutRef} className="ScenariosPage">
-            <div>{contentLeft}</div>
-            <div
-                className="Divider"
-                onMouseDown={() => setIsDragging(true)}
-            ></div>
-            <div>{contentRight}</div>
-        </div>
-    );
+    return content;
 }
 
 export default Scenarios;

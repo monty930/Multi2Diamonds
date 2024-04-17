@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useScenario } from './CompilerSettings';
 
 function GenerateDealSet() {
     const [dealSet, setDealSet] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [currentDealNo, setCurrentDealNo] = useState(parseInt(sessionStorage.getItem('currentDealNo') || '0'));
+    const { vul, dealer, numberOfDeals } = useScenario();
 
     useEffect(() => {
         const checkForDealSet = () => {
@@ -15,8 +18,8 @@ function GenerateDealSet() {
         checkForDealSet();
 
         // Event listener to clear sessionStorage when the page is fully reloaded
-        const handleBeforeUnload = (e) => {
-            sessionStorage.removeItem('generatedDealSet'); // Data is cleared on full page reload
+        const handleBeforeUnload = () => {
+            sessionStorage.removeItem('generatedDealSet');
         };
 
         window.addEventListener('beforeunload', handleBeforeUnload);
@@ -26,6 +29,11 @@ function GenerateDealSet() {
         };
     }, []);
 
+    useEffect(() => {
+        // Sync the currentDealNo with sessionStorage whenever it changes
+        sessionStorage.setItem('currentDealNo', currentDealNo.toString());
+    }, [currentDealNo]);
+
     const generateDealSet = async () => {
         setIsLoading(true);
         try {
@@ -34,7 +42,7 @@ function GenerateDealSet() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ /* compilerSettings object structure here */ }),
+                body: JSON.stringify({ vul, dealer, numberOfDeals }),
             });
 
             if (!response.ok) {
@@ -43,7 +51,9 @@ function GenerateDealSet() {
 
             const data = await response.json();
             setDealSet(data);
-            sessionStorage.setItem('generatedDealSet', JSON.stringify(data)); // Temporarily store the dealSet
+            sessionStorage.setItem('generatedDealSet', JSON.stringify(data));
+            sessionStorage.setItem('NumOfDeals', numberOfDeals.toString());
+            setCurrentDealNo(0); // Reset current deal number on new generation
         } catch (error) {
             console.error('Failed to fetch:', error);
         } finally {
@@ -51,16 +61,36 @@ function GenerateDealSet() {
         }
     };
 
+    const nextDeal = () => {
+        setCurrentDealNo((prev) => Math.min(prev + 1, parseInt(sessionStorage.getItem('NumOfDeals') || '0')));
+    };
+
+    const previousDeal = () => {
+        setCurrentDealNo((prev) => Math.max(prev - 1, 0));
+    };
+
     return (
         <div>
             <button onClick={generateDealSet} disabled={isLoading}>
                 {isLoading ? 'Generating...' : 'Generate'}
             </button>
-            {dealSet ? (
-                <pre>{dealSet.scriptRawOutput}</pre>
-            ) : (
-                <p>Press 'Generate' to generate</p>
-            )}
+            <div>
+                {dealSet && (
+                    <div>
+                        <button onClick={() => setDealSet(null)}>Clear</button>
+                        <button>SaveDealSet</button>
+                        <button>Regenerate</button>
+                        {currentDealNo > 1 && <button onClick={previousDeal}>Previous</button>}
+                        {currentDealNo < parseInt(sessionStorage.getItem('NumOfDeals') || '0')
+                            ? <button onClick={nextDeal}>Next</button>
+                            : <button>AddDeal</button>}
+                        <button>RemoveDeal</button>
+                        Deal num: {currentDealNo}
+                        <pre style={{ overflow: 'auto', height: '400px' }}>{dealSet.scriptRawOutput}</pre>
+                    </div>
+                )}
+                {!dealSet && <p>Press 'Generate' to generate</p>}
+            </div>
         </div>
     );
 }

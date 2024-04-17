@@ -41,41 +41,41 @@ public class UserRepository
         return _context.Users.Any(u => u.Username == username);
     }
 
-    public int AddSavedContent(UsersSavedContent savedContent)
-    {
-        _context.SavedContents.Add(savedContent);
-        _context.SaveChanges();
-        return savedContent.SavedContentId;
-    }
-
-    public void UpdateSavedContent(UsersSavedContent savedContent)
-    {
-        var existingEntity = _context.SavedContents.Find(savedContent.SavedContentId);
-        if (existingEntity != null)
-        {
-            _context.Entry(existingEntity).CurrentValues.SetValues(savedContent);
-        }
-        else
-        {
-            _context.SavedContents.Update(savedContent);
-        }
-
-        _context.SaveChanges();
-    }
-
-    public void RemoveSavedContent(UsersSavedContent savedContent)
-    {
-        _context.SavedContents.Remove(savedContent);
-        _context.SaveChanges();
-    }
-
-    public List<UsersSavedContent> GetSavedContents(User user)
-    {
-        return _context.SavedContents.Where(d => d.User.UserId == user.UserId).ToList();
-    }
-
-    public UsersSavedContent? GetSavedContentById(int id)
-    {
-        return _context.SavedContents.FirstOrDefault(d => d.SavedContentId == id);
-    }
+    // public int AddSavedContent(UsersSavedContent savedContent)
+    // {
+    //     _context.SavedContents.Add(savedContent);
+    //     _context.SaveChanges();
+    //     return savedContent.SavedContentId;
+    // }
+    //
+    // public void UpdateSavedContent(UsersSavedContent savedContent)
+    // {
+    //     var existingEntity = _context.SavedContents.Find(savedContent.SavedContentId);
+    //     if (existingEntity != null)
+    //     {
+    //         _context.Entry(existingEntity).CurrentValues.SetValues(savedContent);
+    //     }
+    //     else
+    //     {
+    //         _context.SavedContents.Update(savedContent);
+    //     }
+    //
+    //     _context.SaveChanges();
+    // }
+    //
+    // public void RemoveSavedContent(UsersSavedContent savedContent)
+    // {
+    //     _context.SavedContents.Remove(savedContent);
+    //     _context.SaveChanges();
+    // }
+    //
+    // public List<UsersSavedContent> GetSavedContents(User user)
+    // {
+    //     return _context.SavedContents.Where(d => d.User.UserId == user.UserId).ToList();
+    // }
+    //
+    // public UsersSavedContent? GetSavedContentById(int id)
+    // {
+    //     return _context.SavedContents.FirstOrDefault(d => d.SavedContentId == id);
+    // }
 }

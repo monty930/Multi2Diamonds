@@ -20,7 +20,7 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/GenerateDeals")]
     public async Task<IActionResult> GenerateDeals([FromBody] SettingsArgs compilerSettings)
     {
-        Console.WriteLine("GenerateDeals here!!!\n" + compilerSettings);
+        Console.WriteLine("GenerateDeals here!!! " + compilerSettings + ";");
         var model = await _scenariosManager.GenerateDeals(new ScenariosModel
             { CompilerRunner = new CompilerRunner(compilerSettings) });
         return Json(new { scriptRawOutput = model.ScriptOutputRaw, correctDeal = model.IsCorrectDeal });
@@ -85,8 +85,10 @@ public partial class ScenariosController : Controller
     //     return Json(new { status, name, content, partial });
     // }
 
+    [EnableCors]
     [HttpPost]
-    public async Task<JsonResult> AddItem([FromBody] UsersSavedContent input)
+    [Route("Scenarios/AddItem")]
+    public async Task<JsonResult> AddItem([FromBody] Scenario scenario)
     {
         // var user = _userRepository.GetByName(User.Identity.Name);
         // if (user == null) return Json(new { success = false, message = "User not found" });
@@ -104,7 +106,7 @@ public partial class ScenariosController : Controller
         // {
         //     _userRepository.UpdateSavedContent(input);
         // }
-        Console.WriteLine("AddItem here!!!\n" + input);
+        Console.WriteLine("AddItem here!!!- " + scenario.Name + " - " + scenario.ScenarioContent);
         var id = 1; // to be deleted
 
         return Json(new { success = true, message = "Item added successfully", id });

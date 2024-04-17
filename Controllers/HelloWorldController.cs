@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using HelloWorld.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace HelloWorld.Controllers
+namespace Multi2Diamonds.Controllers
 {
     [ApiController]
     [Route("[controller]")]
