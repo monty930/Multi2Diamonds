@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext'; // Assuming AuthContext is correctly set up as per previous instructions
+import { useAuth } from './AuthContext';
 
 function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { setAuthenticated } = useAuth(); // Function to update auth state in context
-
+    const { login } = useAuth();
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Login form submitted');
@@ -22,15 +21,16 @@ function LoginPage() {
                 body: JSON.stringify({username, password}),
             }).then(r => {
                 if (r.status === 200) {
-                    setAuthenticated(true); // Update the Auth context
-                    navigate('/'); // Redirect to the home page or dashboard
+                    console.log('Login successful!');
+                    login();
+                    navigate('/');
                 } else {
                     setError('Login failed. Please try again later.');
                 }
             });
         } catch (error) {
             if (error.response) {
-                setError(error.response.data.message); // Handling error response from server
+                setError(error.response.data.message);
             } else {
                 setError('Login failed. Please try again later.');
             }

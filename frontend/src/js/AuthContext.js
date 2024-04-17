@@ -1,39 +1,20 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { createContext, useContext, useState } from 'react';
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    useEffect(() => {
-        axios.get('/api/user/isAuthenticated')
-            .then(response => {
-                if (response.data.isAuthenticated) {
-                    setUser(true);
-                } else {
-                    setUser(false);
-                }
-            })
-            .catch(() => setUser(false));
-    }, []);
-
-    const login = async (username, password) => {
-        try {
-            await axios.post('/api/user/login', { username, password });
-            setUser(true);
-        } catch (error) {
-            throw error;
-        }
+    const login = () => {
+        setIsAuthenticated(true);
     };
 
-    const logout = async () => {
-        await axios.get('/api/user/logout');
-        setUser(false);
+    const logout = () => {
+        setIsAuthenticated(false);
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated: user, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

@@ -1,13 +1,28 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Link, Navigate, useNavigate} from "react-router-dom";
 import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
 import Scenarios from "./scenarios/Scenarios";
 import SavedItemsPage from "./SavedItemsPage";
 import "../css/Page.css";
 import {useAuth} from "./AuthContext";
+import axios from "axios";
 
 function Header() {
+    const { logout } = useAuth(); // Access the logout function from AuthContext
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://localhost:5015/Account/Logout'); // Send logout request to backend
+            logout(); // Call the logout function from AuthContext
+            navigate('/login'); // Redirect to the login page after logout
+        } catch (error) {
+            console.error('Logout error:', error);
+            // Handle logout error if needed
+        }
+    };
+
     return (
         <div className="HeaderContent">
             <div className="PageTitle">
@@ -21,7 +36,7 @@ function Header() {
                     <Link to="/profile" className="LinkNoDecor">Profile</Link>
                 </div>
                 <div className="HeaderNavItem">
-                    <Link to="/login" className="LinkNoDecor">Log out</Link>
+                    <button className="LinkNoDecor" onClick={handleLogout}>Log out</button>
                 </div>
             </div>
         </div>
@@ -33,7 +48,10 @@ function Footer() {
 }
 
 function Page() {
+    // isAuthenticated should be taken from the AuthContext
     const { isAuthenticated } = useAuth();
+    
+    console.log('isAuthenticated from Page:', isAuthenticated);
 
     return (
         <Router>
