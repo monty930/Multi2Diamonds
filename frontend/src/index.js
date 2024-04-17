@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { AuthProvider } from './js/AuthContext';
 import './index.css';
 import Page from './js/Page';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Page />
-  </React.StrictMode>
+    <React.StrictMode>
+        <AuthProvider>
+            <Page />
+        </AuthProvider>
+    </React.StrictMode>
 );
 
 reportWebVitals();

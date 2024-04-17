@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
-import GreetForm from "./GreetForm";
 import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
 import Scenarios from "./scenarios/Scenarios";
 import SavedItemsPage from "./SavedItemsPage";
 import "../css/Page.css";
+import {useAuth} from "./AuthContext";
 
 function Header() {
     return (
@@ -33,19 +33,26 @@ function Footer() {
 }
 
 function Page() {
+    const { isAuthenticated } = useAuth();
+
     return (
         <Router>
             <div className="Page">
                 <div className="PageHeader"><Header /></div>
                 <div className="PageContent">
                     <Routes>
-                        {/* <Route path="/" element={<GreetForm />} /> */}
-                        <Route path="/" element={<Navigate replace to="/scenarios/make" />} />
-                        <Route path="/scenarios/make" element={<Scenarios />} />
-                        <Route path="/scenarios/use" element={<Scenarios />} />
-                        <Route path="/profile" element={<ProfilePage />} />
+                        {isAuthenticated ? (
+                            <>
+                                <Route path="/" element={<Navigate replace to="/scenarios/make" />} />
+                                <Route path="/scenarios/make" element={<Scenarios />} />
+                                <Route path="/scenarios/use" element={<Scenarios />} />
+                                <Route path="/profile" element={<ProfilePage />} />
+                                <Route path="/saved" element={<SavedItemsPage />} />
+                            </>
+                        ) : (
+                            <Route path="*" element={<Navigate replace to="/login" />} />
+                        )}
                         <Route path="/login" element={<LoginPage />} />
-                        <Route path="/saved" element={<SavedItemsPage />} />
                     </Routes>
                 </div>
                 <div className="PageFooter">

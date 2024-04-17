@@ -16,20 +16,24 @@ public class AccountController : Controller
 
     [HttpPost]
     [Route("Account/Login")]
-    public async Task<ActionResult> Login(LoginModel model)
+    public async Task<ActionResult> Login([FromBody] User user)
     {
-        var user = model.User;
+        Console.WriteLine("Login for " + user.Username + " " + user.Password);
         var storedPassword = _userRepository.GetPassword(user.Username);
         if (storedPassword is null)
         {
+            Console.WriteLine("Invalid username or password1");
             return Unauthorized(new { message = "Invalid username or password" });
         }
         
         var result = _hasher.VerifyHashedPassword(user, storedPassword, user.Password);
         if (result == PasswordVerificationResult.Failed)
         {
+            Console.WriteLine("Invalid username or password2");
             return Unauthorized(new { message = "Invalid username or password" });
         }
+        
+        Console.WriteLine("Login successful");
     
         var claims = new List<Claim>
         {
