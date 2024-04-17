@@ -21,15 +21,12 @@ function Scenarios() {
     const [isDragging, setIsDragging] = useState(false);
     const [leftWidthRatio, setLeftWidthRatio] = useState(0.5);
     let dividerWidth = 8;
-    console.log('dividerWidth:', dividerWidth);
     
     const minWidth = 400;
 
     useEffect(() => {
         function updatePanelWidths() {
             if (!pageLayoutRef.current) return;
-
-            console.log('updatePanelWidths');
 
             const pageLayoutRect = pageLayoutRef.current.getBoundingClientRect();
             const totalWidth = pageLayoutRect.width;
@@ -50,15 +47,11 @@ function Scenarios() {
                 leftWidth = totalWidth - rightWidth - dividerWidth / 2;
             }
 
-            console.log('leftWidth:', leftWidth);
-
             pageLayoutRef.current.style.gridTemplateColumns = `${leftWidth}px ${dividerWidth}px ${rightWidth}px`;
         }
 
         function handleMouseMove(e) {
             if (!isDragging || window.innerWidth <= 800) return;
-
-            console.log('handleMouseMove');
 
             const pageLayoutRect = pageLayoutRef.current.getBoundingClientRect();
             let newLeftWidth = e.clientX - pageLayoutRect.left - dividerWidth / 2;

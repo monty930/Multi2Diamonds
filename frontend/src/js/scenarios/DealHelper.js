@@ -76,7 +76,7 @@ export const replaceOneDeal = (dsiString, newDealDsiString, dealNum) => {
     return withReplacedDeal;
 };
 
-export const addDeal = (dsiString, newDealDsiString) => {
+export const addDealToDsi = (dsiString, newDealDsiString) => {
     let deals = dsiString.split('\n\n');
     let numOfTries = "\n" + deals[deals.length - 1];
     deals.pop();
@@ -93,20 +93,23 @@ export const addDeal = (dsiString, newDealDsiString) => {
     withNewDealAfter = withNewDealAfter.join('\n');
     withNewDeal = withNewDealBefore + 'Number of deals: ' + numOfDeals + "\n" + withNewDealAfter;
     withNewDeal = renumerateDeals(withNewDeal);
+    console.log('here', withNewDeal);
     return withNewDeal;
 }
 
-export const removeDeal = (dsiString, dealNum) => {
+export const removeDealFromDsi = (dsiString, dealNum) => {
     let dealToRemove = extractDeal(dsiString, dealNum);
     let deals = dsiString.split(dealToRemove);
-    deals[0] = deals[0].slice(0, -1);
+    deals[0] = deals[0].slice(0, -2);
     let dealsWithRemoved = deals.join('');
     let numOfDeals = getNumOfDeals(dealsWithRemoved) - 1;
     dealsWithRemoved = dealsWithRemoved.split('Number of deals: ');
     let dealsWithRemovedBefore = dealsWithRemoved[0];
+    console.log("1: ", dealsWithRemovedBefore);
     let dealsWithRemovedAfter = dealsWithRemoved[1].split('\n');
     dealsWithRemovedAfter.shift();
     dealsWithRemovedAfter = dealsWithRemovedAfter.join('\n');
+    console.log("2: ", dealsWithRemovedAfter);
     dealsWithRemoved = dealsWithRemovedBefore + 'Number of deals: ' + numOfDeals + "\n" + dealsWithRemovedAfter;
     dealsWithRemoved = renumerateDeals(dealsWithRemoved);
     return dealsWithRemoved;
@@ -180,4 +183,32 @@ const extractVul = (deal) => {
     let north_south = vul === 'NS' || vul === 'All';
     let east_west = vul === 'EW' || vul === 'All';
     return [north_south, east_west];
+}
+
+const linVul = (vul) => {
+    let lin_vul = '';
+    if (vul[0] && vul[1]) {
+        lin_vul = 'b';
+    } else if (vul[0]) {
+        lin_vul = 'n';
+    } else if (vul[1]) {
+        lin_vul = 'e';
+    } else {
+        lin_vul = 'o';
+    }
+    return lin_vul;
+}
+
+const linDealer = (dealer) => {
+    let lin_dealer = '';
+    if (dealer === 'N') {
+        lin_dealer = '3';
+    } else if (dealer === 'E') {
+        lin_dealer = '4';
+    } else if (dealer === 'S') {
+        lin_dealer = '1';
+    } else {
+        lin_dealer = '2';
+    }
+    return lin_dealer;
 }

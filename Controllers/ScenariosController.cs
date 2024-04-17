@@ -20,7 +20,7 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/GenerateDeals")]
     public async Task<IActionResult> GenerateDeals([FromBody] SettingsArgs compilerSettings)
     {
-        Console.WriteLine("GenerateDeals here!!! " + compilerSettings + ";");
+        Console.WriteLine("GenerateDeals here!!!");
         var model = await _scenariosManager.GenerateDeals(new ScenariosModel
             { CompilerRunner = new CompilerRunner(compilerSettings) });
         return Json(new { scriptRawOutput = model.ScriptOutputRaw, correctDeal = model.IsCorrectDeal });

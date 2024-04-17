@@ -11,7 +11,6 @@ function LoginPage() {
     
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Login form submitted');
         try {
             fetch('http://localhost:5015/Account/Login', {
                 method: 'POST',
@@ -21,7 +20,6 @@ function LoginPage() {
                 body: JSON.stringify({username, password}),
             }).then(r => {
                 if (r.status === 200) {
-                    console.log('Login successful!');
                     login();
                     navigate('/');
                 } else {

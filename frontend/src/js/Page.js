@@ -50,8 +50,6 @@ function Footer() {
 function Page() {
     // isAuthenticated should be taken from the AuthContext
     const { isAuthenticated } = useAuth();
-    
-    console.log('isAuthenticated from Page:', isAuthenticated);
 
     return (
         <Router>
