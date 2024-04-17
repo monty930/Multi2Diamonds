@@ -28,9 +28,6 @@ public class UserRepository
 
     public string? GetPassword(string username)
     {
-        Console.WriteLine("GetPassword for " + username);
-        var password = _context.Users.Where(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
-        Console.WriteLine(password);
         return _context.Users.Where(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
     }
 
