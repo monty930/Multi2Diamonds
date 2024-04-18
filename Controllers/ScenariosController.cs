@@ -14,6 +14,7 @@ public partial class ScenariosController : Controller
 {
     private readonly ScenariosManager _scenariosManager = new();
     private readonly UserRepository _userRepository = new();
+    private readonly DealSetRepository _dealSetRepository = new();
 
     [EnableCors]
     [HttpPost]
@@ -98,5 +99,16 @@ public partial class ScenariosController : Controller
         var id = 1; // to be deleted
 
         return Json(new { success = true, message = "Item added successfully", id });
+    }
+    
+    [HttpGet]
+    [Route("Scenarios/GetDealSetDetails")]
+    public async Task<IActionResult> GetDealSetDetails([FromQuery] string dealSetId)
+    {
+        var id = int.Parse(dealSetId);
+        var dealSetRaw = _dealSetRepository.GetDealSetRaw(id);
+        var dealSet = _dealSetRepository.GetDealSetDetails(id);
+        if (dealSetRaw == null) return NotFound();
+        return Ok(new { dealSet = dealSet, dealSetRaw = dealSetRaw });
     }
 }

@@ -35,8 +35,7 @@ public class ProfileDataController : Controller
     [Route("ProfileData/GetSavedContent")]
     public ActionResult GetSavedContent()
     {
-        var username = "admin"; // should be: User.Identity.Name;
-        var savedContents = _userRepository.GetSavedContents(username);
+        var savedContents = _userRepository.GetSavedContents("admin"); // should be: User.Identity.Name;
         if (savedContents == null) return NotFound();
         return Json(new { savedContents });
     }
@@ -45,9 +44,7 @@ public class ProfileDataController : Controller
     [Route("ProfileData/DeleteSavedContent")]
     public ActionResult DeleteSavedContent([FromBody] SavedContent content)
     {
-        var username = "admin"; // should be: User.Identity.Name;
-        var savedContents = _userRepository.RemoveSavedContent(username, content.SavedContentId, content.SavedContentType);
-        if (savedContents == null) return NotFound();
-        return Ok(savedContents);
+        _userRepository.RemoveSavedContent("admin", content.SavedContentId, content.SavedContentType); // should be: User.Identity.Name;
+        return Ok();
     }
 }

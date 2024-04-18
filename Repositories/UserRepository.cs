@@ -64,30 +64,28 @@ public class UserRepository
         _context.SaveChanges();
     }
 
-    public List<SavedContent>? RemoveSavedContent(string username, int contentId, SavedContentType contentType)
+    public void RemoveSavedContent(string username, int contentId, SavedContentType contentType)
     {
         var user = _context.Users.FirstOrDefault(u => u.Username == username);
-        if (user == null) return null;
+        if (user == null) return;
         
         if (contentType == SavedContentType.Constraint)
         {
             var savedScenario = _context.Scenarios.FirstOrDefault(s => s.ScenarioId == contentId);
-            if (savedScenario == null) return null;
+            if (savedScenario == null) return;
             _context.Scenarios.Remove(savedScenario);
         }
         else if (contentType == SavedContentType.DealSet)
         {
             var savedDealSet = _context.DealSets.FirstOrDefault(d => d.DealSetId == contentId);
-            if (savedDealSet == null) return null;
+            if (savedDealSet == null) return;
             _context.DealSets.Remove(savedDealSet);
         }
         else
         {
-            return null;
+            return;
         }
         _context.SaveChanges();
-        var savedContent = GetSavedContents(username);
-        return savedContent;
     }
 
     public List<SavedContent>? GetSavedContents(string username)

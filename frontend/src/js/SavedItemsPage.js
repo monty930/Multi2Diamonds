@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../css/CenterProfileLayout.css";
 import "../css/SavedItemsPage.css";
 
@@ -19,8 +20,6 @@ function SavedItemsPage() {
                 return response.json();
             })
             .then(data => {
-                console.log('Fetched saved content:', data);
-                console.log('Saved cont:', data.savedContents);
                 setSavedContents(data.savedContents);
             })
             .catch(error => {
@@ -28,33 +27,26 @@ function SavedItemsPage() {
             });
     }, []);
 
-    useEffect(() => {
-        console.log('Saved cont is now: ', savedContents);
-    }, [savedContents]);
-
     const handleTabClick = (tabName) => {
         setActiveTab(tabName);
     };
 
     const handleDelete = (savedContentId, type) => {
-        // fetch('http://localhost:5015/ProfileData/DeleteSavedContent', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ savedContentId: savedContentId, savedContentType: type })
-        // })
-        // .then(response => {
-        //     if (!response.ok) {
-        //         throw new Error('Failed to delete the item');
-        //     }
-        //     return response.text();
-        // }).then(text => {
-        //     return text ? JSON.parse(text) : {};
-        // }).then(data => {
-        //     setSavedScenarios(data.savedScenarios);
-        //     setSavedDealSets(data.savedDealSets);
-        // }).catch(error => {
-        //     console.error('Error deleting data:', error);
-        // });
+        console.log('Deleting saved content:', savedContentId, type);
+        setSavedContents(savedContents.filter(item => { return item.savedContentId !== savedContentId || item.savedContentType !== type; }));
+        fetch('http://localhost:5015/ProfileData/DeleteSavedContent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ savedContentId: savedContentId, savedContentType: type })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console.log('deleted!');
+        }).catch(error => {
+            console.error('Failed to delete saved content:', error);
+        });
     };
 
     return (
@@ -74,18 +66,12 @@ function SavedItemsPage() {
                     </div>
                     <div className="saved-content-container">
                         {activeTab === 'scenarios' && (
-                            <SavedItemsList
-                                savedContents={savedContents}
-                                contentType="Constraint"
-                                noContentMessage="No saved constraints found."
-                            />
+                            <SavedItemsList savedContents={savedContents} contentType="Constraint"
+                                noContentMessage="No saved constraints found." handleDelete={handleDelete}/>
                         )}
                         {activeTab === 'dealSets' && (
-                            <SavedItemsList
-                                savedContents={savedContents}
-                                contentType="DealSet"
-                                noContentMessage="No saved deal sets found."
-                            />
+                            <SavedItemsList savedContents={savedContents} contentType="DealSet"
+                                noContentMessage="No saved deal sets found." handleDelete={handleDelete}/>
                         )}
                     </div>
                 </div>
@@ -97,7 +83,27 @@ function SavedItemsPage() {
   
 export default SavedItemsPage;
 
-function SavedItemsList({ savedContents, contentType, noContentMessage }) {
+function SavedItemsList({ savedContents, contentType, noContentMessage, handleDelete }) {
+    const navigate = useNavigate();
+    
+    const redirect = (id, type) => {
+        if (type === 'Constraint') {
+            goToConstraint(id);
+        } else if (type === 'DealSet') {
+            goToDealSet(id);
+        }
+    }
+    
+    const goToConstraint = (constraintId) => {
+        sessionStorage.setItem('savedConstraintId', constraintId);
+        navigate(`/scenarios/make`);
+    }
+    
+    const goToDealSet = (dealSetId) => {
+        sessionStorage.setItem('savedDealSetId', dealSetId);
+        navigate(`/scenarios/use`);
+    }
+    
     return (
         <div className={`saved-dynamic saved-${contentType.toLowerCase()}-dynamic`}>
             {savedContents.length > 0 ? (
@@ -105,7 +111,7 @@ function SavedItemsList({ savedContents, contentType, noContentMessage }) {
                     {savedContents.map(item => (
                         item.savedContentType === contentType &&
                         <div key={item.savedContentId} className="saved-item">
-                            <button className="saved-item-button">
+                            <button className="saved-item-button" onClick={() => redirect(item.savedContentId, item.savedContentType)}>
                                 <div>{item.name}</div>
                             </button>
                             <button

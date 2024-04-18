@@ -10,26 +10,35 @@ function GenerateDealSet() {
     const { vul, dealer, numberOfDeals } = useScenario();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    useEffect(() => {
-        const checkForDealSet = () => {
-            const storedDealSet = sessionStorage.getItem('generatedDealSet');
-            if (storedDealSet) {
-                setDealSet(JSON.parse(storedDealSet));
+    const fetchDealSetDetails = async (dealSetId) => {
+        try {
+            const response = await fetch(`http://localhost:5015/Scenarios/GetDealSetDetails?dealSetId=${dealSetId}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        };
-
-        checkForDealSet();
-
-        // Event listener to clear sessionStorage when the page is fully reloaded
-        const handleBeforeUnload = () => {
-            sessionStorage.removeItem('generatedDealSet');
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
+            return await response.json();
+        } catch (error) {
+            console.error('Failed to fetch:', error);
+        }
+    }
+    
+    useEffect(() => {
+        const checkForSaved = async () => {
+            // Check for deal set got from the saved data
+            const savedDealSetId = sessionStorage.getItem('savedDealSetId');
+            if (savedDealSetId) {
+                let response = await fetchDealSetDetails(savedDealSetId);
+                console.log('response: ', response.dealSet);
+                setDealSet({ scriptRawOutput: response.dealSetRaw });
+                sessionStorage.removeItem('savedDealSetId');
+            }
+        }
+        checkForSaved().then();
+        
+        const storedDealSet = sessionStorage.getItem('generatedDealSet');
+        if (storedDealSet) {
+            setDealSet(JSON.parse(storedDealSet));
+        }
     }, []);
 
     useEffect(() => {

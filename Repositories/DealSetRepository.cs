@@ -25,9 +25,26 @@ public class DealSetRepository
         return true;
     }
 
-
     public IEnumerable<DealSet> GetByUserId(int userId)
     {
         return _context.DealSets.Where(ds => ds.UserId == userId);
+    }
+    
+    public DealSet? GetDealSetDetails(int dealSetId)
+    {
+        return _context.DealSets.Find(dealSetId);
+    }
+    
+    public String? GetDealSetRaw(int dealSetId)
+    {
+        var DealSet = _context.DealSets.Find(dealSetId);
+        if (DealSet is null)
+            return null;
+        return convertToRaw(DealSet);
+    }
+
+    private String convertToRaw(DealSet dealSet)
+    {
+        return "abc";
     }
 }
