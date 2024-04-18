@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import "../css/CenterProfileLayout.css";
 import "../css/SavedItemsPage.css";
 
 function SavedItemsPage() {
-    const [savedScenarios, setSavedScenarios] = useState([]);
-    const [savedDealSets, setSavedDealSets] = useState([]);
+    const [savedContents, setSavedContents] = useState([]);
     const [activeTab, setActiveTab] = useState('constraints');
 
     useEffect(() => {
+        console.log('Fetching saved content');
         fetch('http://localhost:5015/ProfileData/GetSavedContent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
@@ -18,53 +19,42 @@ function SavedItemsPage() {
                 return response.json();
             })
             .then(data => {
-                setSavedScenarios(data[0]);
-                setSavedDealSets(data[1]);
-                if (data[0].length === 0 && data[1].length === 0) {
-                    fillWithDummyData();
-                }
+                console.log('Fetched saved content:', data);
+                console.log('Saved cont:', data.savedContents);
+                setSavedContents(data.savedContents);
             })
             .catch(error => {
-                console.error('Error fetching data:', error);
-                fillWithDummyData();
+                console.error('Failed to fetch saved content:', error);
             });
     }, []);
-    
-    const fillWithDummyData = () => {
-        setSavedScenarios([
-            { id: 1, name: 'Scenario 1 DUMMY' },
-            { id: 2, name: 'Scenario 2 DUMMY' },
-            { id: 6, name: 'Scenario 3 DUMMY' }
-        ]);
-        setSavedDealSets([
-            { id: 4, name: 'Deal set 1 DUMMY' },
-            { id: 5, name: 'Deal set 2 DUMMY' },
-            { id: 3, name: 'Deal set 3 DUMMY' }
-        ]);
-    };
+
+    useEffect(() => {
+        console.log('Saved cont is now: ', savedContents);
+    }, [savedContents]);
 
     const handleTabClick = (tabName) => {
         setActiveTab(tabName);
     };
 
     const handleDelete = (savedContentId, type) => {
-        console.log('Handle delete called with id:', savedContentId, 'and type:', type);
-        const endpoint = 'http://localhost:5015/ProfileData/' + (type === 'constraint' ? 'DeleteSavedScenario' : 'DeleteSavedDealSet');
-        fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ savedContentId })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to delete the item');
-                }
-                return response.json();
-            }).then(data => {
-                setSavedScenarios(data[0]);
-                setSavedDealSets(data[1]);
-            })
-            .catch(error => console.error('Error deleting item:', error));
+        // fetch('http://localhost:5015/ProfileData/DeleteSavedContent', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ savedContentId: savedContentId, savedContentType: type })
+        // })
+        // .then(response => {
+        //     if (!response.ok) {
+        //         throw new Error('Failed to delete the item');
+        //     }
+        //     return response.text();
+        // }).then(text => {
+        //     return text ? JSON.parse(text) : {};
+        // }).then(data => {
+        //     setSavedScenarios(data.savedScenarios);
+        //     setSavedDealSets(data.savedDealSets);
+        // }).catch(error => {
+        //     console.error('Error deleting data:', error);
+        // });
     };
 
     return (
@@ -84,46 +74,18 @@ function SavedItemsPage() {
                     </div>
                     <div className="saved-content-container">
                         {activeTab === 'scenarios' && (
-                            <div className="saved-dynamic saved-constraints-dynamic">
-                                {savedScenarios.length > 0 ? (
-                                    <div className="scrollable-list">
-                                        {savedScenarios.map(item => (
-                                            <div key={item.id} className="saved-item">
-                                                <button className="saved-item-button">
-                                                    <div>{item.name}</div>
-                                                </button>
-                                                <button
-                                                    className="button-all red-button saved-item-delete-button"
-                                                    onClick={() => handleDelete(item.id, 'constraint')}
-                                                >
-                                                    Del
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : <p>No saved constraints found.</p>}
-                            </div>
+                            <SavedItemsList
+                                savedContents={savedContents}
+                                contentType="Constraint"
+                                noContentMessage="No saved constraints found."
+                            />
                         )}
                         {activeTab === 'dealSets' && (
-                            <div className="saved-dynamic saved-dealsets-dynamic">
-                                {savedDealSets.length > 0 ? (
-                                    <div className="scrollable-list">
-                                        {savedDealSets.map(item => (
-                                            <div key={item.id} className="saved-item">
-                                                <button className="saved-item-button">
-                                                    <div>{item.name}</div>
-                                                </button>
-                                                <button
-                                                    className="button-all red-button saved-item-delete-button"
-                                                    onClick={() => handleDelete(item.id, 'dealSet')}
-                                                >
-                                                    Del
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : <p>No saved deal sets found.</p>}
-                            </div>
+                            <SavedItemsList
+                                savedContents={savedContents}
+                                contentType="DealSet"
+                                noContentMessage="No saved deal sets found."
+                            />
                         )}
                     </div>
                 </div>
@@ -134,4 +96,28 @@ function SavedItemsPage() {
   }
   
 export default SavedItemsPage;
-  
+
+function SavedItemsList({ savedContents, contentType, noContentMessage }) {
+    return (
+        <div className={`saved-dynamic saved-${contentType.toLowerCase()}-dynamic`}>
+            {savedContents.length > 0 ? (
+                <div className="scrollable-list">
+                    {savedContents.map(item => (
+                        item.savedContentType === contentType &&
+                        <div key={item.savedContentId} className="saved-item">
+                            <button className="saved-item-button">
+                                <div>{item.name}</div>
+                            </button>
+                            <button
+                                className="saved-item-delete-button"
+                                onClick={() => handleDelete(item.savedContentId, item.savedContentType)}
+                            >
+                                Del
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            ) : <p>{noContentMessage}</p>}
+        </div>
+    );
+}

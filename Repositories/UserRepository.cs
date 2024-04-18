@@ -1,4 +1,6 @@
+
 using Multi2Diamonds.Database;
+using Multi2Diamonds.Models;
 using Multi2Diamonds.Models.DbModels;
 
 namespace Multi2Diamonds.Repositories;
@@ -40,25 +42,80 @@ public class UserRepository
     {
         return _context.Users.Any(u => u.Username == username);
     }
-    
-    public void RemoveSavedScenarioOfUsername(string username, int scenarioId)
+
+    public void AddDummyData() // to be deleted
     {
-        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        var user = _context.Users.FirstOrDefault(u => u.Username == "admin");
         if (user == null) return;
-        
-        var savedScenario = _context.Scenarios.FirstOrDefault(s => s.ScenarioId == scenarioId);
-        if (savedScenario == null) return;
-        _context.Scenarios.Remove(savedScenario);
+        var constraints = new List<Scenario>
+        {
+            new() {Name = "constr1", User = user, ScenarioContent = "content1"},
+            new() {Name = "constr2", User = user, ScenarioContent = "content2"},
+            new() {Name = "constr3", User = user, ScenarioContent = "content3"},
+        };
+        var dealsets = new List<DealSet>
+        {
+            new() {Name = "dealset1", User = user, Deals = new List<Deal>()},
+            new() {Name = "dealset2", User = user, Deals = new List<Deal>()},
+            new() {Name = "dealset3", User = user, Deals = new List<Deal>()},
+        };
+        user.Scenarios = constraints;
+        user.DealSets = dealsets;
         _context.SaveChanges();
     }
 
-    public (List<Scenario>, List<DealSet>)? GetSavedContents(string username)
+    public List<SavedContent>? RemoveSavedContent(string username, int contentId, SavedContentType contentType)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null) return null;
+        
+        if (contentType == SavedContentType.Constraint)
+        {
+            var savedScenario = _context.Scenarios.FirstOrDefault(s => s.ScenarioId == contentId);
+            if (savedScenario == null) return null;
+            _context.Scenarios.Remove(savedScenario);
+        }
+        else if (contentType == SavedContentType.DealSet)
+        {
+            var savedDealSet = _context.DealSets.FirstOrDefault(d => d.DealSetId == contentId);
+            if (savedDealSet == null) return null;
+            _context.DealSets.Remove(savedDealSet);
+        }
+        else
+        {
+            return null;
+        }
+        _context.SaveChanges();
+        var savedContent = GetSavedContents(username);
+        return savedContent;
+    }
+
+    public List<SavedContent>? GetSavedContents(string username)
     {
         var user = _context.Users.FirstOrDefault(u => u.Username == username);
         if (user == null) return null;
         
         var scenarios =  _context.Scenarios.Where(s => s.UserId == user.UserId).ToList();
         var dealsets = _context.DealSets.Where(d => d.UserId == user.UserId).ToList();
-        return (scenarios, dealsets);
+        var savedContents = new List<SavedContent>();
+        foreach (var scenario in scenarios)
+        {
+            savedContents.Add(new SavedContent
+            {
+                SavedContentId = scenario.ScenarioId,
+                SavedContentType = SavedContentType.Constraint,
+                Name = scenario.Name
+            });
+        }
+        foreach (var dealset in dealsets)
+        {
+            savedContents.Add(new SavedContent
+            {
+                SavedContentId = dealset.DealSetId,
+                SavedContentType = SavedContentType.DealSet,
+                Name = dealset.Name
+            });
+        }
+        return savedContents;
     }
 }

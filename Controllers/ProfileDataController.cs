@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Multi2Diamonds.Models;
+using Multi2Diamonds.Models.DbModels;
 
 namespace Multi2Diamonds.Controllers;
 
@@ -34,25 +35,19 @@ public class ProfileDataController : Controller
     [Route("ProfileData/GetSavedContent")]
     public ActionResult GetSavedContent()
     {
-        Console.WriteLine("GetSavedContent1<---------------");
-        var savedContents = _userRepository.GetSavedContents(User.Identity.Name);
+        var username = "admin"; // should be: User.Identity.Name;
+        var savedContents = _userRepository.GetSavedContents(username);
+        if (savedContents == null) return NotFound();
+        return Json(new { savedContents });
+    }
+    
+    [HttpPost]
+    [Route("ProfileData/DeleteSavedContent")]
+    public ActionResult DeleteSavedContent([FromBody] SavedContent content)
+    {
+        var username = "admin"; // should be: User.Identity.Name;
+        var savedContents = _userRepository.RemoveSavedContent(username, content.SavedContentId, content.SavedContentType);
         if (savedContents == null) return NotFound();
         return Ok(savedContents);
-    }
-    
-    [HttpGet]
-    [Route("ProfileData/DeleteSavedScenario")]
-    public ActionResult DeleteSavedConstraint(int savedConstraintId)
-    {
-        _userRepository.RemoveSavedScenarioOfUsername(User.Identity.Name, savedConstraintId);
-        return Ok();
-    }
-    
-    [HttpGet]
-    [Route("ProfileData/DeleteSavedDealSet")]
-    public ActionResult DeleteSavedDealSet(int savedDealSetId)
-    {
-        _userRepository.RemoveSavedScenarioOfUsername(User.Identity.Name, savedDealSetId);
-        return Ok();
     }
 }

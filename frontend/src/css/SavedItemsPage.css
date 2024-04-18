@@ -7,53 +7,6 @@
     --saved-item-button: var(--table-border-color);
 }
 
-.profile-view-container {
-    height: calc(
-            100vh - var(--header-height) - var(--footer-height));
-    width: 100%;
-    margin: 0;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border: none;
-    flex-direction: row;
-}
-
-.left-border {
-    height: 100%;
-    width: 8px;
-    background: linear-gradient(90deg,
-    rgba(94, 94, 94, 1) 0%,
-    rgba(105, 105, 105, 1) 48%,
-    rgba(105, 105, 105, 1) 100%);
-}
-
-.right-border {
-    height: 100%;
-    width: 8px;
-    background: linear-gradient(90deg,
-    rgba(105, 105, 105, 1) 0%,
-    rgba(105, 105, 105, 1) 52%,
-    rgba(94, 94, 94) 100%);
-}
-
-.profile-view {
-    height: 100%;
-    width: 80vh;
-    padding: var(--hunit);
-    background-color: var(--profile-background-color);
-    padding-top: calc(5 * var(--hunit));
-    color: var(--main-font-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    border: none;
-    align-items: flex-start;
-    text-align: left;
-}
-
 .saved-content-outer-container {
     height: 100%;
     width: 100%;
