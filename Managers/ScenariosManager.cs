@@ -1,3 +1,4 @@
+using Multi2Diamonds.Models.DbModels;
 using Multi2Diamonds.Scenarios.Models;
 using Multi2Diamonds.Scenarios;
 
@@ -15,6 +16,7 @@ public class ScenariosManager
             return new ScenariosModel
             {
                 ScriptOutputRaw = scriptOut,
+                DealSet = DealSet.FromString(scriptOut),
                 IsCorrectDeal = true
             };
         }

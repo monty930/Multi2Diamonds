@@ -25,3 +25,10 @@
     height: 100%;
 }
   
+.DealSetContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 30vh;
+    overflow: auto;
+}

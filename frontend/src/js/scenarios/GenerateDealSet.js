@@ -29,24 +29,13 @@ function GenerateDealSet() {
             const savedDealSetId = sessionStorage.getItem('savedDealSetId');
             if (savedDealSetId) {
                 let response = await fetchDealSetDetails(savedDealSetId);
-                console.log('response: ', response.dealSet);
-                setdealSetRaw({ scriptRawOutput: response.dealSetRaw });
-                setDealSet({ scriptRawOutput: response.dealSet });
+                setDealSetRaw(response.dealSetRaw);
+                // setDealSet({ scriptRawOutput: response.dealSet });
                 sessionStorage.removeItem('savedDealSetId');
             }
         }
         checkForSaved().then();
-        
-        // const storedDealSet = sessionStorage.getItem('generatedDealSet');
-        // if (storedDealSet) {
-        //     setDealSet(JSON.parse(storedDealSet));
-        // }
     }, []);
-
-    useEffect(() => {
-        // Sync the currentDealNo with sessionStorage whenever it changes
-        sessionStorage.setItem('currentDealNo', currentDealNo.toString());
-    }, [currentDealNo]);
 
     const generateDealSet = async () => {
         setIsLoading(true);
@@ -64,9 +53,8 @@ function GenerateDealSet() {
             }
 
             const data = await response.json();
-            setDealSetRaw(data);
-            // sessionStorage.setItem('generatedDealSet', JSON.stringify(data));
-            sessionStorage.setItem('NumOfDeals', numberOfDeals.toString());
+            setDealSetRaw(data.scriptOutputRaw);
+            setDealSet(data.dealSet);
             setCurrentDealNo(0); // Reset current deal number on new generation
         } catch (error) {
             console.error('Failed to fetch:', error);
@@ -76,17 +64,15 @@ function GenerateDealSet() {
     };
 
     const nextDeal = () => {
-        console.log('nextDeal');
-        setCurrentDealNo((prev) => Math.min(prev + 1, parseInt(sessionStorage.getItem('NumOfDeals') || '0')));
+        setCurrentDealNo(Math.min(currentDealNo + 1, numOfDeals()));
     };
 
     const previousDeal = () => {
-        setCurrentDealNo((prev) => Math.max(prev - 1, 0));
+        setCurrentDealNo(Math.max(1, currentDealNo - 1));
     };
     
     const getOneNewDeal = async () => {
         setIsLoading(true);
-        console.log('getOneNewDeal');
         try {
             const response = await fetch('http://localhost:5015/Scenarios/GenerateDeals', {
                 method: 'POST',
@@ -110,38 +96,43 @@ function GenerateDealSet() {
             setIsLoading(false);
         }
     }
-    
-    const regenerate = (dealNo) => async () => {
-        let newDeal = await getOneNewDeal();
-        let currentDealSet = dealSetRaw.scriptRawOutput;
-        setDealSetRaw({ scriptRawOutput: replaceOneDeal(currentDealSet, newDeal.scriptRawOutput, dealNo) });
+
+    const regenerate = () => async () => {
+        let newDealSet = await getOneNewDeal();
+        let newDeal = newDealSet.dealSet.deals[0];
+        let oldDealSet = dealSet;
+        oldDealSet.deals[currentDealNo - 1] = newDeal;
+        setDealSet(oldDealSet);
     }
 
     const removeDeal = (dealNum) => () => {
-        let currentDealSet = dealSetRaw.scriptRawOutput;
-        let newDealSet = removeDealFromDsi(currentDealSet, dealNum);
-        setDealSet({ scriptRawOutput: newDealSet });
-        let numOfDeals = parseInt(sessionStorage.getItem('NumOfDeals') || '0') - 1;
-        sessionStorage.setItem('NumOfDeals', (numOfDeals).toString());
-        if (numOfDeals === 0) {
-            setDealSetRaw(null);
-        } else if (dealNum === numOfDeals + 1) {
-            setCurrentDealNo(dealNum - 1);
-        }
+        // let newDealSet = removeDealFromDsi(dealSetRaw, dealNum);
+        // setDealSet({ scriptRawOutput: newDealSet });
+        // let numOfDeals = parseInt(sessionStorage.getItem('NumOfDeals') || '0') - 1;
+        // sessionStorage.setItem('NumOfDeals', (numOfDeals).toString());
+        // if (numOfDeals === 0) {
+        //     setDealSetRaw(null);
+        // } else if (dealNum === numOfDeals + 1) {
+        //     setCurrentDealNo(dealNum - 1);
+        // }
     }
     
     const addDeal = () => async () => {
-        console.log('addDeal1');
-        let newDeal = await getOneNewDeal();
-        console.log('addDeal2');
-        console.log('addDeal new: ', newDeal);
-        let currentDealSet = dealSetRaw.scriptRawOutput;
-        let newDealSet = addDealToDsi(currentDealSet, newDeal.scriptRawOutput);
-        setDealSetRaw({ scriptRawOutput: newDealSet });
-        let numOfDeals = parseInt(sessionStorage.getItem('NumOfDeals') || '0') + 1;
-        sessionStorage.setItem('NumOfDeals', (numOfDeals).toString());
-        console.log('addDeal3 ', newDealSet);
-        setCurrentDealNo(numOfDeals);
+        // let newDeal = await getOneNewDeal();
+        // let newDealSet = addDealToDsi(dealSetRaw, newDeal.scriptRawOutput);
+        // setDealSetRaw(newDealSet);
+        // let numOfDeals = parseInt(sessionStorage.getItem('NumOfDeals') || '0') + 1;
+        // sessionStorage.setItem('NumOfDeals', (numOfDeals).toString());
+        // setCurrentDealNo(currentDealNo + 1);
+    }
+    
+    const clearData = () => {
+        setDealSetRaw(null);
+        setDealSet(null);
+    }
+    
+    const numOfDeals = () => {
+        return dealSet.deals.length;
     }
 
     return (
@@ -150,22 +141,24 @@ function GenerateDealSet() {
                 {isLoading ? 'Generating...' : 'Generate'}
             </button>
             <div>
-                {dealSetRaw && (
+                {dealSet && (
                     <div>
-                        <button onClick={() => setDealSetRaw(null)}>Clear</button>
+                        <button onClick={clearData}>Clear</button>
                         <button onClick={() => setIsDialogOpen(true)}>Save</button>
-                        {currentDealNo >= 1 && <button onClick={regenerate(currentDealNo)}>Regenerate</button>}
+                        {currentDealNo >= 1 && <button onClick={regenerate}>Regenerate</button>}
                         {currentDealNo > 1 && <button onClick={previousDeal}>Previous</button>}
-                        {currentDealNo < parseInt(sessionStorage.getItem('NumOfDeals') || '0')
+                        {currentDealNo < numOfDeals()
                             ? <button onClick={nextDeal}>Next</button>
                             : <button onClick={addDeal()}>AddDeal</button>}
                         {currentDealNo >= 1 && <button onClick={removeDeal(currentDealNo)}>RemoveDeal</button>}
                         Deal num: {currentDealNo}
-                        <pre style={{ overflow: 'auto', height: '400px' }}>{dealSetRaw.scriptRawOutput}</pre>
-                        <SaveDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} dsiString={dealSet.scriptRawOutput} />
+                        <div className="DealSetContainer">
+                            <pre style={{ overflow: 'auto', height: '400px' }}>{JSON.stringify(dealSet)}</pre>
+                        </div>
+                        <SaveDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} dsiString={dealSetRaw} />
                     </div>
                 )}
-                {!dealSetRaw && <p>Press 'Generate' to generate</p>}
+                {!dealSet && <p>Press 'Generate' to generate</p>}
             </div>
         </div>
     );
