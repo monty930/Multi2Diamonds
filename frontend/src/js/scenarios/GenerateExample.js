@@ -4,27 +4,27 @@ function GenerateExample() {
     const [example, setExample] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        const checkForExample = () => {
-            const storedExample = sessionStorage.getItem('generatedExample');
-            if (storedExample) {
-                setExample(JSON.parse(storedExample));
-            }
-        };
-
-        checkForExample();
-
-        // Event listener to clear sessionStorage when the page is fully reloaded
-        const handleBeforeUnload = (e) => {
-            sessionStorage.removeItem('generatedExample'); // Data is cleared on full page reload
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const checkForExample = () => {
+    //         const storedExample = sessionStorage.getItem('generatedExample');
+    //         if (storedExample) {
+    //             setExample(JSON.parse(storedExample));
+    //         }
+    //     };
+    //
+    //     checkForExample();
+    //
+    //     // Event listener to clear sessionStorage when the page is fully reloaded
+    //     const handleBeforeUnload = (e) => {
+    //         sessionStorage.removeItem('generatedExample'); // Data is cleared on full page reload
+    //     };
+    //
+    //     window.addEventListener('beforeunload', handleBeforeUnload);
+    //
+    //     return () => {
+    //         window.removeEventListener('beforeunload', handleBeforeUnload);
+    //     };
+    // }, []);
 
     const generateExample = async () => {
         setIsLoading(true);
@@ -42,8 +42,9 @@ function GenerateExample() {
             }
 
             const data = await response.json();
-            setExample(data);
-            sessionStorage.setItem('generatedExample', JSON.stringify(data)); // Temporarily store the example
+            console.log(data);
+            setExample(data.dealSet);
+            // sessionStorage.setItem('generatedExample', JSON.stringify(data)); // Temporarily store the example
         } catch (error) {
             console.error('Failed to fetch:', error);
         } finally {
@@ -57,12 +58,20 @@ function GenerateExample() {
                 {isLoading ? 'Generating...' : 'Generate'}
             </button>
             {example ? (
-                <pre>{example.scriptRawOutput}</pre>
+                <div className="DealSetContainer">
+                    <pre>{addEndls(JSON.stringify(example))}</pre>
+                </div>
             ) : (
                 <p>Press 'Generate' to generate</p>
             )}
         </div>
     );
+}
+
+// TODO delete this
+// function to add endls in stringified JSON before each '{'
+function addEndls(jsonString) {
+    return jsonString.replace(/({)/g, '\n$1');
 }
 
 export default GenerateExample;

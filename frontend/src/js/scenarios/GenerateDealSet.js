@@ -159,6 +159,7 @@ function GenerateDealSet() {
     );
 }
 
+// TODO delete this
 // function to add endls in stringified JSON before each '{'
 function addEndls(jsonString) {
     return jsonString.replace(/({)/g, '\n$1');
