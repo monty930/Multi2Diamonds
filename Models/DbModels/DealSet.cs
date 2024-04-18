@@ -39,6 +39,7 @@ public class DealSet
                     dealSet.Deals.Add(currentDeal);
                     currentDeal = new Deal();
                 }
+                currentDeal.Number = int.Parse(line.Split('"')[1]);
                 inDeal = true;
             }
             else if (line.StartsWith("[Dealer"))
@@ -52,7 +53,11 @@ public class DealSet
             else if (line.StartsWith("[Deal"))
             {
                 var dealPart = line.Split('"')[1];
-                currentDeal = Deal.FromString(dealPart);
+                var hands = Deal.FromString(dealPart);
+                currentDeal.East = hands.East;
+                currentDeal.North = hands.North;
+                currentDeal.South = hands.South;
+                currentDeal.West = hands.West;
             }
         }
         if (inDeal)

@@ -150,7 +150,7 @@ function GenerateDealSet() {
                             <pre style={{overflow: 'auto', height: '400px'}}>{addEndls(JSON.stringify(dealSet))}</pre>
                         </div>
                         <SaveDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)}
-                                    dsiString={JSON.stringify(dealSet)}/>
+                                    jsonDealSetString={JSON.stringify(dealSet)}/>
                     </div>
                 )}
                 {!checkForDeals && <p>Press 'Generate' to generate</p>}

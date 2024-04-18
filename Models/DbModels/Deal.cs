@@ -27,23 +27,18 @@ public class Deal
 
     public static Deal FromString(string s)
     {
-        var hands = s[2..].Split(' ');
-        var first = PosDecoder.FromChar(s[0]);
-        var start = 0;
-        while (first != Position.North)
-        {
-            start++;
-            first = first.Next();
-        }
+        var parts = s.Split(':');
+        var hands = parts[1].Split(' ');
 
         return new Deal
         {
-            North = hands[start],
-            East = hands[start % 4],
-            South = hands[start % 4],
-            West = hands[start % 4]
+            North = hands[0],
+            East = hands[1],
+            South = hands[2],
+            West = hands[3]
         };
     }
+
 
     public override string ToString()
     {

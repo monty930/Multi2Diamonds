@@ -174,6 +174,47 @@ export const getLinFromDsi = (dsiString) => {
     return output;
 }
 
+export const getLinFromJson = (jsonDealSetString) => {
+    let dsiString = getDsiFromJson(jsonDealSetString);
+    return getLinFromDsi(dsiString);
+}
+
+export const getPbnFromJson = (jsonDealSetString) => {
+    let dsiString = getDsiFromJson(jsonDealSetString);
+    return getPbnFromDsi(dsiString);
+}
+
+export const getDsiFromJson = (jsonDealSetString) => {
+    const json = JSON.parse(jsonDealSetString);
+
+    let dsiString = `[Date "${new Date().toISOString().slice(0, 10).replace(/-/g, '.')}"]\n`;
+
+    json.deals.forEach((deal, index) => {
+        // Board and Dealer Information
+        dsiString += `\n[Board "${index + 1}"]\n`;
+        dsiString += `[Dealer "${deal.dealer[0].toUpperCase()}"]\n`;
+        dsiString += `[Vulnerable "${deal.vul}"]\n`;
+
+        // Creating the deal string
+        const dealOrder = ['North', 'East', 'South', 'West'];
+        const dealHands = dealOrder.map(pos => deal[pos.toLowerCase()]).join(" ");
+        dsiString += `[Deal "N:${dealHands}"]\n`;
+    });
+
+    // TODO (we do not store this info for now)
+    dsiString += `\nNumber of deals: ${json.deals.length}\n`;
+    dsiString += "Compiler: Chai\n";
+    dsiString += "Vulnerability: Random\n";
+    dsiString += "Dealer: South\n";
+    dsiString += "Flip: NoFlip\n";
+    dsiString += "Scoring: IMP\n";
+    dsiString += "Tries: 12\n";
+    dsiString += "No constraints applied.\n";
+
+    return dsiString;
+};
+
+
 const extractDealer = (deal) => {
     return deal.split('Dealer \"')[1].split('\"')[0];
 }

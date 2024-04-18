@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import {getLinFromDsi, getPbnFromDsi} from "./DealHelper";
+import {getLinFromJson, getPbnFromJson, getDsiFromJson} from './DealHelper';
 import "../../css/Scenarios/SaveDialogWindow.css";
 
-function SaveDialog({ isOpen, onClose, dsiString }) {
+function SaveDialog({ isOpen, onClose, jsonDealSetString }) {
     const [filename, setFilename] = useState('');
     const [fileType, setFileType] = useState('dsi-chosen');
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async () => {
         setIsLoading(true);
-        let contentToSave = dsiString;
+        let contentToSave;
 
         if (fileType === "lin-chosen") {
-            contentToSave = getLinFromDsi(dsiString); // Implement this function based on your conversion logic
+            contentToSave = getLinFromJson(jsonDealSetString);
         } else if (fileType === "pbn-chosen") {
-            contentToSave = getPbnFromDsi(dsiString); // Implement this function based on your conversion logic
+            contentToSave = getPbnFromJson(jsonDealSetString);
+        } else {
+            contentToSave = getDsiFromJson(jsonDealSetString);
         }
 
         const blob = new Blob([contentToSave], { type: 'text/plain' });
