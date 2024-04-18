@@ -21,7 +21,6 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/GenerateDeals")]
     public async Task<IActionResult> GenerateDeals([FromBody] SettingsArgs compilerSettings)
     {
-        Console.WriteLine("GenerateDeals here!!!");
         var model = await _scenariosManager.GenerateDeals(new ScenariosModel
             { CompilerRunner = new CompilerRunner(compilerSettings) });
         return Json(model);
@@ -32,9 +31,8 @@ public partial class ScenariosController : Controller
     public async Task<IActionResult> GetDealSetDetails([FromQuery] string dealSetId)
     {
         var id = int.Parse(dealSetId);
-        var dealSetRaw = _dealSetRepository.GetDealSetRaw(id);
         var dealSet = _dealSetRepository.GetDealSetDetails(id);
-        if (dealSetRaw == null) return NotFound();
-        return Ok(new { dealSet = dealSet, dealSetRaw = dealSetRaw });
+        if (dealSet == null) return NotFound();
+        return Ok(new { dealSet = dealSet });
     }
 }
