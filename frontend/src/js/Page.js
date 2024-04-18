@@ -9,17 +9,16 @@ import {useAuth} from "./AuthContext";
 import axios from "axios";
 
 function Header() {
-    const { logout } = useAuth(); // Access the logout function from AuthContext
+    const { logout } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:5015/Account/Logout'); // Send logout request to backend
-            logout(); // Call the logout function from AuthContext
-            navigate('/login'); // Redirect to the login page after logout
+            await axios.post('http://localhost:5015/Account/Logout');
+            logout();
+            navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);
-            // Handle logout error if needed
         }
     };
 
@@ -48,7 +47,6 @@ function Footer() {
 }
 
 function Page() {
-    // isAuthenticated should be taken from the AuthContext
     const { isAuthenticated } = useAuth();
 
     return (

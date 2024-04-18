@@ -25,18 +25,6 @@ public partial class ScenariosController : Controller
             { CompilerRunner = new CompilerRunner(compilerSettings) });
         return Json(new { scriptRawOutput = model.ScriptOutputRaw, correctDeal = model.IsCorrectDeal });
     }
-    
-
-    // [EnableCors]
-    // [HttpGet]
-    // public Task<IActionResult> DefaultPage()
-    // {
-    //     var model = new IndexViewModel
-    //     {
-    //         RightDisplay = RightViewDisplay.Entry
-    //     };
-    //     return Task.FromResult<IActionResult>(PartialView("RightSideView", model));
-    // }
 
     // [EnableCors]
     // [HttpGet]
@@ -111,15 +99,4 @@ public partial class ScenariosController : Controller
 
         return Json(new { success = true, message = "Item added successfully", id });
     }
-
-    // [EnableCors]
-    // [HttpGet]
-    // public Task<IActionResult> DealSetGetView()
-    // {
-    //     var model = new IndexViewModel
-    //     {
-    //         RightDisplay = RightViewDisplay.DealSet
-    //     };
-    //     return Task.FromResult<IActionResult>(PartialView("RightSideView", model));
-    // }
 }

@@ -20,7 +20,7 @@ public class UserRepository
         _context.SaveChanges();
     }
 
-    public User? GetByName(string name)
+    public User? GetUserByUsername(string name)
     {
         return _context.Users.FirstOrDefault(u => u.Username == name);
     }
@@ -40,42 +40,25 @@ public class UserRepository
     {
         return _context.Users.Any(u => u.Username == username);
     }
+    
+    public void RemoveSavedScenarioOfUsername(string username, int scenarioId)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null) return;
+        
+        var savedScenario = _context.Scenarios.FirstOrDefault(s => s.ScenarioId == scenarioId);
+        if (savedScenario == null) return;
+        _context.Scenarios.Remove(savedScenario);
+        _context.SaveChanges();
+    }
 
-    // public int AddSavedContent(UsersSavedContent savedContent)
-    // {
-    //     _context.SavedContents.Add(savedContent);
-    //     _context.SaveChanges();
-    //     return savedContent.SavedContentId;
-    // }
-    //
-    // public void UpdateSavedContent(UsersSavedContent savedContent)
-    // {
-    //     var existingEntity = _context.SavedContents.Find(savedContent.SavedContentId);
-    //     if (existingEntity != null)
-    //     {
-    //         _context.Entry(existingEntity).CurrentValues.SetValues(savedContent);
-    //     }
-    //     else
-    //     {
-    //         _context.SavedContents.Update(savedContent);
-    //     }
-    //
-    //     _context.SaveChanges();
-    // }
-    //
-    // public void RemoveSavedContent(UsersSavedContent savedContent)
-    // {
-    //     _context.SavedContents.Remove(savedContent);
-    //     _context.SaveChanges();
-    // }
-    //
-    // public List<UsersSavedContent> GetSavedContents(User user)
-    // {
-    //     return _context.SavedContents.Where(d => d.User.UserId == user.UserId).ToList();
-    // }
-    //
-    // public UsersSavedContent? GetSavedContentById(int id)
-    // {
-    //     return _context.SavedContents.FirstOrDefault(d => d.SavedContentId == id);
-    // }
+    public (List<Scenario>, List<DealSet>)? GetSavedContents(string username)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null) return null;
+        
+        var scenarios =  _context.Scenarios.Where(s => s.UserId == user.UserId).ToList();
+        var dealsets = _context.DealSets.Where(d => d.UserId == user.UserId).ToList();
+        return (scenarios, dealsets);
+    }
 }

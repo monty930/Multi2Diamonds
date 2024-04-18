@@ -1,0 +1,172 @@
+:root {
+    --box-height: calc(6 * var(--hunit));
+    --box-border-radius: calc(2 * var(--hunit));
+
+    --saved-item-hover: #737373;
+    --saved-item-active: #616161;
+    --saved-item-button: var(--table-border-color);
+}
+
+.profile-view-container {
+    height: calc(
+            100vh - var(--header-height) - var(--footer-height));
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    flex-direction: row;
+}
+
+.left-border {
+    height: 100%;
+    width: 8px;
+    background: linear-gradient(90deg,
+    rgba(94, 94, 94, 1) 0%,
+    rgba(105, 105, 105, 1) 48%,
+    rgba(105, 105, 105, 1) 100%);
+}
+
+.right-border {
+    height: 100%;
+    width: 8px;
+    background: linear-gradient(90deg,
+    rgba(105, 105, 105, 1) 0%,
+    rgba(105, 105, 105, 1) 52%,
+    rgba(94, 94, 94) 100%);
+}
+
+.profile-view {
+    height: 100%;
+    width: 80vh;
+    padding: var(--hunit);
+    background-color: var(--profile-background-color);
+    padding-top: calc(5 * var(--hunit));
+    color: var(--main-font-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: none;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.saved-content-outer-container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: var(--box-height) auto;
+}
+
+.saved-content-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--hunit);
+}
+
+.profile-saved-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    width: 100%;
+    height: 100%;
+    gap: var(--hunit);
+}
+
+.saved-tab-button {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--main-font-color);
+    background-color: var(--main-background-color);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.saved-tab-button:hover {
+    border: 2px solid var(--saved-item-button);
+}
+
+.saved-tab-button.active {
+    border: 2px solid var(--saved-item-button);
+}
+
+.button-active-tab {
+    border: 2px solid var(--saved-item-button);
+}
+
+.saved-dynamic {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.saved-item {
+    padding: var(--hunit) 0;
+    display: grid;
+    grid-template-columns: calc(100% - var(--box-height) - calc(0.7 * var(--hunit))) var(--box-height);
+    gap: calc(0.7 * var(--hunit));
+    grid-template-rows: calc(var(--box-height));
+}
+
+.saved-item-button {
+    background-color: var(--saved-item-button);
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: var(--box-border-radius) 0 0 var(--box-border-radius);
+    text-align: left;
+    padding-left: calc(3 * var(--box-height) / 8);
+    display: flex;
+    align-items: center;
+    color: var(--main-font-color);
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 var(--hunit) var(--main-background-color);
+}
+
+.saved-item-button:hover {
+    background-color: var(--saved-item-hover);
+}
+
+.saved-item-button:active {
+    background-color: var(--saved-item-active);
+    transform: translateY(1px);
+    box-shadow: 0 calc(0.9 * var(--hunit)) var(--main-background-color);
+}
+
+/* ----------------- trash button ----------------- */
+
+.saved-item-delete-button {
+    height: 100%;
+    width: 100%;
+    border: var(--generate-button-border);
+    background-color: var(--red-button-color);
+    box-shadow: 0 var(--hunit) var(--red-shadow);
+    border-radius: 0 var(--box-border-radius) var(--box-border-radius) 0;
+}
+
+.saved-item-delete-button:hover {
+    background-color: var(--red-hover);
+    cursor: pointer;
+}
+
+.saved-item-delete-button:active {
+    background-color: var(--red-active);
+    transform: translateY(1px);
+    box-shadow: 0 calc(0.9 * var(--hunit)) var(--red-shadow);
+}
+
+.save-item-trash-img {
+    height: calc(0.7 * var(--box-height));
+    padding-bottom: calc(0.05 * var(--box-height));
+}

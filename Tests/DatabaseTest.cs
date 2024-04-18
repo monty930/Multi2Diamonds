@@ -68,7 +68,7 @@ public class DatabaseTest
     {
         var userRepo = new UserRepository();
 
-        var testuser = userRepo.GetByName("test");
+        var testuser = userRepo.GetUserByUsername("test");
         if (testuser is null)
             return;
 
