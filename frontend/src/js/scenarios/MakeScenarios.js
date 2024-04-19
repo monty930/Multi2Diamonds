@@ -48,7 +48,7 @@ function MakeScenarios() {
                 </div>
             </div>
             <div className="ScenarioContentTextAreaContainer">
-                <div class="ScenarioContentTextAreaPadding">
+                <div className="ScenarioContentTextAreaPadding">
                 <textarea value={scenarioContent}
                           spellCheck={false}
                           wrap={"off"}

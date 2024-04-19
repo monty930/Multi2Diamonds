@@ -1,47 +1,89 @@
-.SettingsContainer {
-    background-color: greenyellow;
-    height: 100%;
+:root {
+    --settings-box-height: calc(5 * var(--hunit));
+    --settings-font-size: calc(2.5 * var(--hunit));
 }
 
 .SettingsPadding {
+    background-color: blue;
+    height: calc(100% - 2 * var(--main-padding));
     padding-top: var(--main-padding);
     padding-bottom: var(--main-padding);
+    margin: 0;
 }
 
-/*.one-setting {*/
-/*    display: grid;*/
-/*    grid-template-columns: 1fr 1fr;*/
-/*    grid-template-rows: auto;*/
-/*    height: calc(4 * var(--select-box-height) / 3);*/
-/*    font-size: var(--code-font-size);*/
-/*}*/
+.SettingsContainer {
+    background-color: cornflowerblue;
+    height: calc(100% - 2 * var(--main-padding));
+    margin: 0;
+}
+
+.SettingsChoice {
+    height: 100%;
+    background-color: deepskyblue;
+    padding-right: var(--hunit);
+}
+
+.OneSettingRow {
+    background-color: darkorchid;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    height: var(--settings-box-height);
+    font-size: var(--settings-font-size);
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.SettingsTitle {
+    overflow: hidden;
+    white-space: nowrap;
+}
 
 /*.last-one-setting {*/
-/*    padding-bottom: var(--select-box-height);*/
+/*    padding-bottom: var(--select---settings-box-heightight);*/
 /*}*/
 
 /*.input-number,*/
 /*.settings-select {*/
 /*    background-color: var(--main-background-color);*/
-/*    border-radius: calc(var(--select-box-height) / 10);*/
-/*    padding: calc(var(--select-box-height) / 5);*/
+/*    border-radius: calc(var(--select---settings-box-heightight) / 10);*/
+/*    padding: calc(var(--select---settings-box-heightight) / 5);*/
 /*    border: none;*/
 /*    width: 100%;*/
 /*    box-sizing: border-box;*/
-/*    font-size: calc(2 * var(--select-box-height) / 5);*/
+/*    font-size: calc(2 * var(--select---settings-box-heightight) / 5);*/
 /*    color: var(--main-font-color);*/
-/*    height: var(--select-box-height);*/
+/*    height: var(--select---settings-box-heightight);*/
 /*    display: inline-block;*/
 /*}*/
 
-/*.settings-select {*/
-/*    appearance: none;*/
-/*    -webkit-appearance: none;*/
-/*    -moz-appearance: none;*/
-/*}*/
+.InputNumberSetting, .SettingsSelect {
+    background-color: var(--main-background-color);
+    /*border-radius: calc(var(--select---settings-box-heightight) / 10);*/
+    /*padding: calc(var(--select---settings-box-heightight) / 5);*/
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    /*font-size: calc(2 * var(--select---settings-box-heightight) / 5);*/
+    color: var(--main-font-color);
+    /*height: var(--select---settings-box-heightight);*/
+    height: 100%;
+    display: inline-block;
+    font-size: var(--settings-font-size);
+    border-radius: var(--hunit);
+    padding-left: var(--hunit);
+}
+
+.SettingsSelect {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
 
 /*.input-number {*/
-/*    border-radius: calc(var(--select-box-height) / 10) 0 0 calc(var(--select-box-height) / 10);*/
+/*    border-radius: calc(var(--select---settings-box-heightight) / 10) 0 0 calc(var(--select---settings-box-heightight) / 10);*/
 /*    -moz-appearance: textfield;*/
 /*}*/
 
@@ -72,74 +114,86 @@
 /*    color: var(--main-font-color);*/
 /*    border: none;*/
 /*    cursor: pointer;*/
-/*    height: calc(var(--select-box-height) / 2);*/
+/*    height: calc(var(--select---settings-box-heightight) / 2);*/
 /*    display: flex;*/
 /*    padding: 0;*/
-/*    width: calc(var(--select-box-height) / 2);*/
+/*    width: calc(var(--select---settings-box-heightight) / 2);*/
 /*}*/
 
 /*.settings-break {*/
-/*    height: calc(var(--select-box-height) / 2);*/
+/*    height: calc(var(--select---settings-box-heightight) / 2);*/
 /*}*/
+
+.SettingsBreak {
+    height: var(--main-padding);
+    background-color: yellow;
+}
 
 /*!* -- decreasing and increasing the number input -- *!*/
 
 /*.input-number-arrows {*/
 /*    display: grid;*/
 /*    grid-template-rows: 1fr 1fr;*/
-/*    height: var(--select-box-height);*/
+/*    height: var(--select---settings-box-heightight);*/
 /*    padding: 0;*/
 /*}*/
 
 /*.input-arrow-up-img, .input-arrow-down-img {*/
-/*    height: calc(1.5 * var(--select-box-height) / 10);*/
+/*    height: calc(1.5 * var(--select---settings-box-heightight) / 10);*/
 /*}*/
 
 /*.up-button-container, .down-button-container {*/
 /*    display: flex;*/
 /*    align-items: center;*/
-/*    height: calc(var(--select-box-height) / 2);*/
-/*    width: calc(3 * var(--select-box-height) / 8);*/
+/*    height: calc(var(--select---settings-box-heightight) / 2);*/
+/*    width: calc(3 * var(--select---settings-box-heightight) / 8);*/
 /*    overflow: hidden;*/
 /*    padding: 0;*/
 /*    margin: 0;*/
 /*}*/
 
 /*.up-button-container {*/
-/*    padding: calc(var(--select-box-height) / 20) 0 0 0;*/
+/*    padding: calc(var(--select---settings-box-heightight) / 20) 0 0 0;*/
 /*}*/
 
 /*.down-button-container {*/
-/*    padding: 0 0 calc(var(--select-box-height) / 20) 0;*/
+/*    padding: 0 0 calc(var(--select---settings-box-heightight) / 20) 0;*/
 /*}*/
 
 /*.number-spinner-decrement {*/
-/*    border-radius: 0 0 calc(var(--select-box-height) / 10) 0;*/
+/*    border-radius: 0 0 calc(var(--select---settings-box-heightight) / 10) 0;*/
 /*}*/
 
 /*.number-spinner-increment {*/
-/*    border-radius: 0 calc(var(--select-box-height) / 10) 0 0;*/
+/*    border-radius: 0 calc(var(--select---settings-box-heightight) / 10) 0 0;*/
 /*}*/
 
-/*!* ---- select drop-down list custom arrow ---- *!*/
+/* ---- select drop-down list custom arrow ---- */
 
-/*.custom-select-container {*/
-/*    position: relative;*/
-/*}*/
+.CustomSelectContainer {
+    position: relative;
+    height: 100%;
+    background-color: coral;
+    border-radius: var(--hunit);
+}
 
-/*.custom-select-arrow {*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    right: 0;*/
-/*    pointer-events: none;*/
-/*    padding: 0 0 calc(var(--select-box-height) / 20) 0;*/
-/*    width: calc(var(--select-box-height) / 2);*/
-/*    height: var(--select-box-height);*/
-/*    justify-content: left;*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*}*/
+.CustomSelectArrow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    width: calc(2 * var(--wunit));
+    height: var(--settings-box-height);
+    justify-content: left;
+    display: flex;
+    align-items: center;
+    -moz-border-radius-bottomright: var(--hunit);
+    -webkit-border-bottom-right-radius: var(--hunit);
+    -moz-border-radius-topright: var(--hunit);
+    -webkit-border-top-right-radius: var(--hunit);
+    padding-right: var(--hunit);
+}
 
-/*.custom-select-arrow img {*/
-/*    height: calc(1.5 * var(--select-box-height) / 10);*/
-/*}*/
+.CustomSelectArrow img {
+    width: calc(2 * var(--wunit));
+}
