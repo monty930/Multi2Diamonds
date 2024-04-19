@@ -2,6 +2,25 @@
     --divider-width: 8px;
 }
 
+.ScenariosLeftOuterContainer {
+    height: calc(100% - 1.5 * var(--main-padding));
+    display: flex;
+    flex-direction: column;
+    padding-left: var(--main-padding-w);
+    padding-right: var(--main-padding-w);
+    padding-top: calc(0.5 * var(--main-padding));
+}
+
+.LeftSideTitleContainer {
+    padding-bottom: calc(0.5 * var(--hunit));
+    padding-top: calc(0.5 * var(--hunit));
+}
+
+.LeftSideTitle {
+    font-size: calc(4 * var(--hunit));
+    font-weight: 500;
+}
+
 .ScenariosPage {
     display: grid;
     grid-template-columns: 1fr var(--divider-width) 1fr;
@@ -31,4 +50,11 @@
     height: 100%;
     width: 50vh;
     overflow: auto;
+}
+
+.ToggleScenariosViewButtonContainer {
+    height: calc(6 * var(--hunit));
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }

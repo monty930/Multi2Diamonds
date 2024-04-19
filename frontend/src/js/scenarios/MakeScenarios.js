@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../css/Scenarios.css';
+import '../../css/Scenarios/MakeScenarios.css';
 
 function MakeScenarios() {
     const [scenarioContent, setScenarioContent] = useState('');
@@ -26,19 +28,47 @@ function MakeScenarios() {
     };
 
     return (
-        <div>
-            <div>MAKE SCENARIOS</div>
-            <div>
-                title:<br/>
-                <textarea value={scenarioName} onChange={(e) => setScenarioName(e.target.value)} />
+        <div className="ScenariosLeftOuterContainer">
+            <div className="LeftSideTitleContainer">
+                <span className="LeftSideTitle">Enter constraints:</span>
             </div>
-            <div>
-                scenario centent:<br/>
-                <textarea value={scenarioContent} onChange={(e) => setScenarioContent(e.target.value)} />
+            <div className="ScenarioSavingFieldContainer">
+                <button 
+                    className={"AnyButton SaveConstraintButton"}
+                    onClick={handleSave}>
+                    Save
+                </button>
+                <div className="ScenarioNameLabelContainer">
+                <textarea value={scenarioName} 
+                          spellCheck={false}
+                          wrap={"off"}
+                          placeholder={"Scenario Name"}
+                          className="ScenarioNameTextArea"
+                          onChange={(e) => setScenarioName(e.target.value)} />
+                </div>
             </div>
-            <button onClick={handleSave}>Save</button>
-            <div>{/* Reserved for eventual log messages */}</div>
-            <button onClick={() => navigate('/scenarios/use')}>Go to Use Scenarios</button>
+            <div className="ScenarioContentTextAreaContainer">
+                <div class="ScenarioContentTextAreaPadding">
+                <textarea value={scenarioContent}
+                          spellCheck={false}
+                          wrap={"off"}
+                          placeholder={"Enter your constraints!"}
+                          className="ScenarioContentTextArea"
+                          onChange={(e) => setScenarioContent(e.target.value)} />
+                </div>
+            </div>
+            <div className="LogContainer">
+                <span id="ConstrainrSavingLogMessage">
+                    {/* Reserved for log messages */}
+                </span>
+            </div>
+            <div className="ToggleScenariosViewButtonContainer">
+                <button 
+                    className={"AnyButton ToggleScenariosViewButton GoToUseButton"}
+                    onClick={() => navigate('/scenarios/use')}>
+                    Go to Use Scenarios
+                </button>
+            </div>
         </div>
     );
 }

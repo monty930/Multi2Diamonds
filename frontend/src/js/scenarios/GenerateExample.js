@@ -4,28 +4,6 @@ function GenerateExample() {
     const [example, setExample] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    // useEffect(() => {
-    //     const checkForExample = () => {
-    //         const storedExample = sessionStorage.getItem('generatedExample');
-    //         if (storedExample) {
-    //             setExample(JSON.parse(storedExample));
-    //         }
-    //     };
-    //
-    //     checkForExample();
-    //
-    //     // Event listener to clear sessionStorage when the page is fully reloaded
-    //     const handleBeforeUnload = (e) => {
-    //         sessionStorage.removeItem('generatedExample'); // Data is cleared on full page reload
-    //     };
-    //
-    //     window.addEventListener('beforeunload', handleBeforeUnload);
-    //
-    //     return () => {
-    //         window.removeEventListener('beforeunload', handleBeforeUnload);
-    //     };
-    // }, []);
-
     const generateExample = async () => {
         setIsLoading(true);
         try {
@@ -44,7 +22,6 @@ function GenerateExample() {
             const data = await response.json();
             console.log(data);
             setExample(data.dealSet);
-            // sessionStorage.setItem('generatedExample', JSON.stringify(data)); // Temporarily store the example
         } catch (error) {
             console.error('Failed to fetch:', error);
         } finally {

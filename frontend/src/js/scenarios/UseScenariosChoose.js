@@ -1,15 +1,18 @@
 import React from 'react';
 import { useScenario } from './CompilerSettings';
 import { useNavigate } from 'react-router-dom';
+import '../../css/Scenarios/UseScenariosChoose.css';
 
 function UseScenariosChoose() {
     const { setVul, setDealer, setNumberOfDeals } = useScenario();
     const navigate = useNavigate();
 
     return (
-        <div>
-            USE SCENARIOS
-            <div>
+        <div className={"ScenariosLeftOuterContainer"}>
+            <div className="LeftSideTitleContainer">
+                <span className="LeftSideTitle">Choose scenarios for a deal set:</span>
+            </div>
+            <div className={"SettingsContainer"}>
                 <div>vul: </div>
                 <select onChange={(e) => setVul(e.target.value)} defaultValue="Random">
                     <option value="Random">Random</option>
@@ -31,8 +34,12 @@ function UseScenariosChoose() {
                 <div>numberOfDeals: </div>
                 <input type="number" defaultValue={12} min={1} onChange={(e) => setNumberOfDeals(parseInt(e.target.value, 10) || 1)} />
             </div>
-            <div>
-                <button onClick={() => navigate('/scenarios/make')}>Go to Make Scenarios</button>
+            <div className="ToggleScenariosViewButtonContainer">
+                <button
+                    className={"AnyButton ToggleScenariosViewButton GoToMakeButton"}
+                    onClick={() => navigate('/scenarios/make')}>
+                    Go to Make Scenarios
+                </button>
             </div>
         </div>
     );

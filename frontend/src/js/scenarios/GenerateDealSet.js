@@ -131,20 +131,39 @@ function GenerateDealSet() {
 
     return (
         <div>
-            <button onClick={generateDealSet} disabled={isLoading}>
+            <button
+                className={"AnyButton GenerateDealSetButton"}    
+                onClick={generateDealSet} disabled={isLoading}>
                 {isLoading ? 'Generating...' : 'Generate'}
             </button>
             <div>
                 {checkForDeals && (
                     <div>
-                        <button onClick={clearData}>Clear</button>
-                        <button onClick={() => setIsDialogOpen(true)}>Save</button>
-                        {currentDealNo >= 1 && <button onClick={regenerate()}>Regenerate</button>}
-                        {currentDealNo > 1 && <button onClick={previousDeal}>Previous</button>}
+                        <button 
+                            className={"AnyButton ClearDealSetButton"}
+                            onClick={clearData}>Clear</button>
+                        <button
+                            className={"AnyButton SaveDealSetButton"}    
+                            onClick={() => setIsDialogOpen(true)}>Save</button>
+                        {currentDealNo >= 1 && 
+                            <button
+                                className={"AnyButton RegenerateDealButton"}    
+                                onClick={regenerate()}>Regenerate</button>}
+                        {currentDealNo > 1 && 
+                            <button
+                                className={"AnyButton PreviousDealButton"}    
+                                onClick={previousDeal}>Previous</button>}
                         {currentDealNo < numOfDeals()
-                            ? <button onClick={nextDeal}>Next</button>
-                            : <button onClick={addDeal()}>AddDeal</button>}
-                        {currentDealNo >= 1 && <button onClick={removeDeal()}>RemoveDeal</button>}
+                            ? <button
+                                className={"AnyButton NextDealButton"}
+                                onClick={nextDeal}>Next</button>
+                            : <button
+                                className={"AnyButton AddDealButton"}    
+                                onClick={addDeal()}>AddDeal</button>}
+                        {currentDealNo >= 1 && 
+                            <button
+                                className={"AnyButton RemoveDealButton"}    
+                                onClick={removeDeal()}>RemoveDeal</button>}
                         Deal num: {currentDealNo}
                         <div className="DealSetContainer">
                             <pre style={{overflow: 'auto', height: '400px'}}>{addEndls(JSON.stringify(dealSet))}</pre>
