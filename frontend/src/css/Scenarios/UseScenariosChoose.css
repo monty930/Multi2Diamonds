@@ -1,6 +1,7 @@
 :root {
     --settings-box-height: calc(5 * var(--hunit));
     --settings-font-size: calc(2.5 * var(--hunit));
+    --arrow-img-height: calc(min(7px, var(--hunit)));
 }
 
 .SettingsPadding {
@@ -15,6 +16,7 @@
     background-color: cornflowerblue;
     height: calc(100% - 2 * var(--main-padding));
     margin: 0;
+    overflow: auto;
 }
 
 .SettingsChoice {
@@ -41,73 +43,39 @@
     white-space: nowrap;
 }
 
-/*.last-one-setting {*/
-/*    padding-bottom: var(--select---settings-box-heightight);*/
-/*}*/
-
-/*.input-number,*/
-/*.settings-select {*/
-/*    background-color: var(--main-background-color);*/
-/*    border-radius: calc(var(--select---settings-box-heightight) / 10);*/
-/*    padding: calc(var(--select---settings-box-heightight) / 5);*/
-/*    border: none;*/
-/*    width: 100%;*/
-/*    box-sizing: border-box;*/
-/*    font-size: calc(2 * var(--select---settings-box-heightight) / 5);*/
-/*    color: var(--main-font-color);*/
-/*    height: var(--select---settings-box-heightight);*/
-/*    display: inline-block;*/
-/*}*/
-
 .InputNumberSetting, .SettingsSelect {
     background-color: var(--main-background-color);
-    /*border-radius: calc(var(--select---settings-box-heightight) / 10);*/
-    /*padding: calc(var(--select---settings-box-heightight) / 5);*/
     border: none;
     width: 100%;
     box-sizing: border-box;
-    /*font-size: calc(2 * var(--select---settings-box-heightight) / 5);*/
     color: var(--main-font-color);
-    /*height: var(--select---settings-box-heightight);*/
     height: 100%;
     display: inline-block;
     font-size: var(--settings-font-size);
-    border-radius: var(--hunit);
+    border-radius: 0;
+    -moz-border-radius-bottomleft: var(--hunit);
+    -webkit-border-bottom-left-radius: var(--hunit);
+    -moz-border-radius-topleft: var(--hunit);
+    -webkit-border-top-left-radius: var(--hunit);
     padding-left: var(--hunit);
 }
 
 .SettingsSelect {
+    border-radius: var(--hunit);
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
 }
 
-/*.input-number {*/
-/*    border-radius: calc(var(--select---settings-box-heightight) / 10) 0 0 calc(var(--select---settings-box-heightight) / 10);*/
-/*    -moz-appearance: textfield;*/
-/*}*/
+.InputNumberSetting {
+    -moz-appearance: textfield;
+    height: var(--settings-box-height);
+}
 
-/*.input-number:focus,*/
-/*.settings-select:focus {*/
-/*    background-color: var(--main-background-color);*/
-/*    outline: none;*/
-/*}*/
-
-/*.input-number:hover,*/
-/*.settings-select:hover {*/
-/*    background-color: var(--main-background-color);*/
-/*}*/
-
-/*.input-number::-webkit-inner-spin-button,*/
-/*.input-number::-webkit-outer-spin-button {*/
-/*    -webkit-appearance: none;*/
-/*    margin: 0;*/
-/*}*/
-
-/*.number-spinner {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*}*/
+.InputNumberSetting:focus {
+    background-color: var(--main-background-color);
+    outline: none;
+}
 
 /*.number-spinner-btn {*/
 /*    background-color: var(--main-background-color);*/
@@ -182,7 +150,6 @@
     top: 0;
     right: 0;
     pointer-events: none;
-    width: calc(2 * var(--wunit));
     height: var(--settings-box-height);
     justify-content: left;
     display: flex;
@@ -191,9 +158,56 @@
     -webkit-border-bottom-right-radius: var(--hunit);
     -moz-border-radius-topright: var(--hunit);
     -webkit-border-top-right-radius: var(--hunit);
-    padding-right: var(--hunit);
+    margin: 0;
+    padding: 0 var(--wunit) 0 0;
 }
 
 .CustomSelectArrow img {
-    width: calc(2 * var(--wunit));
+    height: var(--arrow-img-height);
+}
+
+.NumberSpinner {
+    display: flex;
+    align-items: center;
+    padding-right: var(--hunit);
+}
+
+.InputNumberArrows {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: var(--settings-box-height);
+    background-color: var(--main-background-color);
+    -moz-border-radius-topright: var(--hunit);
+    -webkit-border-top-right-radius: var(--hunit);
+    -moz-border-radius-bottomright: var(--hunit);
+    -webkit-border-bottom-right-radius: var(--hunit);
+    padding: 0 var(--wunit) 0 0;
+}
+
+.NumberSpinnerButton {
+    height: calc(var(--settings-box-height) / 2);
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NumberSpinnerButton img {
+    height: var(--arrow-img-height);
+    margin: 0;
+    padding: 0;
+}
+
+.ConstraintSelect {
+    padding: 0;
+    background-color: #9a0000;
+}
+
+.AddConstraintButton {
+    border: none;
+    /*--button-shadow: none;*/
 }
