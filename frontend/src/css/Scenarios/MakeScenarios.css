@@ -1,5 +1,16 @@
+:root {
+    --saving-field-height: calc(4 * var(--hunit));
+    --log-space-height: calc(6 * var(--hunit));
+    --code-container-height: calc(100% - 
+            var(--saving-field-height) - 
+            var(--left-title-height) - 
+            var(--toggle-button-container-height) - 
+            var(--log-space-height) -
+            2 * var(--main-padding));
+}
+
 .ScenarioSavingFieldContainer {
-    height: calc(4 * var(--hunit));
+    height: var(--saving-field-height);
     justify-content: end;
     display: flex;
     flex-direction: row;
@@ -29,8 +40,7 @@
 }
 
 .ScenarioContentTextAreaContainer {
-    background-color: #9a0000;
-    height: 100%;
+    height: var(--code-container-height);
     display: flex;
     margin: 0;
 }
@@ -62,7 +72,7 @@
 }
 
 .LogContainer {
-    height: calc(6 * var(--hunit));
+    height: var(--log-space-height);
     padding: 0;
     margin: 0;
     display: flex;
@@ -82,4 +92,5 @@
     -webkit-border-top-right-radius: 0;
     padding: 0 10px;
     width: auto;
+    margin: 0;
 }

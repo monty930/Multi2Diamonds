@@ -4,9 +4,13 @@ import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
 import Scenarios from "./scenarios/Scenarios";
 import SavedItemsPage from "./SavedItemsPage";
-import "../css/Page.css";
 import {useAuth} from "./AuthContext";
 import axios from "axios";
+
+import "../css/Page.css";
+import '../css/Scenarios.css';
+import '../css/Scenarios/MakeScenarios.css';
+import '../css/Scenarios/UseScenariosChoose.css';
 
 function Header() {
     const { logout } = useAuth();

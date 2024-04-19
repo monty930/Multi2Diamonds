@@ -1,23 +1,33 @@
 :root {
     --divider-width: 8px;
+    --left-title-height: calc(6 * var(--hunit));
+    --toggle-button-container-height: calc(6 * var(--hunit));
 }
 
 .ScenariosLeftOuterContainer {
-    height: calc(100% - 1.5 * var(--main-padding));
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding-left: var(--main-padding-w);
     padding-right: var(--main-padding-w);
-    padding-top: calc(0.5 * var(--main-padding));
 }
 
 .LeftSideTitleContainer {
-    padding-bottom: calc(0.5 * var(--hunit));
-    padding-top: calc(0.5 * var(--hunit));
+    height: var(--left-title-height);
+    overflow: hidden;
+}
+
+.LeftSideTitleInnerContainer {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .LeftSideTitle {
-    font-size: calc(4 * var(--hunit));
+    font-size: calc(min(3 * var(--hunit), 3 * var(--wunit)));
     font-weight: 500;
 }
 
@@ -53,8 +63,10 @@
 }
 
 .ToggleScenariosViewButtonContainer {
-    height: calc(6 * var(--hunit));
+    height: var(--toggle-button-container-height);
     width: 100%;
     padding: 0;
     margin: 0;
 }
+
+

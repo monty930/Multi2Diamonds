@@ -2,10 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import MakeScenarios from './MakeScenarios';
 import GenerateExample from './GenerateExample';
-import GenerateDealSet from './GenerateDealSet';
 import UseScenarios from './UseScenarios';
-import '../../css/Scenarios.css';
-import UseScenariosChoose from "./UseScenariosChoose";
 
 function Scenarios() {
     const [dealSettings, setDealSettings] = useState({

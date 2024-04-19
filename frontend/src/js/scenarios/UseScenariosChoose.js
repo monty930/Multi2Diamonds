@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { useScenario } from './CompilerSettings';
 import { useNavigate } from 'react-router-dom';
-import '../../css/Scenarios/UseScenariosChoose.css';
 import arrowDown from '../../assets/arrow-down.png';
 import arrowUp from '../../assets/arrow-up.png';
+import trashImg from '../../assets/trash.png';
 
 function UseScenariosChoose() {
     const { setVul, setDealer, setNumberOfDeals } = useScenario();
     const navigate = useNavigate();
-    const [constraints, setConstraints] = useState([]);
+    const [constraints, setConstraints] = useState([
+        { id: 0, value: "Random" }
+    ]);
+
+    const lastId = useRef(0);
 
     const addConstraintForDealSet = () => {
+        console.log("Adding constraint for deal set");
+        lastId.current += 1;
         setConstraints(prev => [
             ...prev,
             {
-                id: prev.length,
-                value: "Random"
+                id: lastId.current,
+                value: ""
             }
         ]);
     }
@@ -24,13 +30,23 @@ function UseScenariosChoose() {
         setConstraints(prev => prev.map(c => c.id === id ? { ...c, value: value } : c));
     }
 
+    const deleteConstraint = (id) => {
+        setConstraints(prevConstraints => prevConstraints.filter(constraint => constraint.id !== id));
+    }
+
     return (
         <div className={"ScenariosLeftOuterContainer"}>
+            <div className={"SettingsTop"}>
             <div className="LeftSideTitleContainer">
-                <span className="LeftSideTitle">Choose scenarios for a deal set:</span>
+                <div className={"LeftSideTitleInnerContainer"}>
+                    <span className="LeftSideTitle">Choose scenarios for a deal set:</span>
+                </div>
             </div>
             <div className="SettingsPadding">
-                <div className={"SettingsContainer"}>
+                <div className={"SettingsContainerTop"}>
+                    <div className={"SettingsBreak"}></div>
+                    {constraints.map((constraint, index) => (
+                        <React.Fragment key={constraint.id}>
                     <div className={"OneSettingRow"}>
                         <div className={"SettingsChoice ConstraintSelect"}>
                             <div className={"CustomSelectContainer"}>
@@ -51,8 +67,29 @@ function UseScenariosChoose() {
                                 </div>
                             </div>
                         </div>
+                        <div className={"ConstraintChoiceOptions"}>
+                            <div className={"DeleteConstraintFromDealSet"}>
+                                <button className={"RedButton DeleteConstraintButton"}
+                                        onClick={() => deleteConstraint(constraint.id)}>
+                                    <img src={trashImg} alt={"delete"} />
+                                </button>
+                            </div>
+                            <div className={"ConstraintPercentage"}>
+                                <textarea
+                                    className={"ConstraintPercentageInput"}
+                                    placeholder={"0"}
+                                    spellCheck={"false"}
+                                    value={index === constraints.length - 1 ? "100" : constraint.value}
+                                    readOnly={index === constraints.length - 1}
+                                    onChange={(e) => handleConstraintChange(constraint.id, e.target.value)}
+                                />
+                                <span className={"PercentageChar"}>%</span>
+                            </div>
+                        </div>
                     </div>
-                    <div className={"SettingsBreak"}></div>
+                            <div className={"SettingsBreak"}></div>
+                        </React.Fragment>
+                    ))}
                     <div className={"OneSettingRow"}>
                         <div className={"AddConstraintRow"}>
                             <button
@@ -64,11 +101,16 @@ function UseScenariosChoose() {
                     </div>
                 </div>
             </div>
+            </div>
+            <div className={"SettingsBottom"}>
             <div className="LeftSideTitleContainer">
-                <span className="LeftSideTitle">Deal set setting:</span>
+                <div className={"LeftSideTitleInnerContainer"}>
+                    <span className="LeftSideTitle">Deal set setting:</span>
+                </div>
             </div>
             <div className="SettingsPadding">
-                <div className={"SettingsContainer"}>
+                <div className={"SettingsContainerBottom"}>
+                    <div className={"SettingsBreak"}></div>
                     <div className={"OneSettingRow"}>
                         <div className="SettingsTitle">
                             Vulnerability:
@@ -154,6 +196,7 @@ function UseScenariosChoose() {
                         Go to Make Scenarios
                     </button>
                 </div>
+            </div>
             </div>
         </div>
         

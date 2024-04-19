@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../css/Scenarios.css';
-import '../../css/Scenarios/MakeScenarios.css';
 
 function MakeScenarios() {
     const [scenarioContent, setScenarioContent] = useState('');
@@ -30,7 +28,9 @@ function MakeScenarios() {
     return (
         <div className="ScenariosLeftOuterContainer">
             <div className="LeftSideTitleContainer">
-                <span className="LeftSideTitle">Enter constraints:</span>
+                <div className={"LeftSideTitleInnerContainer"}>
+                    <span className="LeftSideTitle">Enter constraints:</span>
+                </div>
             </div>
             <div className="ScenarioSavingFieldContainer">
                 <button 

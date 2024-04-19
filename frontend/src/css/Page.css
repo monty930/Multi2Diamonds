@@ -138,3 +138,23 @@
     transform: translateY(3px);
     box-shadow: 0 2px var(--button-shadow);
 }
+
+.RedButton {
+    height: 100%;
+    width: 100%;
+    border: var(--generate-button-border);
+    background-color: var(--red-button-color);
+    box-shadow: 0 var(--hunit) var(--red-shadow);
+    border-radius: 0 var(--box-border-radius) var(--box-border-radius) 0;
+}
+
+.RedButton:hover {
+    background-color: var(--red-hover);
+    cursor: pointer;
+}
+
+.RedButton:active {
+    background-color: var(--red-active);
+    transform: translateY(1px);
+    box-shadow: 0 calc(0.9 * var(--hunit)) var(--red-shadow);
+}
