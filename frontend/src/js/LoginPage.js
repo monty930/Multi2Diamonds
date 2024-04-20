@@ -123,7 +123,7 @@ function LoginPage() {
                                     required
                                 />
                             </div>
-                            <div className={"LoginFormBreak"}></div>
+                            <div className={"LoginFormBreak"}></div><div className={"LoginFormBreak"}></div>
                             <div className={"LoginFormBreak"}></div>
                             <button type="submit" className=" AnyButton LogSignButton LoginButton">Log in</button>
                             <div className={"LoginFormBreak"}></div>
@@ -165,7 +165,7 @@ function LoginPage() {
                                 <input
                                     type="text"
                                     id="email"
-                                    className="LoginInput"
+                                    className="LoginInput SignUpText"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
@@ -177,7 +177,7 @@ function LoginPage() {
                                 <input
                                     type="text"
                                     id="username"
-                                    className="LoginInput"
+                                    className="LoginInput SignUpText"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     required
@@ -189,7 +189,7 @@ function LoginPage() {
                                 <input
                                     type="password"
                                     id="password"
-                                    className="LoginInput"
+                                    className="LoginInput SignUpText"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required

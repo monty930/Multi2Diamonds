@@ -131,7 +131,6 @@
 }
 
 .SignUpFormContent {
-    background-color: rgba(25, 225, 125, 0.1);
     height: 100%;
     width: var(--login-form-width);
     position: absolute;
@@ -177,4 +176,9 @@
 
 .OrSpan {
     padding-top: calc(0.3 * var(--login-form-font-size));
+}
+
+.SignUpText {
+    border: 1px solid var(--profile-background-color);
+    background-color: var(--profile-background-color);
 }
