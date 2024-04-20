@@ -101,8 +101,14 @@
     display: flex;
     align-items: center;
     padding-left: var(--main-padding-w);
-    font-size: calc(4 * var(--hunit));
+    font-size: calc(4.5 * var(--hunit));
     font-weight: 500;
+}
+
+.PageTitleLink img {
+    height: calc(3.5 * var(--hunit));
+    margin-right: calc(0.5 * var(--wunit));
+    padding-left: calc(1.5 * var(--hunit));
 }
 
 .LinkNoDecor {
@@ -157,4 +163,15 @@
     background-color: var(--red-active);
     transform: translateY(1px);
     box-shadow: 0 calc(0.9 * var(--hunit)) var(--red-shadow);
+}
+
+.HeaderTab img {
+    height: calc(4.5 * var(--hunit));
+    margin-right: calc(0.5 * var(--wunit));
+}
+
+.LogOutButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }

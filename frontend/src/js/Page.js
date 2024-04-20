@@ -13,6 +13,11 @@ import '../css/Scenarios.css';
 import '../css/Scenarios/MakeScenarios.css';
 import '../css/Scenarios/UseScenariosChoose.css';
 
+import PageLogo from "../assets/2diams.png";
+import SavedItemsImg from "../assets/folder3.png";
+import LogOutImg from "../assets/logout.png";
+import ProfileImg from "../assets/profile.png";
+
 function Header() {
     const { logout } = useAuth();
     const navigate = useNavigate();
@@ -30,17 +35,26 @@ function Header() {
     return (
         <div className="HeaderContent">
             <div className="PageTitle">
-                <Link to="/" className="LinkNoDecor">Page title</Link>
+                <Link to="/" className="LinkNoDecor PageTitleLink">
+                    Multi
+                    <img src={PageLogo} alt="2diams logo" className="PageLogo" />
+                </Link>
             </div>
             <div className="HeaderNav">
                 <div className="HeaderNavItem">
-                    <Link to="/saved" className="LinkNoDecor">Saved items</Link>
+                    <Link to="/saved" className="HeaderTab SavedItemsLink LinkNoDecor">
+                        <img src={SavedItemsImg} alt="Saved items" className="SavedItemsImg" />
+                    </Link>
                 </div>
                 <div className="HeaderNavItem">
-                    <Link to="/profile" className="LinkNoDecor">Profile</Link>
+                    <Link to="/profile" className="HeaderTab LinkNoDecor">
+                        <img src={ProfileImg} alt="Profile" className="ProfileImg" />
+                    </Link>
                 </div>
                 <div className="HeaderNavItem">
-                    <button className="LinkNoDecor" onClick={handleLogout}>Log out</button>
+                    <button className="HeaderTab LogOutButton LinkNoDecor" onClick={handleLogout}>
+                        <img src={LogOutImg} alt="Log out" className="LogOutImg" />
+                    </button>
                 </div>
             </div>
         </div>

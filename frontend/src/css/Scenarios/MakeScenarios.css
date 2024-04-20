@@ -21,6 +21,8 @@
 .ScenarioNameLabelContainer {
     background-color: var(--header-background-color);
     padding-left: calc(var(--wunit));
+    -moz-border-radius-topright: var(--hunit);
+    -webkit-border-top-right-radius: var(--hunit);
 }
 
 .ScenarioNameTextArea {
@@ -33,6 +35,8 @@
     font-size: calc(2.5 * var(--hunit));
     color: var(--main-font-color);
     margin: 0;
+    -moz-border-radius-topright: var(--hunit);
+    -webkit-border-top-right-radius: var(--hunit);
 }
 
 .ScenarioNameTextArea:focus {

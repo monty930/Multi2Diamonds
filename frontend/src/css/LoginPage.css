@@ -40,16 +40,19 @@
     line-height: var(--line-height);
 }
 
-.LogginPageTitle {
+.LogSignPageTitle {
     font-size: var(--login-title-font-size);
     font-weight: bold;
     color: var(--main-font-color);
     margin: 0;
     padding: 0;
+    text-align: center;
+    width: calc(var(--login-form-width));
+    cursor: default;
 }
 
 .LoginFormBreak {
-    height: var(--main-padding);
+    height: calc(0.8 * var(--main-padding));
 }
 
 .LoginInput {
@@ -68,7 +71,7 @@
     border: 1px solid var(--button-face-color);
 }
 
-.LoginButton {
+.LogSignButton {
     height: auto;
 }
 
@@ -127,3 +130,51 @@
     cursor: pointer;
 }
 
+.SignUpFormContent {
+    background-color: rgba(25, 225, 125, 0.1);
+    height: 100%;
+    width: var(--login-form-width);
+    position: absolute;
+    top: calc(var(--login-form-height));
+    padding-left: calc(1 * var(--main-padding));
+    padding-right: calc(1 * var(--main-padding));
+    left: 0;
+}
+
+@keyframes slideUp {
+    from {
+        top: var(--big-div-top-relative);
+    }
+    to {
+        top: calc(var(--big-div-top-relative) - 0.7 * var(--login-form-height));
+    }
+}
+
+@keyframes slideDown {
+    from {
+        top: calc(var(--big-div-top-relative) - 0.7 * var(--login-form-height));
+    }
+    to {
+        top: var(--big-div-top-relative);
+    }
+}
+
+.OrLogInDiv {
+    position: absolute;
+    top: 0;
+    width: var(--login-form-width);
+    height: calc(0.2 * var(--login-form-height));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.LogInSpan {
+    padding-left: var(--hunit);
+    font-size: calc(1.5 * var(--login-form-font-size));
+}
+
+.OrSpan {
+    padding-top: calc(0.3 * var(--login-form-font-size));
+}
