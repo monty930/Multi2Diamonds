@@ -8,6 +8,7 @@ import {useAuth} from "./AuthContext";
 import axios from "axios";
 
 import "../css/Page.css";
+import '../css/LoginPage.css';
 import '../css/Scenarios.css';
 import '../css/Scenarios/MakeScenarios.css';
 import '../css/Scenarios/UseScenariosChoose.css';
