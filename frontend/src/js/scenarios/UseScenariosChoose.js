@@ -8,7 +8,7 @@ import trashImg from '../../assets/trash.png';
 function UseScenariosChoose() {
     const { setVul, setDealer, setNumberOfDeals } = useScenario();
     const navigate = useNavigate();
-    const [constraints, setConstraints] = useState([{ id: 0, value: "" }]);
+    const [constraints, setConstraints] = useState([{ id: 0, value: "0" }]);
     const [constraintOptions, setConstraintOptions] = useState([]);
     const lastId = useRef(0);
 
@@ -30,7 +30,7 @@ function UseScenariosChoose() {
             ...prev,
             {
                 id: lastId.current,
-                value: ""
+                value: "0"
             }
         ]);
     }
@@ -113,13 +113,12 @@ function UseScenariosChoose() {
                             <div className={"ConstraintPercentage"}>
                                 <textarea
                                     className={"ConstraintPercentageInput"}
-                                    placeholder={"0"}
                                     spellCheck={"false"}
                                     value={index === constraints.length - 1 ? calculateRemainingPercentage().toString() : constraint.value}
                                     readOnly={index === constraints.length - 1}
                                     onChange={(e) => handleConstraintChange(constraint.id, e.target.value)}
                                     onBlur={(e) => handleConstraintBlur(constraint.id, e.target.value)}
-                                />
+                                >0</textarea>
                                 <span className={"PercentageChar"}>%</span>
                             </div>
                         </div>
