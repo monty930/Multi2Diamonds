@@ -116,6 +116,11 @@
     color: inherit;
 }
 
+.HrefNoDecor {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* -------- buttons -------- */
 
 .AnyButton {
@@ -174,4 +179,22 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.GitHubLogo span {
+    position: absolute;
+    right: calc(3 * var(--wunit) + 0.8 * var(--line-height));
+    top: calc(100% - 0.5 * var(--footer-height) - 0.5 * calc(0.8 * var(--line-height)));
+    display: flex;
+}
+
+.GitHubLogo span:hover {
+    text-decoration: underline;
+}
+
+.GitHubLogo img {
+    height: calc(0.8 * var(--line-height));
+    position: absolute;
+    right: calc(2 * var(--wunit));
+    top: calc(100% - 0.5 * var(--footer-height) - 0.5 * calc(0.8 * var(--line-height)));
 }

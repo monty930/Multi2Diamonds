@@ -17,6 +17,7 @@ import PageLogo from "../assets/2diams.png";
 import SavedItemsImg from "../assets/folder3.png";
 import LogOutImg from "../assets/logout.png";
 import ProfileImg from "../assets/profile.png";
+import GitHubLogo from "../assets/githublogo.png";
 
 function Header() {
     const { logout } = useAuth();
@@ -62,7 +63,15 @@ function Header() {
 }
 
 function Footer() {
-    return <footer className="PageFooter">Footer content</footer>;
+    return <footer className="PageFooter">
+        <a className="HrefNoDecor" href="https://github.com/monty930/BridgeScenarios">
+            <div className="GitHubLogo">
+                <span>monty930/BridgeScenarios
+                </span>
+                <img src={GitHubLogo} alt="GitHub logo"/>
+            </div>
+        </a>
+    </footer>;
 }
 
 function Page() {
