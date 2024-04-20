@@ -9,7 +9,7 @@ function UseScenariosChoose() {
     const { setVul, setDealer, setNumberOfDeals } = useScenario();
     const navigate = useNavigate();
     const [constraints, setConstraints] = useState([
-        { id: 0, value: "Random" }
+        { id: 0, value: "" }
     ]);
 
     const lastId = useRef(0);
@@ -29,9 +29,21 @@ function UseScenariosChoose() {
     const handleConstraintChange = (id, value) => {
         setConstraints(prev => prev.map(c => c.id === id ? { ...c, value: value } : c));
     }
-
+    
     const deleteConstraint = (id) => {
         setConstraints(prevConstraints => prevConstraints.filter(constraint => constraint.id !== id));
+    }
+
+    const calculateRemainingPercentage = () => {
+        const sum = constraints.slice(0, -1).reduce((acc, curr) => acc + parseFloat(curr.value || 0), 0);
+        return 100 - sum;
+    };
+
+    const handleConstraintBlur = (id, value) => {
+        const numValue = parseFloat(value);
+        if (isNaN(numValue) || numValue < 0 || numValue > 100) {
+            handleConstraintChange(id, "0");
+        }
     }
 
     return (
@@ -79,9 +91,10 @@ function UseScenariosChoose() {
                                     className={"ConstraintPercentageInput"}
                                     placeholder={"0"}
                                     spellCheck={"false"}
-                                    value={index === constraints.length - 1 ? "100" : constraint.value}
+                                    value={index === constraints.length - 1 ? calculateRemainingPercentage().toString() : constraint.value}
                                     readOnly={index === constraints.length - 1}
                                     onChange={(e) => handleConstraintChange(constraint.id, e.target.value)}
+                                    onBlur={(e) => handleConstraintBlur(constraint.id, e.target.value)}
                                 />
                                 <span className={"PercentageChar"}>%</span>
                             </div>
