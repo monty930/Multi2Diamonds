@@ -47,4 +47,14 @@ public class ProfileDataController : Controller
         _userRepository.RemoveSavedContent("admin", content.SavedContentId, content.SavedContentType); // should be: User.Identity.Name;
         return Ok();
     }
+    
+    [HttpGet]
+    [Route("ProfileData/GetConstraints")]
+    public ActionResult GetConstraints()
+    {
+        var constraints = _userRepository.GetConstraintsNames("admin"); // should be: User.Identity.Name;
+        if (constraints == null) return NotFound();
+        Console.WriteLine("Constraints: " + constraints);
+        return Json(new { constraints });
+    }
 }

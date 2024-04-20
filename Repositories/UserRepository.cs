@@ -116,4 +116,18 @@ public class UserRepository
         }
         return savedContents;
     }
+    
+    public List<String>? GetConstraintsNames(string username)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null) return null;
+        // create list of constraints' names
+        var constraints = _context.Scenarios.Where(s => s.UserId == user.UserId).ToList();
+        var list = new List<String>();
+        foreach (var constraint in constraints)
+        {
+            list.Add(constraint.Name);
+        }
+        return list;
+    }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { useScenario } from './CompilerSettings';
 import { useNavigate } from 'react-router-dom';
 import arrowDown from '../../assets/arrow-down.png';
@@ -8,11 +8,20 @@ import trashImg from '../../assets/trash.png';
 function UseScenariosChoose() {
     const { setVul, setDealer, setNumberOfDeals } = useScenario();
     const navigate = useNavigate();
-    const [constraints, setConstraints] = useState([
-        { id: 0, value: "" }
-    ]);
-
+    const [constraints, setConstraints] = useState([{ id: 0, value: "" }]);
+    const [constraintOptions, setConstraintOptions] = useState([]);
     const lastId = useRef(0);
+
+    useEffect(() => {
+        fetch('http://localhost:5015/ProfileData/GetConstraints')
+            .then(response => response.json())
+            .then(data => {
+                setConstraintOptions(data.constraints);
+            })
+            .catch(error => {
+                console.error('Error fetching constraint options:', error);
+            });
+    }, []);
 
     const addConstraintForDealSet = () => {
         console.log("Adding constraint for deal set");
@@ -81,15 +90,11 @@ function UseScenariosChoose() {
                             <div className={"CustomSelectContainer"}>
                                 <select
                                     className={"SettingsSelect"}
-                                    onChange={(e) => setVul(e.target.value)}
-                                    defaultValue="Random"
-                                    id="VulSelect">
-                                    <option value="Random">Random</option>
-                                    <option value="None">None</option>
-                                    <option value="All">All</option>
-                                    <option value="NS">NS</option>
-                                    <option value="EW">EW</option>
-                                    <option value="Matching">Matching numbers</option>
+                                    defaultValue="NoConstraint">
+                                    <option value="NoConstraint">No constraint</option>
+                                    {constraintOptions.map(option => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
                                 </select>
                                 <div className={"CustomSelectArrow"}>
                                     <img src={arrowDown} alt={"arrow-down"} />
@@ -98,10 +103,12 @@ function UseScenariosChoose() {
                         </div>
                         <div className={"ConstraintChoiceOptions"}>
                             <div className={"DeleteConstraintFromDealSet"}>
+                                {constraints.length > 1 && (
                                 <button className={"RedButton DeleteConstraintButton"}
                                         onClick={() => deleteConstraint(constraint.id)}>
                                     <img src={trashImg} alt={"delete"} />
                                 </button>
+                                )}
                             </div>
                             <div className={"ConstraintPercentage"}>
                                 <textarea
