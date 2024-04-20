@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Mvc;
 using Multi2Diamonds.Database;
 using Multi2Diamonds.Models;
 using Multi2Diamonds.Models.DbModels;
@@ -129,5 +130,32 @@ public class UserRepository
             list.Add(constraint.Name);
         }
         return list;
+    }
+    
+    private void PrintDataBaseScenarios()
+    {
+        var scenarios = _context.Scenarios.ToList();
+        foreach (var scenario in scenarios)
+        {
+            Console.WriteLine("printDataBaseScenarios: " + scenario.Name + " " + scenario.ScenarioId + " " + scenario.ScenarioContent);
+        }
+    }
+    
+    public ActionResult SaveScenario(string username, ScenarioToSave scenarioToSave)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null) return new BadRequestResult();
+        var scenario = new Scenario
+        {
+            Name = scenarioToSave.ScenarioName,
+            ScenarioContent = scenarioToSave.ScenarioContent,
+            UserId = user.UserId,
+            User = user
+        };
+        Console.WriteLine("SaveScenario2<--- scenario: " + scenario.Name + " " + scenario.ScenarioId);
+        _context.Scenarios.Add(scenario);
+        _context.SaveChanges();
+        PrintDataBaseScenarios();
+        return new OkResult();
     }
 }

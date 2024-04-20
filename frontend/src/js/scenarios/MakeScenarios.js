@@ -8,18 +8,16 @@ function MakeScenarios() {
 
     const handleSave = async () => {
         try {
-            const response = await fetch('http://localhost:5015/Scenarios/AddItem', {
+            const response = await fetch('http://localhost:5015/ProfileData/SaveScenario', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name: scenarioName, scenarioContent }),
+                body: JSON.stringify({ scenarioName, scenarioContent }),
             });
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            const data = await response.json();
-            console.log('Save successful', data);
         } catch (error) {
             console.error('Error saving data:', error);
         }

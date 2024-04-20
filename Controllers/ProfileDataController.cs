@@ -17,12 +17,8 @@ public class ProfileDataController : Controller
     [Route("ProfileData/GetProfile")]
     public ActionResult GetProfile()
     {
-        Console.WriteLine("Profile1<---------------");
-        var user = _userRepository.GetUserByUsername(User.Identity.Name);
-        var username = User.Identity.Name;
-        Console.WriteLine("Profile2<--- username: " + username);
+        var user = _userRepository.GetUserByUsername("admin"); // should be: User.Identity.Name;
         if (user == null) return NotFound();
-
         return Ok(new
         {
             Username = user.Username,
@@ -56,5 +52,14 @@ public class ProfileDataController : Controller
         if (constraints == null) return NotFound();
         Console.WriteLine("Constraints: " + constraints);
         return Json(new { constraints });
+    }
+    
+    [HttpPost]
+    [Route("ProfileData/SaveScenario")]
+    public ActionResult SaveScenario([FromBody] ScenarioToSave scenario)
+    {
+        Console.WriteLine("SaveScenario<--- scenario: " + scenario.ScenarioName + " " + scenario.ScenarioContent);
+        var res = _userRepository.SaveScenario("admin", scenario); // should be: User.Identity.Name;
+        return res;
     }
 }
