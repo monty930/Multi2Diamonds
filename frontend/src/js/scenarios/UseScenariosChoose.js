@@ -29,22 +29,39 @@ function UseScenariosChoose() {
     const handleConstraintChange = (id, value) => {
         setConstraints(prev => prev.map(c => c.id === id ? { ...c, value: value } : c));
     }
-    
+
     const deleteConstraint = (id) => {
         setConstraints(prevConstraints => prevConstraints.filter(constraint => constraint.id !== id));
     }
-
-    const calculateRemainingPercentage = () => {
-        const sum = constraints.slice(0, -1).reduce((acc, curr) => acc + parseFloat(curr.value || 0), 0);
-        return 100 - sum;
-    };
 
     const handleConstraintBlur = (id, value) => {
         const numValue = parseFloat(value);
         if (isNaN(numValue) || numValue < 0 || numValue > 100) {
             handleConstraintChange(id, "0");
+            return;
+        }
+
+        const sumOther = constraints.reduce((acc, curr) => {
+            if (curr.id !== id) {
+                const val = parseFloat(curr.value) || 0;
+                return acc + (val > 100 ? 0 : val);
+            }
+            return acc;
+        }, 0);
+
+        if (sumOther + numValue > 100) {
+            handleConstraintChange(id, (100 - sumOther).toString());
         }
     }
+
+    const calculateRemainingPercentage = () => {
+        const validSum = constraints.slice(0, -1).reduce((acc, curr) => {
+            const currentValue = parseFloat(curr.value);
+            const valueToReturn = acc + (isNaN(currentValue) || currentValue < 0 || currentValue > 100 ? 0 : currentValue);
+            return (valueToReturn < 0 ? 0 : (valueToReturn > 100 ? 100 : valueToReturn))
+        }, 0);
+        return 100 - validSum;
+    };
 
     return (
         <div className={"ScenariosLeftOuterContainer"}>
