@@ -518,7 +518,7 @@ bin
 # frontend
 
 frontend/.DS_STORE
-frontend/node_modules/*
+frontend/node_modules
 frontend/scripts/flow/*/.flowconfig
 frontend/.flowconfig
 *~
