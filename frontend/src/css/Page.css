@@ -18,6 +18,7 @@
     --red-shadow: #800000;
     --red-hover: #b60101;
     --red-active: #9a0000;
+    --error-background: rgba(255, 0, 0, 0.2);
 
     --button-face-color: rgb(121, 121, 121);
     --button-shadow: rgb(68, 68, 68);

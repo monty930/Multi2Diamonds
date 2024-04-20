@@ -78,7 +78,7 @@
 .ErrorField {
     color: var(--main-font-color);
     font-size: calc(2 * var(--hunit));
-    background-color: rgba(255, 0, 0, 0.2);
+    background-color: var(--error-background);
     padding-left: var(--hunit);
 }
 

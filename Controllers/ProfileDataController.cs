@@ -12,7 +12,6 @@ public class ProfileDataController : Controller
 {
     private readonly UserRepository _userRepository = new();
     
-    // [Authorize]
     [HttpGet]
     [Route("ProfileData/GetProfile")]
     public ActionResult GetProfile()
@@ -50,7 +49,6 @@ public class ProfileDataController : Controller
     {
         var constraints = _userRepository.GetConstraintsNames("admin"); // should be: User.Identity.Name;
         if (constraints == null) return NotFound();
-        Console.WriteLine("Constraints: " + constraints);
         return Json(new { constraints });
     }
     
@@ -58,8 +56,25 @@ public class ProfileDataController : Controller
     [Route("ProfileData/SaveScenario")]
     public ActionResult SaveScenario([FromBody] ScenarioToSave scenario)
     {
-        Console.WriteLine("SaveScenario<--- scenario: " + scenario.ScenarioName + " " + scenario.ScenarioContent);
-        var res = _userRepository.SaveScenario("admin", scenario); // should be: User.Identity.Name;
+        var resultName = _userRepository.SaveScenario("admin", scenario); // should be: User.Identity.Name;
+        if (resultName == null) return BadRequest();
+        return Json(new { scenarioName = resultName });
+    }
+
+    [HttpPost]
+    [Route("ProfileData/OverwriteScenario")]
+    public ActionResult OverwriteScenario([FromBody] ScenarioToSave scenario)
+    {
+        var res = _userRepository.OverwriteScenario("admin", scenario); // should be: User.Identity.Name;
         return res;
+    }
+    
+    [HttpPost]
+    [Route("ProfileData/GetSavedScenario")]
+    public ActionResult GetSavedScenario([FromBody] SavedContent content)
+    {
+        var scenario = _userRepository.GetSavedScenario("admin", content.SavedContentId); // should be: User.Identity.Name;
+        if (scenario == null) return NotFound();
+        return Json(new { scenarioName = scenario.Name, scenarioContent = scenario.ScenarioContent });
     }
 }

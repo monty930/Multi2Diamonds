@@ -80,12 +80,16 @@
     padding: 0;
     margin: 0;
     display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: auto;
+    font-size: calc(2.5 * var(--hunit));
 }
 
 .LogContainer span {
     font-size: calc(3 * var(--hunit));
-    color: var(--main-font-color);
     padding-left: var(--main-padding);
+    padding-right: var(--main-padding);
     padding-top: calc(0.5 * var(--hunit));
 }
 
@@ -97,4 +101,31 @@
     padding: 0 10px;
     width: auto;
     margin: 0;
+    background: linear-gradient(
+            90deg,
+            var(--button-face-color) 0%,
+            var(--button-face-color) 98%,
+            var(--header-background-color));
+}
+
+.SaveAsNewConstraintButton {
+    border-radius: 0;
+    padding: 0 10px;
+    width: auto;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    background: linear-gradient(
+            90deg,
+            var(--header-background-color) 0%,
+            var(--button-face-color) 2%,
+            var(--button-face-color));
+}
+
+.LogSuccess {
+    color: var(--main-font-color);
+}
+
+.LogFailure {
+    background-color: var(--error-background);
 }

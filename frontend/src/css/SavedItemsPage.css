@@ -99,7 +99,7 @@
 
 /* ----------------- trash button ----------------- */
 
-.saved-item-delete-button {
+.SavedItemDeleteButton {
     height: 100%;
     width: 100%;
     border: var(--generate-button-border);
@@ -108,18 +108,17 @@
     border-radius: 0 var(--box-border-radius) var(--box-border-radius) 0;
 }
 
-.saved-item-delete-button:hover {
+.SavedItemDeleteButton:hover {
     background-color: var(--red-hover);
     cursor: pointer;
 }
 
-.saved-item-delete-button:active {
+.SavedItemDeleteButton:active {
     background-color: var(--red-active);
     transform: translateY(1px);
     box-shadow: 0 calc(0.9 * var(--hunit)) var(--red-shadow);
 }
 
-.save-item-trash-img {
-    height: calc(0.7 * var(--box-height));
-    padding-bottom: calc(0.05 * var(--box-height));
+.SavedItemDeleteButton img {
+    height: calc(0.6 * var(--box-height));
 }

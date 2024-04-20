@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import "../css/CenterProfileLayout.css";
 import "../css/SavedItemsPage.css";
 
+import trashImage from "../assets/trash.png";
+import trashOpen from "../assets/trash_open.png";
+
 function SavedItemsPage() {
     const [savedContents, setSavedContents] = useState([]);
     const [activeTab, setActiveTab] = useState('constraints');
-
+    
     useEffect(() => {
         console.log('Fetching saved content');
         fetch('http://localhost:5015/ProfileData/GetSavedContent', {
@@ -55,7 +58,7 @@ function SavedItemsPage() {
             <div className="profile-view">
                 <div className="saved-content-outer-container">
                     <div className="profile-saved-tabs">
-                        <button onClick={() => handleTabClick('scenarios')}
+                        <button onClick={() => handleTabClick('constraints')}
                                 className={`saved-tab-button ${activeTab !== 'dealSets' ? 'active' : ''}`}>
                             CONSTRAINTS
                         </button>
@@ -65,7 +68,7 @@ function SavedItemsPage() {
                         </button>
                     </div>
                     <div className="saved-content-container">
-                        {activeTab === 'scenarios' && (
+                        {activeTab === 'constraints' && (
                             <SavedItemsList savedContents={savedContents} contentType="Constraint"
                                 noContentMessage="No saved constraints found." handleDelete={handleDelete}/>
                         )}
@@ -85,6 +88,7 @@ export default SavedItemsPage;
 
 function SavedItemsList({ savedContents, contentType, noContentMessage, handleDelete }) {
     const navigate = useNavigate();
+    const [hovered, setHovered] = useState(null);
     
     const redirect = (id, type) => {
         if (type === 'Constraint') {
@@ -115,10 +119,12 @@ function SavedItemsList({ savedContents, contentType, noContentMessage, handleDe
                                 <div>{item.name}</div>
                             </button>
                             <button
-                                className="saved-item-delete-button"
+                                className="SavedItemDeleteButton"
+                                onMouseEnter={() => setHovered(item.savedContentId)}
+                                onMouseLeave={() => setHovered(null)}
                                 onClick={() => handleDelete(item.savedContentId, item.savedContentType)}
                             >
-                                Del
+                                <img src={hovered === item.savedContentId ? trashOpen : trashImage} alt="Delete" />
                             </button>
                         </div>
                     ))}

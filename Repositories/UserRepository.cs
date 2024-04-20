@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Multi2Diamonds.Database;
 using Multi2Diamonds.Models;
@@ -141,21 +140,51 @@ public class UserRepository
         }
     }
     
-    public ActionResult SaveScenario(string username, ScenarioToSave scenarioToSave)
+    private string FindSpareName(string name, User user)
+    {
+        var scenarios = _context.Scenarios.Where(s => s.UserId == user.UserId).ToList();
+        var names = new List<string>();
+        foreach (var scenario in scenarios)
+        {
+            names.Add(scenario.Name);
+        }
+        if (!names.Contains(name)) return name;
+        return FindSpareName(name + " new", user);
+    }
+    
+    public String? SaveScenario(string username, ScenarioToSave scenarioToSave)
     {
         var user = _context.Users.FirstOrDefault(u => u.Username == username);
-        if (user == null) return new BadRequestResult();
+        if (user == null) return null;
+        var newName = FindSpareName(scenarioToSave.ScenarioName, user);
         var scenario = new Scenario
         {
-            Name = scenarioToSave.ScenarioName,
+            Name = newName,
             ScenarioContent = scenarioToSave.ScenarioContent,
             UserId = user.UserId,
             User = user
         };
-        Console.WriteLine("SaveScenario2<--- scenario: " + scenario.Name + " " + scenario.ScenarioId);
         _context.Scenarios.Add(scenario);
         _context.SaveChanges();
-        PrintDataBaseScenarios();
+        return newName;
+    }
+    
+    public ActionResult OverwriteScenario(string username, ScenarioToSave scenarioToSave)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null) return new NotFoundResult();
+        var scenario = _context.Scenarios.FirstOrDefault(s => s.Name == scenarioToSave.ScenarioName);
+        if (scenario == null) return new NotFoundResult();
+        scenario.ScenarioContent = scenarioToSave.ScenarioContent;
+        _context.SaveChanges();
         return new OkResult();
+    }
+    
+    public Scenario? GetSavedScenario(string username, int scenarioId)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null) return null;
+        var scenario = _context.Scenarios.FirstOrDefault(s => s.ScenarioId == scenarioId);
+        return scenario;
     }
 }
