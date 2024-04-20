@@ -11,7 +11,9 @@ function UseScenariosChoose() {
     const [constraints, setConstraints] = useState([{ id: 0, value: "0" }]);
     const [constraintOptions, setConstraintOptions] = useState([]);
     const lastId = useRef(0);
-
+    const [vulnerability, setVulnerability] = useState("Random");
+    const [dealer, setDealerState] = useState("Random");
+    
     useEffect(() => {
         fetch('http://localhost:5015/ProfileData/GetConstraints')
             .then(response => response.json())
@@ -72,6 +74,36 @@ function UseScenariosChoose() {
         return 100 - validSum;
     };
 
+    const handleVulnerabilityChange = (value) => {
+        let oldValue = vulnerability;
+        setVulnerability(value);
+        setVul(value);
+        if (value !== "Matching" && oldValue === "Matching") {
+            setDealer("Random");
+            setDealerState("Random");
+            document.getElementById("DealerSelect").value = "Random";
+        } else if (value === "Matching") {
+            setDealer("Matching");
+            setDealerState("Matching");
+            document.getElementById("DealerSelect").value = "Matching";
+        }
+    };
+
+    const handleDealerChange = (value) => {
+        let oldValue = dealer;
+        setDealerState(value);
+        setDealer(value);
+        if (value !== "Matching" && oldValue === "Matching") {
+            setVulnerability("Random");
+            setVul("Random");
+            document.getElementById("VulSelect").value = "Random";
+        } else if (value === "Matching") {
+            setVulnerability("Matching");
+            setVul("Matching");
+            document.getElementById("VulSelect").value = "Matching";
+        }
+    };
+    
     return (
         <div className={"ScenariosLeftOuterContainer"}>
             <div className={"SettingsTop"}>
@@ -155,7 +187,7 @@ function UseScenariosChoose() {
                             <div className={"CustomSelectContainer"}>
                                 <select
                                     className={"SettingsSelect"}
-                                    onChange={(e) => setVul(e.target.value)} 
+                                    onChange={(e) => handleVulnerabilityChange(e.target.value)}
                                     defaultValue="Random"
                                     id="VulSelect">
                                     <option value="Random">Random</option>
@@ -180,7 +212,7 @@ function UseScenariosChoose() {
                             <div className={"CustomSelectContainer"}>
                                 <select
                                     className={"SettingsSelect"}
-                                    onChange={(e) => setDealer(e.target.value)}
+                                    onChange={(e) => handleDealerChange(e.target.value)}
                                     defaultValue="Random"
                                     id="DealerSelect">
                                     <option value="North">North</option>
