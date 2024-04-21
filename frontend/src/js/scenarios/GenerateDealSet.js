@@ -3,6 +3,15 @@ import {useScenario} from './CompilerSettings';
 import SaveDialog from "./SaveDialogWindow";
 import Spinner from "../Spinner";
 
+import saveImage from '../../assets/save.png';
+import downloadImage from '../../assets/download-1.png';
+import add from '../../assets/plus.png';
+import remove from '../../assets/trash.png';
+import trash_open from '../../assets/trash_open.png';
+import retry from '../../assets/retry.png';
+import previous from '../../assets/arrow-back.png';
+import next from '../../assets/arrow.png';
+
 function GenerateDealSet() {
     const [dealSet, setDealSet] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -130,6 +139,26 @@ function GenerateDealSet() {
 
     const checkForDeals = dealSet && dealSet.deals.length > 0;
 
+    const getSuit = (hand, suit) => {
+        let handCards = '';
+        if (hand === 'north') {
+            handCards = dealSet.deals[currentDealNo - 1].north;
+        } else if (hand === 'east') {
+            handCards = dealSet.deals[currentDealNo - 1].east;
+        } else if (hand === 'south') {
+            handCards = dealSet.deals[currentDealNo - 1].south;
+        } else if (hand === 'west') {
+            handCards = dealSet.deals[currentDealNo - 1].west;
+        }
+        let cards = handCards.split('.');
+        let suitNo = suit === "spades" ? "0" : suit === "hearts" ? "1" : suit === "diamonds" ? "2" : "3";
+        return cards[suitNo];
+    }
+    
+    const saveDealSet = async () => {
+        console.log('Saving deal set');
+    }
+
     return (
         <div className={"RightSideDealOuter"}>
             <div className={"RightSideDealGenerateButtonContainer"}>
@@ -151,16 +180,82 @@ function GenerateDealSet() {
                 {checkForDeals && currentDealNo > 0 && (
                     <div className={"ProperDealSet"}>
                         <div className={"DealSetCellN1"}>
-
+                            Deal {currentDealNo} / {numOfDeals()}
                         </div>
                         <div className={"DealSetCellN2"}>
-
+                            <div className={"Hand HandN"}>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer SpadeChar"}>
+                                        &#9824;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('north', 'spades')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer HeartChar"}>
+                                        &#9829;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('north', 'hearts')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer DiamondChar"}>
+                                        &#9830;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('north', 'diamonds')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer ClubChar"}>
+                                        &#9827;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('north', 'clubs')}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className={"DealSetCellN3"}>
 
                         </div>
                         <div className={"DealSetCellEW1"}>
-
+                            <div className={"Hand HandW"} id={"HandW"}>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer SpadeChar"}>
+                                        &#9824;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('west', 'spades')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer HeartChar"}>
+                                        &#9829;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('west', 'hearts')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer DiamondChar"}>
+                                        &#9830;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('west', 'diamonds')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer ClubChar"}>
+                                        &#9827;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('west', 'clubs')}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className={"DealSetCellEW2"}>
                             <div className={"BiddingTable"}>
@@ -194,67 +289,146 @@ function GenerateDealSet() {
                             </div>
                         </div>
                         <div className={"DealSetCellEW3"}>
-
+                            <div className={"Hand HandE"}>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer SpadeChar"}>
+                                        &#9824;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('east', 'spades')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer HeartChar"}>
+                                        &#9829;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('east', 'hearts')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer DiamondChar"}>
+                                        &#9830;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('east', 'diamonds')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer ClubChar"}>
+                                        &#9827;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('east', 'clubs')}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className={"DealSetCellS1"}>
-
+                            <div className={"SaveButtonsContainer"}>
+                                <div className={"DealSetEntryButtonsInnerContrainerPadding"}>
+                                    <div className={"NavigateCellUpperRow"}></div>
+                                    <div className={"NavigateCellLowerRowEntry"}>
+                                        <div>
+                                            <button
+                                                className={"AnyButton SaveDealSetButton"}
+                                                onClick={saveDealSet}>
+                                                <img src={saveImage} alt={"Save"} className={"DealSetButtonImage SaveImage"}/>
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <button
+                                                className={"AnyButton DownloadButton"}
+                                                onClick={() => setIsDialogOpen(true)}>
+                                                <img src={downloadImage} alt={"Download"} className={"DealSetButtonImage DownloadImage"}/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className={"DealSetCellS2"}>
-
+                            <div className={"Hand HandS"}>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer SpadeChar"}>
+                                        &#9824;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('south', 'spades')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer HeartChar"}>
+                                        &#9829;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('south', 'hearts')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer DiamondChar"}>
+                                        &#9830;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('south', 'diamonds')}
+                                    </div>
+                                </div>
+                                <div className={"Suit"}>
+                                    <div className={"SuitImageContainer ClubChar"}>
+                                        &#9827;
+                                    </div>
+                                    <div className={"CardContainer"}>
+                                        {getSuit('south', 'clubs')}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className={"DealSetCellS3"}>
                             <div className={"NavigateCell"}>
                                 <div className={"NavigateCellUpperRow"}>
+                                    <div>
+                                        <button
+                                            className={"AnyButton RegenerateDealButton"}
+                                            onClick={regenerate()}>
+                                            <img src={retry} alt={"Regenerate"} className={"DealSetButtonImage RegenerateImage"}/>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button
+                                            className={"AnyButton RemoveDealButton RedButton"}
+                                            onClick={removeDeal()}>
+                                            <img src={remove} alt={"Remove"} className={"DealSetButtonImage RemoveImage"}/>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className={"NavigateCellLowerRow"}>
                                     <div className={"PreviousButtonContrainer"}>
                                         {currentDealNo > 1 &&
                                             <button
                                                 className={"AnyButton PreviousDealButton"}
                                                 onClick={previousDeal}>
-                                                p
+                                                <img src={previous} alt={"Previous"} className={"DealSetButtonImage PreviousImage"}/>
                                             </button>}
                                     </div>
                                     <div>
                                         {currentDealNo < numOfDeals()
                                             ? <button
                                                 className={"AnyButton NextDealButton"}
-                                                onClick={nextDeal}>n
+                                                onClick={nextDeal}>
+                                                <img src={next} alt={"Next"} className={"DealSetButtonImage NextImage"}/>
                                             </button>
                                             :
                                             <button
                                                 className={"AnyButton AddDealButton"}
-                                                onClick={addDeal()}>+
+                                                onClick={addDeal()}>
+                                                <img src={add} alt={"Add"} className={"DealSetButtonImage AddImage"}/>
                                             </button>}
-                                    </div>
-                                </div>
-                                <div className={"NavigateCellLowerRow"}>
-                                    <div>
-                                        <button
-                                            className={"AnyButton RemoveDealButton"}
-                                            onClick={removeDeal()}>
-                                            X
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button
-                                            className={"AnyButton RegenerateDealButton"}
-                                            onClick={regenerate()}>
-                                            r
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button
-                                            className={"AnyButton SaveDealSetButton"}
-                                            onClick={() => setIsDialogOpen(true)}>
-                                            s
-                                        </button>
                                     </div>
                                 </div>
                                 {/*<div className="DealSetContainer">*/}
                                 {/*    <pre style={{overflow: 'auto', height: '400px'}}>{addEndls(JSON.stringify(dealSet))}</pre>*/}
                                 {/*</div>*/}
                             </div>
-                            <SaveDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)}
-                                        jsonDealSetString={JSON.stringify(dealSet)}/>
                         </div>
                     </div>
                 )}
@@ -264,42 +438,56 @@ function GenerateDealSet() {
                             Press > to see the deals.
                         </div>
                         <div className={"DealSetEntryButtonsOuterContrainer"}>
-                            <div className={"DealSetEntryButtonsInnerContrainer"}>
-                                <div className={"DealSetEntryButtonsInnerContrainerPadding"}>
-                                <div className={"NavigateCellUpperRow"}>
-                                    <div className={"PreviousButtonContrainer"}>
-                                        {currentDealNo > 1 &&
-                                            <button
-                                                className={"AnyButton PreviousDealButton"}
-                                                onClick={previousDeal}>
-                                                p
-                                            </button>}
-                                    </div>
-                                    <div>
-                                        {currentDealNo < numOfDeals()
-                                            ? <button
-                                                className={"AnyButton NextDealButton"}
-                                                onClick={nextDeal}>n
-                                            </button>
-                                            :
-                                            <button
-                                                className={"AnyButton AddDealButton"}
-                                                onClick={addDeal()}>+
-                                            </button>}
+                            <div className={"DealSetEntryButtonsOuterContrainer1"}>
+                                <div className={"SaveButtonsContainerEntry"}>
+                                    <div className={"DealSetEntryButtonsInnerContrainerPadding"}>
+                                        <div className={"NavigateCellUpperRow"}></div>
+                                        <div className={"NavigateCellLowerRowEntry"}>
+                                            <div>
+                                                <button
+                                                    className={"AnyButton SaveDealSetButton"}
+                                                    onClick={saveDealSet}>
+                                                    <img src={saveImage} alt={"Save"} className={"DealSetButtonImage SaveImage"}/>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <button
+                                                    className={"AnyButton DownloadButton"}
+                                                    onClick={() => setIsDialogOpen(true)}>
+                                                    <img src={downloadImage} alt={"Download"} className={"DealSetButtonImage DownloadImage"}/>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className={"NavigateCellLowerRowEntry"}>
-                                    <div></div>
-                                    <div>
-                                        <button
-                                            className={"AnyButton SaveDealSetButton"}
-                                            onClick={() => setIsDialogOpen(true)}>
-                                            s
-                                        </button>
+                            </div>
+                            <div className={"DealSetEntryButtonsOuterContrainer2"}>
+                                <div className={"DealSetEntryButtonsInnerContrainer"}>
+                                    <div className={"DealSetEntryButtonsInnerContrainerPadding DealSetEntryButtonsInnerContrainerPaddingRight"}>
+                                        <div className={"NavigateCellUpperRow"}>
+                                            <div className={"PreviousButtonContrainer"}>
+                                                {currentDealNo > 1 &&
+                                                    <button
+                                                        className={"AnyButton PreviousDealButton"}
+                                                        onClick={previousDeal}>
+                                                        <img src={previous} alt={"Previous"} className={"DealSetButtonImage PreviousImage"}/>
+                                                    </button>}
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                        <div className={"NavigateCellLowerRowEntry"}>
+                                            <div></div>
+                                            <div>
+                                                <button
+                                                    className={"AnyButton NextDealButton"}
+                                                    onClick={nextDeal}>
+                                                    <img src={next} alt={"Next"} className={"DealSetButtonImage NextImage"}/>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 )}
@@ -311,6 +499,8 @@ function GenerateDealSet() {
                         }
                     </div>}
             </div>
+            <SaveDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)}
+                        jsonDealSetString={JSON.stringify(dealSet)}/>
         </div>
     );
 }

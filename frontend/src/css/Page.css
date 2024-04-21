@@ -156,8 +156,6 @@
     width: 100%;
     border: var(--generate-button-border);
     background-color: var(--red-button-color);
-    box-shadow: 0 var(--hunit) var(--red-shadow);
-    border-radius: 0 var(--box-border-radius) var(--box-border-radius) 0;
 }
 
 .RedButton:hover {

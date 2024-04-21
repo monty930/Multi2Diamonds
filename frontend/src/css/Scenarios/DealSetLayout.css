@@ -1,11 +1,14 @@
 :root {
     --button-height: 30px;
     --bid-table-height: calc(min(23 * var(--hunit), 15 * var(--wunit)));
-    --bid-table-border-width: 3px;
+    --bid-table-border-width: calc(2 * var(--wunit) / 3);
+    --cards-line-height: calc(min(4 * var(--wunit), 5.5 * var(--hunit)));
+    --cards-font-size: calc(0.63 * var(--cards-line-height));
+    --suit-image-container-width: calc(0.7 * var(--cards-line-height));
+    --buttons-row-gap: calc(1.5 * var(--hunit));
 }
 
 .RightSideDealOuter {
-    background-color: #9a0000;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -17,14 +20,12 @@
 .RightSideDealGenerateButtonContainer {
     height: var(--button-height);
     width: calc(100% - 2 * var(--main-padding-w));
-    background-color: blue;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--main-padding-w);
 }
 
 .RightSideDealSetContainer {
-    background-color: deeppink;
     height: calc(100% - 3 * var(--main-padding) - var(--button-height));
     width: calc(100% - 2 * var(--main-padding-w));
 }
@@ -36,12 +37,10 @@
     align-items: center;
     height: 100%;
     width: 100%;
-    background-color: blue;
     line-height: var(--entry-message-line-height);
 }
 
 .ProperDealSet {
-    background-color: red;
     height: 100%;
     width: 100%;
     display: grid;
@@ -64,46 +63,49 @@
 }
 
 .DealSetCellN1 {
-    background-color: #0f2a0f;
+    font-weight: bold;
 }
 
 .DealSetCellN2 {
-    background-color: #1daf1d;
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
 }
 
 .DealSetCellN3 {
-    background-color: #0f2a0f;
 }
 
 .DealSetCellEW1 {
-    background-color: #1daf1d;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
 }
 
 .DealSetCellEW2 {
-    background-color: #0f2a0f;
+    background-color: var(--button-face-color);
 }
 
 .DealSetCellEW3 {
-    background-color: #1daf1d;
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
 }
 
 .DealSetCellS1 {
-    background-color: #0f2a0f;
 }
 
 .DealSetCellS2 {
-    background-color: #1daf1d;
+    display: flex;
 }
 
 .DealSetCellS3 {
-    background-color: #0f2a0f;
 }
 
 .BiddingTable {
     height: 100%;
     width: 100%;
-    background-color: greenyellow;
     display: grid;
+    font-weight: bold;
     grid-template-columns:
             calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
             calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
@@ -124,53 +126,51 @@
 }
 
 .BiddingTableCellN1 {
-    background-color: #0f2a0f;
+    background-color: var(--button-face-color);
 }
 
 .BiddingTableCellN2 {
-    background-color: #1daf1d;
+    background-color: var(--main-background-color);
 }
 
 .BiddingTableCellN3 {
-    background-color: #0f2a0f;
+    background-color: var(--button-face-color);
 }
 
 .BiddingTableCellEW1 {
-    background-color: #1daf1d;
+    background-color: var(--main-background-color);
 }
 
 .BiddingTableCellEW2 {
-    background-color: #0f2a0f;
+    background-color: var(--button-face-color);
 }
 
 .BiddingTableCellEW3 {
-    background-color: #1daf1d;
+    background-color: var(--main-background-color);
 }
 
 .BiddingTableCellS1 {
-    background-color: #0f2a0f;
+    background-color: var(--button-face-color);
 }
 
 .BiddingTableCellS2 {
-    background-color: #1daf1d;
+    background-color: var(--main-background-color);
 }
 
 .BiddingTableCellS3 {
-    background-color: #0f2a0f;
+    background-color: var(--button-face-color);
 }
 
 .NavigateCell {
-    width: calc(100% - 2 * var(--main-padding-w));
-    height: calc(100% - 2 * var(--main-padding));
-    background-color: blueviolet;
+    padding-left: var(--main-padding-w);
+    padding-top: var(--main-padding);
+    width: calc(100% - var(--main-padding-w));
+    height: calc(100% - var(--main-padding));
     display: grid;
     grid-template-rows: 1fr 1fr;
-    padding: var(--main-padding) var(--main-padding-w);
-    gap: var(--hunit);
-}
-
-.NavigateCellUpperRow button {
-    background-color: firebrick;
+    gap: var(--buttons-row-gap);
+    z-index: 1; 
+    position: relative;
 }
 
 .NavigateCellUpperRow {
@@ -178,7 +178,6 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background-color: olive;
     gap: var(--hunit);
 }
 
@@ -186,13 +185,11 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    background-color: orange;
+    grid-template-columns: 1fr 1fr;
     gap: var(--hunit);
 }
 
 .NavigateCellLowerRowEntry {
-    background-color: darkorange;
     height: 100%;
     width: 100%;
     display: grid;
@@ -202,56 +199,139 @@
 
 .NavigateCellLowerRow div {
     width: 100%;
-    background-color: burlywood;
-}
-
-.NavigateCellLowerRow button {
-    background-color: fuchsia;
 }
 
 .DealSetEntryButtonsOuterContrainer {
-    background-color: coral;
     height: calc(50% - var(--entry-message-line-height) / 2);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.DealSetEntryButtonsOuterContrainer1 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+}
+
+.DealSetEntryButtonsOuterContrainer2 {
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: end;
 }
 
 .DealSetEntryButtonsInnerContrainer {
-    background-color: cadetblue;
-    height: calc(1 / 2 * ((200% + var(--entry-message-line-height) - 2 * var(--bid-table-border-width)) - var(--bid-table-height)));
-    width: calc(calc(1 / 3 * (100% - 2 * var(--bid-table-border-width))));
+    height: calc(100% - var(--bid-table-height) / 2 + var(--line-height) / 2);
+    width: calc(1 / 2 * (200% - var(--bid-table-height)));
+}
+
+.SaveButtonsContainer {
+    height: 100%;
+    width: 100%;
+}
+
+.SaveButtonsContainerEntry {
+    height: calc(100% - var(--bid-table-height) / 2 + var(--line-height) / 2);
+    width: calc(1 / 2 * (200% - var(--bid-table-height)));
 }
 
 .DealSetEntryButtonsInnerContrainerPadding {
-    padding: var(--main-padding) var(--main-padding-w);
-    height: calc(100% - 2 * var(--main-padding));
-    width: calc(100% - 2 * var(--main-padding-w));
-    background-color: #1daf1d;
+    padding-right: var(--main-padding-w);
+    padding-top: var(--main-padding);
+    height: calc(100% - var(--main-padding));
+    width: calc(100% - var(--main-padding-w));
     display: grid;
     grid-template-rows: 1fr 1fr;
-    gap: var(--main-padding);
+    gap: var(--buttons-row-gap);
 }
 
-/*grid-template-columns:*/
-/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))*/
-/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))*/
-/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)));*/
-/*grid-template-rows:*/
-/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))*/
-/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))*/
-/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)));*/
+.DealSetEntryButtonsInnerContrainerPaddingRight {
+    padding-left: var(--main-padding-w);
+    padding-right: 0;
+}
 
 .EntryContainer {
-    background-color: yellow;
     height: 100%;
     width: 100%;
 }
 
 .EntryMessage {
-    background-color: #1daf1d;
     display: flex;
     justify-content: end;
     line-height: var(--entry-message-line-height);
     height: calc(50% + var(--entry-message-line-height) / 2);
+}
+
+.Hand {
+    height: calc(4 * var(--cards-line-height));
+    width: 0;
+    position: absolute;
+}
+
+.HandS {
+    padding-top: calc(var(--main-padding) * 2 / 3);
+}
+
+.HandE {
+    padding-left: var(--main-padding-w);
+}
+
+.HandW {
+    padding-right: calc(var(--main-padding-w) + 3 * var(--cards-line-height));
+}
+
+.Suit {
+    height: calc(var(--cards-line-height));
+    display: flex;
+    width: calc(13 * var(--line-height) + var(--suit-image-container-width) + var(--main-padding-w));
+}
+
+.SuitImageContainer {
+    height: var(--cards-line-height);
+    width: var(--suit-image-container-width);
+    display: flex;
+    font-family: "MS Gothic", sans-serif;
+    font-size: var(--cards-font-size);
+}
+
+.CardContainer {
+    display: flex;
+    align-items: center;
+    padding-left: calc(var(--line-height) / 10);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: bold;
+    font-size: var(--cards-font-size);
+    letter-spacing: calc(0.03 * var(--line-height));
+}
+
+.ClubChar {
+    background-image: url("../../assets/green.png");
+    background-clip: text;
+    color: transparent;
+}
+
+.DiamondChar {
+    background-image: url("../../assets/orange.png");
+    background-clip: text;
+    color: transparent;
+}
+
+.HeartChar {
+    background-image: url("../../assets/red.png");
+    background-clip: text;
+    color: transparent;
+}
+
+.SpadeChar {
+    background-image: url("../../assets/blue.png");
+    background-clip: text;
+    color: transparent;
+}
+
+.DealSetButtonImage {
+    width: calc(min(5 * var(--hunit), 3.5 * var(--wunit)));
 }
