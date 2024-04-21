@@ -1,0 +1,257 @@
+:root {
+    --button-height: 30px;
+    --bid-table-height: calc(min(23 * var(--hunit), 15 * var(--wunit)));
+    --bid-table-border-width: 3px;
+}
+
+.RightSideDealOuter {
+    background-color: #9a0000;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: var(--main-padding) var(--main-padding-w);
+    gap: var(--main-padding);
+}
+
+.RightSideDealGenerateButtonContainer {
+    height: var(--button-height);
+    width: calc(100% - 2 * var(--main-padding-w));
+    background-color: blue;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--main-padding-w);
+}
+
+.RightSideDealSetContainer {
+    background-color: deeppink;
+    height: calc(100% - 3 * var(--main-padding) - var(--button-height));
+    width: calc(100% - 2 * var(--main-padding-w));
+}
+
+.GenerateMessageAndSpinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: blue;
+    line-height: var(--entry-message-line-height);
+}
+
+.ProperDealSet {
+    background-color: red;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 
+            calc(50% - var(--bid-table-height) / 2)
+            var(--bid-table-height)
+            calc(50% - var(--bid-table-height) / 2);
+    grid-template-rows:
+            calc(50% - var(--bid-table-height) / 2)
+            var(--bid-table-height)
+            calc(50% - var(--bid-table-height) / 2);
+}
+
+.DealSetCell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DealSetCellN1 {
+    background-color: #0f2a0f;
+}
+
+.DealSetCellN2 {
+    background-color: #1daf1d;
+}
+
+.DealSetCellN3 {
+    background-color: #0f2a0f;
+}
+
+.DealSetCellEW1 {
+    background-color: #1daf1d;
+}
+
+.DealSetCellEW2 {
+    background-color: #0f2a0f;
+}
+
+.DealSetCellEW3 {
+    background-color: #1daf1d;
+}
+
+.DealSetCellS1 {
+    background-color: #0f2a0f;
+}
+
+.DealSetCellS2 {
+    background-color: #1daf1d;
+}
+
+.DealSetCellS3 {
+    background-color: #0f2a0f;
+}
+
+.BiddingTable {
+    height: 100%;
+    width: 100%;
+    background-color: greenyellow;
+    display: grid;
+    grid-template-columns:
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)));
+    grid-template-rows:
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)));
+    border: var(--bid-table-border-width) solid transparent;
+}
+
+.BiddingTableCell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.BiddingTableCellN1 {
+    background-color: #0f2a0f;
+}
+
+.BiddingTableCellN2 {
+    background-color: #1daf1d;
+}
+
+.BiddingTableCellN3 {
+    background-color: #0f2a0f;
+}
+
+.BiddingTableCellEW1 {
+    background-color: #1daf1d;
+}
+
+.BiddingTableCellEW2 {
+    background-color: #0f2a0f;
+}
+
+.BiddingTableCellEW3 {
+    background-color: #1daf1d;
+}
+
+.BiddingTableCellS1 {
+    background-color: #0f2a0f;
+}
+
+.BiddingTableCellS2 {
+    background-color: #1daf1d;
+}
+
+.BiddingTableCellS3 {
+    background-color: #0f2a0f;
+}
+
+.NavigateCell {
+    width: calc(100% - 2 * var(--main-padding-w));
+    height: calc(100% - 2 * var(--main-padding));
+    background-color: blueviolet;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    padding: var(--main-padding) var(--main-padding-w);
+    gap: var(--hunit);
+}
+
+.NavigateCellUpperRow button {
+    background-color: firebrick;
+}
+
+.NavigateCellUpperRow {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: olive;
+    gap: var(--hunit);
+}
+
+.NavigateCellLowerRow {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: orange;
+    gap: var(--hunit);
+}
+
+.NavigateCellLowerRowEntry {
+    background-color: darkorange;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--hunit);
+}
+
+.NavigateCellLowerRow div {
+    width: 100%;
+    background-color: burlywood;
+}
+
+.NavigateCellLowerRow button {
+    background-color: fuchsia;
+}
+
+.DealSetEntryButtonsOuterContrainer {
+    background-color: coral;
+    height: calc(50% - var(--entry-message-line-height) / 2);
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.DealSetEntryButtonsInnerContrainer {
+    background-color: cadetblue;
+    height: calc(1 / 2 * ((200% + var(--entry-message-line-height) - 2 * var(--bid-table-border-width)) - var(--bid-table-height)));
+    width: calc(calc(1 / 3 * (100% - 2 * var(--bid-table-border-width))));
+}
+
+.DealSetEntryButtonsInnerContrainerPadding {
+    padding: var(--main-padding) var(--main-padding-w);
+    height: calc(100% - 2 * var(--main-padding));
+    width: calc(100% - 2 * var(--main-padding-w));
+    background-color: #1daf1d;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--main-padding);
+}
+
+/*grid-template-columns:*/
+/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))*/
+/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))*/
+/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)));*/
+/*grid-template-rows:*/
+/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))*/
+/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))*/
+/*calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)));*/
+
+.EntryContainer {
+    background-color: yellow;
+    height: 100%;
+    width: 100%;
+}
+
+.EntryMessage {
+    background-color: #1daf1d;
+    display: flex;
+    justify-content: end;
+    line-height: var(--entry-message-line-height);
+    height: calc(50% + var(--entry-message-line-height) / 2);
+}

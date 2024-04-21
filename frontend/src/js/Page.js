@@ -12,6 +12,7 @@ import '../css/LoginPage.css';
 import '../css/Scenarios.css';
 import '../css/Scenarios/MakeScenarios.css';
 import '../css/Scenarios/UseScenariosChoose.css';
+import '../css/Scenarios/DealSetLayout.css';
 
 import PageLogo from "../assets/2diams.png";
 import SavedItemsImg from "../assets/folder3.png";

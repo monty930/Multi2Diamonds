@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useScenario} from './CompilerSettings';
 import SaveDialog from "./SaveDialogWindow";
+import Spinner from "../Spinner";
 
 function GenerateDealSet() {
     const [dealSet, setDealSet] = useState(null);
@@ -130,49 +131,185 @@ function GenerateDealSet() {
     const checkForDeals = dealSet && dealSet.deals.length > 0;
 
     return (
-        <div>
-            <button
-                className={"AnyButton GenerateDealSetButton"}    
-                onClick={generateDealSet} disabled={isLoading}>
-                {isLoading ? 'Generating...' : 'Generate'}
-            </button>
-            <div>
-                {checkForDeals && (
-                    <div>
-                        <button 
-                            className={"AnyButton ClearDealSetButton"}
-                            onClick={clearData}>Clear</button>
+        <div className={"RightSideDealOuter"}>
+            <div className={"RightSideDealGenerateButtonContainer"}>
+                <button
+                    className={"AnyButton GenerateDealSetButton"}
+                    onClick={generateDealSet} disabled={isLoading}>
+                    {isLoading ? 'Generating...' : 'Generate'}
+                </button>
+                <div>
+                    {checkForDeals &&
                         <button
-                            className={"AnyButton SaveDealSetButton"}    
-                            onClick={() => setIsDialogOpen(true)}>Save</button>
-                        {currentDealNo >= 1 && 
-                            <button
-                                className={"AnyButton RegenerateDealButton"}    
-                                onClick={regenerate()}>Regenerate</button>}
-                        {currentDealNo > 1 && 
-                            <button
-                                className={"AnyButton PreviousDealButton"}    
-                                onClick={previousDeal}>Previous</button>}
-                        {currentDealNo < numOfDeals()
-                            ? <button
-                                className={"AnyButton NextDealButton"}
-                                onClick={nextDeal}>Next</button>
-                            : <button
-                                className={"AnyButton AddDealButton"}    
-                                onClick={addDeal()}>AddDeal</button>}
-                        {currentDealNo >= 1 && 
-                            <button
-                                className={"AnyButton RemoveDealButton"}    
-                                onClick={removeDeal()}>RemoveDeal</button>}
-                        Deal num: {currentDealNo}
-                        <div className="DealSetContainer">
-                            <pre style={{overflow: 'auto', height: '400px'}}>{addEndls(JSON.stringify(dealSet))}</pre>
+                            className={"AnyButton ClearDealSetButton"}
+                            onClick={clearData}>
+                            Clear
+                        </button>}
+                </div>
+            </div>
+            <div className={"RightSideDealSetContainer"}>
+                {checkForDeals && currentDealNo > 0 && (
+                    <div className={"ProperDealSet"}>
+                        <div className={"DealSetCellN1"}>
+
                         </div>
-                        <SaveDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)}
-                                    jsonDealSetString={JSON.stringify(dealSet)}/>
+                        <div className={"DealSetCellN2"}>
+
+                        </div>
+                        <div className={"DealSetCellN3"}>
+
+                        </div>
+                        <div className={"DealSetCellEW1"}>
+
+                        </div>
+                        <div className={"DealSetCellEW2"}>
+                            <div className={"BiddingTable"}>
+                                <div className={"BiddingTableCell BiddingTableCellN1"}>
+
+                                </div>
+                                <div className={"BiddingTableCell BiddingTableCellN2"}>
+                                    N
+                                </div>
+                                <div className={"BiddingTableCell BiddingTableCellN3"}>
+
+                                </div>
+                                <div className={"BiddingTableCell BiddingTableCellEW1"}>
+                                    W
+                                </div>
+                                <div className={"BiddingTableCell BiddingTableCellEW2"}>
+                                    {currentDealNo}
+                                </div>
+                                <div className={"BiddingTableCell BiddingTableCellEW3"}>
+                                    E
+                                </div>
+                                <div className={"BiddingTableCell BiddingTableCellS1"}>
+
+                                </div>
+                                <div className={"BiddingTableCell BiddingTableCellS2"}>
+                                    S
+                                </div>
+                                <div className={"BiddingTableCell BiddingTableCellS3"}>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"DealSetCellEW3"}>
+
+                        </div>
+                        <div className={"DealSetCellS1"}>
+
+                        </div>
+                        <div className={"DealSetCellS2"}>
+
+                        </div>
+                        <div className={"DealSetCellS3"}>
+                            <div className={"NavigateCell"}>
+                                <div className={"NavigateCellUpperRow"}>
+                                    <div className={"PreviousButtonContrainer"}>
+                                        {currentDealNo > 1 &&
+                                            <button
+                                                className={"AnyButton PreviousDealButton"}
+                                                onClick={previousDeal}>
+                                                p
+                                            </button>}
+                                    </div>
+                                    <div>
+                                        {currentDealNo < numOfDeals()
+                                            ? <button
+                                                className={"AnyButton NextDealButton"}
+                                                onClick={nextDeal}>n
+                                            </button>
+                                            :
+                                            <button
+                                                className={"AnyButton AddDealButton"}
+                                                onClick={addDeal()}>+
+                                            </button>}
+                                    </div>
+                                </div>
+                                <div className={"NavigateCellLowerRow"}>
+                                    <div>
+                                        <button
+                                            className={"AnyButton RemoveDealButton"}
+                                            onClick={removeDeal()}>
+                                            X
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button
+                                            className={"AnyButton RegenerateDealButton"}
+                                            onClick={regenerate()}>
+                                            r
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button
+                                            className={"AnyButton SaveDealSetButton"}
+                                            onClick={() => setIsDialogOpen(true)}>
+                                            s
+                                        </button>
+                                    </div>
+                                </div>
+                                {/*<div className="DealSetContainer">*/}
+                                {/*    <pre style={{overflow: 'auto', height: '400px'}}>{addEndls(JSON.stringify(dealSet))}</pre>*/}
+                                {/*</div>*/}
+                            </div>
+                            <SaveDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)}
+                                        jsonDealSetString={JSON.stringify(dealSet)}/>
+                        </div>
                     </div>
                 )}
-                {!checkForDeals && <p>Press 'Generate' to generate</p>}
+                {checkForDeals && currentDealNo === 0 && (
+                    <div className={"EntryContainer"}>
+                        <div className={"GenerateMessageAndSpinner EntryMessage"}>
+                            Press > to see the deals.
+                        </div>
+                        <div className={"DealSetEntryButtonsOuterContrainer"}>
+                            <div className={"DealSetEntryButtonsInnerContrainer"}>
+                                <div className={"DealSetEntryButtonsInnerContrainerPadding"}>
+                                <div className={"NavigateCellUpperRow"}>
+                                    <div className={"PreviousButtonContrainer"}>
+                                        {currentDealNo > 1 &&
+                                            <button
+                                                className={"AnyButton PreviousDealButton"}
+                                                onClick={previousDeal}>
+                                                p
+                                            </button>}
+                                    </div>
+                                    <div>
+                                        {currentDealNo < numOfDeals()
+                                            ? <button
+                                                className={"AnyButton NextDealButton"}
+                                                onClick={nextDeal}>n
+                                            </button>
+                                            :
+                                            <button
+                                                className={"AnyButton AddDealButton"}
+                                                onClick={addDeal()}>+
+                                            </button>}
+                                    </div>
+                                </div>
+                                <div className={"NavigateCellLowerRowEntry"}>
+                                    <div></div>
+                                    <div>
+                                        <button
+                                            className={"AnyButton SaveDealSetButton"}
+                                            onClick={() => setIsDialogOpen(true)}>
+                                            s
+                                        </button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                )}
+                {!checkForDeals &&
+                    <div className={"GenerateMessageAndSpinner"}>
+                        {isLoading && <Spinner/>}
+                        {!isLoading &&
+                            <div>Press 'Generate' to generate</div>
+                        }
+                    </div>}
             </div>
         </div>
     );

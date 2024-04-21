@@ -28,7 +28,7 @@
     --generate-button-border: rgb(158, 157, 157);
 
     --main-padding: calc(2 * var(--hunit));
-    --main-padding-w: calc(2 * var(--wunit));
+    --main-padding-w: calc(1.5 * var(--wunit));
 }
 
 .Page {
