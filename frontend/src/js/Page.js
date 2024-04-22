@@ -1,9 +1,10 @@
 import React from "react";
-import {BrowserRouter as Router, Routes, Route, Link, Navigate, useNavigate} from "react-router-dom";
+import {BrowserRouter as Router, Link, Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
 import Scenarios from "./scenarios/Scenarios";
 import SavedItemsPage from "./SavedItemsPage";
+import WelcomePage from "./WelcomePage";
 import {useAuth} from "./AuthContext";
 import axios from "axios";
 
@@ -19,9 +20,51 @@ import SavedItemsImg from "../assets/folder3.png";
 import LogOutImg from "../assets/logout.png";
 import ProfileImg from "../assets/profile.png";
 import GitHubLogo from "../assets/githublogo.png";
+import ErrorPage from "./ErrorPage";
 
-function Header() {
-    const { logout } = useAuth();
+function Page() {
+    const {isAuthenticated, authError} = useAuth();
+
+    return (
+        <Router>
+            <div className="Page">
+                {authError && (
+                    <ErrorPage error={authError}/>
+                )}
+                {!authError && (
+                <span>
+                    <div className="PageHeader"><Header auth={isAuthenticated && !authError}/></div>
+                    <div className="PageContent">
+                        <Routes>
+                            {isAuthenticated ? (
+                                <>
+                                    <Route path="/" element={<WelcomePage/>}/>
+                                    <Route path="/scenarios/make" element={<Scenarios/>}/>
+                                    <Route path="/scenarios/use" element={<Scenarios/>}/>
+                                    <Route path="/profile" element={<ProfilePage/>}/>
+                                    <Route path="/saved" element={<SavedItemsPage/>}/>
+                                </>
+                            ) : (
+                                <Route path="*" element={<Navigate replace to="/login"/>}/>
+                            )}
+                            <Route path="/login" element={<LoginPage/>}/>
+                        </Routes>
+                    </div>
+                    <div className="PageFooter">
+                        <Footer/>
+                    </div>
+                </span>
+                )}
+            </div>
+        </Router>
+
+    );
+}
+
+export default Page;
+
+function Header({auth}) {
+    const {logout} = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -39,26 +82,28 @@ function Header() {
             <div className="PageTitle">
                 <Link to="/" className="LinkNoDecor PageTitleLink">
                     Multi
-                    <img src={PageLogo} alt="2diams logo" className="PageLogo" />
+                    <img src={PageLogo} alt="2diams logo" className="PageLogo"/>
                 </Link>
             </div>
-            <div className="HeaderNav">
-                <div className="HeaderNavItem">
-                    <Link to="/saved" className="HeaderTab SavedItemsLink LinkNoDecor">
-                        <img src={SavedItemsImg} alt="Saved items" className="SavedItemsImg" />
-                    </Link>
+            {auth && (
+                <div className="HeaderNav">
+                    <div className="HeaderNavItem">
+                        <Link to="/saved" className="HeaderTab SavedItemsLink LinkNoDecor">
+                            <img src={SavedItemsImg} alt="Saved items" className="SavedItemsImg"/>
+                        </Link>
+                    </div>
+                    <div className="HeaderNavItem">
+                        <Link to="/profile" className="HeaderTab LinkNoDecor">
+                            <img src={ProfileImg} alt="Profile" className="ProfileImg"/>
+                        </Link>
+                    </div>
+                    <div className="HeaderNavItem">
+                        <button className="HeaderTab LogOutButton LinkNoDecor" onClick={handleLogout}>
+                            <img src={LogOutImg} alt="Log out" className="LogOutImg"/>
+                        </button>
+                    </div>
                 </div>
-                <div className="HeaderNavItem">
-                    <Link to="/profile" className="HeaderTab LinkNoDecor">
-                        <img src={ProfileImg} alt="Profile" className="ProfileImg" />
-                    </Link>
-                </div>
-                <div className="HeaderNavItem">
-                    <button className="HeaderTab LogOutButton LinkNoDecor" onClick={handleLogout}>
-                        <img src={LogOutImg} alt="Log out" className="LogOutImg" />
-                    </button>
-                </div>
-            </div>
+            )}
         </div>
     );
 }
@@ -74,36 +119,3 @@ function Footer() {
         </a>
     </footer>;
 }
-
-function Page() {
-    const { isAuthenticated } = useAuth();
-
-    return (
-        <Router>
-            <div className="Page">
-                <div className="PageHeader"><Header /></div>
-                <div className="PageContent">
-                    <Routes>
-                        {isAuthenticated ? (
-                            <>
-                                <Route path="/" element={<Navigate replace to="/scenarios/make" />} />
-                                <Route path="/scenarios/make" element={<Scenarios />} />
-                                <Route path="/scenarios/use" element={<Scenarios />} />
-                                <Route path="/profile" element={<ProfilePage />} />
-                                <Route path="/saved" element={<SavedItemsPage />} />
-                            </>
-                        ) : (
-                            <Route path="*" element={<Navigate replace to="/login" />} />
-                        )}
-                        <Route path="/login" element={<LoginPage />} />
-                    </Routes>
-                </div>
-                <div className="PageFooter">
-                    <Footer />
-                </div>
-            </div>
-        </Router>
-    );
-}
-
-export default Page;

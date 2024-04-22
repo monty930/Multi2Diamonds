@@ -1,35 +1,37 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [authError, setAuthError] = useState(null);  // New state for handling authentication errors
 
     useEffect(() => {
         const validateSession = async () => {
+            console.log('here val');
             try {
-                fetch('http://localhost:5015/Account/ValidateSession', {
+                const response = await fetch('http://localhost:5015/Account/ValidateSession', {
                     method: 'GET',
                     credentials: 'include',
-                }).then(r => {
-                    if (r.status === 200) {
-                        setIsAuthenticated(true);
-                    } else {
-                        setIsAuthenticated(false);
-                    }
                 });
+                if (response.status === 200) {
+                    setIsAuthenticated(true);
+                } else {
+                    setIsAuthenticated(false);
+                }
             } catch (error) {
                 console.error('Session validation failed:', error);
                 setIsAuthenticated(false);
+                setAuthError('The web service is not available.\nPlease try again later.');
             }
         };
 
-        validateSession().then();
+        validateSession();
     }, []);
 
     const login = () => {
         setIsAuthenticated(true);
+        setAuthError(null);
     };
 
     const logout = () => {
@@ -37,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, authError, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
