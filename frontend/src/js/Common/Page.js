@@ -14,6 +14,7 @@ import '../../css/Scenarios/Scenarios.css';
 import '../../css/Scenarios/MakeScenarios.css';
 import '../../css/Scenarios/UseScenariosChoose.css';
 import '../../css/Scenarios/DealSetLayout.css';
+import "../../css/Common/WelcomePage.css";
 
 import PageLogo from "../../assets/2diams.png";
 import SavedItemsImg from "../../assets/folder3.png";

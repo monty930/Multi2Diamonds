@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useScenario} from './CompilerSettings';
 import SaveDialog from "./SaveDialogWindow";
 import Spinner from "../Common/Spinner";
-import BiddingTable from "./DealLayout/BiddingTable.js";
+import BiddingTable from "./DealView/BiddingTable.js";
+import Hand from "./DealView/Hand.js";
 
 import saveImage from '../../assets/save.png';
 import downloadImage from '../../assets/download-1.png';
@@ -192,116 +193,17 @@ function GenerateDealSet() {
                             Deal {currentDealNo} / {numOfDeals()}
                         </div>
                         <div className={"DealSetCellN2"}>
-                            <div className={"Hand HandN"}>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer SpadeChar"}>
-                                        &#9824;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('north', 'spades')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer HeartChar"}>
-                                        &#9829;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('north', 'hearts')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer DiamondChar"}>
-                                        &#9830;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('north', 'diamonds')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer ClubChar"}>
-                                        &#9827;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('north', 'clubs')}
-                                    </div>
-                                </div>
-                            </div>
+                            {Hand({ dealSet, hand: 'N', currentDealNo: currentDealNo })}
                         </div>
                         <div className={"DealSetCellN3"}></div>
                         <div className={"DealSetCellEW1"}>
-                            <div className={"Hand HandW"} id={"HandW"}>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer SpadeChar"}>
-                                        &#9824;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('west', 'spades')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer HeartChar"}>
-                                        &#9829;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('west', 'hearts')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer DiamondChar"}>
-                                        &#9830;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('west', 'diamonds')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer ClubChar"}>
-                                        &#9827;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('west', 'clubs')}
-                                    </div>
-                                </div>
-                            </div>
+                            {Hand({ dealSet, hand: 'W', currentDealNo: currentDealNo })}
                         </div>
                         <div className={"DealSetCellEW2"}>
                             {BiddingTable({ currentDealNo, vul: getVul(), dealer: getDealer(), loading: isLoading })}
                         </div>
                         <div className={"DealSetCellEW3"}>
-                            <div className={"Hand HandE"}>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer SpadeChar"}>
-                                        &#9824;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('east', 'spades')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer HeartChar"}>
-                                        &#9829;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('east', 'hearts')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer DiamondChar"}>
-                                        &#9830;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('east', 'diamonds')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer ClubChar"}>
-                                        &#9827;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('east', 'clubs')}
-                                    </div>
-                                </div>
-                            </div>
+                            {Hand({ dealSet, hand: 'E', currentDealNo: currentDealNo })}
                         </div>
                         <div className={"DealSetCellS1"}>
                             <div className={"SaveButtonsContainer"}>
@@ -342,48 +244,11 @@ function GenerateDealSet() {
                             </div>
                         </div>
                         <div className={"DealSetCellS2"}>
-                            <div className={"Hand HandS"}>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer SpadeChar"}>
-                                        &#9824;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('south', 'spades')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer HeartChar"}>
-                                        &#9829;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('south', 'hearts')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer DiamondChar"}>
-                                        &#9830;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('south', 'diamonds')}
-                                    </div>
-                                </div>
-                                <div className={"Suit"}>
-                                    <div className={"SuitImageContainer ClubChar"}>
-                                        &#9827;
-                                    </div>
-                                    <div className={"CardContainer"}>
-                                        {getSuit('south', 'clubs')}
-                                    </div>
-                                </div>
-                            </div>
+                            {Hand({ dealSet, hand: 'S', currentDealNo: currentDealNo })}
                         </div>
                         <div className={"DealSetCellS3"}>
                             <div className={"NavigateCell"}>
-                                <div className={"NavigateCellUpperRow"}>
-                                    
-                                    
-                                    
-                                </div>
+                                <div className={"NavigateCellUpperRow"}></div>
                                 <div className={"NavigateCellLowerRow"}>
                                     <div className={"PreviousButtonContrainer"}>
                                         {currentDealNo > 1 &&
@@ -396,29 +261,27 @@ function GenerateDealSet() {
                                     <div>
                                         {currentDealNo < numOfDeals()
                                             ? <button
-                                                className={"AnyButton NextDealButton"}
-                                                onClick={nextDeal}>
+                                                className={"AnyButton NextDealButton"} onClick={nextDeal}>
                                                 <img src={next} alt={"Next"} className={"DealSetButtonImage NextImage"}/>
                                             </button>
                                             :
                                             <button
-                                                className={"AnyButton AddDealButton"}
-                                                onClick={addDeal()}>
+                                                className={"AnyButton AddDealButton"} onClick={addDeal()}>
                                                 <img src={add} alt={"Add"} className={"DealSetButtonImage AddImage"}/>
                                             </button>}
                                     </div>
                                 </div>
-                                {/*<div className="DealSetContainer">*/}
-                                {/*    <pre style={{overflow: 'auto', height: '400px'}}>{addEndls(JSON.stringify(dealSet))}</pre>*/}
-                                {/*</div>*/}
                             </div>
                         </div>
                     </div>
                 )}
                 {checkForDeals && currentDealNo === 0 && (
                     <div className={"EntryContainer"}>
-                        <div className={"GenerateMessageAndSpinner EntryMessage"}>
-                            Press > to see the deals.
+                        <div className={"GenerateMessageAndSpinner"}>
+                            {isLoading && <Spinner/>}
+                            {!isLoading &&
+                                <div>Press > too see the deal set.</div>
+                            }
                         </div>
                         <div className={"DealSetEntryButtonsOuterContrainer"}>
                             <div className={"DealSetEntryButtonsOuterContrainer1"}>
@@ -428,15 +291,13 @@ function GenerateDealSet() {
                                         <div className={"NavigateCellLowerRowEntry"}>
                                             <div>
                                                 <button
-                                                    className={"AnyButton SaveDealSetButton"}
-                                                    onClick={saveDealSet}>
+                                                    className={"AnyButton SaveDealSetButton"} onClick={saveDealSet}>
                                                     <img src={saveImage} alt={"Save"} className={"DealSetButtonImage SaveImage"}/>
                                                 </button>
                                             </div>
                                             <div>
                                                 <button
-                                                    className={"AnyButton DownloadButton"}
-                                                    onClick={() => setIsDialogOpen(true)}>
+                                                    className={"AnyButton DownloadButton"} onClick={() => setIsDialogOpen(true)}>
                                                     <img src={downloadImage} alt={"Download"} className={"DealSetButtonImage DownloadImage"}/>
                                                 </button>
                                             </div>
@@ -451,8 +312,7 @@ function GenerateDealSet() {
                                             <div className={"PreviousButtonContrainer"}>
                                                 {currentDealNo > 1 &&
                                                     <button
-                                                        className={"AnyButton PreviousDealButton"}
-                                                        onClick={previousDeal}>
+                                                        className={"AnyButton PreviousDealButton"} onClick={previousDeal}>
                                                         <img src={previous} alt={"Previous"} className={"DealSetButtonImage PreviousImage"}/>
                                                     </button>}
                                             </div>
@@ -462,8 +322,7 @@ function GenerateDealSet() {
                                             <div></div>
                                             <div>
                                                 <button
-                                                    className={"AnyButton NextDealButton"}
-                                                    onClick={nextDeal}>
+                                                    className={"AnyButton NextDealButton"} onClick={nextDeal}>
                                                     <img src={next} alt={"Next"} className={"DealSetButtonImage NextImage"}/>
                                                 </button>
                                             </div>
@@ -486,12 +345,6 @@ function GenerateDealSet() {
                         jsonDealSetString={JSON.stringify(dealSet)}/>
         </div>
     );
-}
-
-// TODO delete this
-// function to add endls in stringified JSON before each '{'
-function addEndls(jsonString) {
-    return jsonString.replace(/({)/g, '\n$1');
 }
 
 export default GenerateDealSet;

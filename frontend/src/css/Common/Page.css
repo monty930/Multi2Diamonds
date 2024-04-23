@@ -3,8 +3,11 @@
             system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
             "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
             "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --main-font-size: calc(0.7 * var(--line-height));
+    --line-height: calc(3.7 * var(--hunit));
+    
     --hunit: 1vh;
-    --wunit: 1vw;
+    --wunit: 1vw;;
     
     --content-height: calc(100% - var(--header-height) - var(--footer-height));
     --header-height: calc(9 * var(--hunit));
@@ -18,7 +21,7 @@
     --header-border-color: #9e9e9e;
     --profile-background-color: #696969;
     --table-border-color: #7e7e7e;
-    --red-button-color: #da0808;
+    --red-button-color: #c20101;
     --red-shadow: #800000;
     --red-hover: #b60101;
     --red-active: #9a0000;
@@ -38,6 +41,7 @@
 .Page {
     height: 100vh;
     width: 100vw;
+    font-size: var(--main-font-size);
 }
 
 .PageContent {
@@ -86,7 +90,7 @@
     height: 100%;
     width: auto;
     display: grid;
-    grid-template-columns: calc(10 * var(--wunit)) calc(10 * var(--wunit)) calc(10 * var(--wunit));
+    grid-template-columns: calc(12 * var(--hunit)) calc(12 * var(--hunit)) calc(12 * var(--hunit));
     grid-template-rows: 100%;
     align-items: center;
     justify-content: flex-end;
@@ -106,12 +110,12 @@
     display: flex;
     align-items: center;
     padding-left: var(--main-padding-w);
-    font-size: calc(4.5 * var(--hunit));
-    font-weight: 500;
+    font-size: calc(5 * var(--hunit));
+    font-weight: 550;
 }
 
 .PageTitleLink img {
-    height: calc(3.5 * var(--hunit));
+    height: calc(4 * var(--hunit));
     margin-right: calc(0.5 * var(--wunit));
     padding-left: calc(1.5 * var(--hunit));
 }

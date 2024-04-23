@@ -1,0 +1,14 @@
+.WelcomePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    height: calc(100% - 2 * var(--main-padding));
+    width: calc(100% - 2 * var(--main-padding-w));
+}
+
+.WelcomePageNavigButton {
+    height: calc(5 * var(--hunit));
+    width: auto;
+    padding: 0 var(--main-padding-w);
+}

@@ -6,9 +6,9 @@ function WelcomePage() {
     
     return (
         <div className="WelcomePage">
-            Welcome page
+            <h1>Welcome page</h1>
             <button
-                className={"AnyButton ToggleScenariosViewButton GoToMakeButton"}
+                className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
                 onClick={() => navigate('/scenarios/make')}>
                 Go to Make Scenarios
             </button>

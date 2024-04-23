@@ -2,7 +2,6 @@
     --big-div-unit: calc(200 * var(--wunit));
     --login-form-width: calc(min(50 * var(--wunit), 50 * var(--hunit)));
     --login-form-height: calc(60 * var(--hunit));
-    --line-height: calc(3.5 * var(--hunit));
     --entry-message-line-height: calc(3.5 * var(--hunit));
     --login-form-font-size: calc(2.5 * var(--hunit));
     --login-title-font-size: calc(5 * var(--hunit));

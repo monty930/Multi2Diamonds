@@ -1,0 +1,21 @@
+:root {
+    --spinner-size: min(90%, 4 * var(--hunit));
+}
+
+.SpinnerImg {
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    margin: 0 auto;
+    display: block;
+    animation: spin 2s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,7 +1,7 @@
 :root {
     --break-height: var(--main-padding);
     --settings-box-height: calc(5 * var(--hunit));
-    --settings-font-size: calc(2.5 * var(--hunit));
+    --settings-font-size: var(--main-font-size);
     --arrow-img-height: calc(min(7px, var(--hunit)));
     --select-box-color: var(--header-background-color);
     --dealset-settings-container-height: calc(3 * var(--settings-box-height) + 4 * var(--break-height));
