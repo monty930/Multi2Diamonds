@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useScenario} from './CompilerSettings';
 import SaveDialog from "./SaveDialogWindow";
 import Spinner from "../Spinner";
+import BiddingTable from "./DealLayout/BiddingTable.js";
 
 import saveImage from '../../assets/save.png';
 import downloadImage from '../../assets/download-1.png';
@@ -158,6 +159,14 @@ function GenerateDealSet() {
     const saveDealSet = async () => {
         console.log('Saving deal set');
     }
+    
+    const getVul = () => {
+        return dealSet.deals[currentDealNo - 1].vul;
+    }
+    
+    const getDealer = () => {
+        return dealSet.deals[currentDealNo - 1].dealer;
+    }
 
     return (
         <div className={"RightSideDealOuter"}>
@@ -218,9 +227,7 @@ function GenerateDealSet() {
                                 </div>
                             </div>
                         </div>
-                        <div className={"DealSetCellN3"}>
-
-                        </div>
+                        <div className={"DealSetCellN3"}></div>
                         <div className={"DealSetCellEW1"}>
                             <div className={"Hand HandW"} id={"HandW"}>
                                 <div className={"Suit"}>
@@ -258,35 +265,7 @@ function GenerateDealSet() {
                             </div>
                         </div>
                         <div className={"DealSetCellEW2"}>
-                            <div className={"BiddingTable"}>
-                                <div className={"BiddingTableCell BiddingTableCellN1"}>
-
-                                </div>
-                                <div className={"BiddingTableCell BiddingTableCellN2"}>
-                                    N
-                                </div>
-                                <div className={"BiddingTableCell BiddingTableCellN3"}>
-
-                                </div>
-                                <div className={"BiddingTableCell BiddingTableCellEW1"}>
-                                    W
-                                </div>
-                                <div className={"BiddingTableCell BiddingTableCellEW2"}>
-                                    {currentDealNo}
-                                </div>
-                                <div className={"BiddingTableCell BiddingTableCellEW3"}>
-                                    E
-                                </div>
-                                <div className={"BiddingTableCell BiddingTableCellS1"}>
-
-                                </div>
-                                <div className={"BiddingTableCell BiddingTableCellS2"}>
-                                    S
-                                </div>
-                                <div className={"BiddingTableCell BiddingTableCellS3"}>
-
-                                </div>
-                            </div>
+                            {BiddingTable({ currentDealNo, vul: getVul(), dealer: getDealer(), loading: isLoading })}
                         </div>
                         <div className={"DealSetCellEW3"}>
                             <div className={"Hand HandE"}>
@@ -327,7 +306,22 @@ function GenerateDealSet() {
                         <div className={"DealSetCellS1"}>
                             <div className={"SaveButtonsContainer"}>
                                 <div className={"DealSetEntryButtonsInnerContrainerPadding"}>
-                                    <div className={"NavigateCellUpperRow"}></div>
+                                    <div className={"NavigateCellUpperRow"}>
+                                        <div>
+                                            <button
+                                                className={"AnyButton RegenerateDealButton"}
+                                                onClick={regenerate()}>
+                                                <img src={retry} alt={"Regenerate"} className={"DealSetButtonImage RegenerateImage"}/>
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <button
+                                                className={"AnyButton RemoveDealButton RedButton"}
+                                                onClick={removeDeal()}>
+                                                <img src={remove} alt={"Remove"} className={"DealSetButtonImage RemoveImage"}/>
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div className={"NavigateCellLowerRowEntry"}>
                                         <div>
                                             <button
@@ -386,20 +380,9 @@ function GenerateDealSet() {
                         <div className={"DealSetCellS3"}>
                             <div className={"NavigateCell"}>
                                 <div className={"NavigateCellUpperRow"}>
-                                    <div>
-                                        <button
-                                            className={"AnyButton RegenerateDealButton"}
-                                            onClick={regenerate()}>
-                                            <img src={retry} alt={"Regenerate"} className={"DealSetButtonImage RegenerateImage"}/>
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button
-                                            className={"AnyButton RemoveDealButton RedButton"}
-                                            onClick={removeDeal()}>
-                                            <img src={remove} alt={"Remove"} className={"DealSetButtonImage RemoveImage"}/>
-                                        </button>
-                                    </div>
+                                    
+                                    
+                                    
                                 </div>
                                 <div className={"NavigateCellLowerRow"}>
                                     <div className={"PreviousButtonContrainer"}>

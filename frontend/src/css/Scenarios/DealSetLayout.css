@@ -302,7 +302,7 @@
     display: flex;
     align-items: center;
     padding-left: calc(var(--line-height) / 10);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: var(--main-font);
     font-weight: bold;
     font-size: var(--cards-font-size);
     letter-spacing: calc(0.03 * var(--line-height));
@@ -334,4 +334,17 @@
 
 .DealSetButtonImage {
     width: calc(min(5 * var(--hunit), 3.5 * var(--wunit)));
+}
+
+.Dealer {
+    text-decoration: underline;
+}
+
+.Vul, .NotVul {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    
+}
+
+.Vul {
+    color: #ff1212;
 }

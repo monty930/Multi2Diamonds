@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="frontend\src\js\scenarios\assets\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
