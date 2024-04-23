@@ -11,7 +11,7 @@
 .LoginPageImageContrainer {
     height: 100%;
     width: 100%;
-    background-image: url(../assets/signup2d-rotated.jpg);
+    background-image: url(../../assets/signup2d-rotated.jpg);
     background-size: cover;
     display: flex;
     justify-content: center;

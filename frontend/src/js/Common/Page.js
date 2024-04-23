@@ -2,24 +2,24 @@ import React from "react";
 import {BrowserRouter as Router, Link, Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
-import Scenarios from "./scenarios/Scenarios";
+import Scenarios from "../Scenarios/Scenarios";
 import SavedItemsPage from "./SavedItemsPage";
 import WelcomePage from "./WelcomePage";
 import {useAuth} from "./AuthContext";
 import axios from "axios";
 
-import "../css/Page.css";
-import '../css/LoginPage.css';
-import '../css/Scenarios.css';
-import '../css/Scenarios/MakeScenarios.css';
-import '../css/Scenarios/UseScenariosChoose.css';
-import '../css/Scenarios/DealSetLayout.css';
+import "../../css/Common/Page.css";
+import '../../css/Common/LoginPage.css';
+import '../../css/Scenarios/Scenarios.css';
+import '../../css/Scenarios/MakeScenarios.css';
+import '../../css/Scenarios/UseScenariosChoose.css';
+import '../../css/Scenarios/DealSetLayout.css';
 
-import PageLogo from "../assets/2diams.png";
-import SavedItemsImg from "../assets/folder3.png";
-import LogOutImg from "../assets/logout.png";
-import ProfileImg from "../assets/profile.png";
-import GitHubLogo from "../assets/githublogo.png";
+import PageLogo from "../../assets/2diams.png";
+import SavedItemsImg from "../../assets/folder3.png";
+import LogOutImg from "../../assets/logout.png";
+import ProfileImg from "../../assets/profile.png";
+import GitHubLogo from "../../assets/githublogo.png";
 import ErrorPage from "./ErrorPage";
 
 function Page() {

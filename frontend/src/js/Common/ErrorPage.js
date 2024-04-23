@@ -1,6 +1,6 @@
 import React from "react";
-import "../css/ErrorPage.css";
-import errorImg from "../assets/2d-cracked.png";
+import "../../css/Common/ErrorPage.css";
+import errorImg from "../../assets/2d-cracked.png";
 
 function ErrorPage({ error }) {
     return (

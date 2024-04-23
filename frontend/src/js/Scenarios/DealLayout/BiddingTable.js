@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import Spinner from "../../Spinner.js";
+import Spinner from "../../Common/Spinner";
         
 function BiddingTable({ currentDealNo, vul, dealer, loading }) {
     return (

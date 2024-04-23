@@ -1,6 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Link, Navigate, Route, Routes, useNavigate} from "react-router-dom";
-import Scenarios from "./scenarios/Scenarios";
+import {useNavigate} from "react-router-dom";
 
 function WelcomePage() {
     const navigate = useNavigate();

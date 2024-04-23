@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Spinner from "./Spinner";
-import "../css/CenterProfileLayout.css";
+import "../../css/Common/CenterProfileLayout.css";
 function ProfilePage() {
     const [profileData, setProfileData] = useState({ username: '', dealSetsCount: 0, scenariosCount: 0 });
     const [isLoading, setIsLoading] = useState(true);

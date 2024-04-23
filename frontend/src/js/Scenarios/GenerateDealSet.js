@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useScenario} from './CompilerSettings';
 import SaveDialog from "./SaveDialogWindow";
-import Spinner from "../Spinner";
+import Spinner from "../Common/Spinner";
 import BiddingTable from "./DealLayout/BiddingTable.js";
 
 import saveImage from '../../assets/save.png';

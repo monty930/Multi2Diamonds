@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../css/CenterProfileLayout.css";
-import "../css/SavedItemsPage.css";
+import "../../css/Common/CenterProfileLayout.css";
+import "../../css/Common/SavedItemsPage.css";
 
-import trashImage from "../assets/trash.png";
-import trashOpen from "../assets/trash_open.png";
+import trashImage from "../../assets/trash.png";
+import trashOpen from "../../assets/trash_open.png";
 
 function SavedItemsPage() {
     const [savedContents, setSavedContents] = useState([]);
