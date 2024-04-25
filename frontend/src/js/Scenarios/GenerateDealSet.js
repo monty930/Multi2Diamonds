@@ -9,7 +9,6 @@ import saveImage from '../../assets/save.png';
 import downloadImage from '../../assets/download-1.png';
 import add from '../../assets/plus.png';
 import remove from '../../assets/trash.png';
-import trash_open from '../../assets/trash_open.png';
 import retry from '../../assets/retry.png';
 import previous from '../../assets/arrow-back.png';
 import next from '../../assets/arrow.png';
@@ -46,14 +45,14 @@ function GenerateDealSet() {
         checkForSaved().then();
     }, []);
 
-    const generateDealSet = async () => {
+    const getDealSet = async (numOfDeals) => {
         setIsLoading(true);
+        let result = "";
         try {
-            console.log('Generating deal set with: ', vul, dealer, numberOfDeals, constraintsArray, percentagesArray);
             const settings = {
                 Vul: vul,
                 Dealer: dealer,
-                NumberOfDeals: numberOfDeals,
+                NumberOfDeals: numOfDeals,
                 ConstraintsNames: constraintsArray,
                 Percentages: percentagesArray,
             };
@@ -70,13 +69,19 @@ function GenerateDealSet() {
             }
 
             const data = await response.json();
-            setDealSet(data.dealSet);
-            setCurrentDealNo(0);
+            result = data.dealSet;
         } catch (error) {
             console.error('Failed to fetch:', error);
         } finally {
             setIsLoading(false);
         }
+        return result;
+    }
+
+    const generateDealSet = async () => {
+        let result = await getDealSet(numberOfDeals);
+        setCurrentDealNo(0);
+        setDealSet(result);
     };
 
     const nextDeal = () => {
@@ -88,33 +93,12 @@ function GenerateDealSet() {
     };
 
     const getOneNewDeal = async () => {
-        setIsLoading(true);
-        try {
-            const response = await fetch('http://localhost:5015/Scenarios/GenerateDeals', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({vul, dealer, numberOfDeals: 1}),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            let responseJson = await response.json();
-            return await responseJson;
-        } catch (error) {
-            console.error('Failed to fetch:', error);
-            setIsLoading(false);
-        } finally {
-            setIsLoading(false);
-        }
+        return await getDealSet(1);
     }
 
     const regenerate = () => async () => {
         let newDealSet = await getOneNewDeal();
-        let newDeal = newDealSet.dealSet.deals[0];
+        let newDeal = newDealSet.deals[0];
         let updatedDeals = dealSet.deals.map((deal, index) =>
             index === currentDealNo - 1 ? newDeal : deal
         );
@@ -131,12 +115,11 @@ function GenerateDealSet() {
 
     const addDeal = () => async () => {
         let newDealSet = await getOneNewDeal();
-        let newDeal = newDealSet.dealSet.deals[0];
+        let newDeal = newDealSet.deals[0];
         let updatedDeals = [...dealSet.deals, newDeal];
         setDealSet({...dealSet, deals: updatedDeals});
         setCurrentDealNo(updatedDeals.length);
     }
-
 
     const clearData = () => {
         setDealSet(null);
