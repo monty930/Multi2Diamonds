@@ -23,30 +23,16 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/GenerateDeals")]
     public async Task<IActionResult> GenerateDeals([FromBody] SettingsArgs compilerSettings)
     {
-
-        // TODO These lines will be deleted
-        Console.WriteLine("GenerateDeals controller: " + compilerSettings.Compiler + " " +
-                          compilerSettings.NumberOfDeals + " " + compilerSettings.Vul + " " + compilerSettings.Dealer +
-                          " " + compilerSettings.Flip + " " + compilerSettings.Scoring);
-
         compilerSettings.Constraints = _constraintsRepository.GetConstraints(compilerSettings.ConstraintsNames, "admin"); // should be: User.Identity.Name;
 
-        foreach (var constraint in compilerSettings.Constraints)
-        {
-            Console.WriteLine(constraint);
-        }
-        // print compilerSettings.Constraints array
-        int sum = 0;
+        int sum = 0; // TODO These lines will be moved to frontend side
         for (int i = 0; i < compilerSettings.Constraints.Length; i++)
         {
             if (i != compilerSettings.Constraints.Length - 1)
                 sum += compilerSettings.Percentages[i];
             else
                 compilerSettings.Percentages[i] = 100 - sum;
-            Console.WriteLine(compilerSettings.Constraints[i]);
-            Console.WriteLine(compilerSettings.Percentages[i]);
         }
-        Console.WriteLine("----------");
 
         var model = await _scenariosManager.GenerateDeals(new ScenariosModel
             { CompilerRunner = new CompilerRunner(compilerSettings) });
@@ -60,7 +46,7 @@ public partial class ScenariosController : Controller
         var id = int.Parse(dealSetId);
         var dealSet = _dealSetRepository.GetDealSetDetails(id);
         if (dealSet == null) return NotFound();
-        return Ok(new { dealSet = dealSet });
+        return Ok(new { dealSet });
     }
 
     [HttpPost]
