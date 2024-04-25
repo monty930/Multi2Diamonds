@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Spinner from "./Spinner";
 import "../../css/Common/CenterProfileLayout.css";
 function ProfilePage() {
-    const [profileData, setProfileData] = useState({ username: '', dealSetsCount: 0, scenariosCount: 0 });
+    const [profileData, setProfileData] = useState({ username: '' });
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -11,7 +11,6 @@ function ProfilePage() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 },
                 credentials: 'include',
             });
@@ -19,9 +18,7 @@ function ProfilePage() {
             if (response.ok) {
                 const data = await response.json();
                 setProfileData({
-                    username: data.username,
-                    dealSetsCount: data.DealSetsCount,
-                    scenariosCount: data.ScenariosCount
+                    username: data.username
                 });
             } else {
                 console.error('Failed to fetch profile data');
@@ -29,7 +26,7 @@ function ProfilePage() {
             setIsLoading(false);
         };
 
-        fetchProfileData();
+        fetchProfileData().then();
     }, []);
 
     if (isLoading) {
@@ -42,8 +39,6 @@ function ProfilePage() {
             <div className="profile-view">
                 <h1>My Profile</h1>
                 <p>Username: {profileData.username}</p>
-                <p>Number of Deal Sets: {profileData.dealSetsCount}</p>
-                <p>Number of Scenarios: {profileData.scenariosCount}</p>
             </div>
             <div className="right-border"></div>
         </div>

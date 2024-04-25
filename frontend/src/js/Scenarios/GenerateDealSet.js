@@ -18,7 +18,7 @@ function GenerateDealSet() {
     const [dealSet, setDealSet] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [currentDealNo, setCurrentDealNo] = useState(parseInt(sessionStorage.getItem('currentDealNo') || '0'));
-    const {vul, dealer, numberOfDeals} = useScenario();
+    const {vul, dealer, numberOfDeals, constraintsArray, percentagesArray} = useScenario();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const fetchDealSetDetails = async (dealSetId) => {
@@ -49,12 +49,20 @@ function GenerateDealSet() {
     const generateDealSet = async () => {
         setIsLoading(true);
         try {
+            console.log('Generating deal set with: ', vul, dealer, numberOfDeals, constraintsArray, percentagesArray);
+            const settings = {
+                Vul: vul,
+                Dealer: dealer,
+                NumberOfDeals: numberOfDeals,
+                ConstraintsNames: constraintsArray,
+                Percentages: percentagesArray,
+            };
             const response = await fetch('http://localhost:5015/Scenarios/GenerateDeals', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({vul, dealer, numberOfDeals}),
+                body: JSON.stringify(settings)
             });
 
             if (!response.ok) {
@@ -62,9 +70,8 @@ function GenerateDealSet() {
             }
 
             const data = await response.json();
-            // setDealSetRaw(data.scriptOutputRaw);
             setDealSet(data.dealSet);
-            setCurrentDealNo(0); // Reset current deal number on new generation
+            setCurrentDealNo(0);
         } catch (error) {
             console.error('Failed to fetch:', error);
         } finally {

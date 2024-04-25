@@ -6,16 +6,16 @@ import arrowUp from '../../assets/arrow-up.png';
 import trashImg from '../../assets/trash.png';
 
 function UseScenariosChoose() {
-    const { setVul, setDealer, setNumberOfDeals } = useScenario();
+    const { setVul, setDealer, setNumberOfDeals, setConstraintsArray, setPercentagesArray} = useScenario();
     const navigate = useNavigate();
-    const [constraints, setConstraints] = useState([{ id: 0, value: "0" }]);
+    const [constraints, setConstraints] = useState([{ id: 0, value: "0", selected: "NoConstraint" }]);
     const [constraintOptions, setConstraintOptions] = useState([]);
     const lastId = useRef(0);
     const [vulnerability, setVulnerability] = useState("Random");
     const [dealer, setDealerState] = useState("Random");
-    
+
     useEffect(() => {
-        fetch('http://localhost:5015/ProfileData/GetConstraints')
+        fetch('http://localhost:5015/Scenarios/GetConstraints')
             .then(response => response.json())
             .then(data => {
                 setConstraintOptions(data.constraints);
@@ -26,16 +26,30 @@ function UseScenariosChoose() {
     }, []);
 
     const addConstraintForDealSet = () => {
-        console.log("Adding constraint for deal set");
         lastId.current += 1;
         setConstraints(prev => [
             ...prev,
             {
                 id: lastId.current,
-                value: "0"
+                value: "0",
+                selected: "NoConstraint"
             }
         ]);
     }
+
+    const handleSelectChange = (id, selected) => {
+        setConstraints(prev => prev.map(constraint =>
+            constraint.id === id ? { ...constraint, selected } : constraint
+        ));
+    };
+
+    useEffect(() => {
+        const updateCompilerSettings = () => {
+            setConstraintsArray(constraints.map(c => c.selected));
+            setPercentagesArray(constraints.map(c => parseFloat(c.value)));
+        }
+        updateCompilerSettings();
+    }, [constraints]);
 
     const handleConstraintChange = (id, value) => {
         setConstraints(prev => prev.map(c => c.id === id ? { ...c, value: value } : c));
@@ -122,7 +136,8 @@ function UseScenariosChoose() {
                             <div className={"CustomSelectContainer"}>
                                 <select
                                     className={"SettingsSelect"}
-                                    defaultValue="NoConstraint">
+                                    defaultValue="NoConstraint"
+                                    onChange={(e) => handleSelectChange(constraint.id, e.target.value)}>
                                     <option value="NoConstraint">No constraint</option>
                                     {constraintOptions.map(option => (
                                         <option key={option} value={option}>{option}</option>

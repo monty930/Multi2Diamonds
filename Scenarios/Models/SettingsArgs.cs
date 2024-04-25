@@ -4,7 +4,11 @@ namespace Multi2Diamonds.Scenarios.Models;
 
 public class SettingsArgs
 {
-    public string InputText { get; set; } = "";
+    public string[] ConstraintsNames { get; set; } = Array.Empty<string>();
+
+    public string[] Constraints { get; set; } = Array.Empty<string>();
+
+    public int[] Percentages { get; set; } = Array.Empty<int>();
 
     public CompilerChoice Compiler { get; set; }
 

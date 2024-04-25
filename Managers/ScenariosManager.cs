@@ -12,7 +12,7 @@ public class ScenariosManager
         // are defined in the CompilerSettings.
         try
         {
-            var scriptOut = await model.CompilerRunner.Run();
+            var scriptOut = await model.CompilerRunner.RunAll();
             return new ScenariosModel
             {
                 ScriptOutputRaw = scriptOut,

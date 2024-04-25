@@ -14,7 +14,7 @@ function MakeScenarios() {
         const savedConstraintId = sessionStorage.getItem('savedConstraintId');
         if (savedConstraintId) {
             sessionStorage.removeItem('savedConstraintId');
-            fetch('http://localhost:5015/ProfileData/GetSavedScenario', {
+            fetch('http://localhost:5015/Scenarios/GetSavedScenario', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ SavedContentId: savedConstraintId })
@@ -54,7 +54,7 @@ function MakeScenarios() {
 
     const handleSave = async () => {
         try {
-            const response = await fetch('http://localhost:5015/ProfileData/OverwriteScenario', {
+            const response = await fetch('http://localhost:5015/Scenarios/OverwriteScenario', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function MakeScenarios() {
     
     const handleSaveAsNew = async () => {
         try {
-            const response = await fetch('http://localhost:5015/ProfileData/SaveScenario', {
+            const response = await fetch('http://localhost:5015/Scenarios/SaveScenario', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
