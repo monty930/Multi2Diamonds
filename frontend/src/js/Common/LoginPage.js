@@ -59,6 +59,7 @@ function LoginPage() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify({username, password}),
             }).then(r => {
                 if (r.status === 200) {

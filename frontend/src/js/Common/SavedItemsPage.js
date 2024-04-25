@@ -11,7 +11,6 @@ function SavedItemsPage() {
     const [activeTab, setActiveTab] = useState('constraints');
     
     useEffect(() => {
-        console.log('Fetching saved content');
         fetch('http://localhost:5015/ProfileData/GetSavedContent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
@@ -35,7 +34,6 @@ function SavedItemsPage() {
     };
 
     const handleDelete = (savedContentId, type) => {
-        console.log('Deleting saved content:', savedContentId, type);
         setSavedContents(savedContents.filter(item => { return item.savedContentId !== savedContentId || item.savedContentType !== type; }));
         fetch('http://localhost:5015/ProfileData/DeleteSavedContent', {
             method: 'POST',

@@ -34,6 +34,9 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SameSite = SameSiteMode.Lax;
+
 });
 
 builder.Services.AddAuthentication(options =>
@@ -49,6 +52,8 @@ builder.Services.AddAuthentication(options =>
         options.Cookie.HttpOnly = true;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         options.Cookie.SameSite = SameSiteMode.Lax;
+        options.SlidingExpiration = true;
+
     });
 
 var app = builder.Build();
@@ -64,10 +69,9 @@ app.UseRouting();
 
 app.UseCors("AllowSpecificOrigin");
 
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseSession();
 
 app.MapControllers();
 

@@ -11,7 +11,7 @@ namespace Multi2Diamonds.Controllers;
 public class ProfileDataController : Controller
 {
     private readonly UserRepository _userRepository = new();
-    
+
     [HttpGet]
     [Route("ProfileData/GetProfile")]
     public ActionResult GetProfile()
@@ -25,7 +25,7 @@ public class ProfileDataController : Controller
             ScenariosCount = 0
         });
     }
-    
+
     [HttpPost]
     [Route("ProfileData/GetSavedContent")]
     public ActionResult GetSavedContent()
@@ -34,7 +34,7 @@ public class ProfileDataController : Controller
         if (savedContents == null) return NotFound();
         return Json(new { savedContents });
     }
-    
+
     [HttpPost]
     [Route("ProfileData/DeleteSavedContent")]
     public ActionResult DeleteSavedContent([FromBody] SavedContent content)
@@ -42,7 +42,7 @@ public class ProfileDataController : Controller
         _userRepository.RemoveSavedContent("admin", content.SavedContentId, content.SavedContentType); // should be: User.Identity.Name;
         return Ok();
     }
-    
+
     [HttpGet]
     [Route("ProfileData/GetConstraints")]
     public ActionResult GetConstraints()
@@ -51,7 +51,7 @@ public class ProfileDataController : Controller
         if (constraints == null) return NotFound();
         return Json(new { constraints });
     }
-    
+
     [HttpPost]
     [Route("ProfileData/SaveScenario")]
     public ActionResult SaveScenario([FromBody] ScenarioToSave scenario)
@@ -68,7 +68,7 @@ public class ProfileDataController : Controller
         var res = _userRepository.OverwriteScenario("admin", scenario); // should be: User.Identity.Name;
         return res;
     }
-    
+
     [HttpPost]
     [Route("ProfileData/GetSavedScenario")]
     public ActionResult GetSavedScenario([FromBody] SavedContent content)
