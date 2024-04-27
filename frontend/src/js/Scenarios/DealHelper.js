@@ -93,7 +93,6 @@ export const addDealToDsi = (dsiString, newDealDsiString) => {
     withNewDealAfter = withNewDealAfter.join('\n');
     withNewDeal = withNewDealBefore + 'Number of deals: ' + numOfDeals + "\n" + withNewDealAfter;
     withNewDeal = renumerateDeals(withNewDeal);
-    console.log('here', withNewDeal);
     return withNewDeal;
 }
 
@@ -105,11 +104,9 @@ export const removeDealFromDsi = (dsiString, dealNum) => {
     let numOfDeals = getNumOfDeals(dealsWithRemoved) - 1;
     dealsWithRemoved = dealsWithRemoved.split('Number of deals: ');
     let dealsWithRemovedBefore = dealsWithRemoved[0];
-    console.log("1: ", dealsWithRemovedBefore);
     let dealsWithRemovedAfter = dealsWithRemoved[1].split('\n');
     dealsWithRemovedAfter.shift();
     dealsWithRemovedAfter = dealsWithRemovedAfter.join('\n');
-    console.log("2: ", dealsWithRemovedAfter);
     dealsWithRemoved = dealsWithRemovedBefore + 'Number of deals: ' + numOfDeals + "\n" + dealsWithRemovedAfter;
     dealsWithRemoved = renumerateDeals(dealsWithRemoved);
     return dealsWithRemoved;

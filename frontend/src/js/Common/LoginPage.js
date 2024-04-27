@@ -29,7 +29,6 @@ function LoginPage() {
             setVisibleForm('login');
             await moveDown();
         }
-        console.log(visibleForm);
     };
 
     const delay = ms => new Promise(res => setTimeout(res, ms));

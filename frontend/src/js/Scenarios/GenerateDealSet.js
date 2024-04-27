@@ -148,7 +148,7 @@ function GenerateDealSet() {
     }
     
     const saveDealSet = async () => {
-        console.log('Saving deal set');
+        console.error('Saving deal set [not implemented]');
     }
     
     const getVul = () => {

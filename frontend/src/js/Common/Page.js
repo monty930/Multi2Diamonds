@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Link, Navigate, Route, Routes, useNavigate} fro
 import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
 import Scenarios from "../Scenarios/Scenarios";
-import SavedItemsPage from "./SavedItemsPage";
+import SavedItemsPage from "../Scenarios/SavedItemsPage";
 import WelcomePage from "./WelcomePage";
 import {useAuth} from "./AuthContext";
 import axios from "axios";

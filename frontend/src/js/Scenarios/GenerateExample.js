@@ -31,7 +31,6 @@ function GenerateExample() {
             }
 
             const data = await response.json();
-            console.log(data);
             setExample(data.dealSet);
         } catch (error) {
             console.error('Failed to fetch:', error);

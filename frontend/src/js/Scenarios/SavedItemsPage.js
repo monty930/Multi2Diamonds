@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../../css/Common/CenterProfileLayout.css";
-import "../../css/Common/SavedItemsPage.css";
+import "../../css/Scenarios/SavedItemsPage.css";
 
 import trashImage from "../../assets/trash.png";
 import trashOpen from "../../assets/trash_open.png";
@@ -44,7 +44,6 @@ function SavedItemsPage() {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            console.log('deleted!');
         }).catch(error => {
             console.error('Failed to delete saved content:', error);
         });

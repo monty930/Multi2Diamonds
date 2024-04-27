@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import menuImg from '../../assets/menu.png';
 
 function MakeScenarios() {
     const [scenarioContent, setScenarioContent] = useState('');
@@ -9,7 +10,8 @@ function MakeScenarios() {
     const [saveLogSuccess, setSaveLogSuccess] = useState(true);
     const [alreadySaved, setAlreadySaved] = useState(false);
     const [alreadySavedScenarioName, setAlreadySavedScenarioName] = useState('');
-    
+    const [menuOpen, setMenuOpen] = useState(false);
+
     useEffect(() => {
         const savedConstraintId = sessionStorage.getItem('savedConstraintId');
         if (savedConstraintId) {
@@ -107,10 +109,16 @@ function MakeScenarios() {
         }
     }
 
+    const handleMenuSelect = (path) => {
+        navigate(path);
+        setMenuOpen(false);
+    };
+
     return (
         <div className="ScenariosLeftOuterContainer">
             <div className="LeftSideTitleContainer">
                 <div className={"LeftSideTitleInnerContainer"}>
+                    abc
                     <span className="LeftSideTitle">Enter constraints:</span>
                 </div>
             </div>

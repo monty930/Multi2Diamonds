@@ -2,7 +2,6 @@ import React from "react";
 
 function Hand({ dealSet, hand, currentDealNo }) { // hand is 'N', 'E', 'S', or 'W'
     const getSuit = (suit) => {
-        console.log(currentDealNo);
         let handCards = '';
         if (hand === 'N') {
             handCards = dealSet.deals[currentDealNo - 1].north;

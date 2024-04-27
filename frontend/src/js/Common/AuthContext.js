@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const validateSession = async () => {
-            console.log('here val');
             try {
                 const response = await fetch('http://localhost:5015/Account/ValidateSession', {
                     method: 'GET',
