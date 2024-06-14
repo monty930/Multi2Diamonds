@@ -124,6 +124,9 @@ public class CompilerRunner
     // Method runs the compiler with the given constraint code and number of deals.
     private async Task<string> Run(string constraintCode, int numOfDeals)
     {
+        Console.WriteLine($"Running compiler with constraint code: {constraintCode} and number of deals: {numOfDeals}"
+                          + $" for compiler: {CompilerSettings.Compiler} and vul: {CompilerSettings.Vul} and dealer: {CompilerSettings.Dealer}");
+
         var tempFilePath = Path.GetTempFileName();
         await File.WriteAllTextAsync(tempFilePath, constraintCode);
 

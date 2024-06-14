@@ -6,11 +6,11 @@ function WelcomePage() {
     
     return (
         <div className="WelcomePage">
-            <h1>Welcome page</h1>
+            <div className={"WelcomeTitle"}>Welcome page</div>
             <button
                 className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
-                onClick={() => navigate('/scenarios/make')}>
-                Go to Make Scenarios
+                onClick={() => navigate('/scenarios')}>
+                Bridge Scenarios
             </button>
         </div>
     );

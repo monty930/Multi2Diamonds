@@ -21,13 +21,13 @@ public class AccountController : Controller
         var storedPassword = _userRepository.GetPassword(user.Username);
         if (storedPassword is null)
         {
-            return Unauthorized(new { message = "Invalid username or password" });
+            return Unauthorized(new { message = "Invalid username or password." });
         }
 
         var result = _hasher.VerifyHashedPassword(user, storedPassword, user.Password);
         if (result == PasswordVerificationResult.Failed)
         {
-            return Unauthorized(new { message = "Invalid username or password" });
+            return Unauthorized(new { message = "Invalid username or password." });
         }
 
         var claims = new List<Claim>
@@ -52,7 +52,7 @@ public class AccountController : Controller
         );
 
         HttpContext.Session.SetString("user", user.Username);
-        return Ok(new { message = "Login successful" });
+        return Ok(new { message = "Login successful!" });
     }
 
     [HttpPost]
@@ -62,11 +62,11 @@ public class AccountController : Controller
         // Check if username already exists
         if (_userRepository.IsUsernameRegistered(user.Username))
         {
-            return Conflict(new { message = "Username already exists" });
+            return Conflict(new { message = "Username already exists!" });
         }
 
         _userRepository.AddUser(user);
-        return Ok(new { message = "Signup successful" });
+        return Ok(new { message = "Signup successful." });
     }
 
     [HttpPost]
@@ -74,7 +74,7 @@ public class AccountController : Controller
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return Ok(new { message = "Logout successful" });
+        return Ok(new { message = "Logout successful!" });
     }
     
     [HttpGet]

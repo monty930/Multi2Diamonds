@@ -18,12 +18,19 @@ function GenerateExample() {
     const generateExample = async () => {
         setIsLoading(true);
         try {
+            const settings = {
+                Vul: 'Matching',
+                Dealer: 'Matching',
+                NumberOfDeals: 1,
+                Constraints: ["final = N.spades == 0"],
+                Percentages: [100]
+            };
             const response = await fetch('http://localhost:5015/Scenarios/GenerateDeals', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ /* compilerSettings object structure here */}),
+                body: JSON.stringify(settings)
             });
 
             if (!response.ok) {
@@ -88,19 +95,13 @@ function GenerateExample() {
                     <div className={"GenerateMessageAndSpinner GenerateMessageAndSpinnerExample"}>
                         {isLoading && <Spinner/>}
                         {!isLoading &&
-                            <div>Press 'Generate' to generate</div>
+                            <div>Generate and example!</div>
                         }
                     </div>
                 )}
             </div>
         </div>
     );
-}
-
-// TODO delete this
-// function to add endls in stringified JSON before each '{'
-function addEndls(jsonString) {
-    return jsonString.replace(/({)/g, '\n$1');
 }
 
 export default GenerateExample;

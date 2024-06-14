@@ -66,6 +66,16 @@
     border: 1px solid var(--header-background-color);
 }
 
+/* Ensure autofilled input fields use the main font color */
+.LoginInput:-webkit-autofill,
+.LoginInput:-webkit-autofill:hover,
+.LoginInput:-webkit-autofill:focus,
+.LoginInput:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--header-background-color) inset !important;
+    -webkit-text-fill-color: var(--main-font-color) !important;
+    caret-color: var(--main-font-color) !important;
+}
+
 .LoginInput:focus {
     outline: none;
     border: 1px solid var(--button-face-color);

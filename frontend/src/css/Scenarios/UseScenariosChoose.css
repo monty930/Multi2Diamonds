@@ -8,8 +8,7 @@
     --constaints-choice-container-height: 
             calc(100vh - var(--footer-height) - 
             var(--header-height) - var(--dealset-settings-container-height) - 
-            2 * var(--left-title-height) - 
-            var(--toggle-button-container-height) - 
+            2 * var(--left-title-height) -
             2 * var(--main-padding));
 }
 

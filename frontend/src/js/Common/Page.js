@@ -1,12 +1,14 @@
 import React from "react";
 import {BrowserRouter as Router, Link, Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import axios from "axios";
 import ProfilePage from "./ProfilePage";
 import LoginPage from "./LoginPage";
 import Scenarios from "../Scenarios/Scenarios";
 import SavedItemsPage from "../Scenarios/SavedItemsPage";
 import WelcomePage from "./WelcomePage";
 import {useAuth} from "./AuthContext";
-import axios from "axios";
+import ErrorPage from "./ErrorPage";
+import ScenariosIntroPage from "../Scenarios/ScenariosIntroPage";
 
 import "../../css/Common/Page.css";
 import '../../css/Common/LoginPage.css';
@@ -15,13 +17,14 @@ import '../../css/Scenarios/MakeScenarios.css';
 import '../../css/Scenarios/UseScenariosChoose.css';
 import '../../css/Scenarios/DealSetLayout.css';
 import "../../css/Common/WelcomePage.css";
+import "../../css/Scenarios/ScenariosIntroPage.css";
 
 import PageLogo from "../../assets/2diams.png";
 import SavedItemsImg from "../../assets/folder3.png";
 import LogOutImg from "../../assets/logout.png";
 import ProfileImg from "../../assets/profile.png";
 import GitHubLogo from "../../assets/githublogo.png";
-import ErrorPage from "./ErrorPage";
+import menuImg from '../../assets/menu2.png';
 
 function Page() {
     const {isAuthenticated, authError} = useAuth();
@@ -40,10 +43,12 @@ function Page() {
                             {isAuthenticated ? (
                                 <>
                                     <Route path="/" element={<WelcomePage/>}/>
+                                    <Route path="/scenarios" element={<ScenariosIntroPage/>}/>
                                     <Route path="/scenarios/make" element={<Scenarios/>}/>
                                     <Route path="/scenarios/use" element={<Scenarios/>}/>
+                                    <Route path="/scenarios/savedscenarios" element={<SavedItemsPage/>}/>
+                                    <Route path="/scenarios/saveddealsets" element={<SavedItemsPage/>}/>
                                     <Route path="/profile" element={<ProfilePage/>}/>
-                                    <Route path="/saved" element={<SavedItemsPage/>}/>
                                 </>
                             ) : (
                                 <Route path="*" element={<Navigate replace to="/login"/>}/>
@@ -89,9 +94,12 @@ function Header({auth}) {
             {auth && (
                 <div className="HeaderNav">
                     <div className="HeaderNavItem">
-                        <Link to="/saved" className="HeaderTab SavedItemsLink LinkNoDecor">
-                            <img src={SavedItemsImg} alt="Saved items" className="SavedItemsImg"/>
-                        </Link>
+                        {/*<Link to="/saved" className="HeaderTab SavedItemsLink LinkNoDecor">*/}
+                        {/*    <img src={SavedItemsImg} alt="Saved items" className="SavedItemsImg"/>*/}
+                        {/*</Link>*/}
+                        <div className={"HeaderTab SavedItemsLink LinkNoDecor"}>
+                            <img src={menuImg} alt="Menu" className="MenuImg"/>
+                        </div>
                     </div>
                     <div className="HeaderNavItem">
                         <Link to="/profile" className="HeaderTab LinkNoDecor">

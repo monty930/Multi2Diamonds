@@ -26,8 +26,9 @@
 }
 
 .RightSideDealSetContainer {
-    height: calc(100% - 3 * var(--main-padding) - var(--button-height));
+    height: calc(100% - 4 * var(--main-padding) - var(--button-height));
     width: calc(100% - 2 * var(--main-padding-w));
+    padding-top: var(--main-padding);
 }
 
 .GenerateMessageAndSpinner {
@@ -124,6 +125,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: var(--cards-font-size);
 }
 
 .BiddingTableCellN1 {
@@ -343,7 +345,6 @@
 
 .Vul, .NotVul {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    font-size: calc(1 / 6 * var(--bid-table-height));
 }
 
 .Vul {

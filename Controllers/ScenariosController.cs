@@ -23,7 +23,8 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/GenerateDeals")]
     public async Task<IActionResult> GenerateDeals([FromBody] SettingsArgs compilerSettings)
     {
-        compilerSettings.Constraints = _constraintsRepository.GetConstraints(compilerSettings.ConstraintsNames, "admin"); // should be: User.Identity.Name;
+        if (compilerSettings.Constraints.Length == 0)
+            compilerSettings.Constraints = _constraintsRepository.GetConstraints(compilerSettings.ConstraintsNames, "admin"); // should be: User.Identity.Name;
 
         int sum = 0; // TODO These lines will be moved to frontend side
         for (int i = 0; i < compilerSettings.Constraints.Length; i++)
@@ -79,6 +80,7 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/SaveScenario")]
     public ActionResult SaveScenario([FromBody] ScenarioToSave scenario)
     {
+        Console.WriteLine("SaveScenario");
         var resultName = _userRepository.SaveScenario("admin", scenario); // should be: User.Identity.Name;
         if (resultName == null) return BadRequest();
         return Json(new { scenarioName = resultName });

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import arrowDown from '../../assets/arrow-down.png';
 import arrowUp from '../../assets/arrow-up.png';
 import trashImg from '../../assets/trash.png';
+import menuImg from '../../assets/menu.png';
 
 function UseScenariosChoose() {
     const { setVul, setDealer, setNumberOfDeals, setConstraintsArray, setPercentagesArray} = useScenario();
@@ -13,6 +14,25 @@ function UseScenariosChoose() {
     const lastId = useRef(0);
     const [vulnerability, setVulnerability] = useState("Random");
     const [dealer, setDealerState] = useState("Random");
+    const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef();
+    const menuButtonRef = useRef();
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setMenuOpen(false);
+            } else if (menuButtonRef.current && menuButtonRef.current.contains(event.target)) {
+                console.log('menu button clicked, setting menu open to', !menuOpen);
+                setMenuOpen(!menuOpen);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [menuRef]);
 
     useEffect(() => {
         fetch('http://localhost:5015/Scenarios/GetConstraints')
@@ -117,73 +137,88 @@ function UseScenariosChoose() {
             document.getElementById("VulSelect").value = "Matching";
         }
     };
+
+    const handleMenuSelect = (path) => {
+        navigate(path);
+        setMenuOpen(false);
+    };
     
     return (
         <div className={"ScenariosLeftOuterContainer"}>
             <div className={"SettingsTop"}>
-            <div className="LeftSideTitleContainer">
-                <div className={"LeftSideTitleInnerContainer"}>
-                    <span className="LeftSideTitle">Choose scenarios for a deal set:</span>
+                <div className="LeftSideTitleContainer">
+                    <div className={"LeftSideTitleInnerContainer"}>
+                        <img src={menuImg} ref={menuButtonRef} alt="Menu" className={"MenuImage"}/>
+                        <span className="LeftSideTitle">Choose scenarios for a deal set:</span>
+                        {menuOpen && (
+                            <div ref={menuRef} className="MenuOptionsContainer">
+                                <ul>
+                                    <li onClick={() => handleMenuSelect('/scenarios/make')}>Go to Make Scenarios</li>
+                                    <li onClick={() => handleMenuSelect('/scenarios/savedscenarios')}>Go to Saved Scenarios</li>
+                                    <li onClick={() => handleMenuSelect('/scenarios/saveddealsets')}>Go to Saved Deal Sets</li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className="SettingsPadding">
-                <div className={"SettingsContainerTop"}>
-                    <div className={"SettingsBreak"}></div>
-                    {constraints.map((constraint, index) => (
-                        <React.Fragment key={constraint.id}>
-                    <div className={"OneSettingRow"}>
-                        <div className={"SettingsChoice ConstraintSelect"}>
-                            <div className={"CustomSelectContainer"}>
-                                <select
-                                    className={"SettingsSelect"}
-                                    defaultValue="NoConstraint"
-                                    onChange={(e) => handleSelectChange(constraint.id, e.target.value)}>
-                                    <option value="NoConstraint">No constraint</option>
-                                    {constraintOptions.map(option => (
-                                        <option key={option} value={option}>{option}</option>
-                                    ))}
-                                </select>
-                                <div className={"CustomSelectArrow"}>
-                                    <img src={arrowDown} alt={"arrow-down"} />
+                <div className="SettingsPadding">
+                    <div className={"SettingsContainerTop"}>
+                        <div className={"SettingsBreak"}></div>
+                        {constraints.map((constraint, index) => (
+                            <React.Fragment key={constraint.id}>
+                        <div className={"OneSettingRow"}>
+                            <div className={"SettingsChoice ConstraintSelect"}>
+                                <div className={"CustomSelectContainer"}>
+                                    <select
+                                        className={"SettingsSelect"}
+                                        defaultValue="NoConstraint"
+                                        onChange={(e) => handleSelectChange(constraint.id, e.target.value)}>
+                                        <option value="NoConstraint">No constraint</option>
+                                        {constraintOptions.map(option => (
+                                            <option key={option} value={option}>{option}</option>
+                                        ))}
+                                    </select>
+                                    <div className={"CustomSelectArrow"}>
+                                        <img src={arrowDown} alt={"arrow-down"} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={"ConstraintChoiceOptions"}>
+                                <div className={"DeleteConstraintFromDealSet"}>
+                                    {constraints.length > 1 && (
+                                    <button className={"RedButton DeleteConstraintButton"}
+                                            onClick={() => deleteConstraint(constraint.id)}>
+                                        <img src={trashImg} alt={"delete"} />
+                                    </button>
+                                    )}
+                                </div>
+                                <div className={"ConstraintPercentage"}>
+                                    <textarea
+                                        className={"ConstraintPercentageInput"}
+                                        spellCheck={"false"}
+                                        value={index === constraints.length - 1 ? calculateRemainingPercentage().toString() : constraint.value}
+                                        readOnly={index === constraints.length - 1}
+                                        onChange={(e) => handleConstraintChange(constraint.id, e.target.value)}
+                                        onBlur={(e) => handleConstraintBlur(constraint.id, e.target.value)}
+                                    >0</textarea>
+                                    <span className={"PercentageChar"}>%</span>
                                 </div>
                             </div>
                         </div>
-                        <div className={"ConstraintChoiceOptions"}>
-                            <div className={"DeleteConstraintFromDealSet"}>
-                                {constraints.length > 1 && (
-                                <button className={"RedButton DeleteConstraintButton"}
-                                        onClick={() => deleteConstraint(constraint.id)}>
-                                    <img src={trashImg} alt={"delete"} />
+                                <div className={"SettingsBreak"}></div>
+                            </React.Fragment>
+                        ))}
+                        <div className={"OneSettingRow"}>
+                            <div className={"AddConstraintRow"}>
+                                <button
+                                    className={"AnyButton AddConstraintButton"}
+                                    onClick={addConstraintForDealSet}>
+                                    Add constraint
                                 </button>
-                                )}
                             </div>
-                            <div className={"ConstraintPercentage"}>
-                                <textarea
-                                    className={"ConstraintPercentageInput"}
-                                    spellCheck={"false"}
-                                    value={index === constraints.length - 1 ? calculateRemainingPercentage().toString() : constraint.value}
-                                    readOnly={index === constraints.length - 1}
-                                    onChange={(e) => handleConstraintChange(constraint.id, e.target.value)}
-                                    onBlur={(e) => handleConstraintBlur(constraint.id, e.target.value)}
-                                >0</textarea>
-                                <span className={"PercentageChar"}>%</span>
-                            </div>
-                        </div>
-                    </div>
-                            <div className={"SettingsBreak"}></div>
-                        </React.Fragment>
-                    ))}
-                    <div className={"OneSettingRow"}>
-                        <div className={"AddConstraintRow"}>
-                            <button
-                                className={"AnyButton AddConstraintButton"}
-                                onClick={addConstraintForDealSet}>
-                                Add constraint
-                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
             <div className={"SettingsBottom"}>
             <div className="LeftSideTitleContainer">
@@ -272,13 +307,7 @@ function UseScenariosChoose() {
                     </div>
                     <div className={"SettingsBreak"}></div>
                 </div>
-                <div className="ToggleScenariosViewButtonContainer">
-                    <button
-                        className={"AnyButton ToggleScenariosViewButton GoToMakeButton"}
-                        onClick={() => navigate('/scenarios/make')}>
-                        Go to Make Scenarios
-                    </button>
-                </div>
+                <div className="ToggleScenariosViewButtonContainer"></div>
             </div>
             </div>
         </div>

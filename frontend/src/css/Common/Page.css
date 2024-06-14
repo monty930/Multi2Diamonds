@@ -21,7 +21,7 @@
     --header-border-color: #9e9e9e;
     --profile-background-color: #696969;
     --table-border-color: #7e7e7e;
-    --red-button-color: #c20101;
+    --red-button-color: #b91717;
     --red-shadow: #800000;
     --red-hover: #b60101;
     --red-active: #9a0000;
@@ -105,12 +105,16 @@
     width: 100%;
 }
 
+:root {
+    --header-font-size: calc(5 * var(--hunit));
+}
+
 .PageTitle {
     width: 100%;
     display: flex;
     align-items: center;
     padding-left: var(--main-padding-w);
-    font-size: calc(5 * var(--hunit));
+    font-size: var(--header-font-size);
     font-weight: 550;
 }
 
@@ -204,4 +208,12 @@
     position: absolute;
     right: calc(2 * var(--wunit));
     top: calc(100% - 0.5 * var(--footer-height) - 0.5 * calc(0.8 * var(--line-height)));
+}
+
+.WelcomeTitle {
+    font-size: calc(var(--header-font-size) * 1);
+    font-weight: 500;
+    color: var(--main-font-color);
+    margin: 0;
+    padding: 0;
 }

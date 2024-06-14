@@ -164,6 +164,7 @@ public class UserRepository
             UserId = user.UserId,
             User = user
         };
+        Console.WriteLine("SaveScenario: " + scenario.Name + " " + scenario.ScenarioId + " " + scenario.ScenarioContent);
         _context.Scenarios.Add(scenario);
         _context.SaveChanges();
         return newName;

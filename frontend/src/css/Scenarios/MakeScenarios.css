@@ -3,8 +3,7 @@
     --log-space-height: calc(6 * var(--hunit));
     --code-container-height: calc(100% - 
             var(--saving-field-height) - 
-            var(--left-title-height) - 
-            var(--toggle-button-container-height) - 
+            var(--left-title-height) -
             var(--log-space-height) -
             2 * var(--main-padding));
 }
@@ -77,13 +76,14 @@
 
 .LogContainer {
     height: var(--log-space-height);
-    padding: 0;
     margin: 0;
     display: flex;
     align-items: center;
     white-space: nowrap;
     overflow: auto;
     font-size: calc(2.5 * var(--hunit));
+    padding: var(--main-padding) 0 0;
+    width: 100%;
 }
 
 .LogContainer span {
@@ -91,6 +91,7 @@
     padding-left: var(--main-padding);
     padding-right: var(--main-padding);
     padding-top: calc(0.5 * var(--hunit));
+    width: 100%;
 }
 
 .SaveConstraintButton {

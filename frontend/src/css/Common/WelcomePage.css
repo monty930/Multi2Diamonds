@@ -5,10 +5,11 @@
     align-items: start;
     height: calc(100% - 2 * var(--main-padding));
     width: calc(100% - 2 * var(--main-padding-w));
+    gap: var(--main-padding);
 }
 
 .WelcomePageNavigButton {
     height: calc(5 * var(--hunit));
-    width: auto;
+    width: calc(55 * var(--wunit));
     padding: 0 var(--main-padding-w);
 }

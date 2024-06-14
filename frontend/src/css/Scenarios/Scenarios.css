@@ -1,7 +1,6 @@
 :root {
     --divider-width: 8px;
-    --left-title-height: calc(6 * var(--hunit));
-    --toggle-button-container-height: calc(6 * var(--hunit));
+    --left-title-height: calc(8 * var(--hunit));
 }
 
 .ScenariosLeftOuterContainer {
@@ -27,8 +26,9 @@
 }
 
 .LeftSideTitle {
-    font-size: calc(min(3 * var(--hunit), 3 * var(--wunit)));
+    font-size: calc(var(--left-title-height) * 0.55);
     font-weight: 500;
+    padding-left: var(--main-padding-w);
 }
 
 .ScenariosPage {
@@ -62,11 +62,20 @@
     overflow: auto;
 }
 
-.ToggleScenariosViewButtonContainer {
-    height: var(--toggle-button-container-height);
-    width: 100%;
-    padding: 0;
-    margin: 0;
+:root {
+    --menu-image-width: calc(var(--left-title-height) * 0.6);
 }
 
+.MenuImage {
+    width: var(--menu-image-width);
+    cursor: pointer;
+}
 
+.MenuOptionsContainer {
+    position: absolute;
+    background-color: #9a0000;
+    left: calc(var(--menu-image-width) + var(--main-padding-w));
+    top: calc(var(--header-height) + var(--main-padding));
+    z-index: 10;
+    cursor: pointer;
+}

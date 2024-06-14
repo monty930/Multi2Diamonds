@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import menuImg from '../../assets/menu.png';
 
@@ -11,6 +11,24 @@ function MakeScenarios() {
     const [alreadySaved, setAlreadySaved] = useState(false);
     const [alreadySavedScenarioName, setAlreadySavedScenarioName] = useState('');
     const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef();
+    const menuButtonRef = useRef();
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setMenuOpen(false);
+            } else if (menuButtonRef.current && menuButtonRef.current.contains(event.target)) {
+                console.log('menu button clicked, setting menu open to', !menuOpen);
+                setMenuOpen(!menuOpen);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [menuRef]);
 
     useEffect(() => {
         const savedConstraintId = sessionStorage.getItem('savedConstraintId');
@@ -73,7 +91,7 @@ function MakeScenarios() {
             setSaveLogMessage('Error: ' + error.message);
             setSaveLogSuccess(false);
         } finally {
-            setTimeout(() => setSaveLogMessage(''), 10000);
+            setTimeout(() => handleLogTimeout(), 4000);
         }
     };
     
@@ -97,10 +115,16 @@ function MakeScenarios() {
             setSaveLogMessage('Error: ' + error.message);
             setSaveLogSuccess(false);
         } finally {
-            setTimeout(() => setSaveLogMessage(''), 10000);
+            setTimeout(() => handleLogTimeout(), 4000);
         }
     }
-    
+
+    const handleLogTimeout = () => {
+        console.log('handleLogTimeout');
+        setSaveLogMessage('');
+        setSaveLogSuccess(true);
+    }
+
     const saveButtonHandler = async () => {
         if (alreadySaved && (alreadySavedScenarioName === scenarioName)) {
             await handleSave();
@@ -118,14 +142,23 @@ function MakeScenarios() {
         <div className="ScenariosLeftOuterContainer">
             <div className="LeftSideTitleContainer">
                 <div className={"LeftSideTitleInnerContainer"}>
-                    abc
+                    <img src={menuImg} ref={menuButtonRef} alt="Menu" className={"MenuImage"}/>
                     <span className="LeftSideTitle">Enter constraints:</span>
+                    {menuOpen && (
+                        <div ref={menuRef} className="MenuOptionsContainer">
+                            <ul>
+                                <li onClick={() => handleMenuSelect('/scenarios/use')}>Go to Use Scenarios</li>
+                                <li onClick={() => handleMenuSelect('/scenarios/savedscenarios')}>Go to Saved Scenarios</li>
+                                <li onClick={() => handleMenuSelect('/scenarios/saveddealsets')}>Go to Saved Deal Sets</li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="ScenarioSavingFieldContainer">
                 <button 
                     className={"AnyButton SaveConstraintButton"}
-                    onClick={handleSave}>
+                    onClick={handleSaveAsNew}>
                     Save
                 </button>
                 {alreadySaved && (alreadySavedScenarioName === scenarioName) &&
@@ -158,13 +191,6 @@ function MakeScenarios() {
                 <span id="ConstrainrSavingLogMessage" className={saveLogSuccess ? 'LogSuccess' : 'LogFailure'}>
                     {saveLogMessage}
                 </span>
-            </div>
-            <div className="ToggleScenariosViewButtonContainer">
-                <button 
-                    className={"AnyButton ToggleScenariosViewButton GoToUseButton"}
-                    onClick={() => navigate('/scenarios/use')}>
-                    Go to Use Scenarios
-                </button>
             </div>
         </div>
     );
