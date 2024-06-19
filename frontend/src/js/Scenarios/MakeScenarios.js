@@ -1,9 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import menuImg from '../../assets/menu.png';
 
-function MakeScenarios() {
-    const [scenarioContent, setScenarioContent] = useState('');
+function MakeScenarios({ scenarioContent, setScenarioContent }) {
     const [scenarioName, setScenarioName] = useState('');
     const navigate = useNavigate();
     const [saveLogMessage, setSaveLogMessage] = useState('');
@@ -19,7 +18,6 @@ function MakeScenarios() {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 setMenuOpen(false);
             } else if (menuButtonRef.current && menuButtonRef.current.contains(event.target)) {
-                console.log('menu button clicked, setting menu open to', !menuOpen);
                 setMenuOpen(!menuOpen);
             }
         };
@@ -39,21 +37,21 @@ function MakeScenarios() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ SavedContentId: savedConstraintId })
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                scenarioNameChanged(data.scenarioName);
-                scenarioContentChanged(data.scenarioContent);
-                setAlreadySaved(true);
-                setAlreadySavedScenarioName(data.scenarioName);
-            })
-            .catch(error => {
-                console.error('Failed to fetch saved constraint:', error);
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    scenarioNameChanged(data.scenarioName);
+                    scenarioContentChanged(data.scenarioContent);
+                    setAlreadySaved(true);
+                    setAlreadySavedScenarioName(data.scenarioName);
+                })
+                .catch(error => {
+                    console.error('Failed to fetch saved constraint:', error);
+                });
         } else {
             const savedConstraintName = sessionStorage.getItem('savedConstraintName');
             const savedConstraintContent = sessionStorage.getItem('savedConstraintContent');
@@ -61,12 +59,12 @@ function MakeScenarios() {
             setScenarioContent(savedConstraintContent);
         }
     }, []);
-    
+
     const scenarioNameChanged = (name) => {
         setScenarioName(name);
         sessionStorage.setItem('savedConstraintName', name);
     };
-    
+
     const scenarioContentChanged = (content) => {
         setScenarioContent(content);
         sessionStorage.setItem('savedConstraintContent', content);
@@ -94,7 +92,7 @@ function MakeScenarios() {
             setTimeout(() => handleLogTimeout(), 4000);
         }
     };
-    
+
     const handleSaveAsNew = async () => {
         try {
             const response = await fetch('http://localhost:5015/Scenarios/SaveScenario', {
@@ -110,6 +108,8 @@ function MakeScenarios() {
             const data = await response.json();
             setSaveLogMessage('Scenario ' + data.scenarioName + ' saved successfully!');
             setSaveLogSuccess(true);
+            setAlreadySaved(true);
+            setAlreadySavedScenarioName(data.scenarioName);
         } catch (error) {
             console.error('Error saving data:', error);
             setSaveLogMessage('Error: ' + error.message);
@@ -120,7 +120,6 @@ function MakeScenarios() {
     }
 
     const handleLogTimeout = () => {
-        console.log('handleLogTimeout');
         setSaveLogMessage('');
         setSaveLogSuccess(true);
     }
@@ -156,7 +155,7 @@ function MakeScenarios() {
                 </div>
             </div>
             <div className="ScenarioSavingFieldContainer">
-                <button 
+                <button
                     className={"AnyButton SaveConstraintButton"}
                     onClick={handleSaveAsNew}>
                     Save
@@ -169,7 +168,7 @@ function MakeScenarios() {
                     </button>
                 }
                 <div className="ScenarioNameLabelContainer">
-                <textarea value={scenarioName} 
+                <textarea value={scenarioName}
                           spellCheck={false}
                           wrap={"off"}
                           placeholder={"Scenario Name"}

@@ -20,6 +20,14 @@ public class CompilerRunner
     // Method chooses the constraints by percentage and runs the compiler for each constraint.
     public async Task<string> RunAll()
     {
+        // TODO delete this
+        Console.WriteLine("Running compiler for all constraints:");
+        for (int i = 0; i < CompilerSettings.Constraints.Length; i++)
+        {
+            Console.WriteLine($"Constraint: {CompilerSettings.Constraints[i]}, Percentage: {CompilerSettings.Percentages[i]}");
+        }
+        Console.WriteLine($"Compiler: {CompilerSettings.Compiler}, Vul: {CompilerSettings.Vul}, Dealer: {CompilerSettings.Dealer}, Flip: {CompilerSettings.Flip}, Scoring: {CompilerSettings.Scoring}");
+
         var results = new List<string>();
         var selectionCounts = new Dictionary<string, int>();
         for (int i = 0; i < CompilerSettings.NumberOfDeals; i++)
@@ -124,9 +132,6 @@ public class CompilerRunner
     // Method runs the compiler with the given constraint code and number of deals.
     private async Task<string> Run(string constraintCode, int numOfDeals)
     {
-        Console.WriteLine($"Running compiler with constraint code: {constraintCode} and number of deals: {numOfDeals}"
-                          + $" for compiler: {CompilerSettings.Compiler} and vul: {CompilerSettings.Vul} and dealer: {CompilerSettings.Dealer}");
-
         var tempFilePath = Path.GetTempFileName();
         await File.WriteAllTextAsync(tempFilePath, constraintCode);
 

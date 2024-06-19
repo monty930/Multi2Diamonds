@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import Spinner from "../Common/Spinner";
 import BiddingTable from "./DealView/BiddingTable.js";
 import Hand from "./DealView/Hand";
 
-function GenerateExample() {
+function GenerateExample({ scenarioContent }) {
     const [dealSet, setExample] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -22,7 +22,7 @@ function GenerateExample() {
                 Vul: 'Matching',
                 Dealer: 'Matching',
                 NumberOfDeals: 1,
-                Constraints: ["final = N.spades == 0"],
+                Constraints: [scenarioContent],
                 Percentages: [100]
             };
             const response = await fetch('http://localhost:5015/Scenarios/GenerateDeals', {

@@ -12,13 +12,14 @@ function Scenarios() {
         Flip: 'None',
         Dealer: 'None',
     });
-    
+
+    const [scenarioContent, setScenarioContent] = useState('');
     const location = useLocation();
     const pageLayoutRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
     const [leftWidthRatio, setLeftWidthRatio] = useState(0.5);
     let dividerWidth = 8;
-    
+
     const minWidth = 400;
 
     useEffect(() => {
@@ -82,10 +83,14 @@ function Scenarios() {
     let content;
     if (location.pathname === "/scenarios/make") {
         content = (
-            <div className="ScenariosPage">
-                <div className="MakeScenariosOuter"><MakeScenarios /></div>
+            <div className="ScenariosPage" ref={pageLayoutRef}>
+                <div className="MakeScenariosOuter">
+                    <MakeScenarios scenarioContent={scenarioContent} setScenarioContent={setScenarioContent} />
+                </div>
                 <div className="Divider" onMouseDown={() => setIsDragging(true)}></div>
-                <div className="GenerateExampleOuter"><GenerateExample /></div>
+                <div className="GenerateExampleOuter">
+                    <GenerateExample scenarioContent={scenarioContent} />
+                </div>
             </div>
         );
     } else if (location.pathname === "/scenarios/use") {

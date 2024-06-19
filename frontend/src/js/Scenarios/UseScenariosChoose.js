@@ -23,7 +23,6 @@ function UseScenariosChoose() {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 setMenuOpen(false);
             } else if (menuButtonRef.current && menuButtonRef.current.contains(event.target)) {
-                console.log('menu button clicked, setting menu open to', !menuOpen);
                 setMenuOpen(!menuOpen);
             }
         };
