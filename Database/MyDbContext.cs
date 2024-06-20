@@ -1,14 +1,14 @@
-using BridgeScenarios.Models.DbModels;
+using Multi2Diamonds.Models.DbModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace BridgeScenarios.Database;
+namespace Multi2Diamonds.Database;
 
 public class MyDbContext : DbContext
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<DealSet> DealSets { get; set; }
-    public DbSet<Deal> Deals { get; set; }
-    public DbSet<UsersSavedContent> SavedContents { get; set; }
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<DealSet> DealSets { get; set; } = null!;
+    public DbSet<Deal> Deals { get; set; } = null!;
+    public DbSet<Scenario> Scenarios { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

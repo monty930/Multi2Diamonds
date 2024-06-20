@@ -1,42 +1,34 @@
 using System.Security.Claims;
-using BridgeScenarios.Models.DbModels;
-using BridgeScenarios.Models.ViewModels;
-using BridgeScenarios.Repositories;
+using Multi2Diamonds.Models.DbModels;
+using Multi2Diamonds.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BridgeScenarios.Controllers;
+namespace Multi2Diamonds.Controllers;
 
 public class AccountController : Controller
 {
     private readonly PasswordHasher<User> _hasher = new();
     private readonly UserRepository _userRepository = new();
 
-    public async Task<IActionResult> Login()
-    {
-        return View(new LoginViewModel());
-    }
-
     [HttpPost]
-    public async Task<ActionResult> Login(LoginViewModel model)
+    [Route("Account/Login")]
+    public async Task<ActionResult> Login([FromBody] User user)
     {
-        var user = model.User;
         var storedPassword = _userRepository.GetPassword(user.Username);
         if (storedPassword is null)
-            return View(new LoginViewModel
-            {
-                LoginError = "Invalid username or password."
-            });
-
+        {
+            return Unauthorized(new { message = "Invalid username or password." });
+        }
 
         var result = _hasher.VerifyHashedPassword(user, storedPassword, user.Password);
         if (result == PasswordVerificationResult.Failed)
-            return View(new LoginViewModel
-            {
-                LoginError = "Invalid username or password"
-            });
+        {
+            return Unauthorized(new { message = "Invalid username or password." });
+        }
 
         var claims = new List<Claim>
         {
@@ -59,42 +51,43 @@ public class AccountController : Controller
             authProperties
         );
 
-        return RedirectToAction("Index", "Index", new { area = "" });
+        HttpContext.Session.SetString("user", user.Username);
+        return Ok(new { message = "Login successful!" });
     }
 
-
-    public async Task<ActionResult> Signup(LoginViewModel model)
+    [HttpPost]
+    [Route("Account/Signup")]
+    public async Task<ActionResult> Signup([FromBody] User user)
     {
-        var user = model.User;
-        if (_userRepository.IsEmailRegistered(user.Email))
-            return View("Login", new LoginViewModel
-            {
-                SignupError = "Email already in use."
-            });
-
+        // Check if username already exists
         if (_userRepository.IsUsernameRegistered(user.Username))
-            return View("Login", new LoginViewModel
-            {
-                SignupError = "Username already in use."
-            });
-
-        user.Password = _hasher.HashPassword(user, user.Password);
-
-        if (_userRepository.AddUser(user) == 0)
-            return View("Login", new LoginViewModel
-            {
-                SignupError = "Internal server error, please try again."
-            });
-
-        return View("Login", new LoginViewModel
         {
-            LoginError = "Registration successful."
-        });
+            return Conflict(new { message = "Username already exists!" });
+        }
+
+        _userRepository.AddUser(user);
+        return Ok(new { message = "Signup successful." });
     }
 
+    [HttpPost]
+    [Route("Account/Logout")]
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("Login", "Account");
+        return Ok(new { message = "Logout successful!" });
+    }
+    
+    [HttpGet]
+    [Route("Account/ValidateSession")]
+    public ActionResult ValidateSession()
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            return Ok(new { message = "Session is valid." });
+        }
+        else
+        {
+            return Unauthorized(new { message = "Session is not valid." });
+        }
     }
 }

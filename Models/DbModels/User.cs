@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BridgeScenarios.Models.DbModels;
+namespace Multi2Diamonds.Models.DbModels;
 
 public class User
 {
@@ -16,5 +16,7 @@ public class User
 
     public bool IsAdmin { get; set; }
 
-    public List<UsersSavedContent> SavedContents { get; set; } = [];
+    public List<DealSet> DealSets { get; set; } = [];
+    
+    public List<Scenario> Scenarios { get; set; } = [];
 }

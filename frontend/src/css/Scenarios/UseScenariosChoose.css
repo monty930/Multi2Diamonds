@@ -1,0 +1,221 @@
+:root {
+    --break-height: var(--main-padding);
+    --settings-box-height: calc(5 * var(--hunit));
+    --settings-font-size: var(--main-font-size);
+    --arrow-img-height: calc(min(7px, var(--hunit)));
+    --select-box-color: var(--header-background-color);
+    --dealset-settings-container-height: calc(3 * var(--settings-box-height) + 4 * var(--break-height));
+    --constaints-choice-container-height: 
+            calc(100vh - var(--footer-height) - 
+            var(--header-height) - var(--dealset-settings-container-height) - 
+            2 * var(--left-title-height) -
+            2 * var(--main-padding));
+}
+
+.SettingsContainerTop {
+    height: var(--constaints-choice-container-height);
+    margin: 0;
+    overflow: auto;
+}
+
+.SettingsContainerBottom {
+    height: var(--dealset-settings-container-height);
+    margin: 0;
+    overflow: auto;
+}
+
+.SettingsChoice {
+    height: 100%;
+    padding-right: var(--hunit);
+}
+
+.OneSettingRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    height: var(--settings-box-height);
+    font-size: var(--settings-font-size);
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.SettingsTitle {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.InputNumberSetting, .SettingsSelect {
+    background-color: var(--select-box-color);
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--main-font-color);
+    height: 100%;
+    display: inline-block;
+    font-size: var(--settings-font-size);
+    border-radius: 0;
+    -moz-border-radius-bottomleft: var(--hunit);
+    -webkit-border-bottom-left-radius: var(--hunit);
+    -moz-border-radius-topleft: var(--hunit);
+    -webkit-border-top-left-radius: var(--hunit);
+    padding-left: var(--hunit);
+}
+
+.SettingsSelect {
+    border-radius: var(--hunit);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.InputNumberSetting {
+    -moz-appearance: textfield;
+    height: var(--settings-box-height);
+}
+
+.InputNumberSetting:focus {
+    background-color: var(--select-box-color);
+    outline: none;
+}
+
+.SettingsBreak {
+    height: var(--break-height);
+}
+
+.CustomSelectContainer {
+    position: relative;
+    height: 100%;
+    border-radius: var(--hunit);
+}
+
+.CustomSelectArrow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    height: var(--settings-box-height);
+    justify-content: left;
+    display: flex;
+    align-items: center;
+    -moz-border-radius-bottomright: var(--hunit);
+    -webkit-border-bottom-right-radius: var(--hunit);
+    -moz-border-radius-topright: var(--hunit);
+    -webkit-border-top-right-radius: var(--hunit);
+    margin: 0;
+    padding: 0 var(--wunit) 0 0;
+}
+
+.CustomSelectArrow img {
+    height: var(--arrow-img-height);
+}
+
+.NumberSpinner {
+    display: flex;
+    align-items: center;
+    padding-right: var(--hunit);
+}
+
+.InputNumberArrows {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: var(--settings-box-height);
+    background-color: var(--select-box-color);
+    -moz-border-radius-topright: var(--hunit);
+    -webkit-border-top-right-radius: var(--hunit);
+    -moz-border-radius-bottomright: var(--hunit);
+    -webkit-border-bottom-right-radius: var(--hunit);
+    padding: 0 var(--wunit) 0 0;
+}
+
+.NumberSpinnerButton {
+    height: calc(var(--settings-box-height) / 2);
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NumberSpinnerButton img {
+    height: var(--arrow-img-height);
+    margin: 0;
+    padding: 0;
+}
+
+.ConstraintSelect {
+    padding: 0;
+}
+
+.AddConstraintButton {
+    border: none;
+}
+
+.SettingsTop {
+    padding: 0;
+    margin: 0;
+}
+
+.ConstraintChoiceOptions {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    padding-left: var(--main-padding-w);
+    margin: 0;
+}
+
+.DeleteConstraintFromDealSet {
+    height: var(--settings-box-height);
+    width: var(--settings-box-height);
+}
+
+.DeleteConstraintButton {
+    width: 100%;
+    height: calc(100% - 0.4 * var(--hunit));
+    border-radius: var(--hunit);
+    border: none;
+    box-shadow: 0 calc(0.4 * var(--hunit)) var(--red-shadow);
+}
+
+.DeleteConstraintButton:active {
+    box-shadow: 0 calc(0.2 * var(--hunit)) var(--red-shadow);
+}
+
+.DeleteConstraintButton img {
+    height: calc(0.6 * var(--settings-box-height));
+}
+
+.ConstraintPercentage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ConstraintPercentage textarea {
+    resize: none;
+    width: calc(2 * var(--settings-font-size));
+    height: var(--settings-box-height);
+    padding: 0 0 0 var(--hunit);
+    margin: 0;
+    border: none;
+    background-color: var(--main-background-color);
+    color: var(--main-font-color);
+    font-weight: 500;
+    font-size: var(--settings-font-size);
+    line-height: var(--settings-box-height);
+    text-align: end;
+}
+
+.ConstraintPercentage textarea:focus {
+    outline: none;
+}
+
+.PercentageChar {
+    padding-left: calc(var(--hunit) / 2);
+    font-weight: 500;
+    font-size: var(--settings-font-size);
+}

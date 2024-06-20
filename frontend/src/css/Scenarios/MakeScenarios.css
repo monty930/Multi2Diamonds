@@ -1,0 +1,132 @@
+:root {
+    --saving-field-height: calc(4 * var(--hunit));
+    --log-space-height: calc(6 * var(--hunit));
+    --code-container-height: calc(100% - 
+            var(--saving-field-height) - 
+            var(--left-title-height) -
+            var(--log-space-height) -
+            2 * var(--main-padding));
+}
+
+.ScenarioSavingFieldContainer {
+    height: var(--saving-field-height);
+    justify-content: end;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+}
+
+.ScenarioNameLabelContainer {
+    background-color: var(--header-background-color);
+    padding-left: calc(var(--wunit));
+    -moz-border-radius-topright: var(--hunit);
+    -webkit-border-top-right-radius: var(--hunit);
+}
+
+.ScenarioNameTextArea {
+    resize: none;
+    width: calc(min(25 * var(--wunit), 200px));
+    line-height: calc(3.5 * var(--hunit));
+    height: calc(3.5 * var(--hunit));
+    background-color: var(--header-background-color);
+    border: none;
+    font-size: calc(2.5 * var(--hunit));
+    color: var(--main-font-color);
+    margin: 0;
+    -moz-border-radius-topright: var(--hunit);
+    -webkit-border-top-right-radius: var(--hunit);
+}
+
+.ScenarioNameTextArea:focus {
+    outline: none;
+}
+
+.ScenarioContentTextAreaContainer {
+    height: var(--code-container-height);
+    display: flex;
+    margin: 0;
+}
+
+.ScenarioContentTextAreaPadding {
+    background-color: var(--main-code-background-color);
+    padding: var(--main-padding);
+    margin: 0;
+    height: calc(100% - 2 * var(--main-padding));
+    width: 100%;
+}
+
+.ScenarioContentTextArea {
+    resize: none;
+    display: flex;
+    background-color: var(--main-code-background-color);
+    border: none;
+    outline: none;
+    font-size: calc(2.5 * var(--hunit));
+    color: var(--main-font-color);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ScenarioContentTextArea:focus {
+    outline: none;
+}
+
+.LogContainer {
+    height: var(--log-space-height);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: auto;
+    font-size: calc(2.5 * var(--hunit));
+    padding: var(--main-padding) 0 0;
+    width: 100%;
+}
+
+.LogContainer span {
+    font-size: calc(3 * var(--hunit));
+    padding-left: var(--main-padding);
+    padding-right: var(--main-padding);
+    padding-top: calc(0.5 * var(--hunit));
+    width: 100%;
+}
+
+.SaveConstraintButton {
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    padding: 0 10px;
+    width: auto;
+    margin: 0;
+    background: linear-gradient(
+            90deg,
+            var(--button-face-color) 0%,
+            var(--button-face-color) 98%,
+            var(--header-background-color));
+}
+
+.SaveAsNewConstraintButton {
+    border-radius: 0;
+    padding: 0 10px;
+    width: auto;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    background: linear-gradient(
+            90deg,
+            var(--header-background-color) 0%,
+            var(--button-face-color) 2%,
+            var(--button-face-color));
+}
+
+.LogSuccess {
+    color: var(--main-font-color);
+}
+
+.LogFailure {
+    background-color: var(--error-background);
+}

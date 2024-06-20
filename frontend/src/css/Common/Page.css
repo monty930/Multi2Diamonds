@@ -1,0 +1,219 @@
+:root {
+    --main-font: 
+            system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+            "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+            "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --main-font-size: calc(0.7 * var(--line-height));
+    --line-height: calc(3.7 * var(--hunit));
+    
+    --hunit: 1vh;
+    --wunit: 1vw;;
+    
+    --content-height: calc(100% - var(--header-height) - var(--footer-height));
+    --header-height: calc(9 * var(--hunit));
+    --footer-height: calc(7 * var(--hunit));
+
+    --font-deactiv: rgb(88, 88, 88);
+
+    --main-background-color: #5e5e5e;
+    --header-background-color: #4b4b4b;
+    --main-code-background-color: #3a3a3a;
+    --header-border-color: #9e9e9e;
+    --profile-background-color: #696969;
+    --table-border-color: #7e7e7e;
+    --red-button-color: #b91717;
+    --red-shadow: #800000;
+    --red-hover: #b60101;
+    --red-active: #9a0000;
+    --error-background: rgba(255, 0, 0, 0.2);
+
+    --button-face-color: rgb(121, 121, 121);
+    --button-shadow: rgb(68, 68, 68);
+    --button-hover: rgb(138, 138, 138);
+    --button-face-deactiv: var(--button-face-color);
+    --button-active: var(--button-hover);
+    --generate-button-border: rgb(158, 157, 157);
+
+    --main-padding: calc(2 * var(--hunit));
+    --main-padding-w: calc(1.5 * var(--wunit));
+}
+
+.Page {
+    height: 100vh;
+    width: 100vw;
+    font-size: var(--main-font-size);
+}
+
+.PageContent {
+    background-color: var(--main-background-color);
+    height: var(--content-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.PageFooter {
+    height: var(--footer-height);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: calc(1 * var(--wunit));
+    background: linear-gradient(
+        0deg, 
+        var(--header-background-color) calc(100% - 0.4 * var(--hunit)),
+        var(--header-border-color) calc(100% - 0.1 * var(--hunit)),
+        var(--header-border-color));
+}
+
+.HeaderContent {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+
+}
+
+.PageHeader {
+    background: linear-gradient(
+        180deg, 
+        var(--header-background-color) calc(100% - 0.4 * var(--hunit)),
+        var(--header-border-color) calc(100% - 0.1 * var(--hunit)),
+        var(--header-border-color));
+    height: var(--header-height);
+    display: flex;
+}
+
+.HeaderNav {
+    height: 100%;
+    width: auto;
+    display: grid;
+    grid-template-columns: calc(12 * var(--hunit)) calc(12 * var(--hunit)) calc(12 * var(--hunit));
+    grid-template-rows: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: calc(1 * var(--wunit));
+}
+
+.HeaderNavItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+:root {
+    --header-font-size: calc(5 * var(--hunit));
+}
+
+.PageTitle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: var(--main-padding-w);
+    font-size: var(--header-font-size);
+    font-weight: 550;
+}
+
+.PageTitleLink img {
+    height: calc(4 * var(--hunit));
+    margin-right: calc(0.5 * var(--wunit));
+    padding-left: calc(1.5 * var(--hunit));
+}
+
+.LinkNoDecor {
+    text-decoration: none;
+    color: inherit;
+}
+
+.HrefNoDecor {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* -------- buttons -------- */
+
+.AnyButton {
+    color: var(--main-font-color);
+    background: var(--button-face-color);
+    border: none;
+    font-weight: bold;
+    outline: none;
+    margin: 0;
+    padding: var(--hunit) var(--wunit);
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--hunit);
+    box-shadow: 0 calc(0.5 * var(--hunit)) var(--button-shadow);
+    font-size: calc(2.5 * var(--hunit));
+}
+
+.AnyButton:hover {
+    background: var(--button-hover);
+    top: 1px;
+}
+
+.AnyButton:active {
+    background-color: var(--button-active);
+    transform: translateY(3px);
+    box-shadow: 0 2px var(--button-shadow);
+}
+
+.RedButton {
+    height: 100%;
+    width: 100%;
+    border: var(--generate-button-border);
+    background-color: var(--red-button-color);
+}
+
+.RedButton:hover {
+    background-color: var(--red-hover);
+    cursor: pointer;
+}
+
+.RedButton:active {
+    background-color: var(--red-active);
+    transform: translateY(1px);
+    box-shadow: 0 calc(0.9 * var(--hunit)) var(--red-shadow);
+}
+
+.HeaderTab img {
+    height: calc(4.5 * var(--hunit));
+    margin-right: calc(0.5 * var(--wunit));
+}
+
+.LogOutButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.GitHubLogo span {
+    position: absolute;
+    right: calc(3 * var(--wunit) + 0.8 * var(--line-height));
+    top: calc(100% - 0.5 * var(--footer-height) - 0.5 * calc(0.8 * var(--line-height)));
+    display: flex;
+}
+
+.GitHubLogo span:hover {
+    text-decoration: underline;
+}
+
+.GitHubLogo img {
+    height: calc(0.8 * var(--line-height));
+    position: absolute;
+    right: calc(2 * var(--wunit));
+    top: calc(100% - 0.5 * var(--footer-height) - 0.5 * calc(0.8 * var(--line-height)));
+}
+
+.WelcomeTitle {
+    font-size: calc(var(--header-font-size) * 1);
+    font-weight: 500;
+    color: var(--main-font-color);
+    margin: 0;
+    padding: 0;
+}

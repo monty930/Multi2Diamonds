@@ -1,0 +1,352 @@
+:root {
+    --button-height: 30px;
+    --bid-table-height: calc(min(23 * var(--hunit), 15 * var(--wunit)));
+    --bid-table-border-width: calc(2 * var(--wunit) / 3);
+    --cards-line-height: calc(min(4 * var(--wunit), 5.5 * var(--hunit)));
+    --cards-font-size: calc(0.63 * var(--cards-line-height));
+    --suit-image-container-width: calc(0.7 * var(--cards-line-height));
+    --buttons-row-gap: calc(1.5 * var(--hunit));
+}
+
+.RightSideDealOuter {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: var(--main-padding) var(--main-padding-w);
+    gap: var(--main-padding);
+}
+
+.RightSideDealGenerateButtonContainer {
+    height: var(--button-height);
+    width: calc(100% - 2 * var(--main-padding-w));
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--main-padding-w);
+}
+
+.RightSideDealSetContainer {
+    height: calc(100% - 4 * var(--main-padding) - var(--button-height));
+    width: calc(100% - 2 * var(--main-padding-w));
+    padding-top: var(--main-padding);
+}
+
+.GenerateMessageAndSpinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: calc(50% - 1 * var(--entry-message-line-height) / 2);
+    width: 100%;
+    line-height: var(--entry-message-line-height);
+    padding-bottom: var(--entry-message-line-height);
+}
+
+.ProperDealSet {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 
+            calc(50% - var(--bid-table-height) / 2)
+            var(--bid-table-height)
+            calc(50% - var(--bid-table-height) / 2);
+    grid-template-rows:
+            calc(50% - var(--bid-table-height) / 2)
+            var(--bid-table-height)
+            calc(50% - var(--bid-table-height) / 2);
+}
+
+.DealSetCell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DealSetCellN1 {
+    font-weight: bold;
+}
+
+.DealSetCellN2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+}
+
+.DealSetCellN3 {
+}
+
+.DealSetCellEW1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.DealSetCellEW2 {
+    background-color: var(--button-face-color);
+}
+
+.DealSetCellEW3 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+}
+
+.DealSetCellS1 {
+}
+
+.DealSetCellS2 {
+    display: flex;
+}
+
+.DealSetCellS3 {
+}
+
+.BiddingTable {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    font-weight: bold;
+    grid-template-columns:
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)));
+    grid-template-rows:
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)))
+            calc(1 / 3 * (100% - 2 * var(--bid-table-border-width)));
+    border: var(--bid-table-border-width) solid transparent;
+}
+
+.BiddingTableCell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--cards-font-size);
+}
+
+.BiddingTableCellN1 {
+    background-color: var(--button-face-color);
+}
+
+.BiddingTableCellN2 {
+    background-color: var(--main-background-color);
+}
+
+.BiddingTableCellN3 {
+    background-color: var(--button-face-color);
+}
+
+.BiddingTableCellEW1 {
+    background-color: var(--main-background-color);
+}
+
+.BiddingTableCellEW2 {
+    background-color: var(--button-face-color);
+}
+
+.BiddingTableCellEW3 {
+    background-color: var(--main-background-color);
+}
+
+.BiddingTableCellS1 {
+    background-color: var(--button-face-color);
+}
+
+.BiddingTableCellS2 {
+    background-color: var(--main-background-color);
+}
+
+.BiddingTableCellS3 {
+    background-color: var(--button-face-color);
+}
+
+.NavigateCell {
+    padding-left: var(--main-padding-w);
+    padding-top: var(--main-padding);
+    width: calc(100% - var(--main-padding-w));
+    height: calc(100% - var(--main-padding));
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--buttons-row-gap);
+    z-index: 1; 
+    position: relative;
+}
+
+.NavigateCellUpperRow {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--hunit);
+}
+
+.NavigateCellLowerRow {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--hunit);
+}
+
+.NavigateCellLowerRowEntry {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--hunit);
+}
+
+.NavigateCellLowerRow div {
+    width: 100%;
+}
+
+.DealSetEntryButtonsOuterContrainer {
+    height: calc(50% - var(--entry-message-line-height) / 2);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.DealSetEntryButtonsOuterContrainer1 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+}
+
+.DealSetEntryButtonsOuterContrainer2 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.DealSetEntryButtonsInnerContrainer {
+    height: calc(100% - var(--bid-table-height) / 2 + var(--line-height) / 2);
+    width: calc(1 / 2 * (200% - var(--bid-table-height)));
+}
+
+.SaveButtonsContainer {
+    height: 100%;
+    width: 100%;
+}
+
+.SaveButtonsContainerEntry {
+    height: calc(100% - var(--bid-table-height) / 2 + var(--line-height) / 2);
+    width: calc(1 / 2 * (200% - var(--bid-table-height)));
+}
+
+.DealSetEntryButtonsInnerContrainerPadding {
+    padding-right: var(--main-padding-w);
+    padding-top: var(--main-padding);
+    height: calc(100% - var(--main-padding));
+    width: calc(100% - var(--main-padding-w));
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--buttons-row-gap);
+}
+
+.DealSetEntryButtonsInnerContrainerPaddingRight {
+    padding-left: var(--main-padding-w);
+    padding-right: 0;
+}
+
+.EntryContainer {
+    height: 100%;
+    width: 100%;
+}
+
+.EntryMessage {
+    display: flex;
+    justify-content: end;
+    line-height: var(--entry-message-line-height);
+    height: calc(50% + var(--entry-message-line-height) / 2);
+}
+
+.Hand {
+    height: calc(4 * var(--cards-line-height));
+    width: 0;
+    position: absolute;
+}
+
+.HandS {
+    padding-top: calc(var(--main-padding) * 2 / 3);
+}
+
+.HandE {
+    padding-left: var(--main-padding-w);
+}
+
+/*.HandW {*/
+/*    padding-right: calc(var(--main-padding-w) + 3 * var(--cards-line-height));*/
+/*}*/
+
+.Suit {
+    height: calc(var(--cards-line-height));
+    display: flex;
+    width: calc(6 * var(--line-height) + var(--suit-image-container-width) + var(--main-padding-w));
+}
+
+.SuitImageContainer {
+    height: var(--cards-line-height);
+    width: var(--suit-image-container-width);
+    display: flex;
+    font-family: "MS Gothic", sans-serif;
+    font-size: var(--cards-font-size);
+}
+
+.CardContainer {
+    display: flex;
+    align-items: center;
+    padding-left: calc(var(--line-height) / 10);
+    font-family: var(--main-font);
+    font-weight: bold;
+    font-size: var(--cards-font-size);
+    letter-spacing: calc(0.03 * var(--line-height));
+}
+
+.ClubChar {
+    background-image: url("../../assets/green.png");
+    background-clip: text;
+    color: transparent;
+}
+
+.DiamondChar {
+    background-image: url("../../assets/orange.png");
+    background-clip: text;
+    color: transparent;
+}
+
+.HeartChar {
+    background-image: url("../../assets/red.png");
+    background-clip: text;
+    color: transparent;
+}
+
+.SpadeChar {
+    background-image: url("../../assets/blue.png");
+    background-clip: text;
+    color: transparent;
+}
+
+.DealSetButtonImage {
+    width: calc(min(5 * var(--hunit), 3.5 * var(--wunit)));
+}
+
+.Dealer {
+    text-decoration: underline;
+}
+
+.Vul, .NotVul {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.Vul {
+    color: #ff1212;
+}

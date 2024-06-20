@@ -1,7 +1,7 @@
-using BridgeScenarios.Database;
-using BridgeScenarios.Models.DbModels;
+using Multi2Diamonds.Database;
+using Multi2Diamonds.Models.DbModels;
 
-namespace BridgeScenarios.Repositories;
+namespace Multi2Diamonds.Repositories;
 
 public class DealRepository
 {

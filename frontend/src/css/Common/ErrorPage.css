@@ -1,0 +1,22 @@
+.ErrorPage {
+    height: 100vh;
+    display: flex;
+    background-color: var(--main-background-color);
+    justify-content: center;
+    align-items: center;
+    gap: var(--main-padding);
+    flex-direction: column;
+}
+
+.ErrorMessage {
+    font-size: calc(4 * var(--hunit));
+    width: 70%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-family: var(--main-font);
+}
+
+.ErrorImg {
+    width: calc(10 * var(--hunit));
+}

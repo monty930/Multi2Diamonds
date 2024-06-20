@@ -1,9 +1,9 @@
-using BridgeScenarios.Database;
-using BridgeScenarios.Models.DbModels;
-using BridgeScenarios.Repositories;
+using Multi2Diamonds.Database;
+using Multi2Diamonds.Models.DbModels;
+using Multi2Diamonds.Repositories;
 using Microsoft.AspNetCore.Identity;
 
-namespace BridgeScenarios.Tests;
+namespace Multi2Diamonds.Tests;
 
 public class DatabaseTest
 {
@@ -68,7 +68,7 @@ public class DatabaseTest
     {
         var userRepo = new UserRepository();
 
-        var testuser = userRepo.GetByName("test");
+        var testuser = userRepo.GetUserByUsername("test");
         if (testuser is null)
             return;
 

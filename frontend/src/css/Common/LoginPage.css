@@ -1,0 +1,194 @@
+:root {
+    --big-div-unit: calc(200 * var(--wunit));
+    --login-form-width: calc(min(50 * var(--wunit), 50 * var(--hunit)));
+    --login-form-height: calc(60 * var(--hunit));
+    --entry-message-line-height: calc(3.5 * var(--hunit));
+    --login-form-font-size: calc(2.5 * var(--hunit));
+    --login-title-font-size: calc(5 * var(--hunit));
+}
+
+.LoginPageImageContrainer {
+    height: 100%;
+    width: 100%;
+    background-image: url(../../assets/signup2d-rotated.jpg);
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: var(--content-height);
+    overflow: hidden;
+}
+
+.LoginForm {
+    position: relative;
+    width: var(--login-form-width);
+    height: var(--login-form-height);
+    padding: var(--main-padding-w);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: var(--profile-background-color);
+    background-size: 90vh;
+    border-radius: calc(1 * var(--hunit));
+    display: flex;
+    flex-direction: column;
+    font-size: var(--login-form-font-size);
+    line-height: var(--line-height);
+}
+
+.LogSignPageTitle {
+    font-size: var(--login-title-font-size);
+    font-weight: bold;
+    color: var(--main-font-color);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: calc(var(--login-form-width));
+    cursor: default;
+}
+
+.LoginFormBreak {
+    height: calc(0.8 * var(--main-padding));
+}
+
+.LoginInput {
+    width: calc(100% - var(--main-padding));
+    padding: calc(1 * var(--hunit));
+    margin: calc(0.5 * var(--hunit)) 0;
+    border-radius: calc(0.5 * var(--hunit));
+    background-color: var(--header-background-color);
+    color: var(--main-font-color);
+    font-size: calc(2 * var(--hunit));
+    border: 1px solid var(--header-background-color);
+}
+
+/* Ensure autofilled input fields use the main font color */
+.LoginInput:-webkit-autofill,
+.LoginInput:-webkit-autofill:hover,
+.LoginInput:-webkit-autofill:focus,
+.LoginInput:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--header-background-color) inset !important;
+    -webkit-text-fill-color: var(--main-font-color) !important;
+    caret-color: var(--main-font-color) !important;
+}
+
+.LoginInput:focus {
+    outline: none;
+    border: 1px solid var(--button-face-color);
+}
+
+.LogSignButton {
+    height: auto;
+}
+
+.ErrorField {
+    color: var(--main-font-color);
+    font-size: calc(2 * var(--hunit));
+    background-color: var(--error-background);
+    padding-left: var(--hunit);
+}
+
+.LoginInput:-webkit-autofill,
+.LoginInput:-webkit-autofill:hover,
+.LoginInput:-webkit-autofill:focus,
+.LoginInput:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--header-background-color) inset !important;
+}
+
+:root {
+    --big-div-top-relative: calc(0.87 * var(--login-form-height));
+}
+
+.BigDiv {
+    background-color: var(--header-background-color);
+    border-radius: var(--big-div-unit);
+    height: var(--big-div-unit);
+    width: var(--big-div-unit);
+    position: absolute;
+    top: var(--big-div-top-relative);
+    left: calc(0.5 * var(--login-form-width) - 0.5 *  var(--big-div-unit) + var(--main-padding-w));
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.OrDiv {
+    position: absolute;
+    top: calc(var(--big-div-top-relative) + 0.5 * var(--line-height));
+    left: var(--main-padding-w);
+    height: var(--line-height);
+    width: var(--login-form-width);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+
+.SignUpDiv {
+    position: absolute;
+    top: calc(var(--big-div-top-relative) + 1.5 * var(--line-height));
+    height: calc(1.5 * var(--line-height));
+    width: var(--login-form-width);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: calc(1.5 * var(--login-form-font-size));
+    cursor: pointer;
+}
+
+.SignUpFormContent {
+    height: 100%;
+    width: var(--login-form-width);
+    position: absolute;
+    top: calc(var(--login-form-height));
+    padding-left: calc(1 * var(--main-padding));
+    padding-right: calc(1 * var(--main-padding));
+    left: 0;
+}
+
+@keyframes slideUp {
+    from {
+        top: var(--big-div-top-relative);
+    }
+    to {
+        top: calc(var(--big-div-top-relative) - 0.7 * var(--login-form-height));
+    }
+}
+
+@keyframes slideDown {
+    from {
+        top: calc(var(--big-div-top-relative) - 0.7 * var(--login-form-height));
+    }
+    to {
+        top: var(--big-div-top-relative);
+    }
+}
+
+.OrLogInDiv {
+    position: absolute;
+    top: 0;
+    width: var(--login-form-width);
+    height: calc(0.2 * var(--login-form-height));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.LogInSpan {
+    padding-left: var(--hunit);
+    font-size: calc(1.5 * var(--login-form-font-size));
+}
+
+.OrSpan {
+    padding-top: calc(0.3 * var(--login-form-font-size));
+}
+
+.SignUpText {
+    border: 1px solid var(--profile-background-color);
+    background-color: var(--profile-background-color);
+}
