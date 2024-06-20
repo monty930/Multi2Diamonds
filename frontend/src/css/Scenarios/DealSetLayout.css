@@ -283,14 +283,14 @@
     padding-left: var(--main-padding-w);
 }
 
-.HandW {
-    padding-right: calc(var(--main-padding-w) + 3 * var(--cards-line-height));
-}
+/*.HandW {*/
+/*    padding-right: calc(var(--main-padding-w) + 3 * var(--cards-line-height));*/
+/*}*/
 
 .Suit {
     height: calc(var(--cards-line-height));
     display: flex;
-    width: calc(13 * var(--line-height) + var(--suit-image-container-width) + var(--main-padding-w));
+    width: calc(6 * var(--line-height) + var(--suit-image-container-width) + var(--main-padding-w));
 }
 
 .SuitImageContainer {

@@ -3,7 +3,7 @@ import UseScenariosChoose from './UseScenariosChoose';
 import GenerateDealSet from './GenerateDealSet';
 import { ScenarioProvider } from './CompilerSettings';
 
-function UseScenarios({ setIsDragging }) {
+function UseScenarios({ setIsDragging, getLongestWestSuitLength }) {
     return (
         <ScenarioProvider>
             <div className="ScenariosPage">
@@ -12,7 +12,7 @@ function UseScenarios({ setIsDragging }) {
                     className="Divider"
                     onMouseDown={() => setIsDragging(true)}
                 ></div>
-                <div className="GenerateDealSetOuter"><GenerateDealSet /></div>
+                <div className="GenerateDealSetOuter"><GenerateDealSet getLongestWestSuitLength={getLongestWestSuitLength} /></div>
             </div>
         </ScenarioProvider>
     );

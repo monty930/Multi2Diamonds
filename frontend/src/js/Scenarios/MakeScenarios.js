@@ -85,7 +85,6 @@ function MakeScenarios({ scenarioContent, setScenarioContent }) {
             setSaveLogMessage('Scenario ' + scenarioName + ' saved successfully!');
             setSaveLogSuccess(true);
         } catch (error) {
-            console.error('Error saving data:', error);
             setSaveLogMessage('Error: ' + error.message);
             setSaveLogSuccess(false);
         } finally {
@@ -95,6 +94,12 @@ function MakeScenarios({ scenarioContent, setScenarioContent }) {
 
     const handleSaveAsNew = async () => {
         try {
+            if (scenarioName.length > 30) {
+                throw new Error('Scenario name is too long.');
+            }
+            else if (!scenarioName.replace(/\s/g, '').length) {
+                throw new Error('Enter scenario name!');
+            }
             const response = await fetch('http://localhost:5015/Scenarios/SaveScenario', {
                 method: 'POST',
                 headers: {
@@ -110,8 +115,8 @@ function MakeScenarios({ scenarioContent, setScenarioContent }) {
             setSaveLogSuccess(true);
             setAlreadySaved(true);
             setAlreadySavedScenarioName(data.scenarioName);
+            setScenarioName(data.scenarioName);
         } catch (error) {
-            console.error('Error saving data:', error);
             setSaveLogMessage('Error: ' + error.message);
             setSaveLogSuccess(false);
         } finally {

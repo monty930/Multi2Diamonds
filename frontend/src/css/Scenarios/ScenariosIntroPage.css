@@ -19,14 +19,14 @@
 
 .ScenarioIntroGifs {
     width: var(--gif-width);
-    background-color: var(--main-code-background-color);
+    background-color: transparent;
     display: flex;
     flex-direction: row;
     gap: var(--main-padding-w);
 }
 
 .ScenarioIntroButtons {
-    background-color: var(--main-code-background-color);
+    background-color: transparent;
     display: flex;
     flex-direction: row;
     gap: var(--main-padding-w);
@@ -39,7 +39,6 @@
 
 .GifsBackground {
     position: absolute;
-    background-color: var(--main-code-background-color);
     width: calc(100% - 2 * var(--main-padding-w));
     height: auto;
     left: 0;

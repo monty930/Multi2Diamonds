@@ -13,7 +13,7 @@ import retry from '../../assets/retry.png';
 import previous from '../../assets/arrow-back.png';
 import next from '../../assets/arrow.png';
 
-function GenerateDealSet() {
+function GenerateDealSet({ getLongestWestSuitLength }) {
     const [dealSet, setDealSet] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [currentDealNo, setCurrentDealNo] = useState(parseInt(sessionStorage.getItem('currentDealNo') || '0'));
@@ -187,7 +187,7 @@ function GenerateDealSet() {
                         </div>
                         <div className={"DealSetCellN3"}></div>
                         <div className={"DealSetCellEW1"}>
-                            {Hand({ dealSet, hand: 'W', currentDealNo: currentDealNo })}
+                            {Hand({ dealSet, hand: 'W', currentDealNo: currentDealNo, longestSuitLength: getLongestWestSuitLength(dealSet, 'W', currentDealNo)})}
                         </div>
                         <div className={"DealSetCellEW2"}>
                             {BiddingTable({ currentDealNo, vul: getVul(), dealer: getDealer(), loading: isLoading })}

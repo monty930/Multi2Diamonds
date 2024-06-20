@@ -22,6 +22,19 @@ function Scenarios() {
 
     const minWidth = 400;
 
+    const getLongestWestSuitLength = (dealSet, hand, currentDealNo) => {
+        let longestSuitLength = 0;
+        const suits = ['spades', 'hearts', 'diamonds', 'clubs'];
+        const handCards = dealSet.deals[currentDealNo - 1].west;
+        const cards = handCards.split('.');
+        for (let i = 0; i < suits.length; i++) {
+            if (cards[i].length > longestSuitLength) {
+                longestSuitLength = cards[i].length;
+            }
+        }
+        return longestSuitLength;
+    }
+
     useEffect(() => {
         function updatePanelWidths() {
             if (!pageLayoutRef.current) return;
@@ -89,12 +102,12 @@ function Scenarios() {
                 </div>
                 <div className="Divider" onMouseDown={() => setIsDragging(true)}></div>
                 <div className="GenerateExampleOuter">
-                    <GenerateExample scenarioContent={scenarioContent} />
+                    <GenerateExample scenarioContent={scenarioContent} getLongestWestSuitLength={getLongestWestSuitLength} />
                 </div>
             </div>
         );
     } else if (location.pathname === "/scenarios/use") {
-        content = <UseScenarios setIsDragging={setIsDragging} />;
+        content = <UseScenarios setIsDragging={setIsDragging} getLongestWestSuitLength={getLongestWestSuitLength} />;
     } else {
         content = <div>ERROR!</div>
     }

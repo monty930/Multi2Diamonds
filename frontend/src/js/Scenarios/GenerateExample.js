@@ -3,7 +3,7 @@ import Spinner from "../Common/Spinner";
 import BiddingTable from "./DealView/BiddingTable.js";
 import Hand from "./DealView/Hand";
 
-function GenerateExample({ scenarioContent }) {
+function GenerateExample({ scenarioContent, getLongestWestSuitLength }) {
     const [dealSet, setExample] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -65,7 +65,7 @@ function GenerateExample({ scenarioContent }) {
                         </div>
                         <div className={"DealSetCellN3"}></div>
                         <div className={"DealSetCellEW1"}>
-                            {Hand({dealSet, hand: 'W', currentDealNo: 1})}
+                            {Hand({dealSet, hand: 'W', currentDealNo: 1, longestSuitLength: getLongestWestSuitLength(dealSet, 'W', 1)})}
                         </div>
                         <div className={"DealSetCellEW2"}>
                             {BiddingTable({currentDealNo: 1, vul: getVul(), dealer: getDealer(), loading: isLoading})}
