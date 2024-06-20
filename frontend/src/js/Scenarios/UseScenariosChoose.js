@@ -151,10 +151,13 @@ function UseScenariosChoose() {
                         <span className="LeftSideTitle">Choose scenarios for a deal set:</span>
                         {menuOpen && (
                             <div ref={menuRef} className="MenuOptionsContainer">
-                                <ul>
-                                    <li onClick={() => handleMenuSelect('/scenarios/make')}>Go to Make Scenarios</li>
-                                    <li onClick={() => handleMenuSelect('/scenarios/savedscenarios')}>Go to Saved Scenarios</li>
-                                    <li onClick={() => handleMenuSelect('/scenarios/saveddealsets')}>Go to Saved Deal Sets</li>
+                                <ul className={"MenuUl"}>
+                                    <li className={"MenuLi"}
+                                        onClick={() => handleMenuSelect('/scenarios/make')}>Scenario Creator</li>
+                                    <li className={"MenuLi"}
+                                        onClick={() => handleMenuSelect('/scenarios/saveddealsets')}>Saved Deal Sets</li>
+                                    <li className={"MenuLi"}
+                                        onClick={() => handleMenuSelect('/scenarios/savedscenarios')}>Saved Scenarios</li>
                                 </ul>
                             </div>
                         )}

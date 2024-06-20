@@ -150,10 +150,13 @@ function MakeScenarios({ scenarioContent, setScenarioContent }) {
                     <span className="LeftSideTitle">Enter constraints:</span>
                     {menuOpen && (
                         <div ref={menuRef} className="MenuOptionsContainer">
-                            <ul>
-                                <li onClick={() => handleMenuSelect('/scenarios/use')}>Go to Use Scenarios</li>
-                                <li onClick={() => handleMenuSelect('/scenarios/savedscenarios')}>Go to Saved Scenarios</li>
-                                <li onClick={() => handleMenuSelect('/scenarios/saveddealsets')}>Go to Saved Deal Sets</li>
+                            <ul className={"MenuUl"}>
+                                <li className={"MenuLi"}
+                                    onClick={() => handleMenuSelect('/scenarios/use')}>Deal Set Creator</li>
+                                <li className={"MenuLi"}
+                                    onClick={() => handleMenuSelect('/scenarios/savedscenarios')}>Saved Scenarios</li>
+                                <li className={"MenuLi"}
+                                    onClick={() => handleMenuSelect('/scenarios/saveddealsets')}>Saved Deal Sets</li>
                             </ul>
                         </div>
                     )}

@@ -33,6 +33,8 @@ public class CompilerRunner
         for (int i = 0; i < CompilerSettings.NumberOfDeals; i++)
         {
             string selectedConstraint = ChooseRandomConstraintByPercentage();
+            selectedConstraint ??= " ";
+
             if (!selectionCounts.TryAdd(selectedConstraint, 1))
                 selectionCounts[selectedConstraint]++;
         }
