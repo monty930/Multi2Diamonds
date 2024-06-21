@@ -1,0 +1,15 @@
+.DummyImage {
+  padding-right: calc(2 * var(--main-padding-w));
+    opacity: 60%;
+}
+
+.DummyText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    padding-right: calc(2 * var(--main-padding-w));
+    font-family: 'Brush Script MT', cursive;
+}

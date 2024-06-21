@@ -4,7 +4,7 @@
             "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
             "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --main-font-size: calc(0.7 * var(--line-height));
-    --line-height: calc(3.7 * var(--hunit));
+    --line-height: calc(min(calc(3.7 * var(--hunit)), calc(4 * var(--wunit))));
     
     --hunit: 1vh;
     --wunit: 1vw;;
@@ -30,6 +30,7 @@
     --button-face-color: rgb(121, 121, 121);
     --button-shadow: rgb(68, 68, 68);
     --button-hover: rgb(138, 138, 138);
+    --button-hover-trans: rgba(138, 138, 138, 0.5);
     --button-face-deactiv: var(--button-face-color);
     --button-active: var(--button-hover);
     --generate-button-border: rgb(158, 157, 157);
@@ -90,8 +91,7 @@
     height: 100%;
     width: auto;
     display: grid;
-    grid-template-columns: calc(12 * var(--hunit)) calc(12 * var(--hunit)) calc(12 * var(--hunit));
-    grid-template-rows: 100%;
+    grid-template-columns: calc(12 * var(--hunit)) calc(12 * var(--hunit)) calc(12 * var(--hunit)) calc(12 * var(--hunit));
     align-items: center;
     justify-content: flex-end;
     padding-right: calc(1 * var(--wunit));

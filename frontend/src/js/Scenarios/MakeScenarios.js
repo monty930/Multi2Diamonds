@@ -129,10 +129,13 @@ function MakeScenarios({ scenarioContent, setScenarioContent }) {
         setSaveLogSuccess(true);
     }
 
-    const saveButtonHandler = async () => {
-        if (alreadySaved && (alreadySavedScenarioName === scenarioName)) {
+    const saveButtonHandler = async (saveAsNew = false) => {
+        console.log('save button handler with:\nalreadySaved: ' + alreadySaved + '\nalreadySavedScenarioName: ' + alreadySavedScenarioName + '\nscenarioName: ' + scenarioName);
+        if (alreadySaved && (alreadySavedScenarioName === scenarioName) && !saveAsNew) {
+            console.log('handle save');
             await handleSave();
         } else {
+            console.log('handle save as new');
             await handleSaveAsNew();
         }
     }
@@ -165,13 +168,13 @@ function MakeScenarios({ scenarioContent, setScenarioContent }) {
             <div className="ScenarioSavingFieldContainer">
                 <button
                     className={"AnyButton SaveConstraintButton"}
-                    onClick={handleSaveAsNew}>
+                    onClick={() => saveButtonHandler(false)}>
                     Save
                 </button>
                 {alreadySaved && (alreadySavedScenarioName === scenarioName) &&
                     <button
                         className={"AnyButton SaveAsNewConstraintButton"}
-                        onClick={handleSaveAsNew}>
+                        onClick={() => saveButtonHandler(true)}>
                         Save as new
                     </button>
                 }

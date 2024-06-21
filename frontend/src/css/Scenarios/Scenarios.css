@@ -1,6 +1,10 @@
 :root {
     --divider-width: 8px;
     --left-title-height: calc(8 * var(--hunit));
+    --menu-image-width: calc(var(--left-title-height) * 0.6);
+    --dropdown-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --dropdown-border-color: #b0b0b0;
+    --dropdown-hover-bg: #a2a2a2;
 }
 
 .ScenariosLeftOuterContainer {
@@ -42,28 +46,24 @@
 
 .Divider {
     background: linear-gradient(
-        90deg, 
-        var(--main-background-color),
-        var(--main-background-color) 10%,
-        var(--header-border-color) 50%,
-        var(--main-background-color) 90%,
-        var(--main-background-color) 
+            90deg,
+            var(--main-background-color),
+            var(--main-background-color) 10%,
+            var(--header-border-color) 50%,
+            var(--main-background-color) 90%,
+            var(--main-background-color)
     );
     cursor: col-resize;
     width: var(--divider-width);
     height: 100%;
 }
-  
+
 .DealSetContainer {
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 50vh;
     overflow: auto;
-}
-
-:root {
-    --menu-image-width: calc(var(--left-title-height) * 0.6);
 }
 
 .MenuImage {
@@ -77,9 +77,12 @@
     top: calc(var(--header-height) + var(--main-padding));
     z-index: 10;
     cursor: pointer;
-    border-radius: var(--hunit);
+    border-radius: 0 var(--hunit) var(--hunit) var(--hunit);
     background-color: var(--button-face-color);
     font-weight: bold;
+    box-shadow: var(--dropdown-box-shadow);
+    border: 1px solid var(--dropdown-border-color);
+    width: calc(20 * var(--wunit));
 }
 
 .MenuUl {
@@ -93,4 +96,10 @@
     padding: calc(0.5 * var(--main-padding));
     cursor: pointer;
     margin: 1px;
+    font-size: calc(var(--left-title-height) * 0.4);
+    transition: background-color 0.2s ease;
+}
+
+.MenuLi:hover {
+    background-color: var(--dropdown-hover-bg);
 }

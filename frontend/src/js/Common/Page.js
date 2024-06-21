@@ -25,6 +25,10 @@ import LogOutImg from "../../assets/logout.png";
 import ProfileImg from "../../assets/profile.png";
 import GitHubLogo from "../../assets/githublogo.png";
 import menuImg from '../../assets/menu2.png';
+import contactImg from '../../assets/contact-icon4.png';
+import todoImg from '../../assets/todo-icon2.png';
+import ContactPage from "./ContactPage";
+import DummyPage from "./DummyPage";
 
 function Page() {
     const {isAuthenticated, authError} = useAuth();
@@ -43,12 +47,14 @@ function Page() {
                             {isAuthenticated ? (
                                 <>
                                     <Route path="/" element={<WelcomePage/>}/>
-                                    <Route path="/scenarios" element={<ScenariosIntroPage/>}/>
+                                    {/*<Route path="/scenarios" element={<ScenariosIntroPage/>}/>*/}
                                     <Route path="/scenarios/make" element={<Scenarios/>}/>
                                     <Route path="/scenarios/use" element={<Scenarios/>}/>
                                     <Route path="/scenarios/savedscenarios" element={<SavedItemsPage/>}/>
                                     <Route path="/scenarios/saveddealsets" element={<SavedItemsPage/>}/>
                                     <Route path="/profile" element={<ProfilePage/>}/>
+                                    <Route path="/contact" element={<ContactPage/>}/>
+                                    <Route path="/dummy" element={<DummyPage/>}/>
                                 </>
                             ) : (
                                 <Route path="*" element={<Navigate replace to="/login"/>}/>
@@ -94,12 +100,14 @@ function Header({auth}) {
             {auth && (
                 <div className="HeaderNav">
                     <div className="HeaderNavItem">
-                        {/*<Link to="/saved" className="HeaderTab SavedItemsLink LinkNoDecor">*/}
-                        {/*    <img src={SavedItemsImg} alt="Saved items" className="SavedItemsImg"/>*/}
-                        {/*</Link>*/}
-                        <div className={"HeaderTab SavedItemsLink LinkNoDecor"}>
-                            <img src={menuImg} alt="Menu" className="MenuImg"/>
-                        </div>
+                        <Link to="/dummy" className="HeaderTab LinkNoDecor">
+                            <img src={todoImg} alt="Menu" className="ToDoImg"/>
+                        </Link>
+                    </div>
+                    <div className="HeaderNavItem">
+                        <Link to="/contact" className="HeaderTab LinkNoDecor">
+                            <img src={contactImg} alt="Contact" className="ContactImg"/>
+                        </Link>
                     </div>
                     <div className="HeaderNavItem">
                         <Link to="/profile" className="HeaderTab LinkNoDecor">
