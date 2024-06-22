@@ -11,61 +11,62 @@ function WelcomePage() {
 
     return (
         <div className="WelcomePage">
-            <div className="WelcomePageBackgroundContainer">
-                <img src={bridgeImage} alt="Bridge" className="WelcomeBackgroundBridgeImage"/>
+            <div className="CenteredBackgroundContainer">
+                <img src={bridgeImage} alt="Bridge" className="CenteredBackgroundBridgeImage"/>
             </div>
             <div className="WelcomePageInner">
-                {/*<div className={"WelcomeTitle"}>Welcome page</div>*/}
                 <div className={"WelcomePageNavigButtonsContainer"}>
-                    <div className={"WelcomePageNavigButtons"}>
-                        <button
-                            className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
-                            onClick={() => navigate('/scenarios/make')}>
-                            <span className={"WelcomeNavigButtonLayout"}>
-                                <img src={makeScenariosImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
-                                <div className={"WelcomeNavigButtonText"}>Make Scenarios</div>
-                            </span>
-                        </button>
-                        <button
-                            className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
-                            onClick={() => navigate('/scenarios/use')}>
-                            <span className={"WelcomeNavigButtonLayout"}>
-                                <img src={buildDealSetsImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
-                                <div className={"WelcomeNavigButtonText"}>Build Deal&nbsp;Sets</div>
-                            </span>
-                        </button>
-                        <button
-                            className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
-                            onClick={() => navigate('/scenarios/savedscenarios')}>
-                            <span className={"WelcomeNavigButtonLayout"}>
-                                <img src={savedImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
-                                <div className={"WelcomeNavigButtonText"}>Saved items</div>
-                            </span>
-                        </button>
-                        <button
-                            className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
-                            onClick={() => navigate('/dummy')}>
-                            <span className={"WelcomeNavigButtonLayout"}>
-                                <img src={todoImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
-                                <div className={"WelcomeNavigButtonText"}>---</div>
-                            </span>
-                        </button>
-                        <button
-                            className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
-                            onClick={() => navigate('/dummy')}>
-                            <span className={"WelcomeNavigButtonLayout"}>
-                                <img src={todoImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
-                                <div className={"WelcomeNavigButtonText"}>---</div>
-                            </span>
-                        </button>
-                        <button
-                            className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
-                            onClick={() => navigate('/dummy')}>
-                            <span className={"WelcomeNavigButtonLayout"}>
-                                <img src={todoImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
-                                <div className={"WelcomeNavigButtonText"}>---</div>
-                            </span>
-                        </button>
+                    <div className={"CenteredLayout"}>
+                        <div className={"WelcomePageNavigButtons"}>
+                            <button
+                                className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
+                                onClick={() => navigate('/scenarios/make')}>
+                                <span className={"WelcomeNavigButtonLayout"}>
+                                    <img src={makeScenariosImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
+                                    <div className={"WelcomeNavigButtonText"}>Make Scenarios</div>
+                                </span>
+                            </button>
+                            <button
+                                className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
+                                onClick={() => navigate('/scenarios/use')}>
+                                <span className={"WelcomeNavigButtonLayout"}>
+                                    <img src={buildDealSetsImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
+                                    <div className={"WelcomeNavigButtonText"}>Build Deal&nbsp;Sets</div>
+                                </span>
+                            </button>
+                            <button
+                                className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
+                                onClick={() => navigate('/scenarios/savedscenarios')}>
+                                <span className={"WelcomeNavigButtonLayout"}>
+                                    <img src={savedImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
+                                    <div className={"WelcomeNavigButtonText"}>Saved items</div>
+                                </span>
+                            </button>
+                            <button
+                                className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
+                                onClick={() => navigate('/dummy')}>
+                                <span className={"WelcomeNavigButtonLayout"}>
+                                    <img src={todoImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
+                                    <div className={"WelcomeNavigButtonText"}>---</div>
+                                </span>
+                            </button>
+                            <button
+                                className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
+                                onClick={() => navigate('/dummy')}>
+                                <span className={"WelcomeNavigButtonLayout"}>
+                                    <img src={todoImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
+                                    <div className={"WelcomeNavigButtonText"}>---</div>
+                                </span>
+                            </button>
+                            <button
+                                className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
+                                onClick={() => navigate('/dummy')}>
+                                <span className={"WelcomeNavigButtonLayout"}>
+                                    <img src={todoImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
+                                    <div className={"WelcomeNavigButtonText"}>---</div>
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

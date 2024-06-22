@@ -1,5 +1,6 @@
 .DummyImage {
-  padding-right: calc(2 * var(--main-padding-w));
+    padding-right: calc(2 * var(--main-padding-w));
+    height: 80%;
     opacity: 60%;
 }
 

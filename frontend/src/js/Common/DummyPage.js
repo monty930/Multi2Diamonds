@@ -9,8 +9,8 @@ function DummyPage() {
 
     return (
         <div className="WelcomePage">
-            <div className="WelcomePageBackgroundContainer">
-                <img src={dummyImage} alt="Dummy" className="WelcomeBackgroundBridgeImage DummyImage"/>
+            <div className="CenteredBackgroundContainer">
+                <img src={dummyImage} alt="Dummy" className="CenteredBackgroundBridgeImage DummyImage"/>
             </div>
             <div className="WelcomePageInner DummyText">
                 To be continued...

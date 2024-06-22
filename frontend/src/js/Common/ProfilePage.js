@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Spinner from "./Spinner";
 import "../../css/Common/CenterProfileLayout.css";
+import bridgeImage from "../../assets/bridge-inverted-transparent.png";
+import profileImage from "../../assets/profile-picture.png";
+
 function ProfilePage() {
     const [profileData, setProfileData] = useState({ username: '' });
     const [isLoading, setIsLoading] = useState(true);
@@ -34,13 +37,31 @@ function ProfilePage() {
     }
 
     return (
-        <div className="profile-view-container">
-            <div className="left-border"></div>
-            <div className="profile-view">
-                <h1>My Profile</h1>
-                <p>Username: {profileData.username}</p>
+        <div className={"ProfilePageOuter"}>
+            <div className="CenteredBackgroundContainer">
+                <img src={bridgeImage} alt="Bridge" className="CenteredBackgroundBridgeImage"/>
             </div>
-            <div className="right-border"></div>
+            <div className={"CenteredLayout"}>
+                <div className={"ProfilePageInner"}>
+                    <div className={"ProfileCard"}>
+                        <div className={"ProfilePicture"}>
+                            <img src={profileImage} alt="Bridge" className="ProfileImg"/>
+                        </div>
+                        <div className={"ProfileInfo"}>
+                            <span className={"UserName"}>{profileData.username}</span>
+                            email: costam@costam.com<br/>
+                            joined on: July 2024
+                        </div>
+                    </div>
+                    <div className={"ProfileButtonsOuter"}>
+                        <div className={"ProfileButtonsInner"}>
+                            <button className={"ProfileButton AnyButton"}>Change email adress</button>
+                            <button className={"ProfileButton AnyButton"}>Change password</button>
+                            <button className={"ProfileButton AnyButton RedButton"}>Delete account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

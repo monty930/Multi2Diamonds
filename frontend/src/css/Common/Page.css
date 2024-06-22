@@ -37,6 +37,10 @@
 
     --main-padding: calc(2 * var(--hunit));
     --main-padding-w: calc(1.5 * var(--wunit));
+
+    --centered-layout-width: calc(min(90 * var(--hunit), 75 * var(--wunit)));
+    --centered-layout-height: calc(min(65 * var(--hunit), 70 * var(--wunit)));
+    --navig-width: calc(min(12 * var(--hunit), 13 * var(--wunit)));
 }
 
 .Page {
@@ -91,7 +95,7 @@
     height: 100%;
     width: auto;
     display: grid;
-    grid-template-columns: calc(12 * var(--hunit)) calc(12 * var(--hunit)) calc(12 * var(--hunit)) calc(12 * var(--hunit));
+    grid-template-columns: var(--navig-width) var(--navig-width) var(--navig-width) var(--navig-width);
     align-items: center;
     justify-content: flex-end;
     padding-right: calc(1 * var(--wunit));
@@ -168,6 +172,7 @@
     width: 100%;
     border: var(--generate-button-border);
     background-color: var(--red-button-color);
+    box-shadow: 0 calc(0.5 * var(--hunit)) var(--red-shadow);
 }
 
 .RedButton:hover {
@@ -178,7 +183,7 @@
 .RedButton:active {
     background-color: var(--red-active);
     transform: translateY(1px);
-    box-shadow: 0 calc(0.9 * var(--hunit)) var(--red-shadow);
+    box-shadow: 0 calc(0.5 * var(--hunit)) var(--red-shadow);
 }
 
 .HeaderTab img {
@@ -216,4 +221,32 @@
     color: var(--main-font-color);
     margin: 0;
     padding: 0;
+}
+
+/* centered pages layout */
+
+.CenteredLayout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: var(--centered-layout-width);
+    height: var(--centered-layout-height);
+    z-index: 3;
+}
+
+.CenteredBackgroundContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80%;
+    justify-content: end;
+    align-items: end;
+    position: absolute;
+    z-index: 2;
+}
+
+.CenteredBackgroundBridgeImage {
+    opacity: 20%;
+    height: 100%;
 }

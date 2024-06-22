@@ -8,22 +8,6 @@
     width: 100%;
 }
 
-.WelcomePageBackgroundContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 80%;
-    justify-content: end;
-    align-items: end;
-    position: absolute;
-    z-index: 2;
-}
-
-.WelcomeBackgroundBridgeImage {
-    opacity: 20%;
-    height: 100%;
-}
-
 .WelcomePageInner {
     height: calc(100% - 2 * var(--main-padding));
     width: calc(100% - 2 * var(--main-padding-w));
@@ -51,16 +35,16 @@
     gap: var(--main-padding);
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 .WelcomePageNavigButton {
-    height: calc(30 * var(--hunit));
-    width: calc(min(25 * var(--hunit), 20 * var(--wunit)));
     padding: 0 var(--main-padding-w);
     background-color: transparent;
     border: solid 3px var(--main-font-color);
     border-radius: calc(3 * var(--wunit));
     box-shadow: none;
+    height: 100%;
 }
 
 .WelcomePageNavigButton:hover {
