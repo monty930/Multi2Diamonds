@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import {getLinFromJson, getPbnFromJson, getDsiFromJson} from './DealHelper';
-import "../../css/Scenarios/SaveDialogWindow.css";
+import Spinner from "../Common/Spinner";
+import "../../css/Common/DialogWindow.css";
+
+import crossImg from "../../assets/cross.png";
 
 function SaveDialog({ isOpen, onClose, jsonDealSetString }) {
     const [filename, setFilename] = useState('');
@@ -35,10 +38,10 @@ function SaveDialog({ isOpen, onClose, jsonDealSetString }) {
     if (!isOpen) return null;
 
     return (
-        <div className="dialog-window">
-            <div className="dialog-window-content">
-                <button className="close-button" onClick={onClose}>
-                    <img src="path_to_assets/cross.png" alt="Close"/>
+        <div className="DialogWindow">
+            <div className="DialogWindowContent">
+                <button className="CloseButton" onClick={onClose}>
+                    <img src={crossImg} alt="Close" className={"CrossImg"}/>
                 </button>
                 <textarea
                     value={filename}
@@ -52,12 +55,10 @@ function SaveDialog({ isOpen, onClose, jsonDealSetString }) {
                     <option value="pbn-chosen">.pbn</option>
                     <option value="lin-chosen">.lin</option>
                 </select>
-                {isLoading && (
-                    <div className="spinner-container">
-                        <img src="path_to_assets/loading-simp.png" alt="Loading"/>
-                    </div>
-                )}
-                <button className="save-submit-button" onClick={handleSubmit} disabled={isLoading}>Submit</button>
+                <div className="SaveSpinnerContainer">
+                    {isLoading && (<Spinner />)}
+                </div>
+                <button className="SaveSubmitButton" onClick={handleSubmit} disabled={isLoading}>Submit</button>
             </div>
         </div>
     );

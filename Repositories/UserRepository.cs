@@ -188,4 +188,12 @@ public class UserRepository
         var scenario = _context.Scenarios.FirstOrDefault(s => s.ScenarioId == scenarioId);
         return scenario;
     }
+
+    public void UpdateUsersEmail(string username, string email)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null) return;
+        user.Email = email;
+        _context.SaveChanges();
+    }
 }

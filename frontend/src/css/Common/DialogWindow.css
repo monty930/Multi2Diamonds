@@ -2,7 +2,7 @@
     --button-height: calc(5 * var(--hunit));
 }
 
-.dialog-window {
+.DialogWindow {
     position: fixed;
     z-index: 1060;
     left: 0;
@@ -13,7 +13,7 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.dialog-window-content {
+.DialogWindowContent {
     position: absolute;
     background-color: #222;
     margin: auto;
@@ -35,40 +35,9 @@
     gap: calc(var(--button-height) / 2);
 }
 
-/* -------------- submit button -------------- */
-
-.save-submit-button {
-    background-color: rgba(88, 88, 88, 0.7);
-    color: var(--main-font-color);
-    border: 0;
-    border-radius: calc(var(--hunit) / 5);
-    height: var(--button-height);
-    display: block;
-    margin: calc(var(--hunit) / 5);
-    width: 80%;
-    font-weight: bold;
-    cursor: pointer;
-    opacity: 1;
-    visibility: visible;
-    -webkit-transition: all .3s ease;
-}
-
-.save-submit-button:hover {
-    transition: all .3s ease;
-    background-color: rgba(60, 60, 60, 1);
-}
-
-.save-submit-button:disabled, .save-submit-button[disabled] {
-    cursor: default;
-    background-color: rgba(88, 88, 88, 0.7);
-    color: var(--main-font-color);
-    transition: none;
-    transform: none;
-}
-
 /* -------------- input dilename area -------------- */
 
-.dialog-window-content textarea, .dialog-window-content select {
+.DialogWindowContent textarea, .DialogWindowContent select {
     border: none;
     outline: none;
     box-shadow: none;
@@ -80,18 +49,18 @@
     width: 80%;
 }
 
-.dialog-window-content textarea {
+.DialogWindowContent textarea {
     padding-left: var(--hunit);
     width: calc(80% - var(--hunit));
 }
 
-.dialog-window-content select {
+.DialogWindowContent select {
     padding: var(--hunit);
 }
 
 /* -------------- close button -------------- */
 
-.close-button {
+.CloseButton {
     position: absolute;
     top: calc((-1) * var(--button-height) / 4);
     right: calc((-1) * var(--button-height) / 4);
@@ -109,16 +78,16 @@
     font-weight: bold;
 }
 
-.close-button:hover {
+.CloseButton:hover {
     background-color: var(--red-hover);
 }
 
-.close-button:active {
+.CloseButton:active {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
     transform: translateY(1px);
 }
 
-.close-button:disabled:hover, .close-button[disabled]:hover {
+.CloseButton:disabled:hover, .CloseButton[disabled]:hover {
     cursor: default;
     transform: none;
     background-color: var(--red-button-color);
@@ -126,13 +95,47 @@
     color: var(--main-font-color);
 }
 
-#cross-img {
+.CrossImg {
+    width: calc(var(--hunit) * 3);
+    height: calc(var(--hunit) * 3);
+}
+
+/* -------------- submit button -------------- */
+
+.SaveSubmitButton {
+    background-color: rgba(88, 88, 88, 0.7);
+    color: var(--main-font-color);
+    border: 0;
+    border-radius: calc(var(--hunit) / 5);
+    height: var(--button-height);
+    display: block;
+    margin: calc(var(--hunit) / 5);
+    width: 80%;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: all .3s ease;
+}
+
+.SaveSubmitButton:hover {
+    transition: all .3s ease;
+    background-color: rgba(60, 60, 60, 1);
+}
+
+.SaveSubmitButton:disabled, .SaveSubmitButton[disabled] {
+    cursor: default;
+    background-color: rgba(88, 88, 88, 0.7);
+    color: var(--main-font-color);
+    transition: none;
+    transform: none;
 }
 
 /* -------------- loading circle ------------- */
 
-.save-spinner-container {
+.SaveSpinnerContainer {
     width: 25px;
+    height: 25px;
     display: flex;
     justify-content: center;
     align-items: center;

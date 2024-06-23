@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../../css/Common/CenterProfileLayout.css";
 import "../../css/Scenarios/SavedItemsPage.css";
 
 import trashImage from "../../assets/trash.png";

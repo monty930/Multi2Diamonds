@@ -1,4 +1,3 @@
-import "../../css/Common/CenterProfileLayout.css";
 function ContactPage() {
     return (
         <div className="profile-view-container">

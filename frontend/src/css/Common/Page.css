@@ -26,6 +26,7 @@
     --red-hover: #b60101;
     --red-active: #9a0000;
     --error-background: rgba(255, 0, 0, 0.2);
+    --success-background: rgba(0, 255, 0, 0.2);
 
     --button-face-color: rgb(121, 121, 121);
     --button-face-color-trans: rgb(121, 121, 121, 0.9);

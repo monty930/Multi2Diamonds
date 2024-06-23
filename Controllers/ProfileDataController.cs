@@ -20,4 +20,12 @@ public class ProfileDataController : Controller
         if (user == null) return NotFound();
         return Json(new { user.Username, user.Email, user.CreationDate });
     }
+
+    [HttpPost]
+    [Route("ProfileData/ChangeEmail")]
+    public ActionResult ChangeEmail([FromBody] ProfileModel model)
+    {
+        _userRepository.UpdateUsersEmail("admin", model.Email); // should be: User.Identity.Name;
+        return Ok();
+    }
 }

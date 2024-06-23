@@ -1,4 +1,4 @@
-.ProfilePageOuter {
+.CenterPageOuter {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-.ProfilePageInner {
+.CenterPageInner {
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -18,6 +18,11 @@
     border-radius: calc(3 * var(--wunit));
 }
 
+:root {
+    --profile-pic-radius: calc(min(3 * var(--wunit), 3 * var(--hunit), 40px));
+    --profile-pic-size: calc(20 * var(--hunit));
+}
+
 .ProfileCard {
     display: flex;
     flex-direction: row;
@@ -25,11 +30,6 @@
     padding: var(--main-padding);
     font-size: var(--main-font-size);
     font-weight: bold;
-}
-
-:root {
-    --profile-pic-radius: calc(min(3 * var(--wunit), 3 * var(--hunit), 40px));
-    --profile-pic-size: calc(20 * var(--hunit));
 }
 
 .ProfilePicture {
@@ -100,4 +100,29 @@
 .EditProfilePictureButton img {
     height: 100%;
     width: 100%;
+}
+
+.ProfileButton {
+    font-size: calc(min(var(--main-font-size), 2.5 * var(--wunit)));
+}
+
+/* --------------- log messages --------------- */
+
+.ProfileLogMessage {
+    display: none;
+    height: calc(2 * var(--line-height));
+    padding-left: var(--main-padding);
+    width: calc(100% - 3 * var(--main-padding));
+    justify-content: start;
+    align-items: center;
+    margin-left: var(--main-padding);
+    font-weight: 500;
+}
+
+.ProfileLogMessageError {
+    background-color: var(--error-background);
+}
+
+.ProfileLogMessageSuccess {
+    background-color: var(--success-background);
 }

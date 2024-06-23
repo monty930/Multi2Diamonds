@@ -12,12 +12,14 @@ import ScenariosIntroPage from "../Scenarios/ScenariosIntroPage";
 
 import "../../css/Common/Page.css";
 import '../../css/Common/LoginPage.css';
+import "../../css/Common/DialogWindow.css";
 import '../../css/Scenarios/Scenarios.css';
 import '../../css/Scenarios/MakeScenarios.css';
 import '../../css/Scenarios/UseScenariosChoose.css';
 import '../../css/Scenarios/DealSetLayout.css';
 import "../../css/Common/WelcomePage.css";
 import "../../css/Scenarios/ScenariosIntroPage.css";
+import "../../css/Common/CenterLayout.css";
 
 import PageLogo from "../../assets/2diams.png";
 import SavedItemsImg from "../../assets/folder3.png";
