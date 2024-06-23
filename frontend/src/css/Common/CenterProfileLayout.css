@@ -27,11 +27,20 @@
     font-weight: bold;
 }
 
+:root {
+    --profile-pic-radius: calc(min(3 * var(--wunit), 3 * var(--hunit), 40px));
+    --profile-pic-size: calc(20 * var(--hunit));
+}
+
 .ProfilePicture {
-    height: calc(20 * var(--hunit));
+    height: var(--profile-pic-size);
+    width: var(--profile-pic-size);
     border: solid 3px var(--main-font-color);
-    border-radius: calc(min(3 * var(--wunit), 3 * var(--hunit), 40px));
+    border-radius: var(--profile-pic-radius);
     overflow: hidden;
+    display: flex;
+    justify-content: end;
+    align-items: end;
 }
 
 .ProfileImg {
@@ -61,8 +70,34 @@
 
 .ProfileButtonsInner {
     display: flex;
-    padding: var(--main-padding);
+    padding: calc(1.5 * var(--main-padding));
     flex-direction: column;
     gap: var(--main-padding);
     width: 50%;
+}
+
+.EditProfilePictureButton {
+    position: absolute;
+    height: calc(6 * var(--hunit));
+    width: calc(6 * var(--hunit));
+    background-color: var(--button-face-color-trans);
+    z-index: 2;
+    padding: var(--hunit);
+    border: none;
+    border-left: solid 3px var(--main-font-color);
+    border-top: solid 3px var(--main-font-color);
+    border-radius: var(--profile-pic-radius) 0 var(--profile-pic-radius) 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.EditProfilePictureButton:hover {
+    background-color: var(--button-face-color);
+}
+
+.EditProfilePictureButton img {
+    height: 100%;
+    width: 100%;
 }

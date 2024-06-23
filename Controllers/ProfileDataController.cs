@@ -18,6 +18,6 @@ public class ProfileDataController : Controller
     {
         var user = _userRepository.GetUserByUsername("admin"); // should be: User.Identity.Name;
         if (user == null) return NotFound();
-        return Json(new { user.Username });
+        return Json(new { user.Username, user.Email, user.CreationDate });
     }
 }

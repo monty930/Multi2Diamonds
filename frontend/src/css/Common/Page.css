@@ -28,6 +28,7 @@
     --error-background: rgba(255, 0, 0, 0.2);
 
     --button-face-color: rgb(121, 121, 121);
+    --button-face-color-trans: rgb(121, 121, 121, 0.9);
     --button-shadow: rgb(68, 68, 68);
     --button-hover: rgb(138, 138, 138);
     --button-hover-trans: rgba(138, 138, 138, 0.5);
