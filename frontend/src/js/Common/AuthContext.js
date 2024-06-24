@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
             }
         };
 
-        validateSession();
+        validateSession().then(r => r);
     }, []);
 
     const login = () => {

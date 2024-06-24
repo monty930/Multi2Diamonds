@@ -64,7 +64,7 @@ function LoginPage() {
                 body: JSON.stringify({ username, password }),
             });
             if (response.ok) {
-                login(); // Update the auth state
+                login();
                 navigate('/');
             } else {
                 const data = await response.json();

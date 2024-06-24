@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Link, Route, Routes, useNavigate} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Navigate, Route, Routes, useNavigate} from 'react-router-dom';
 import ProfilePage from './ProfilePage';
 import LoginPage from './LoginPage';
 import Scenarios from '../Scenarios/Scenarios';
@@ -37,10 +37,10 @@ function Page() {
 }
 
 function AppContent() {
-    const { loading } = useAuth();
+    const { isAuthenticated, loading } = useAuth();
 
     if (loading) {
-        return <div>Loading...</div>; // You can replace this with a spinner or some other loading indicator
+        return <div>Loading...</div>;
     }
 
     return (
@@ -50,14 +50,20 @@ function AppContent() {
                     <div className="PageHeader"><Header /></div>
                     <div className="PageContent">
                         <Routes>
-                            <Route path="/" element={<WelcomePage />} />
-                            <Route path="/scenarios/make" element={<Scenarios />} />
-                            <Route path="/scenarios/use" element={<Scenarios />} />
-                            <Route path="/scenarios/savedscenarios" element={<SavedItemsPage />} />
-                            <Route path="/scenarios/saveddealsets" element={<SavedItemsPage />} />
-                            <Route path="/profile" element={<ProfilePage />} />
-                            <Route path="/contact" element={<ContactPage />} />
-                            <Route path="/dummy" element={<DummyPage />} />
+                            {isAuthenticated ? (
+                                <>
+                                    <Route path="/" element={<WelcomePage/>}/>
+                                    <Route path="/scenarios/make" element={<Scenarios/>}/>
+                                    <Route path="/scenarios/use" element={<Scenarios/>}/>
+                                    <Route path="/scenarios/savedscenarios" element={<SavedItemsPage/>}/>
+                                    <Route path="/scenarios/saveddealsets" element={<SavedItemsPage/>}/>
+                                    <Route path="/profile" element={<ProfilePage/>}/>
+                                    <Route path="/contact" element={<ContactPage/>}/>
+                                    <Route path="/dummy" element={<DummyPage/>}/>
+                                </>
+                            ) : (
+                                <Route path="*" element={<Navigate replace to="/login"/>}/>
+                            )}
                             <Route path="/login" element={<LoginPage />} />
                         </Routes>
                     </div>
@@ -77,13 +83,12 @@ function Header() {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        console.log('front: handle logout');
         try {
             await axios.post('http://localhost:5015/Account/Logout', {}, { withCredentials: true });
             logout();
             navigate('/login');
         } catch (error) {
-            console.error('Logout error:', error);
+            console.error('Logout error: ', error);
         }
     };
 

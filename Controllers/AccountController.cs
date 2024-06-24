@@ -74,8 +74,6 @@ public class AccountController : Controller
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         HttpContext.Session.Clear();
         Response.Cookies.Delete(".AspNetCore.Cookies");
-
-        Console.WriteLine("Logged out");
         return Ok(new { message = "Logout successful!" });
     }
     
@@ -83,15 +81,7 @@ public class AccountController : Controller
     [Route("Account/ValidateSession")]
     public ActionResult ValidateSession()
     {
-        if (User.Identity.IsAuthenticated)
-        {
-            Console.WriteLine("(1) Session is valid.");
-            return Ok(new { message = "Session is valid." });
-        }
-        else
-        {
-            Console.WriteLine("(2) Session is not valid.");
-            return Unauthorized(new { message = "Session is not valid." });
-        }
+        if (User.Identity is { IsAuthenticated: true }) { return Ok(new { message = "Session is valid." }); }
+        return Unauthorized(new { message = "Session is not valid." });
     }
 }

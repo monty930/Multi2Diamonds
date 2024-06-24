@@ -14,7 +14,6 @@ public class ProfileDataController : Controller
     [Route("ProfileData/GetProfile")]
     public ActionResult GetProfile()
     {
-        Console.WriteLine("HERE GET PROFILE for " + User.Identity.Name);
         var user = _userRepository.GetUserByUsername(User.Identity.Name);
         if (user == null) return NotFound();
         return Json(new { user.Username, user.Email, user.CreationDate, user.ProfilePicturePath });
@@ -62,8 +61,6 @@ public class ProfileDataController : Controller
 
         var relativeFilePath = $"/uploads/{uniqueFileName}";
         _userRepository.UpdateAvatar(user, relativeFilePath);
-
-        Console.WriteLine("HERE file uploaded " + relativeFilePath);
 
         return Ok(new { filePath = relativeFilePath });
     }
