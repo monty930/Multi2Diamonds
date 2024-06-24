@@ -196,4 +196,16 @@ public class UserRepository
         user.Email = email;
         _context.SaveChanges();
     }
+
+    public void UpdateUser(User user)
+    {
+        _context.Users.Update(user);
+        _context.SaveChanges();
+    }
+
+    public void UpdateAvatar(User user, string? filePath)
+    {
+        user.ProfilePicturePath = filePath;
+        _context.SaveChanges();
+    }
 }

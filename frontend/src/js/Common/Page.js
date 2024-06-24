@@ -1,55 +1,58 @@
-import React from "react";
-import {BrowserRouter as Router, Link, Navigate, Route, Routes, useNavigate} from "react-router-dom";
-import axios from "axios";
-import ProfilePage from "./ProfilePage";
-import LoginPage from "./LoginPage";
-import Scenarios from "../Scenarios/Scenarios";
-import SavedItemsPage from "../Scenarios/SavedItemsPage";
-import WelcomePage from "./WelcomePage";
-import {useAuth} from "./AuthContext";
-import ErrorPage from "./ErrorPage";
-import ScenariosIntroPage from "../Scenarios/ScenariosIntroPage";
+import React from 'react';
+import {BrowserRouter as Router, Link, Navigate, Route, Routes, useNavigate} from 'react-router-dom';
+import ProfilePage from './ProfilePage';
+import LoginPage from './LoginPage';
+import Scenarios from '../Scenarios/Scenarios';
+import SavedItemsPage from '../Scenarios/SavedItemsPage';
+import WelcomePage from './WelcomePage';
+import { AuthProvider, useAuth } from './AuthContext';
 
-import "../../css/Common/Page.css";
+import '../../css/Common/Page.css';
 import '../../css/Common/LoginPage.css';
-import "../../css/Common/DialogWindow.css";
+import '../../css/Common/DialogWindow.css';
 import '../../css/Scenarios/Scenarios.css';
 import '../../css/Scenarios/MakeScenarios.css';
 import '../../css/Scenarios/UseScenariosChoose.css';
 import '../../css/Scenarios/DealSetLayout.css';
-import "../../css/Common/WelcomePage.css";
-import "../../css/Scenarios/ScenariosIntroPage.css";
-import "../../css/Common/CenterLayout.css";
+import '../../css/Common/WelcomePage.css';
+import '../../css/Scenarios/ScenariosIntroPage.css';
+import '../../css/Common/CenterLayout.css';
 
-import PageLogo from "../../assets/2diams.png";
-import SavedItemsImg from "../../assets/folder3.png";
-import LogOutImg from "../../assets/logout.png";
-import ProfileImg from "../../assets/profile.png";
-import GitHubLogo from "../../assets/githublogo.png";
-import menuImg from '../../assets/menu2.png';
+import PageLogo from '../../assets/2diams.png';
+import LogOutImg from '../../assets/logout.png';
+import ProfileImg from '../../assets/profile.png';
+import GitHubLogo from '../../assets/githublogo.png';
 import contactImg from '../../assets/contact-icon4.png';
 import todoImg from '../../assets/todo-icon2.png';
-import ContactPage from "./ContactPage";
-import DummyPage from "./DummyPage";
+import ContactPage from './ContactPage';
+import DummyPage from './DummyPage';
+import axios from "axios";
 
 function Page() {
-    const {isAuthenticated, authError} = useAuth();
+    return (
+        <AuthProvider>
+            <AppContent />
+        </AuthProvider>
+    );
+}
+
+function AppContent() {
+    const { isAuthenticated, loading } = useAuth();
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <Router>
             <div className="Page">
-                {authError && (
-                    <ErrorPage error={authError}/>
-                )}
-                {!authError && (
                 <span>
-                    <div className="PageHeader"><Header auth={isAuthenticated && !authError}/></div>
+                    <div className="PageHeader"><Header /></div>
                     <div className="PageContent">
                         <Routes>
                             {isAuthenticated ? (
                                 <>
                                     <Route path="/" element={<WelcomePage/>}/>
-                                    {/*<Route path="/scenarios" element={<ScenariosIntroPage/>}/>*/}
                                     <Route path="/scenarios/make" element={<Scenarios/>}/>
                                     <Route path="/scenarios/use" element={<Scenarios/>}/>
                                     <Route path="/scenarios/savedscenarios" element={<SavedItemsPage/>}/>
@@ -61,33 +64,31 @@ function Page() {
                             ) : (
                                 <Route path="*" element={<Navigate replace to="/login"/>}/>
                             )}
-                            <Route path="/login" element={<LoginPage/>}/>
+                            <Route path="/login" element={<LoginPage />} />
                         </Routes>
                     </div>
                     <div className="PageFooter">
-                        <Footer/>
+                        <Footer />
                     </div>
                 </span>
-                )}
             </div>
         </Router>
-
     );
 }
 
 export default Page;
 
-function Header({auth}) {
-    const {logout} = useAuth();
+function Header() {
+    const { isAuthenticated, logout } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:5015/Account/Logout');
+            await axios.post('http://localhost:5015/Account/Logout', {}, { withCredentials: true });
             logout();
             navigate('/login');
         } catch (error) {
-            console.error('Logout error:', error);
+            console.error('Logout error: ', error);
         }
     };
 
@@ -96,29 +97,29 @@ function Header({auth}) {
             <div className="PageTitle">
                 <Link to="/" className="LinkNoDecor PageTitleLink">
                     Multi
-                    <img src={PageLogo} alt="2diams logo" className="PageLogo"/>
+                    <img src={PageLogo} alt="2diams logo" className="PageLogo" />
                 </Link>
             </div>
-            {auth && (
+            {isAuthenticated && (
                 <div className="HeaderNav">
                     <div className="HeaderNavItem">
                         <Link to="/dummy" className="HeaderTab LinkNoDecor">
-                            <img src={todoImg} alt="Menu" className="ToDoImg"/>
+                            <img src={todoImg} alt="Menu" className="ToDoImg" />
                         </Link>
                     </div>
                     <div className="HeaderNavItem">
                         <Link to="/contact" className="HeaderTab LinkNoDecor">
-                            <img src={contactImg} alt="Contact" className="ContactImg"/>
+                            <img src={contactImg} alt="Contact" className="ContactImg" />
                         </Link>
                     </div>
                     <div className="HeaderNavItem">
                         <Link to="/profile" className="HeaderTab LinkNoDecor">
-                            <img src={ProfileImg} alt="Profile" className="ProfileImg"/>
+                            <img src={ProfileImg} alt="Profile" className="ProfileImg" />
                         </Link>
                     </div>
                     <div className="HeaderNavItem">
                         <button className="HeaderTab LogOutButton LinkNoDecor" onClick={handleLogout}>
-                            <img src={LogOutImg} alt="Log out" className="LogOutImg"/>
+                            <img src={LogOutImg} alt="Log out" className="LogOutImg" />
                         </button>
                     </div>
                 </div>
@@ -131,9 +132,8 @@ function Footer() {
     return <footer className="PageFooter">
         <a className="HrefNoDecor" href="https://github.com/monty930/BridgeScenarios">
             <div className="GitHubLogo">
-                <span>monty930/BridgeScenarios
-                </span>
-                <img src={GitHubLogo} alt="GitHub logo"/>
+                <span>monty930/BridgeScenarios</span>
+                <img src={GitHubLogo} alt="GitHub logo" />
             </div>
         </a>
     </footer>;

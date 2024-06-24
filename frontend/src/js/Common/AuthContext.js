@@ -1,17 +1,17 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export function AuthProvider({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [authError, setAuthError] = useState(null);  // New state for handling authentication errors
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const validateSession = async () => {
             try {
-                const response = await fetch('http://localhost:5015/Account/ValidateSession', {
-                    method: 'GET',
-                    credentials: 'include',
+                const response = await axios.get('http://localhost:5015/Account/ValidateSession', {
+                    withCredentials: true,
                 });
                 if (response.status === 200) {
                     setIsAuthenticated(true);
@@ -19,18 +19,17 @@ export const AuthProvider = ({ children }) => {
                     setIsAuthenticated(false);
                 }
             } catch (error) {
-                console.error('Session validation failed:', error);
                 setIsAuthenticated(false);
-                setAuthError('The web service is not available.\nPlease try again later.');
+            } finally {
+                setLoading(false);
             }
         };
 
-        validateSession();
+        validateSession().then(r => r);
     }, []);
 
     const login = () => {
         setIsAuthenticated(true);
-        setAuthError(null);
     };
 
     const logout = () => {
@@ -38,10 +37,12 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, authError, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );
-};
+}
 
-export const useAuth = () => useContext(AuthContext);
+export function useAuth() {
+    return useContext(AuthContext);
+}
