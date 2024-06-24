@@ -85,10 +85,12 @@ public class AccountController : Controller
     {
         if (User.Identity.IsAuthenticated)
         {
+            Console.WriteLine("(1) Session is valid.");
             return Ok(new { message = "Session is valid." });
         }
         else
         {
+            Console.WriteLine("(2) Session is not valid.");
             return Unauthorized(new { message = "Session is not valid." });
         }
     }
