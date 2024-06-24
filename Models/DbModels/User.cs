@@ -16,6 +16,8 @@ public class User
 
     public bool IsAdmin { get; set; }
 
+    public string? ProfilePicturePath { get; set; } = null;
+
     public List<DealSet> DealSets { get; set; } = [];
     
     public List<Scenario> Scenarios { get; set; } = [];

@@ -82,8 +82,9 @@ function Header({auth}) {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
+        console.log('front: handle logout');
         try {
-            await axios.post('http://localhost:5015/Account/Logout');
+            await axios.post('http://localhost:5015/Account/Logout', {}, { withCredentials: true });
             logout();
             navigate('/login');
         } catch (error) {

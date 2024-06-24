@@ -5,11 +5,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure JSON serializer options
 builder.Services.AddControllers()
-    .AddJsonOptions(options => {
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    });
-
-builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -36,9 +31,9 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     options.Cookie.SameSite = SameSiteMode.Lax;
-
 });
 
+// Configure authentication
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -53,7 +48,6 @@ builder.Services.AddAuthentication(options =>
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         options.Cookie.SameSite = SameSiteMode.Lax;
         options.SlidingExpiration = true;
-
     });
 
 var app = builder.Build();
@@ -64,6 +58,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseRouting();
 

@@ -3,7 +3,6 @@ using Multi2Diamonds.Models.DbModels;
 using Multi2Diamonds.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,7 +58,6 @@ public class AccountController : Controller
     [Route("Account/Signup")]
     public async Task<ActionResult> Signup([FromBody] User user)
     {
-        // Check if username already exists
         if (_userRepository.IsUsernameRegistered(user.Username))
         {
             return Conflict(new { message = "Username already exists!" });
@@ -74,6 +72,10 @@ public class AccountController : Controller
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        HttpContext.Session.Clear();
+        Response.Cookies.Delete(".AspNetCore.Cookies");
+
+        Console.WriteLine("Logged out");
         return Ok(new { message = "Logout successful!" });
     }
     
