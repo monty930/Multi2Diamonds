@@ -78,8 +78,8 @@
 
 .EditProfilePictureButton {
     position: absolute;
-    height: calc(6 * var(--hunit));
-    width: calc(6 * var(--hunit));
+    height: calc(4 * var(--hunit));
+    width: calc(4 * var(--hunit));
     background-color: var(--button-face-color-trans);
     z-index: 2;
     padding: var(--hunit);

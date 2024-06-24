@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Spinner from "./Spinner";
-
 import bridgeImage from "../../assets/bridge-inverted-transparent.png";
 import profileImage from "../../assets/profile-picture.png";
 import editProfileImg from "../../assets/input.png";
@@ -46,11 +45,7 @@ function ProfilePage() {
         fetchProfileData();
     }, []);
 
-    if (isLoading) {
-        return <Spinner />;
-    }
-
-    const displayLogMessage = (logMessage, success) => {
+    const displayLogMessage = useCallback((logMessage, success) => {
         setLogMessage(logMessage);
         const logMessageElement = document.getElementById('ProfileLogMessage');
         if (logMessageElement) {
@@ -62,60 +57,60 @@ function ProfilePage() {
                 logMessageElement.style.display = 'none';
             }, 5000);
         }
-    };
+    }, []);
 
-    const getCreationDate = (creationDate) => {
+    const getCreationDate = useCallback((creationDate) => {
         const date = new Date(creationDate);
         const month = date.toLocaleString('default', { month: 'long' });
         const year = date.getFullYear();
         return `${month} ${year}`;
-    };
+    }, []);
 
-    const handleSuccessEmailChange = (message, email) => {
+    const handleSuccessEmailChange = useCallback((message, email) => {
         displayLogMessage(message, true);
-        setProfileData({ ...profileData, email });
-    };
+        setProfileData((prevData) => ({ ...prevData, email }));
+    }, [displayLogMessage]);
 
-    const initAvatarChange = (event) => {
-        event.preventDefault();
-        const avatarInput = document.getElementById('avatarInput');
-        if (avatarInput) {
-            avatarInput.click();
+    const handleFileUpload = useCallback(async (file) => {
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('http://localhost:5015/ProfileData/UploadProfilePicture', {
+                method: 'POST',
+                body: formData,
+                contentType: false,
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setProfileData((prevData) => ({ ...prevData, profilePicturePath: data.filePath }));
+                displayLogMessage('Profile picture updated successfully.', true);
+            } else {
+                displayLogMessage('Failed to upload profile picture.', false);
+            }
+        } catch (error) {
+            console.error('Error uploading profile picture:', error);
+            displayLogMessage('Error uploading profile picture. Please try again later.', false);
         }
-    };
+    }, []);
 
-    const handleFileChange = async (event) => {
+    const handleFileChange = useCallback(async (event) => {
         event.preventDefault();
+        event.stopPropagation();
 
         const file = event.target.files[0];
         if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
-
-            console.log('uploading file...');
-
-            try {
-                const response = await fetch('http://localhost:5015/ProfileData/UploadProfilePicture', {
-                    method: 'POST',
-                    body: formData,
-                    credentials: 'include',
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    const newProfilePicturePath = data.filePath?.substring(1);
-                    setProfileData({ ...profileData, profilePicturePath: newProfilePicturePath });
-                    console.log('new path:', newProfilePicturePath);
-                    displayLogMessage('Profile picture updated successfully.', true);
-                } else {
-                    displayLogMessage('Failed to upload profile picture.', false);
-                }
-            } catch (error) {
-                console.error('Error uploading file:', error);
-                displayLogMessage('Error uploading profile picture.', false);
-            }
+            await handleFileUpload(file);
         }
-    };
+    }, [handleFileUpload]);
+
+    if (isLoading) {
+        return <Spinner />;
+    }
 
     return (
         <div className="CenterPageOuter">
@@ -131,12 +126,12 @@ function ProfilePage() {
                             ) : (
                                 <img src={profileImage} alt="Profile" className="ProfileImg" />
                             )}
-                            <button className="EditProfilePictureButton" onClick={(event) => initAvatarChange(event)}>
+                            <label htmlFor="profilePictureUpload" className="EditProfilePictureButton">
                                 <img src={editProfileImg} alt="Edit profile" className="EditProfileImg" />
-                            </button>
+                            </label>
                             <input
                                 type="file"
-                                id="avatarInput"
+                                id="profilePictureUpload"
                                 style={{ display: 'none' }}
                                 onChange={handleFileChange}
                             />

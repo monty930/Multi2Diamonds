@@ -13,11 +13,7 @@ export function AuthProvider({ children }) {
                 const response = await axios.get('http://localhost:5015/Account/ValidateSession', {
                     withCredentials: true,
                 });
-                if (response.status === 200) {
-                    setIsAuthenticated(true);
-                } else {
-                    setIsAuthenticated(false);
-                }
+                setIsAuthenticated(response.status === 200);
             } catch (error) {
                 setIsAuthenticated(false);
             } finally {
