@@ -86,7 +86,7 @@
     border: none;
     border-left: solid 3px var(--main-font-color);
     border-top: solid 3px var(--main-font-color);
-    border-radius: var(--profile-pic-radius) 0 var(--profile-pic-radius) 0;
+    border-radius: var(--profile-pic-radius) 0 calc(0.8 * var(--profile-pic-radius)) 0;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -117,7 +117,6 @@ function ProfilePage() {
         }
     };
 
-
     return (
         <div className="CenterPageOuter">
             <div className="CenteredBackgroundContainer">
