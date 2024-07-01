@@ -5,17 +5,24 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [networkError, setNetworkError] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const validateSession = async () => {
+            console.log('here1');
             try {
                 const response = await axios.get('http://localhost:5015/Account/ValidateSession', {
                     withCredentials: true,
                 });
                 setIsAuthenticated(response.status === 200);
+                console.log('here3');
             } catch (error) {
+                console.log('here2 ', error.code);
+                // ERR_BAD_REQUEST 401
+                // ERR_NETWORK
                 setIsAuthenticated(false);
+                setNetworkError(error.code !== 'ERR_BAD_REQUEST');
             } finally {
                 setLoading(false);
             }
@@ -33,7 +40,7 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
+        <AuthContext.Provider value={{ networkError, isAuthenticated, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

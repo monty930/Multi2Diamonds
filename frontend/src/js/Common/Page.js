@@ -27,6 +27,8 @@ import todoImg from '../../assets/todo-icon2.png';
 import ContactPage from './ContactPage';
 import DummyPage from './DummyPage';
 import axios from "axios";
+import ErrorPage from "./ErrorPage";
+import Polls from "../Polls/Polls";
 
 function Page() {
     return (
@@ -37,7 +39,7 @@ function Page() {
 }
 
 function AppContent() {
-    const { isAuthenticated, loading } = useAuth();
+    const { networkError, isAuthenticated, loading } = useAuth();
 
     if (loading) {
         return <div>Loading...</div>;
@@ -46,31 +48,41 @@ function AppContent() {
     return (
         <Router>
             <div className="Page">
-                <span>
+                <>
                     <div className="PageHeader"><Header /></div>
                     <div className="PageContent">
                         <Routes>
-                            {isAuthenticated ? (
+                            {networkError ? (
                                 <>
-                                    <Route path="/" element={<WelcomePage/>}/>
-                                    <Route path="/scenarios/make" element={<Scenarios/>}/>
-                                    <Route path="/scenarios/use" element={<Scenarios/>}/>
-                                    <Route path="/scenarios/savedscenarios" element={<SavedItemsPage/>}/>
-                                    <Route path="/scenarios/saveddealsets" element={<SavedItemsPage/>}/>
-                                    <Route path="/profile" element={<ProfilePage/>}/>
-                                    <Route path="/contact" element={<ContactPage/>}/>
-                                    <Route path="/dummy" element={<DummyPage/>}/>
+                                    <Route path="/" element={<ErrorPage error = "Network error.&#10;Please try again later."/>}/>
+                                    <Route path="*" element={<Navigate replace to="/"/>}/>
                                 </>
                             ) : (
-                                <Route path="*" element={<Navigate replace to="/login"/>}/>
+                                <>
+                                    {isAuthenticated ? (
+                                        <>
+                                            <Route path="/" element={<WelcomePage/>}/>
+                                            <Route path="/scenarios/make" element={<Scenarios/>}/>
+                                            <Route path="/scenarios/use" element={<Scenarios/>}/>
+                                            <Route path="/scenarios/polls" element={<Polls/>}/>
+                                            <Route path="/scenarios/savedscenarios" element={<SavedItemsPage/>}/>
+                                            <Route path="/scenarios/saveddealsets" element={<SavedItemsPage/>}/>
+                                            <Route path="/profile" element={<ProfilePage/>}/>
+                                            <Route path="/contact" element={<ContactPage/>}/>
+                                            <Route path="/dummy" element={<DummyPage/>}/>
+                                        </>
+                                    ) : (
+                                        <Route path="*" element={<Navigate replace to="/login"/>}/>
+                                    )}
+                                    <Route path="/login" element={<LoginPage />} />
+                                </>
                             )}
-                            <Route path="/login" element={<LoginPage />} />
                         </Routes>
                     </div>
                     <div className="PageFooter">
                         <Footer />
                     </div>
-                </span>
+                </>
             </div>
         </Router>
     );
@@ -79,7 +91,7 @@ function AppContent() {
 export default Page;
 
 function Header() {
-    const { isAuthenticated, logout } = useAuth();
+    const {isAuthenticated, logout } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = async () => {

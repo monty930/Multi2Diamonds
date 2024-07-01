@@ -5,6 +5,7 @@ import savedImage from '../../assets/folder4.png';
 import makeScenariosImage from "../../assets/icon1.png";
 import buildDealSetsImage from "../../assets/icon2.png";
 import todoImage from "../../assets/todo-icon.png";
+import pollsImage from "../../assets/polls-icon.png";
 
 function WelcomePage() {
     const navigate = useNavigate();
@@ -44,10 +45,10 @@ function WelcomePage() {
                             </button>
                             <button
                                 className={"AnyButton ToggleScenariosViewButton GoToMakeButton WelcomePageNavigButton"}
-                                onClick={() => navigate('/dummy')}>
+                                onClick={() => navigate('/scenarios/polls')}>
                                 <span className={"WelcomeNavigButtonLayout"}>
-                                    <img src={todoImage} alt="Saved scenarios" className={"WelcomeNavigButtonImage"}/>
-                                    <div className={"WelcomeNavigButtonText"}>---</div>
+                                    <img src={pollsImage} alt="Polls Button" className={"WelcomeNavigButtonImage"}/>
+                                    <div className={"WelcomeNavigButtonText"}>Polls</div>
                                 </span>
                             </button>
                             <button
