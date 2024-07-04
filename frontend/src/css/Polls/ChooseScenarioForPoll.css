@@ -1,0 +1,23 @@
+.ConstraintChoiceForPoll {
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    height: var(--settings-box-height);
+    width: calc(100% - var(--hunit));
+    font-size: var(--settings-font-size);
+}
+
+.NewConstraintsButton {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: auto;
+    width: 100%;
+}
+
+.PollsGridSettings {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: var(--main-padding);
+}

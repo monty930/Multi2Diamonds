@@ -9,7 +9,7 @@ using Multi2Diamonds.Scenarios.Models;
 
 namespace Multi2Diamonds.Controllers;
 
-[Authorize]
+// [Authorize]
 public partial class ScenariosController : Controller
 {
     private readonly ScenariosManager _scenariosManager = new();
@@ -53,7 +53,7 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/GetSavedContent")]
     public ActionResult GetSavedContent()
     {
-        var savedContents = _userRepository.GetSavedContents(User.Identity.Name);
+        var savedContents = _userRepository.GetSavedContents("admin"); // should be: User.Identity.Name;
         if (savedContents == null) return NotFound();
         return Json(new { savedContents });
     }
@@ -70,7 +70,7 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/GetConstraints")]
     public ActionResult GetConstraints()
     {
-        var constraints = _userRepository.GetConstraintsNames(User.Identity.Name);
+        var constraints = _userRepository.GetConstraintsNames("admin"); // should be: User.Identity.Name;
         if (constraints == null) return NotFound();
         return Json(new { constraints });
     }
@@ -79,8 +79,7 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/SaveScenario")]
     public ActionResult SaveScenario([FromBody] ScenarioToSave scenario)
     {
-        Console.WriteLine("SaveScenario");
-        var resultName = _userRepository.SaveScenario(User.Identity.Name, scenario);
+        var resultName = _userRepository.SaveScenario("admin", scenario); // should be: User.Identity.Name;
         if (resultName == null) return BadRequest();
         return Json(new { scenarioName = resultName });
     }
@@ -89,7 +88,7 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/OverwriteScenario")]
     public ActionResult OverwriteScenario([FromBody] ScenarioToSave scenario)
     {
-        var res = _userRepository.OverwriteScenario(User.Identity.Name, scenario);
+        var res = _userRepository.OverwriteScenario("admin", scenario); // should be: User.Identity.Name;
         return res;
     }
 
@@ -97,7 +96,7 @@ public partial class ScenariosController : Controller
     [Route("Scenarios/GetSavedScenario")]
     public ActionResult GetSavedScenario([FromBody] SavedContent content)
     {
-        var scenario = _userRepository.GetSavedScenario(User.Identity.Name, content.SavedContentId);
+        var scenario = _userRepository.GetSavedScenario("admin", content.SavedContentId); // should be: User.Identity.Name;
         if (scenario == null) return NotFound();
         return Json(new { scenarioName = scenario.Name, scenarioContent = scenario.ScenarioContent });
     }

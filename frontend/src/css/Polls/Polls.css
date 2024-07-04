@@ -1,0 +1,43 @@
+.Polls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+    background-color: green;
+}
+
+.PollsGrid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--main-padding);
+    width: calc(100% - 2 * var(--main-padding-w));
+    height: calc(100% - 2 * var(--main-padding));
+    padding: var(--main-padding) var(--main-padding-w) var(--main-padding) var(--main-padding-w);
+}
+
+.PollsGrid1 {
+    background-color: saddlebrown;
+}
+
+.PollsGrid2 {
+    background-color: darkblue;
+}
+
+.PollsGrid3 {
+    background-color: olive;
+}
+
+.PollsGrid4 {
+    background-color: slateblue;
+}
+
+.PollsTextarea {
+    height: 90%;
+    width: 90%;
+    resize: none;
+}
+
+.PollsButton {
+    height: var(--settings-box-height);
+}

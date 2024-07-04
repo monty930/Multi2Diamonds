@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Multi2Diamonds.Database;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Multi2Diamonds.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702184437_pollSetsWithBiddingInfo")]
+    partial class pollSetsWithBiddingInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,44 +101,6 @@ namespace Multi2Diamonds.Migrations
                     b.ToTable("DealSets");
                 });
 
-            modelBuilder.Entity("Multi2Diamonds.Models.DbModels.Poll", b =>
-                {
-                    b.Property<int>("PollId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PollId"));
-
-                    b.Property<int?>("Answer")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Cards")
-                        .IsRequired()
-                        .HasMaxLength(17)
-                        .HasColumnType("character varying(17)");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Dealer")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PollSetId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Vul")
-                        .HasColumnType("integer");
-
-                    b.HasKey("PollId");
-
-                    b.HasIndex("PollSetId");
-
-                    b.ToTable("Polls");
-                });
-
             modelBuilder.Entity("Multi2Diamonds.Models.DbModels.PollSet", b =>
                 {
                     b.Property<int>("PollSetId")
@@ -146,6 +111,9 @@ namespace Multi2Diamonds.Migrations
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("DealSetId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("KeyBinds")
                         .IsRequired()
@@ -164,6 +132,8 @@ namespace Multi2Diamonds.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("PollSetId");
+
+                    b.HasIndex("DealSetId");
 
                     b.HasIndex("UserId");
 
@@ -254,17 +224,14 @@ namespace Multi2Diamonds.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Multi2Diamonds.Models.DbModels.Poll", b =>
-                {
-                    b.HasOne("Multi2Diamonds.Models.DbModels.PollSet", null)
-                        .WithMany("Polls")
-                        .HasForeignKey("PollSetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Multi2Diamonds.Models.DbModels.PollSet", b =>
                 {
+                    b.HasOne("Multi2Diamonds.Models.DbModels.DealSet", "DealSet")
+                        .WithMany()
+                        .HasForeignKey("DealSetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Multi2Diamonds.Models.DbModels.User", "User")
                         .WithMany("PollSets")
                         .HasForeignKey("UserId")
@@ -294,6 +261,8 @@ namespace Multi2Diamonds.Migrations
                     b.Navigation("Bidding")
                         .IsRequired();
 
+                    b.Navigation("DealSet");
+
                     b.Navigation("User");
                 });
 
@@ -311,11 +280,6 @@ namespace Multi2Diamonds.Migrations
             modelBuilder.Entity("Multi2Diamonds.Models.DbModels.DealSet", b =>
                 {
                     b.Navigation("Deals");
-                });
-
-            modelBuilder.Entity("Multi2Diamonds.Models.DbModels.PollSet", b =>
-                {
-                    b.Navigation("Polls");
                 });
 
             modelBuilder.Entity("Multi2Diamonds.Models.DbModels.User", b =>

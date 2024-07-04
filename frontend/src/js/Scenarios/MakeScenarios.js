@@ -130,7 +130,6 @@ function MakeScenarios({ scenarioContent, setScenarioContent }) {
     }
 
     const saveButtonHandler = async (saveAsNew = false) => {
-        console.log('save button handler with:\nalreadySaved: ' + alreadySaved + '\nalreadySavedScenarioName: ' + alreadySavedScenarioName + '\nscenarioName: ' + scenarioName);
         if (alreadySaved && (alreadySavedScenarioName === scenarioName) && !saveAsNew) {
             console.log('handle save');
             await handleSave();

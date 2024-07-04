@@ -19,6 +19,8 @@ public class User
     public string? ProfilePicturePath { get; set; } = null;
 
     public List<DealSet> DealSets { get; set; } = [];
+
+    public List<PollSet> PollSets { get; set; } = [];
     
     public List<Scenario> Scenarios { get; set; } = [];
 }

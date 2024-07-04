@@ -82,7 +82,7 @@
     font-weight: bold;
     box-shadow: var(--dropdown-box-shadow);
     border: 1px solid var(--dropdown-border-color);
-    width: calc(20 * var(--wunit));
+    width: calc(max(20 * var(--wunit), 15 * var(--main-font-size)));
 }
 
 .MenuUl {

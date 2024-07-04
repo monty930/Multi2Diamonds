@@ -5,6 +5,7 @@ import LoginPage from './LoginPage';
 import Scenarios from '../Scenarios/Scenarios';
 import SavedItemsPage from '../Scenarios/SavedItemsPage';
 import WelcomePage from './WelcomePage';
+import PollOverview from '../Polls/PollOverview';
 import { AuthProvider, useAuth } from './AuthContext';
 
 import '../../css/Common/Page.css';
@@ -29,6 +30,7 @@ import DummyPage from './DummyPage';
 import axios from "axios";
 import ErrorPage from "./ErrorPage";
 import Polls from "../Polls/Polls";
+import SavedPolls from "../Polls/SavedPolls";
 
 function Page() {
     return (
@@ -65,6 +67,8 @@ function AppContent() {
                                             <Route path="/scenarios/make" element={<Scenarios/>}/>
                                             <Route path="/scenarios/use" element={<Scenarios/>}/>
                                             <Route path="/scenarios/polls" element={<Polls/>}/>
+                                            <Route path="/scenarios/savedpolls" element={<SavedPolls/>}/>
+                                            <Route path="/scenarios/pollset" element={<PollOverview/>}/>
                                             <Route path="/scenarios/savedscenarios" element={<SavedItemsPage/>}/>
                                             <Route path="/scenarios/saveddealsets" element={<SavedItemsPage/>}/>
                                             <Route path="/profile" element={<ProfilePage/>}/>
