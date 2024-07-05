@@ -6,7 +6,6 @@
     align-items: center;
     gap: var(--main-padding);
     flex-direction: column;
-    padding-bottom: calc(2 * var(--line-height));
 }
 
 .ErrorMessage {

@@ -10,15 +10,12 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const validateSession = async () => {
-            console.log('here1');
             try {
                 const response = await axios.get('http://localhost:5015/Account/ValidateSession', {
                     withCredentials: true,
                 });
                 setIsAuthenticated(response.status === 200);
-                console.log('here3');
             } catch (error) {
-                console.log('here2 ', error.code);
                 // ERR_BAD_REQUEST 401
                 // ERR_NETWORK
                 setIsAuthenticated(false);

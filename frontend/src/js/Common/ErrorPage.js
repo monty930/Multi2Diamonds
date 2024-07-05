@@ -5,8 +5,8 @@ import errorImg from "../../assets/2d-cracked.png";
 function ErrorPage({ error }) {
     return (
         <div className="ErrorPage">
-            <pre className={"ErrorMessage"}>{ error }</pre>
             <img src={errorImg} alt="Error" className="ErrorImg"/>
+            <pre className={"ErrorMessage"}>{ error }</pre>
         </div>
     );
 }

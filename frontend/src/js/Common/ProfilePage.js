@@ -13,7 +13,6 @@ function ProfilePage() {
 
     useEffect(() => {
         const fetchProfileData = async () => {
-            console.log('fetching profile data');
             try {
                 const response = await fetch('http://localhost:5015/ProfileData/GetProfile', {
                     method: 'GET',
@@ -31,7 +30,6 @@ function ProfilePage() {
                         joined: data.creationDate,
                         profilePicturePath: data.profilePicturePath,
                     });
-                    console.log('fetched profile data: ', data.profilePicturePath);
                 } else {
                     console.error('Failed to fetch profile data');
                 }

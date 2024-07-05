@@ -64,4 +64,14 @@ public class ProfileDataController : Controller
 
         return Ok(new { filePath = relativeFilePath });
     }
+
+    [HttpGet]
+    [Route("ProfileData/CheckAdmin")]
+    public ActionResult CheckAdmin()
+    {
+        var user = _userRepository.GetUserByUsername("admin"); // should be User.Identity.Name
+        if (user == null) return NotFound();
+        if (user.IsAdmin) return Ok();
+        return Unauthorized();
+    }
 }

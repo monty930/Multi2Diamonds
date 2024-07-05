@@ -1,0 +1,88 @@
+:root {
+    --debug-button-height: 50px;
+    --debug-button-width: 300px;
+}
+
+.DebugPage {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg,
+    rgba(255, 0, 0, 0.1),
+    rgba(255, 128, 0, 0.1),
+    rgba(255, 255, 0, 0.1),
+    rgba(128, 255, 0, 0.1),
+    rgba(0, 255, 0, 0.1),
+    rgba(0, 255, 128, 0.1),
+    rgba(0, 255, 255, 0.1),
+    rgba(0, 128, 255, 0.1),
+    rgba(0, 0, 255, 0.1),
+    rgba(128, 0, 255, 0.1),
+    rgba(255, 0, 255, 0.1),
+    rgba(255, 0, 128, 0.1)
+    );
+}
+
+.DebugPageInner {
+    width: 100%;
+    height: 100%;
+    margin: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.DebugButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
+}
+
+.DebugButton {
+    height: var(--debug-button-height);
+    width: var(--debug-button-width);
+}
+
+.DBViewContainer {
+    width: 100%;
+    height: 70%;
+}
+
+.DbLabel {
+    font-weight: bold;
+    font-size: 1em;
+    color: aqua;
+}
+
+.DbIds {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    column-gap: 10px;
+}
+
+.ShowPsswdDebug {
+    width: 200px;
+    height: 20px;
+    font-size: 10px;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+    background-color: black;
+}
+
+.ShowPsswdDebug:hover {
+    cursor: pointer;
+    background-color: black;
+}
+
+.ShowPsswdDebug:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.DebugTitle {
+    color: #df60ff;
+    font-size: 1.5em;
+    font-weight: bold;
+}

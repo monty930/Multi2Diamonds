@@ -6,9 +6,36 @@ import makeScenariosImage from "../../assets/icon1.png";
 import buildDealSetsImage from "../../assets/icon2.png";
 import todoImage from "../../assets/todo-icon.png";
 import pollsImage from "../../assets/polls-icon.png";
+import debugIcon from "../../assets/debug.png";
 
 function WelcomePage() {
+    const [adminTools, setAdminTools] = React.useState(false);
     const navigate = useNavigate();
+
+    const fetchProfileData = async () => {
+        try {
+            const response = await fetch('http://localhost:5015/ProfileData/CheckAdmin', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                setAdminTools(true);
+            } else {
+                setAdminTools(false);
+            }
+        } catch (error) {
+            console.error('Error fetching admin permission.', error);
+            setAdminTools(false);
+        }
+    };
+
+    React.useEffect(() => {
+        fetchProfileData().then(r => {});
+    }, []);
 
     return (
         <div className="WelcomePage">
@@ -71,6 +98,16 @@ function WelcomePage() {
                     </div>
                 </div>
             </div>
+            {adminTools && (
+                <button
+                    className={"WelcomePageNavigButton WelcomePageNavigButtonDebug"}
+                    onClick={() => navigate('/debug')}>
+                                    <span className={"WelcomeNavigButtonLayout"}>
+                                        <img src={debugIcon} alt="Debug Icon" className={"WelcomeNavigButtonImage"}/>
+                                        <div className={"WelcomeNavigButtonText"}>Debug tools</div>
+                                    </span>
+                </button>
+            )}
         </div>
     );
 }

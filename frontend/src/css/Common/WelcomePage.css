@@ -49,6 +49,7 @@
 
 .WelcomePageNavigButton:hover {
     background-color: var(--button-hover-trans);
+    cursor: pointer;
 }
 
 .WelcomeNavigButtonLayout {
@@ -72,4 +73,17 @@
     align-items: center;
     height: calc(2.5 * var(--main-font-size));
     font-size: var(--main-font-size);
+    color: var(--main-font-color);
+    font-weight: bold;
+}
+
+.WelcomePageNavigButtonDebug {
+    position: absolute;
+    height: calc(var(--centered-layout-height) / 2 - var(--main-padding));
+    width: calc(var(--centered-layout-width) / 3 - 2 * var(--main-padding));
+    bottom: calc(var(--footer-height) + 5px);
+    left: 5px;
+    z-index: 4;
+    pointer-events: auto;
+
 }

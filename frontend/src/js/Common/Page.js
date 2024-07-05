@@ -31,6 +31,7 @@ import axios from "axios";
 import ErrorPage from "./ErrorPage";
 import Polls from "../Polls/Polls";
 import SavedPolls from "../Polls/SavedPolls";
+import DebugTools from "./DebugTools";
 
 function Page() {
     return (
@@ -74,6 +75,7 @@ function AppContent() {
                                             <Route path="/profile" element={<ProfilePage/>}/>
                                             <Route path="/contact" element={<ContactPage/>}/>
                                             <Route path="/dummy" element={<DummyPage/>}/>
+                                            <Route path="/debug" element={<DebugTools/>}/>
                                         </>
                                     ) : (
                                         <Route path="*" element={<Navigate replace to="/login"/>}/>
